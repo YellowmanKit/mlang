@@ -1,7 +1,11 @@
-const userReducer = (state={},action)=>{
+const userReducer = (
+  state = {
+    id: '',
+    pw: ''
+  }, action)=>{
   switch (action.type) {
-    case "setUser":
-      return {...state, user: action.payload};
+    case 'setLoginInfo':
+      return {...state, id: action.payload.id, pw: action.payload.pw};
     default:
       return state;
   }

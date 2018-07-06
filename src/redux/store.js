@@ -17,11 +17,10 @@ const middleware = applyMiddleware(error, reduxLogger, thunk);
 const store = createStore(rootReducer,{},middleware);
 
 store.subscribe(()=>{
-  console.log("store changed", store.getState());
+  //console.log("store changed", store.getState());
 });
 
 export default store;
-
 
 /*store.dispatch({type: "SET_STATUS",payload: "init"})
 store.dispatch({type: "SET_NAME", payload: "Kit Wong"})

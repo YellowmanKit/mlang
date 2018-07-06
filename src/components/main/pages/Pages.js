@@ -1,19 +1,35 @@
 import React, { Component } from 'react';
-//import background from 'resources/images/general/background';
+
+//import background2 from 'resources/images/general/background2.png';
+
+import Login from './Login';
+import Home from './Home';
+import TakePicture from './TakePicture';
+import Capture from './Capture';
 
 class Pages extends Component {
 
-  render() {
-    var ui = this.props.store.ui;
-    var mainStyle = {
-      width: ui.width,
-      height: ui.height,
-      maxWidth: '760px',
-      backgroundColor: 'white'
+  page(){
+    switch (this.props.app.store.main.status) {
+      case 'waitForLogin':
+        return <Login app={this.props.app}/>
+      case 'ready':
+        return <Home app={this.props.app}/>
+      case 'takePicture':
+        return <TakePicture app={this.props.app}/>
+      case 'capture':
+        return <Capture app={this.props.app}/>
+      default:
+        return <div/>
     }
-    return(
-      <div style={mainStyle}>
+  }
 
+  render() {
+    const app = this.props.app;
+    const ui = app.store.ui;
+    return(
+      <div style={ui.basicStyle}>
+        {this.page()}
       </div>
     )
   }
