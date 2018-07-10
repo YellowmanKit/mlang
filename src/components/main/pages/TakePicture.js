@@ -16,21 +16,13 @@ class TakePicture extends Component {
 
   button(text, _onClick){
     const app = this.props.app;
-    const bs = app.store.ui.basicStyle;
+    const ui = app.store.ui;
+    const bs = ui.basicStyle;
 
-    const buttonStyle = {
-      position: 'absolute',
-      bottom: '10%',
+    const buttonStyle = Object.assign({}, ui.buttonStyle, ui.absoluteBtnStyle, {
       width: bs.width * 0.15,
-      height: bs.height * 0.06,
-      backgroundColor: 'rgba(100, 100, 100, 0.5)',
-      border: 'none',
-      color: 'white',
-      fontSize: '100%',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      borderRadius: '5px'
-    }
+      height: bs.height * 0.06
+    });
     return <button style={buttonStyle} onClick={_onClick}>{text}</button>
   }
 

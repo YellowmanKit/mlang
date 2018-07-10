@@ -10,6 +10,7 @@ class Main extends Component {
   componentDidMount(){
     //localStorage.clear();
     this.props.app.actions.main.setStatus('waitForLogin');
+    //this.props.app.actions.main.setStatus('ready');
   }
 
   componentWillReceiveProps(newProps){
@@ -27,9 +28,9 @@ class Main extends Component {
   render() {
     var ui = this.props.app.store.ui;
     var mainStyle = {
-      width: ui.basicStyle.width,
-      height: ui.basicStyle.height,
-      minHeight: ui.basicStyle.minHeight,
+      width: ui.windowWidth,
+      height: ui.windowHeight,
+      minHeight: ui.basicStyle.height,
       backgroundImage: 'url(' + background + ')',
       backgroundSize: '10% 10%',
       display: 'flex',

@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import * as mainActions from '../redux/actions/main';
 import * as uiActions from '../redux/actions/ui';
 import * as userActions from '../redux/actions/user';
+import * as contentActions from '../redux/actions/content';
+import * as modalActions from '../redux/actions/modal';
 
 import Main from './main/Main';
 
@@ -24,9 +26,9 @@ class App extends Component {
 
   multiLang(eng,chi){
     switch (this.props.store.main.language) {
-      case 'eng':
+      case 'english':
         return eng;
-      case 'chi':
+      case 'chinese':
         return chi;
       default:
         return eng;
@@ -60,6 +62,8 @@ function mapDispatchToProps(dispatch){
       main: bindActionCreators(mainActions, dispatch),
       user: bindActionCreators(userActions, dispatch),
       ui: bindActionCreators(uiActions, dispatch),
+      content: bindActionCreators(contentActions, dispatch),
+      modal: bindActionCreators(modalActions, dispatch)
     }
   }
 }

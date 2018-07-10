@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 //import background2 from 'resources/images/general/background2.png';
 
 import Login from './Login';
-import Home from './Home';
+import Home from './home/Home';
 import TakePicture from './TakePicture';
 import Capture from './Capture';
 
@@ -12,6 +12,10 @@ class Pages extends Component {
   page(){
     switch (this.props.app.store.main.status) {
       case 'waitForLogin':
+        return <Login app={this.props.app}/>
+      case 'getNewAccount':
+        return <Login app={this.props.app}/>
+      case 'forgotPassword':
         return <Login app={this.props.app}/>
       case 'ready':
         return <Home app={this.props.app}/>

@@ -3,7 +3,7 @@ const mainReducer = (
     status: 'init',
     modal: 'off',
     photo: null,
-    language: 'eng',
+    language: 'english',
     version: 'v1.0.0'
   }, action)=>{
   switch (action.type) {

@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 
-//import background2 from 'resources/images/general/background2.png';
-
 class Modal extends Component {
 
   board(){
     const bs = this.props.app.store.ui.basicStyle;
     const boardStyle = {
-      width: '60%',
-      height: '30%',
-      minWidth: bs.minWidth * 0.6,
-      maxWidth: bs.maxWidth * 0.6,
-      minHeight: bs.minHeight * 0.3,
-      maxHeight: bs.maxHeight * 0.3,
+      width: bs.width * 0.6,
+      height:  bs.height * 0.3,
       backgroundColor: 'rgba(0, 0, 0, 0.9)',
       borderRadius: '20px',
       display: 'flex',
@@ -30,19 +24,19 @@ class Modal extends Component {
 
   message(){
     const app = this.props.app;
-    const status = app.store.main.modal;
-    const func = app.functions;
+    const modal = app.store.modal;
+    const lang = app.store.main.language;
     const text =
-    status === 'loggingIn'? func.multiLang('Logging in...','登入中...'):
-    status === 'loginFailed'? func.multiLang('Login failed!','登入失敗!'):
-    status;
+    lang === 'english'? modal.messageEng:
+    lang === 'chinese'? modal.messageChi:
+    '';
 
     const messageStyle = {
       width: '85%',
       height: '55%',
       backgroundColor: 'transparent',
       color: 'white',
-      fontSize: '200%',
+      fontSize: '100%',
       fontWeight: 'bold',
       textAlign: 'center',
       justifyContent: 'center'
@@ -53,6 +47,10 @@ class Modal extends Component {
   buttonsArea(){
     const app = this.props.app;
     const func = app.functions;
+    const button = app.store.modal.button;
+    if(button === 'off'){
+      return null;
+    }
 
     const areaStyle = {
       width: '85%',
@@ -65,30 +63,30 @@ class Modal extends Component {
     }
     return(
       <div style={areaStyle}>
-        {this.button(func.multiLang('Confirm','確定'), ()=>{app.actions.main.setModal('off')})}
+        {this.button(func.multiLang('Confirm','確定'), ()=>{app.actions.modal.hideModal()})}
       </div>
     )
   }
 
   button(text, _onClick){
-
-    const buttonStyle = {
+    const app = this.props.app;
+    const ui = app.store.ui;
+    const buttonStyle = Object.assign({}, ui.buttonStyle, {
       width: '50%',
       height: '75%',
       backgroundColor: 'rgba(100, 100, 100, 0.5)',
-      border: 'none',
       color: 'white',
       fontSize: '100%',
       fontWeight: 'bold',
       textAlign: 'center',
-      borderRadius: '5px'
-    }
+      borderRadius: '5px',
+    });
     return <button style={buttonStyle} onClick={_onClick}>{text}</button>
   }
 
   render() {
     const app = this.props.app;
-    const status = app.store.main.modal;
+    const status = app.store.modal.status;
     if(status === 'off'){
       return null;
     }
