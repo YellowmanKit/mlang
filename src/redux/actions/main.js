@@ -1,5 +1,4 @@
 export const setPhoto = (blob) =>{
-  //console.log("Action: setStatus")
   return {
     type: 'setPhoto',
     payload: blob
@@ -7,7 +6,6 @@ export const setPhoto = (blob) =>{
 }
 
 export const setStatus = (status) =>{
-  //console.log("Action: setStatus")
   return {
     type: 'setStatus',
     payload: status

@@ -6,22 +6,18 @@ import * as uiActions from '../redux/actions/ui';
 import * as userActions from '../redux/actions/user';
 import * as contentActions from '../redux/actions/content';
 import * as modalActions from '../redux/actions/modal';
+import * as profileActions from '../redux/actions/profile';
 
 import Main from './main/Main';
 
 class App extends Component {
 
-  render() {
-    const _app = {
-      store: this.props.store,
-      actions: this.props.actions,
-      functions: {
-        multiLang: this.multiLang.bind(this)
-      }
-    }
-    return (
-      <Main app={_app}/>
-    );
+  gap(_height){
+    return <div style={{height: _height, width: '100%'}} />
+  }
+
+  sep(){
+    return <div style={{height: '1px', width: '100%', backgroundColor:'black', opacity: 0.15}} />
   }
 
   multiLang(eng,chi){
@@ -33,6 +29,21 @@ class App extends Component {
       default:
         return eng;
     }
+  }
+
+  render() {
+    const _app = {
+      store: this.props.store,
+      actions: this.props.actions,
+      functions: {
+        multiLang: this.multiLang.bind(this),
+        gap: this.gap.bind(this),
+        sep: this.sep.bind(this)
+      }
+    }
+    return (
+      <Main app={_app}/>
+    );
   }
 
   componentDidMount() {
@@ -51,9 +62,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state, props) {
-  return {
-    store: state
-  }
+  return { store: state }
 }
 
 function mapDispatchToProps(dispatch){
@@ -63,7 +72,8 @@ function mapDispatchToProps(dispatch){
       user: bindActionCreators(userActions, dispatch),
       ui: bindActionCreators(uiActions, dispatch),
       content: bindActionCreators(contentActions, dispatch),
-      modal: bindActionCreators(modalActions, dispatch)
+      modal: bindActionCreators(modalActions, dispatch),
+      profile: bindActionCreators(profileActions, dispatch)
     }
   }
 }

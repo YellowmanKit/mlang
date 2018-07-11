@@ -1,5 +1,17 @@
+export const pullView = () =>{
+  return {
+    type: 'pullView'
+  }
+}
+
+export const pushView = (view) =>{
+  return {
+    type: 'pushView',
+    payload: view
+  }
+}
+
 export const toggleMenu = () =>{
-  //console.log("Action: setStatus")
   return {
     type: 'toggleMenu'
   }

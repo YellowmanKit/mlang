@@ -9,17 +9,28 @@ const uiReducer = (
     basicStyle: {
       width: 0,
       height: 0,
-      pageWidth: 0,
-      pageHeight: 0,
       display: 'flex',
       flexFlow: 'column nowrap',
       alignItems: 'center'
+    },
+    viewStyle: {
+      justifyContent: 'flex-start',
+      backgroundColor: 'white',
+      width: '100%',
+      height: '100%'
     },
     buttonStyle: {
       backgroundColor: 'transparent',
       border: 'none',
       cursor: 'pointer',
       backgroundSize: '100% 100%'
+    },
+    eventBtnStyle: {
+      width: '67%',
+      height: '5%',
+      fontWeight: 'bold',
+      color: 'white',
+      fontSize: '100%'
     },
     absoluteBtnStyle: {
       position: 'absolute',
@@ -30,13 +41,14 @@ const uiReducer = (
       fontWeight: 'bold',
       textAlign: 'center',
       borderRadius: '5px'
-    }
+    },
+    mlangGreen: '#91c33b'
   }, action)=>{
   switch (action.type) {
     case 'setDimension':
-    const _windowWidth = action.payload.width;
-    const _windowHeight = action.payload.height
-      const newBasicStyle =
+      const _windowWidth = action.payload.width;
+      const _windowHeight = action.payload.height;
+      const _basicStyle =
       {...state.basicStyle,
         width:
         _windowWidth < state.minWidth? state.minWidth:
@@ -46,7 +58,10 @@ const uiReducer = (
         _windowHeight < state.minHeight? state.minHeight:
         _windowHeight > state.maxHeight? state.maxHeight:
         _windowHeight};
-      return {...state, windowWidth: _windowWidth, windowHeight: _windowHeight, basicStyle: newBasicStyle};
+      return {...state,
+              windowWidth: _windowWidth,
+              windowHeight: _windowHeight,
+              basicStyle: _basicStyle};
     default:
       return state;
   }

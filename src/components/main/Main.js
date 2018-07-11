@@ -9,8 +9,9 @@ class Main extends Component {
 
   componentDidMount(){
     //localStorage.clear();
-    this.props.app.actions.main.setStatus('waitForLogin');
-    //this.props.app.actions.main.setStatus('ready');
+    const actions = this.props.app.actions;
+    //actions.main.setStatus('waitForLogin');
+    actions.main.setStatus('ready');
   }
 
   componentWillReceiveProps(newProps){

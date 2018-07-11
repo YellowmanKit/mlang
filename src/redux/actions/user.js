@@ -12,7 +12,6 @@ export const setLoginInfo = (info) =>{
 
 export function resetPassword (_email) {
   //console.log('login: ' + _id + ' ' + _pw);
-
   return function (dispatch) {
     dispatch({type: "setModalMessage", payload: {eng: 'Reseting password...', chi: '密碼重置中...'}});
 
@@ -37,7 +36,6 @@ export function resetPassword (_email) {
 
 export function getNewAccount (_email) {
   //console.log('login: ' + _id + ' ' + _pw);
-
   return function (dispatch) {
     dispatch({type: "setModalMessage", payload: {eng: 'Acquiring for new account...', chi: '申請進行中...'}});
 
@@ -64,7 +62,6 @@ export function login (_id, _pw) {
 
   return function (dispatch) {
     dispatch({type: "setModalMessage", payload: {eng: 'Logging in...', chi: '登入中...'}});
-
     axios.get(api + '/user/login',{ headers: { id: _id, pw: _pw }})
     .then(res=>{
       const result = res.data.result
@@ -74,14 +71,20 @@ export function login (_id, _pw) {
         dispatch({type: "showModalButton"});
       }else{
         dispatch({type: "setUser", payload: res.data.user});
+        dispatch({type: "setProfile", payload: res.data.profile});
         dispatch({type: "setStatus", payload: "ready"});
         dispatch({type: "hideModal"});
       }
-
     }).catch(err=>{
       //console.log(err);
       dispatch({type: "setModalMessage", payload: {eng: 'Connection error, Please try again!', chi: '網絡出現問題，請再試一次!'}});
       dispatch({type: "showModalButton"});
     });
+  }
+}
+
+export function logout() {
+  return function (dispatch) {
+    dispatch({type: "setStatus", payload: "waitForLogin"});
   }
 }

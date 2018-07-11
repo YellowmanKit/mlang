@@ -4,6 +4,12 @@ import menu_bg from 'resources/images/slideMenu/menu_bg.png';
 
 class Menu extends Component {
 
+  switchView(view){
+    const actions = this.props.app.actions;
+    actions.content.pushView(view);
+    actions.content.toggleMenu();
+  }
+
   info(){
     const store = this.props.app.store;
     const areaStyle = Object.assign({}, areaBaseStyle, {
@@ -19,23 +25,49 @@ class Menu extends Component {
     )
   }
 
-  option(){
+  optionsList(){
+    const app = this.props.app;
+    const ui = app.store.ui;
     const areaStyle = Object.assign({}, areaBaseStyle, {
       backgroundColor: 'transparent',
       flexGrow: 95
     });
+    const buttonStyle = Object.assign({}, ui.buttonStyle, listBtnStyle, {
+      color: 'white'
+    });
+    const buttons =
+    [
+      ['account','Account','帳號資訊'],
+      ['profile','Profile','個人檔案'],
+      ['setting','Setting','設定'],
+      ['credit','Credit','鳴謝']
+    ]
     return(
       <div style={areaStyle}>
+        <div style={{height: ui.basicStyle.height * 0.03}} />
+        {buttons.map((item,i)=>{
+          return <button key={i} onClick={()=>this.switchView(item[0])} style={buttonStyle}> {app.functions.multiLang(item[1],item[2])} </button>
+        })}
       </div>
     )
   }
 
   logout(){
+    const app = this.props.app;
+    const ui = app.store.ui;
     const areaStyle = Object.assign({}, areaBaseStyle, {
       backgroundColor: 'transparent',
-      flexGrow: 8
+      flexGrow: 8,
+      justifyContent: 'flex-end'
     });
-    return <div style={areaStyle}></div>
+    const buttonStyle = Object.assign({}, ui.buttonStyle, listBtnStyle, {
+      color: ui.mlangGreen
+    });
+    return(
+      <div style={areaStyle}>
+        <button onClick={()=>app.actions.user.logout()} style={buttonStyle}> {app.functions.multiLang('Logout','登出')} </button>
+      </div>
+    )
   }
 
   backArea(){
@@ -65,12 +97,19 @@ class Menu extends Component {
       <div style={menuStyle}>
         {this.backArea()}
         {this.info()}
-        <div style={{ flexGrow: 8 }}/>
-        {this.option()}
+        <div style={{ flexGrow: 12 }}/>
+        {this.optionsList()}
         {this.logout()}
       </div>
     )
   }
+}
+
+const listBtnStyle = {
+  fontWeight: 'bold',
+  fontSize: '125%',
+  textAlign: 'left',
+  margin: '3%'
 }
 
 const areaBaseStyle = {
