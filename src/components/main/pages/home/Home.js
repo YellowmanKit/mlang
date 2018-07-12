@@ -5,7 +5,11 @@ import background2 from 'resources/images/general/background2.png';
 import NavBar from './NavBar';
 import Menu from './Menu';
 
-import Account from './views/Account';
+import Account from './views/menu/Account';
+import Profile from './views/menu/Profile';
+import Credit from './views/menu/Credit';
+
+import TeacherHome from './views/home/TeacherHome';
 
 class Home extends Component {
 
@@ -17,7 +21,7 @@ class Home extends Component {
     type === 'teacher'? 'teacherHome':
     '';
     app.actions.content.pushView(initView);
-    app.actions.content.pushView('account');
+    //app.actions.content.pushView('credit');
   }
 
   views(){
@@ -30,14 +34,14 @@ class Home extends Component {
       case 'account':
         return <Account app={this.props.app}/>;
       case 'profile':
-        return null;
-      case 'setting':
-        return null;
+        return <Profile app={this.props.app}/>;
+      /*case 'setting':
+        return null;*/
       case 'credit':
-        return null;
-      case 'studentHome':
-        return null;
+        return <Credit app={this.props.app}/>;
       case 'teacherHome':
+        return <TeacherHome app={this.props.app}/>;
+      case 'studentHome':
         return null;
       default:
         return null;

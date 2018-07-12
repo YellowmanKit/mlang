@@ -19,7 +19,7 @@ class Menu extends Component {
     });
     return(
       <div style={areaStyle}>
-        <div style={{flexGrow: 1,fontSize: '125%', color: 'white'}}>{store.user.id}</div>
+        <div style={{flexGrow: 1,fontSize: '125%', color: 'white'}}>{store.profile.name + ' ( ' + store.user.id + ' )'}</div>
         <div style={{flexGrow: 1,fontSize: '100%', color: 'grey'}}>{store.user.type}</div>
       </div>
     )
@@ -39,7 +39,7 @@ class Menu extends Component {
     [
       ['account','Account','帳號資訊'],
       ['profile','Profile','個人檔案'],
-      ['setting','Setting','設定'],
+      //['setting','Setting','設定'],
       ['credit','Credit','鳴謝']
     ]
     return(
@@ -52,7 +52,7 @@ class Menu extends Component {
     )
   }
 
-  logout(){
+  logoutButton(){
     const app = this.props.app;
     const ui = app.store.ui;
     const areaStyle = Object.assign({}, areaBaseStyle, {
@@ -65,7 +65,7 @@ class Menu extends Component {
     });
     return(
       <div style={areaStyle}>
-        <button onClick={()=>app.actions.user.logout()} style={buttonStyle}> {app.functions.multiLang('Logout','登出')} </button>
+        <button onClick={()=>this.logout()} style={buttonStyle}> {app.functions.multiLang('Logout','登出')} </button>
       </div>
     )
   }
@@ -99,9 +99,15 @@ class Menu extends Component {
         {this.info()}
         <div style={{ flexGrow: 12 }}/>
         {this.optionsList()}
-        {this.logout()}
+        {this.logoutButton()}
       </div>
     )
+  }
+
+  logout(){
+    const actions = this.props.app.actions;
+    actions.content.toggleMenu();
+    actions.user.logout();
   }
 }
 

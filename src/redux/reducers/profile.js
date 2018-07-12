@@ -1,6 +1,7 @@
 const profileReducer = (
   state = {
     _id : "5b44750c80463c4de838befa",
+    name: 'Wong Yan Kit',
     joinedCourse : [],
     teachingCourse : [],
     projects : [],

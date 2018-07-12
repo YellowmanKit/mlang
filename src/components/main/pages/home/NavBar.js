@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import topBar from 'resources/images/general/top_bar.png';
 import back_arrow from 'resources/images/buttons/buttonIcons/back_arrow.png';
 import menu from 'resources/images/buttons/buttonIcons/menu.png';
-import search from 'resources/images/buttons/buttonIcons/search.png';
+//import search from 'resources/images/buttons/buttonIcons/search.png';
 
 class NavBar extends Component {
 
@@ -31,7 +31,7 @@ class NavBar extends Component {
     if(view === 'studentHome' ||  view === 'teacherHome'){
       leftOnClick = action.toggleMenu;
       leftIcon = menu;
-      rightIcon = search;
+      //rightIcon = search;
       title = ['HOME','主頁'];
     }else{
       switch (view) {
@@ -65,8 +65,8 @@ class NavBar extends Component {
     const bs = ui.basicStyle;
 
     const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: bs.width * 0.1,
-      height: bs.width * 0.1,
+      width: bs.height * 0.06,
+      height: bs.height * 0.06,
       margin: bs.width * 0.015,
       backgroundImage: 'url(' + icon + ')'
     });
@@ -95,7 +95,7 @@ class NavBar extends Component {
 
     const navBarStyle = {
       width: '100%',
-      height: bs.width * 0.13,
+      height: bs.height * 0.08,
       backgroundImage: 'url(' + topBar + ')',
       backgroundSize: '100% 100%',
       display: 'flex',

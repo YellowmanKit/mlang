@@ -1,6 +1,6 @@
-export const setModalMessage = (message) =>{
+export const message = (message) =>{
   return {
-    type: 'setModalMessage',
+    type: 'message',
     payload: message
   }
 }

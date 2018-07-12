@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import registerServiceWorker from './registerServiceWorker';
 
-import App from "./components/App";
+import App from "./App";
 import store from "./redux/store";
 
 ReactDOM.render(

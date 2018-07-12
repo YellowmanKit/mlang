@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
+import UI from 'components/UI';
 
 import background2 from 'resources/images/general/background2.png';
 
-class TakePicture extends Component {
+class TakePicture extends UI {
 
   image(){
     const app = this.props.app;
@@ -12,18 +13,6 @@ class TakePicture extends Component {
       maxHeight: bs.maxHeight
     }
     return <img style={imgStyle} src={app.store.main.photo} alt='' />
-  }
-
-  button(text, _onClick){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const buttonStyle = Object.assign({}, ui.buttonStyle, ui.absoluteBtnStyle, {
-      width: bs.width * 0.15,
-      height: bs.height * 0.06
-    });
-    return <button style={buttonStyle} onClick={_onClick}>{text}</button>
   }
 
   render() {
@@ -38,7 +27,7 @@ class TakePicture extends Component {
     return(
       <div style={pageStyle}>
         {this.image()}
-        {this.button('take picture', ()=>{ app.actions.main.setStatus('capture'); })}
+        {this.absoluteButton('take picture', ()=>{ app.actions.main.setStatus('capture'); })}
       </div>
     )
   }

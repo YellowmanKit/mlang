@@ -7,7 +7,7 @@ class Modal extends Component {
     const boardStyle = {
       width: bs.width * 0.6,
       height:  bs.height * 0.3,
-      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      backgroundColor: 'rgba(0, 0, 0, 0.85)',
       borderRadius: '20px',
       display: 'flex',
       flexFlow: 'column nowrap',

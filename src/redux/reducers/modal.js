@@ -6,7 +6,7 @@ const modalReducer = (
     button: 'off'
   }, action)=>{
   switch (action.type) {
-    case 'setModalMessage':
+    case 'message':
       return {...state, status: 'on', messageEng: action.payload.eng, messageChi: action.payload.chi};
     case 'showModalButton':
       return {...state, button: 'on'};

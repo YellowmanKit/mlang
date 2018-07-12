@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
 import { bindActionCreators} from 'redux';
 import { connect } from "react-redux";
-import * as mainActions from '../redux/actions/main';
-import * as uiActions from '../redux/actions/ui';
-import * as userActions from '../redux/actions/user';
-import * as contentActions from '../redux/actions/content';
-import * as modalActions from '../redux/actions/modal';
-import * as profileActions from '../redux/actions/profile';
+import * as mainActions from './redux/actions/main';
+import * as uiActions from './redux/actions/ui';
+import * as userActions from './redux/actions/user';
+import * as contentActions from './redux/actions/content';
+import * as modalActions from './redux/actions/modal';
+import * as profileActions from './redux/actions/profile';
 
-import Main from './main/Main';
+import Main from './components/main/Main';
 
 class App extends Component {
-
-  gap(_height){
-    return <div style={{height: _height, width: '100%'}} />
-  }
-
-  sep(){
-    return <div style={{height: '1px', width: '100%', backgroundColor:'black', opacity: 0.15}} />
-  }
 
   multiLang(eng,chi){
     switch (this.props.store.main.language) {
@@ -36,9 +28,7 @@ class App extends Component {
       store: this.props.store,
       actions: this.props.actions,
       functions: {
-        multiLang: this.multiLang.bind(this),
-        gap: this.gap.bind(this),
-        sep: this.sep.bind(this)
+        multiLang: this.multiLang.bind(this)
       }
     }
     return (
