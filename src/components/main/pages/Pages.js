@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 
 import Login from './Login';
 import Home from './home/Home';
-import TakePicture from './TakePicture';
 import Capture from './Capture';
 
 class Pages extends Component {
@@ -19,8 +18,6 @@ class Pages extends Component {
         return <Login app={this.props.app}/>
       case 'ready':
         return <Home app={this.props.app}/>
-      case 'takePicture':
-        return <TakePicture app={this.props.app}/>
       case 'capture':
         return <Capture app={this.props.app}/>
       default:

@@ -47,6 +47,9 @@ class NavBar extends Component {
         case 'credit':
           title = ['CREDIT','鳴謝'];
           break;
+        case 'addCourse':
+          title = ['ADD COURSE','創建班級'];
+          break;
         default:
           break;
       }

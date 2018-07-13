@@ -1,16 +1,18 @@
 import React from 'react';
 import UI from 'components/UI';
 
-import background2 from 'resources/images/general/background2.png';
+//import no_image from 'resources/images/general/no_image.png';
 
 class TakePicture extends UI {
 
   image(){
     const app = this.props.app;
-    const bs = app.store.ui.basicStyle;
+    const ui = app.store.ui;
+    const bs = ui.basicStyle;
     const imgStyle = {
-      maxWidth: bs.maxWidth,
-      maxHeight: bs.maxHeight
+      width: bs.width * 0.75,
+      height: bs.width * 0.75,
+      backgroundColor: 'rgba( 1, 1, 1, 0.25)'
     }
     return <img style={imgStyle} src={app.store.main.photo} alt='' />
   }
@@ -19,15 +21,16 @@ class TakePicture extends UI {
     const app = this.props.app;
     const ui = app.store.ui;
     const pageStyle = Object.assign({},ui.basicStyle,{
-      justifyContent: 'center',
-      backgroundImage: 'url(' + background2 + ')',
-      backgroundSize: '100% 100%',
+      backgroundColor: 'white',
+      display: 'flex',
+      flexFlow: 'column nowrap',
+      justifyContent: 'flex-start'
     })
     //const func = app.functions;
     return(
       <div style={pageStyle}>
+        {this.gap('4%')}
         {this.image()}
-        {this.absoluteButton('take picture', ()=>{ app.actions.main.setStatus('capture'); })}
       </div>
     )
   }

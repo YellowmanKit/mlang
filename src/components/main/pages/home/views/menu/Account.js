@@ -41,7 +41,7 @@ class Account extends UI {
         {this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊'])}
         {this.sep()}
         {this.inputField('pw','password','','')}
-        {this.button(['Confirm change','確定變更'], redButton, ()=>{this.changing()})}
+        {this.eventButton(['Confirm change','確定變更'], redButton, ()=>{this.changing()})}
       </div>
     )
   }

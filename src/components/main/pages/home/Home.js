@@ -10,6 +10,7 @@ import Profile from './views/menu/Profile';
 import Credit from './views/menu/Credit';
 
 import TeacherHome from './views/home/TeacherHome';
+import AddCourse from './views/home/courses/AddCourse';
 
 class Home extends Component {
 
@@ -21,7 +22,7 @@ class Home extends Component {
     type === 'teacher'? 'teacherHome':
     '';
     app.actions.content.pushView(initView);
-    //app.actions.content.pushView('credit');
+    app.actions.content.pushView('addCourse');
   }
 
   views(){
@@ -43,6 +44,8 @@ class Home extends Component {
         return <TeacherHome app={this.props.app}/>;
       case 'studentHome':
         return null;
+      case 'addCourse':
+        return <AddCourse app={this.props.app}/>;
       default:
         return null;
     }
@@ -67,9 +70,9 @@ class Home extends Component {
     //const func = app.functions;
     return(
       <div style={pageStyle}>
-        {this.menu()}
         <NavBar app={this.props.app}/>
         {this.views()}
+        {this.menu()}
       </div>
     )
   }

@@ -79,9 +79,9 @@ class Login extends UI {
           {this.icon()}
           {this.inputField('id','text', ['Enter your identity','登入名稱'], loginInfo !== null? loginInfo.id:'')}
           {this.inputField('pw','password', ['Enter your password','密碼'], loginInfo !== null? loginInfo.pw:'')}
-          {this.button(['Login','登入'], greenButton, ()=>this.login() )}
-          {this.button(['Get new account','申請帳號'], yellowButton, ()=>actions.main.setStatus('getNewAccount') )}
-          {this.button(['Forget password','忘記密碼'], redButton, ()=>actions.main.setStatus('forgotPassword') )}
+          {this.eventButton(['Login','登入'], greenButton, ()=>this.login() )}
+          {this.eventButton(['Get new account','申請帳號'], yellowButton, ()=>actions.main.setStatus('getNewAccount') )}
+          {this.eventButton(['Forget password','忘記密碼'], redButton, ()=>actions.main.setStatus('forgotPassword') )}
           {this.languageBar()}
           {this.versionCode()}
         </div>)
@@ -89,15 +89,15 @@ class Login extends UI {
       return(
         <div style={pageStyle}>
           {this.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.button(['Acquire new account','獲得新帳號'], greenButton, ()=>actions.user.getNewAccount(document.getElementById('email').value))}
-          {this.button(['Cancel','取消'], redButton, ()=>actions.main.setStatus('waitForLogin') )}
+          {this.eventButton(['Acquire new account','獲得新帳號'], greenButton, ()=>actions.user.getNewAccount(document.getElementById('email').value))}
+          {this.eventButton(['Cancel','取消'], redButton, ()=>actions.main.setStatus('waitForLogin') )}
         </div>)
     }else if(status === 'forgotPassword'){
       return(
         <div style={pageStyle}>
           {this.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.button(['Reset password','重設密碼'], greenButton, ()=>actions.user.resetPassword(document.getElementById('email').value))}
-          {this.button(['Cancel','取消'], redButton, ()=>actions.main.setStatus('waitForLogin') )}
+          {this.eventButton(['Reset password','重設密碼'], greenButton, ()=>actions.user.resetPassword(document.getElementById('email').value))}
+          {this.eventButton(['Cancel','取消'], redButton, ()=>actions.main.setStatus('waitForLogin') )}
         </div>)
     }else{
       return null;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Pages from './pages/Pages';
-import Modal from './items/Modal';
+import Modal from './Modal';
 
 import background from 'resources/images/general/background.png';
 
