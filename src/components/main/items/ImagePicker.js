@@ -27,7 +27,7 @@ class ImagePicker extends UI {
     return(
       <div style={pickerStyle}>
         <div style={toolBarStyle}/>
-        {this.image(app.store.main.photo)}
+        {this.image(app.store.main.photoUrl)}
         <div style={{width: '2%', height: '100%'}}/>
         <div style={{backgroundColor: 'white', width: '1px', height: '90%'}}/>
         <div style={toolBarStyle}>

@@ -14,17 +14,6 @@ import AddCourse from './views/home/courses/AddCourse';
 
 class Home extends Component {
 
-  componentDidMount(){
-    const app = this.props.app;
-    const type = app.store.user.type;
-    const initView =
-    type === 'student'? 'studentHome':
-    type === 'teacher'? 'teacherHome':
-    '';
-    app.actions.content.pushView(initView);
-    app.actions.content.pushView('addCourse');
-  }
-
   views(){
     const app = this.props.app;
     const view = app.store.content.view;

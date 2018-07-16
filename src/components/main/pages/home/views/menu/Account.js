@@ -1,6 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
-import redButton from 'resources/images/buttons/btn_red.png';
+import btn_red from 'resources/images/buttons/btn_red.png';
 
 class Account extends UI {
 
@@ -41,7 +41,7 @@ class Account extends UI {
         {this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊'])}
         {this.sep()}
         {this.inputField('pw','password','','')}
-        {this.eventButton(['Confirm change','確定變更'], redButton, ()=>{this.changing()})}
+        {this.eventButton(['Confirm change','確定變更'], btn_red, ()=>{this.changing()})}
       </div>
     )
   }

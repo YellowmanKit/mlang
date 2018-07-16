@@ -12,17 +12,14 @@ class UI extends Component {
     const ui = app.store.ui;
     const bs = ui.basicStyle;
 
-    const containerSize = bs.width * 0.35;
-    const containerStyle = Object.assign({},ui.containerStyle,{
+    const containerSize = bs.height * 0.23;
+    const containerStyle = Object.assign({} ,ui.borderStyle ,ui.containerStyle,{
       width: containerSize,
       height: containerSize,
-      backgroundColor: 'white',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderColor: 'grey'
+      backgroundColor: 'white'
     });
     const imgBg = url === null? no_image: null;
-    const size = bs.width * 0.33;
+    const size = bs.height * 0.22;
     const backgroundStyle = Object.assign({}, ui.containerStyle,{
       width: size,
       height: size,
@@ -76,7 +73,7 @@ class UI extends Component {
       paddingTop: bs.width * 0.15,
       overflow: 'hidden'
     });
-    return <input type="file" accept="image/*" capture="camera" style={buttonStyle} alt='' onChange={event=>{app.actions.main.setPhoto(URL.createObjectURL(event.target.files[0]))}}/>
+    return <input type="file" accept="image/*" capture="camera" style={buttonStyle} alt='' onChange={event=>{app.actions.main.setPhoto({blob: event.target.files[0], url: URL.createObjectURL(event.target.files[0])})}}/>
   }
 
   selectImageButton(){
@@ -92,7 +89,7 @@ class UI extends Component {
       paddingTop: bs.width * 0.15,
       overflow: 'hidden'
     });
-    return <input type="file" accept="image/*" style={buttonStyle} alt='' onChange={event=>{app.actions.main.setPhoto(URL.createObjectURL(event.target.files[0]))}}/>
+    return <input type="file" accept="image/*" style={buttonStyle} alt='' onChange={event=>{app.actions.main.setPhoto({blob: event.target.files[0], url: URL.createObjectURL(event.target.files[0])})}}/>
   }
 
   tabBar(title){
@@ -128,14 +125,15 @@ class UI extends Component {
     actions.modal.showModalButton();
   }
 
-  textDisplay(text){
+  textDisplay(text, scale, _fontSize){
     const countStyle = {
-      width: '50%',
-      height: '6%',
+      width: scale[0],
+      height: scale[1],
       margin: '1%',
-      fontSize: '150%',
+      fontSize: _fontSize,
       fontWeight: 'bold',
-      textAlign: 'center'
+      textAlign: 'center',
+      overflow: 'hidden'
     }
     return <div style={countStyle}>{text}</div>
   }
@@ -222,7 +220,6 @@ class UI extends Component {
   }
 
   dateField(_id, _type, _value){
-    const app = this.props.app;
     const inputStyle = {
       width: '50%',
       height: '4%',
@@ -236,7 +233,7 @@ class UI extends Component {
     const app = this.props.app;
     const func = app.functions;
     const inputStyle = {
-      width: '50%',
+      width: '67%',
       height: '4%',
       fontSize: '100%',
       margin: '2%'

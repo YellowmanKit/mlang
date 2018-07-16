@@ -1,7 +1,8 @@
-export const setPhoto = (blob) =>{
+
+export const setPhoto = (photo) =>{
   return {
     type: 'setPhoto',
-    payload: blob
+    payload: photo
   }
 }
 

@@ -23,14 +23,6 @@ const uiReducer = (
       alignItems: 'center',
       backgroundSize: '100% 100%'
     },
-    sideStyle: {
-      position: 'absolute',
-      right: 0,
-      width: '10%',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center'
-    },
     areaStyle: {
       width: '100%',
       display: 'flex',
@@ -59,6 +51,11 @@ const uiReducer = (
       fontWeight: 'bold',
       textAlign: 'center',
       borderRadius: '5px'
+    },
+    borderStyle: {
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: 'grey'
     },
     mlangGreen: '#91c33b',
     lightGrey: '#ededed',

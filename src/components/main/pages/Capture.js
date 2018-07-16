@@ -7,9 +7,9 @@ import background2 from 'resources/images/general/background2.png';
 
 class Capture extends UI {
 
-  onCapture(blob){
+  onCapture(_blob){
     const app = this.props.app;
-    app.actions.main.setPhoto(URL.createObjectURL(blob));
+    app.actions.main.setPhoto({blob: _blob, url: URL.createObjectURL(_blob)});
     app.actions.main.setStatus('ready');
   }
 

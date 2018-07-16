@@ -1,3 +1,15 @@
+export const backToHome = () =>{
+  return {
+    type: 'backToHome'
+  }
+}
+
+export const clearView = () =>{
+  return {
+    type: 'clearView'
+  }
+}
+
 export const pullView = () =>{
   return {
     type: 'pullView'

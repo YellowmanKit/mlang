@@ -88,10 +88,11 @@ export function login (_id, _pw) {
     axios.get(api + '/user/login',{ headers: { id: _id, pw: _pw }})
     .then(res=>{
       const result = res.data.result
-      //console.log('result: ' + result);
+      //console.log(res.data);
       if(result === 'success'){
         dispatch({type: "setUser", payload: res.data.user});
         dispatch({type: "setProfile", payload: res.data.profile});
+        dispatch({type: "setTeachingCourses", payload: res.data.teachingCourses});
         dispatch({type: "setStatus", payload: "ready"});
         dispatch({type: "hideModal"});
       }else{

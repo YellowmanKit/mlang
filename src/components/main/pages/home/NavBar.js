@@ -12,6 +12,10 @@ class NavBar extends Component {
     this.state = {}
   }
 
+  componentDidMount(){
+    this.init(this.props);
+  }
+
   componentWillReceiveProps(newProp){
     this.init(newProp);
   }

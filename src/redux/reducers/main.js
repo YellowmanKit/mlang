@@ -2,7 +2,8 @@ const mainReducer = (
   state = {
     status: 'init',
     modal: 'off',
-    photo: null,
+    photoUrl: null,
+    photoBlob: null,
     language: 'english',
     version: 'v1.0.0'
   }, action)=>{
@@ -12,7 +13,7 @@ const mainReducer = (
     case 'setLanguage':
       return {...state, language: action.payload};
     case 'setPhoto':
-      return {...state, photo: action.payload};
+      return {...state, photoUrl: action.payload.url, photoBlob: action.payload.blob};
     case 'setModal':
       return {...state, modal: action.payload};
     default:

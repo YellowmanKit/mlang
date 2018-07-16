@@ -7,10 +7,30 @@ import * as userActions from './redux/actions/user';
 import * as contentActions from './redux/actions/content';
 import * as modalActions from './redux/actions/modal';
 import * as profileActions from './redux/actions/profile';
+import * as coursesActions from './redux/actions/courses';
 
 import Main from './components/main/Main';
 
 class App extends Component {
+
+  addZeroIfSingle(num){
+    if(num < 10){
+      return '0' + String(num);
+    }else{
+      return '' + String(num);
+    }
+  }
+
+  getDateString(date) {
+    let year = date.getFullYear();
+    let monthIndex = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let dateStr = year + '-' + this.addZeroIfSingle(monthIndex) + '-' + this.addZeroIfSingle(day);
+    //console.log(dateStr);
+    //return '2018-02-08';
+    return dateStr;
+  }
 
   multiLang(eng,chi){
     switch (this.props.store.main.language) {
@@ -28,7 +48,8 @@ class App extends Component {
       store: this.props.store,
       actions: this.props.actions,
       functions: {
-        multiLang: this.multiLang.bind(this)
+        multiLang: this.multiLang.bind(this),
+        getDateString: this.getDateString.bind(this)
       }
     }
     return (
@@ -63,7 +84,8 @@ function mapDispatchToProps(dispatch){
       ui: bindActionCreators(uiActions, dispatch),
       content: bindActionCreators(contentActions, dispatch),
       modal: bindActionCreators(modalActions, dispatch),
-      profile: bindActionCreators(profileActions, dispatch)
+      profile: bindActionCreators(profileActions, dispatch),
+      courses: bindActionCreators(coursesActions, dispatch)
     }
   }
 }
