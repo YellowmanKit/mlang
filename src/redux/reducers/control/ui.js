@@ -59,7 +59,8 @@ const uiReducer = (
     },
     mlangGreen: '#91c33b',
     lightGrey: '#ededed',
-    darkGrey: '#dbdbdb'
+    darkGrey: '#dbdbdb',
+    selectedGrey: '#444444',
   }, action)=>{
   switch (action.type) {
     case 'setDimension':

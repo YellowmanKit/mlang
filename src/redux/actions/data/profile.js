@@ -1,17 +1,17 @@
 import axios from 'axios';
-import * as actions from './actions';
+import * as actions from '../actions';
 var api = process.env.REACT_APP_API;
 
 export function changeProfile(newProfile){
   //console.log(newProfile)
   return function (dispatch) {
+    actions.connecting(dispatch);
+
     axios.post(api + '/profile/update',{
       data: newProfile
     }).then(res=>{
       dispatch({type: "showModalButton"});
-      const result = res.data.result
-      //console.log('result: ' + result);
-      if(result === 'success'){
+      if(res.data.result === 'success'){
         dispatch({type: "message", payload: {eng: 'Update succeed!', chi: '更改成功!'}});
         dispatch({type: "setProfile", payload: res.data.updatedProfile});
       }else{
@@ -20,12 +20,5 @@ export function changeProfile(newProfile){
     }).catch(err=>{
       actions.connectionError(dispatch);
     })
-  }
-}
-
-export const setProfile = (profile) =>{
-  return {
-    type: 'setProfile',
-    payload: profile
   }
 }

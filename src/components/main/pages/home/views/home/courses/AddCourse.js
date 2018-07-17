@@ -40,14 +40,11 @@ class AddCourse extends UI {
 
   addCourse(){
     const app = this.props.app;
-    const func = this.props.app.functions;
     const actions = this.props.app.actions;
 
     const _icon = app.store.main.photoBlob;
     const _title = document.getElementById('title').value;
     const _endDate = document.getElementById('endDate').value;
-
-    actions.modal.message(func.multiLang({eng:'Connecting...', chi:'連線中...'}));
 
     const today = new Date();
     const selectedEndDate = new Date(_endDate)

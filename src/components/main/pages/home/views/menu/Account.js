@@ -48,7 +48,7 @@ class Account extends UI {
 
   changing(){
     const user = this.props.app.store.user;
-    const func = this.props.app.functions;
+    //const func = this.props.app.functions;
     const actions = this.props.app.actions;
 
     const selected = document.getElementById('type').selectedIndex;
@@ -63,7 +63,7 @@ class Account extends UI {
     const confirmPw = document.getElementById('confirmPw').value;
     const pw = document.getElementById('pw').value;
 
-    actions.modal.message(func.multiLang({eng:'Changing...', chi:'變更中...'}));
+    //actions.modal.message(func.multiLang({eng:'Changing...', chi:'變更中...'}));
 
     //console.log(newId)
     if(newId.length < 6){

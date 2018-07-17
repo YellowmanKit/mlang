@@ -105,7 +105,7 @@ class UI extends Component {
       alignItems: 'center'
     }
     const textStyle = {
-      width: '82%',
+      width: '100%',
       fontSize: '100%',
       fontWeight: 'bold',
       margin: '3%'
@@ -249,11 +249,27 @@ class UI extends Component {
     return <div style={{height: '1px', width: '100%', backgroundColor:'black', opacity: 0.15}} />
   }
 
+  verGap(_width){
+    return <div style={{minWidth: _width, height: '100%'}}/>
+  }
+
+  verSep(_color, _height){
+    return <div style={{backgroundColor: _color, width: '1px', height: _height}}/>
+  }
+
   viewStyle(){
     const app = this.props.app;
     const ui = app.store.ui;
     return Object.assign({}, ui.basicStyle, ui.viewStyle, {
       height: ui.basicStyle.height * 0.92
+    });
+  }
+
+  subViewStyle(){
+    const app = this.props.app;
+    const ui = app.store.ui;
+    return Object.assign({}, ui.basicStyle, ui.viewStyle, {
+      height: ui.basicStyle.height * 0.82
     });
   }
 

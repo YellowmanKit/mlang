@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
-import mainReducer from './main';
-import userReducer from './user';
-import contentReducer from './content';
-import uiReducer from './ui';
-import modalReducer from './modal';
-import profileReducer from './profile';
-import coursesReducer from './courses';
+import mainReducer from './control/main';
+import contentReducer from './control/content';
+import uiReducer from './control/ui';
+import modalReducer from './control/modal';
+
+import userReducer from './data/user';
+import profileReducer from './data/profile';
+import coursesReducer from './data/courses';
+import studentsReducer from './data/students';
 
 const rootReducer = combineReducers({
   main: mainReducer,
@@ -14,7 +16,8 @@ const rootReducer = combineReducers({
   ui: uiReducer,
   modal: modalReducer,
   profile: profileReducer,
-  courses: coursesReducer
+  courses: coursesReducer,
+  students: studentsReducer
 });
 
 export default rootReducer;

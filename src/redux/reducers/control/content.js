@@ -2,9 +2,12 @@ const contentReducer = (
   state = {
     menu: 'off',
     view: '',
-    traces: []
+    traces: [],
+    subView: ''
   }, action)=>{
   switch (action.type) {
+    case 'setSubView':
+      return {...state, subView: action.payload}
     case 'backToHome':
       return {...state, traces: state.traces.slice(0, 1), view: state.traces[0]};
     case 'clearView':

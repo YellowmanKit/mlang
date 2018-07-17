@@ -52,9 +52,16 @@ class NavBar extends Component {
           title = ['CREDIT','鳴謝'];
           break;
         case 'addCourse':
-          title = ['ADD COURSE','創建班級'];
+          title = ['ADD COURSE','創建班別'];
+          break;
+        case 'joinCourse':
+          title = ['JOIN COURSE', '加入班別'];
+          break;
+        case 'course':
+          title = ['COURSE', '班別'];
           break;
         default:
+          title = ['','']
           break;
       }
     }

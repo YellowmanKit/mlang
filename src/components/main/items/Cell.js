@@ -4,20 +4,16 @@ import UI from 'components/UI';
 class Cell extends UI {
 
   cellTitle(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
     const text = this.props.data.title;
     return this.textDisplay(text, ['60%','100%'], '125%')
   }
 
   cellImage(){
     const app = this.props.app;
+    const func = app.functions;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const type = 'courseIcon/'
-    const url = process.env.REACT_APP_API + '/download/'+ type + this.props.data.icon;
+    const url = func.url(this.props.data.icon, 'courseIcon');
 
     const imageStyle = Object.assign({}, ui.containerStyle, ui.borderStyle,{
       width: bs.height * 0.14,
@@ -25,12 +21,11 @@ class Cell extends UI {
       marginTop: '4%',
       backgroundImage: 'url(' + url + ')'
     });
-    console.log(url)
+    //console.log(url)
     return <div style={imageStyle}/>
   }
 
   render(){
-
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
@@ -47,7 +42,7 @@ class Cell extends UI {
     })
 
     return(
-      <button style={cellStyle}>
+      <button style={cellStyle} onClick={this.props.onCellClick}>
         {this.cellImage()}
         {this.cellTitle()}
       </button>

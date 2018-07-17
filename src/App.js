@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
 import { bindActionCreators} from 'redux';
 import { connect } from "react-redux";
-import * as mainActions from './redux/actions/main';
-import * as uiActions from './redux/actions/ui';
-import * as userActions from './redux/actions/user';
-import * as contentActions from './redux/actions/content';
-import * as modalActions from './redux/actions/modal';
-import * as profileActions from './redux/actions/profile';
-import * as coursesActions from './redux/actions/courses';
+import * as mainActions from './redux/actions/control/main';
+import * as uiActions from './redux/actions/control/ui';
+import * as contentActions from './redux/actions/control/content';
+import * as modalActions from './redux/actions/control/modal';
+
+import * as userActions from './redux/actions/data/user';
+import * as profileActions from './redux/actions/data/profile';
+import * as coursesActions from './redux/actions/data/courses';
+import * as studentsActions from './redux/actions/data/students';
 
 import Main from './components/main/Main';
 
 class App extends Component {
+
+  getStudentProfileByUserId(userId){
+    const studentsData = this.props.store.students;
+    for(var i=0;i<studentsData.length;i++){
+      if(studentsData[i].belongTo === userId){
+        return studentsData[i];
+      }
+    }
+    return null;
+  }
+
+  url(filename, type){
+    return process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
+  }
 
   addZeroIfSingle(num){
     if(num < 10){
@@ -27,7 +43,6 @@ class App extends Component {
     let day = date.getDate();
 
     let dateStr = year + '-' + this.addZeroIfSingle(monthIndex) + '-' + this.addZeroIfSingle(day);
-    //console.log(dateStr);
     //return '2018-02-08';
     return dateStr;
   }
@@ -48,8 +63,10 @@ class App extends Component {
       store: this.props.store,
       actions: this.props.actions,
       functions: {
+        url: this.url.bind(this),
         multiLang: this.multiLang.bind(this),
-        getDateString: this.getDateString.bind(this)
+        getDateString: this.getDateString.bind(this),
+        getStudentProfileByUserId: this.getStudentProfileByUserId.bind(this),
       }
     }
     return (
@@ -85,7 +102,8 @@ function mapDispatchToProps(dispatch){
       content: bindActionCreators(contentActions, dispatch),
       modal: bindActionCreators(modalActions, dispatch),
       profile: bindActionCreators(profileActions, dispatch),
-      courses: bindActionCreators(coursesActions, dispatch)
+      courses: bindActionCreators(coursesActions, dispatch),
+      students: bindActionCreators(studentsActions, dispatch),
     }
   }
 }

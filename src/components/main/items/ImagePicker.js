@@ -28,8 +28,8 @@ class ImagePicker extends UI {
       <div style={pickerStyle}>
         <div style={toolBarStyle}/>
         {this.image(app.store.main.photoUrl)}
-        <div style={{width: '2%', height: '100%'}}/>
-        <div style={{backgroundColor: 'white', width: '1px', height: '90%'}}/>
+        {this.verGap('2%')}
+        {this.verSep('white', '90%')}
         <div style={toolBarStyle}>
           {this.selectImageButton()}
           <MediaQuery minDeviceWidth={1224}>

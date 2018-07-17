@@ -11,6 +11,10 @@ import Credit from './views/menu/Credit';
 
 import TeacherHome from './views/home/TeacherHome';
 import AddCourse from './views/home/courses/AddCourse';
+import JoinCourse from './views/home/courses/JoinCourse';
+import Course from './views/home/courses/Course';
+
+import StudentHome from './views/home/StudentHome';
 
 class Home extends Component {
 
@@ -32,9 +36,13 @@ class Home extends Component {
       case 'teacherHome':
         return <TeacherHome app={this.props.app}/>;
       case 'studentHome':
-        return null;
+        return <StudentHome app={this.props.app}/>;
       case 'addCourse':
         return <AddCourse app={this.props.app}/>;
+      case 'joinCourse':
+        return <JoinCourse app={this.props.app}/>;
+      case 'course':
+        return <Course app={this.props.app}/>;
       default:
         return null;
     }

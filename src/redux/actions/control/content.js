@@ -1,3 +1,12 @@
+
+
+export const setSubView = (subView) =>{
+  return {
+    type: 'setSubView',
+    payload: subView
+  }
+}
+
 export const backToHome = () =>{
   return {
     type: 'backToHome'
