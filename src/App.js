@@ -10,10 +10,21 @@ import * as userActions from './redux/actions/data/user';
 import * as profileActions from './redux/actions/data/profile';
 import * as coursesActions from './redux/actions/data/courses';
 import * as studentsActions from './redux/actions/data/students';
+import * as projectsActions from './redux/actions/data/projects';
 
 import Main from './components/main/Main';
 
 class App extends Component {
+
+  getProjectById(projectId){
+    const projectsData = this.props.store.projects.projects;
+    for(var i=0;i<projectsData.length;i++){
+      if(projectsData[i]._id === projectId){
+        return projectsData[i];
+      }
+    }
+    return null;
+  }
 
   getStudentProfileByUserId(userId){
     const studentsData = this.props.store.students;
@@ -67,6 +78,7 @@ class App extends Component {
         multiLang: this.multiLang.bind(this),
         getDateString: this.getDateString.bind(this),
         getStudentProfileByUserId: this.getStudentProfileByUserId.bind(this),
+        getProjectById: this.getProjectById.bind(this),
       }
     }
     return (
@@ -104,6 +116,7 @@ function mapDispatchToProps(dispatch){
       profile: bindActionCreators(profileActions, dispatch),
       courses: bindActionCreators(coursesActions, dispatch),
       students: bindActionCreators(studentsActions, dispatch),
+      projects: bindActionCreators(projectsActions, dispatch),
     }
   }
 }

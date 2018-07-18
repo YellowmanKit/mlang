@@ -11,16 +11,23 @@ class Menu extends Component {
   }
 
   info(){
-    const store = this.props.app.store;
+    const app = this.props.app;
+    const store = app.store;
+    const func = app.functions;
     const areaStyle = Object.assign({}, areaBaseStyle, {
       backgroundColor: 'transparent',
       marginTop: '3%',
       flexGrow: 6
     });
+    const type =
+    store.user.type === 'student'? func.multiLang('Student','學生'):
+    store.user.type === 'teacher'? func.multiLang('Teacher','老師'):
+    '';
+
     return(
       <div style={areaStyle}>
         <div style={{flexGrow: 1,fontSize: '125%', color: 'white'}}>{store.profile.name + ' ( ' + store.user.id + ' )'}</div>
-        <div style={{flexGrow: 1,fontSize: '100%', color: 'grey'}}>{store.user.type}</div>
+        <div style={{flexGrow: 1,fontSize: '100%', color: 'grey'}}>{type}</div>
       </div>
     )
   }

@@ -2,10 +2,10 @@ import axios from 'axios';
 import * as actions from '../actions';
 var api = process.env.REACT_APP_API;
 
-export const viewCourse = (course) =>{
+export const viewCourse = (_index, _course) =>{
   return {
     type: 'viewCourse',
-    payload: course
+    payload: { index: _index, course: _course}
   }
 }
 

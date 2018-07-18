@@ -1,11 +1,9 @@
 import React from 'react';
 import UI from 'components/UI';
 
-import icon_student from 'resources/images/icons/student.png';
-import cards from 'resources/images/icons/cards_lightgrey.png';
-import star2 from 'resources/images/icons/star2_lightgrey.png';
+import icon_event from 'resources/images/icons/event_grey.png';
 
-class ProfileRow extends UI {
+class ProjectRow extends UI {
 
   info(){
     const app = this.props.app;
@@ -19,30 +17,32 @@ class ProfileRow extends UI {
     })
     return(
       <div style={infoStyle}>
-        {this.profileName()}
+        {this.projectTitle()}
         {this.infoRow()}
       </div>
     )
   }
 
-  profileName(){
+  projectTitle(){
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const nameStyle = {
+    const titleStyle = {
       width: '100%',
       height: bs.height * 0.06,
       fontWeight: 'bold',
-      fontSize: '125%'
+      fontSize: '125%',
+      textAlign: 'left'
     }
-    return <div style={nameStyle}>{this.props.profile.name}</div>
+    return <div style={titleStyle}>{this.props.project.title}</div>
   }
 
   infoRow(){
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const profile = this.props.profile;
+    const func = app.functions;
+    const project = this.props.project;
 
     const rowStyle = Object.assign({}, ui.areaStyle, {
       width: '100%',
@@ -50,26 +50,25 @@ class ProfileRow extends UI {
       alignItems: 'center'
     })
     const iconSize = bs.height * 0.05;
-    const textScale = [bs.height * 0.06,bs.height * 0.04];
     return(
       <div style={rowStyle}>
-        {this.icon(cards, [iconSize, iconSize])}
-        {this.textDisplay(profile.cardCount, textScale, '150%', ui.deepDarkGrey)}
-        {this.icon(star2, [iconSize, iconSize])}
-        {this.textDisplay(profile.featuredCount, textScale, '150%', ui.deepDarkGrey)}
+        {this.icon(icon_event, [iconSize, iconSize])}
+        {this.verGap('1%')}
+        {this.textDisplay(func.getDateString(new Date(project.endDate)), ['',''], '125%', ui.deepDarkGrey)}
       </div>
     )
   }
 
   render(){
-    if(this.props.profile === null){
+    if(this.props.project === null){
       return null;
     }
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
+    const func = app.functions;
 
-    const rowStyle = Object.assign({}, ui.areaStyle, {
+    const rowStyle = Object.assign({}, ui.buttonStyle, ui.areaStyle, {
       flexShrink: 0,
       height: bs.height * 0.15,
       borderBottom: '1px solid ' + ui.darkGrey,
@@ -77,13 +76,13 @@ class ProfileRow extends UI {
     })
 
     return(
-      <div style={rowStyle}>
+      <button onClick={this.props._onClick} style={rowStyle}>
         {this.verGap('3%')}
-        {this.rowIcon(icon_student)}
+        {this.rowIcon(func.url(this.props.project.icon, 'projectIcon'))}
         {this.info()}
-      </div>
+      </button>
     )
   }
 }
 
-export default ProfileRow;
+export default ProjectRow;

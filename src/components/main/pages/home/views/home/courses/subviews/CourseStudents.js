@@ -17,11 +17,7 @@ class CourseStudents extends UI {
   render() {
     const app = this.props.app;
     const ui = app.store.ui;
-    const areaStyle = Object.assign({},ui.basicStyle, {
-      width: '100%',
-      height: '100%',
-      overflow: 'auto'
-    });
+    const areaStyle = Object.assign({},ui.basicStyle, ui.listStyle)
     return(
       <div style={this.subViewStyle()}>
         <div style={areaStyle}>

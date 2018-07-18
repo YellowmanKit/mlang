@@ -60,6 +60,15 @@ class NavBar extends Component {
         case 'course':
           title = ['COURSE', '班別'];
           break;
+        case 'addProject':
+          title = ['ADD PROJECT', '創建專題研習'];
+          break;
+        case 'project':
+          title = ['PROJECT', '專題研習'];
+          break;
+        case 'addCard':
+          title = ['ADD CARD', '提交卡片'];
+          break;
         default:
           title = ['','']
           break;

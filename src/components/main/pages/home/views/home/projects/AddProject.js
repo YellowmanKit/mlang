@@ -5,13 +5,13 @@ import ImagePicker from 'components/main/items/ImagePicker';
 
 import btn_green from 'resources/images/buttons/btn_green.png';
 
-class AddCourse extends UI {
+class AddProject extends UI {
 
   render() {
     const app = this.props.app;
     const func = app.functions;
     var defaultDate = new Date();
-    defaultDate.setFullYear(defaultDate.getFullYear() + 1);
+    defaultDate.setMonth(defaultDate.getMonth() + 1);
 
     return(
       <div style={this.viewStyle()}>
@@ -28,22 +28,28 @@ class AddCourse extends UI {
         {this.inputField('title','text', '', '')}
         {this.gap('2%')}
 
+        {this.subTitle(['Description','描述'])}
+        {this.sep()}
+        {this.textArea('desc', ['67%', '15%'], ['5','50'], '')}
+        {this.gap('2%')}
+
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
         {this.inputField('endDate','date', ['',''], func.getDateString(defaultDate))}
         {this.gap('2%')}
 
-        {this.eventButton(['Confirm','確定'], btn_green, ()=>{this.addCourse()})}
+        {this.eventButton(['Confirm','確定'], btn_green, ()=>{this.addProject()})}
       </div>
     )
   }
 
-  addCourse(){
+  addProject(){
     const app = this.props.app;
     const actions = this.props.app.actions;
 
     const _icon = app.store.main.photoBlob;
     const _title = document.getElementById('title').value;
+    const _desc = document.getElementById('desc').value;
     const _endDate = document.getElementById('endDate').value;
 
     const today = new Date();
@@ -58,13 +64,15 @@ class AddCourse extends UI {
       return this.failedMessage(['Failed to add! End date is in the past!', '創建失敗! 結束日期早於現在!'])
     }
 
-    actions.courses.addCourse({
-      teacher: app.store.user._id,
+    actions.projects.addProject({
+      course: app.store.courses.viewingCourse._id,
       icon: _icon,
       title: _title,
+      description: _desc,
       endDate: _endDate
     });
   }
+
 }
 
-export default AddCourse;
+export default AddProject;

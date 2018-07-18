@@ -57,10 +57,18 @@ const uiReducer = (
       borderWidth: '1px',
       borderColor: 'grey'
     },
+    listStyle: {
+      width: '100%',
+      height: '100%',
+      overflow: 'auto'
+    },
     mlangGreen: '#91c33b',
+    ultraLightGrey: '#f3f3f3',
     lightGrey: '#ededed',
     darkGrey: '#dbdbdb',
+    deepDarkGrey: '#777777',
     selectedGrey: '#444444',
+    gradientBasic: 'linear-gradient(to right, white 0%, #ededed 100%)'
   }, action)=>{
   switch (action.type) {
     case 'setDimension':

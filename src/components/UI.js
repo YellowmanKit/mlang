@@ -1,11 +1,39 @@
 import React, { Component } from 'react';
 import no_image from 'resources/images/general/no_image.png';
 import tab_bar from 'resources/images/general/tab_bar.png';
+
 import btn_add from 'resources/images/buttons/btn_add.png';
-import file from 'resources/images/buttons/buttonIcons/file.png';
-import camera from 'resources/images/buttons/buttonIcons/camera.png';
+
+import icon_file from 'resources/images/buttons/buttonIcons/file.png';
+import icon_add from 'resources/images/buttons/buttonIcons/add.png';
+import icon_camera from 'resources/images/buttons/buttonIcons/camera.png';
 
 class UI extends Component {
+
+  rowIcon(url){
+    const app = this.props.app;
+    const ui = app.store.ui;
+    const bs = ui.basicStyle;
+
+    const iconStyle = Object.assign({}, ui.borderStyle, {
+      width: bs.height * 0.12,
+      height: bs.height * 0.12,
+      backgroundColor: ui.lightGrey,
+      backgroundImage: 'url(' + (url !== null? url: no_image) + ')',
+      backgroundSize: '100% 100%'
+    })
+    return <div style={iconStyle}></div>
+  }
+
+  icon(url, scale){
+    const iconStyle = {
+      width: scale[0],
+      height: scale[1],
+      backgroundImage: 'url(' + url + ')',
+      backgroundSize: '100% 100%'
+    }
+    return <div style={iconStyle}/>
+  }
 
   image(url){
     const app = this.props.app;
@@ -55,7 +83,7 @@ class UI extends Component {
       width: bs.width * 0.15,
       height: bs.width * 0.15,
       margin: '5%',
-      backgroundImage: 'url(' + camera + ')'
+      backgroundImage: 'url(' + icon_camera + ')'
     });
     return <button style={buttonStyle} onClick={()=>{app.actions.main.setStatus('capture')}}/>
   }
@@ -68,7 +96,7 @@ class UI extends Component {
       width: bs.width * 0.15,
       height: bs.width * 0.15,
       margin: '5%',
-      backgroundImage: 'url(' + camera + ')',
+      backgroundImage: 'url(' + icon_camera + ')',
       boxSizing: 'border-box',
       paddingTop: bs.width * 0.15,
       overflow: 'hidden'
@@ -84,7 +112,7 @@ class UI extends Component {
       width: bs.width * 0.15,
       height: bs.width * 0.15,
       margin: '5%',
-      backgroundImage: 'url(' + file + ')',
+      backgroundImage: 'url(' + icon_file + ')',
       boxSizing: 'border-box',
       paddingTop: bs.width * 0.15,
       overflow: 'hidden'
@@ -125,7 +153,7 @@ class UI extends Component {
     actions.modal.showModalButton();
   }
 
-  textDisplay(text, scale, _fontSize){
+  textDisplay(text, scale, _fontSize, _color){
     const countStyle = {
       width: scale[0],
       height: scale[1],
@@ -133,7 +161,8 @@ class UI extends Component {
       fontSize: _fontSize,
       fontWeight: 'bold',
       textAlign: 'center',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      color: _color !== undefined? _color: 'black'
     }
     return <div style={countStyle}>{text}</div>
   }
@@ -172,6 +201,18 @@ class UI extends Component {
     });
 
     return <button style={buttonStyle} onClick={_onClick}>{func.multiLang(text[0],text[1])}</button>
+  }
+
+  listAddButton(scale, _onClick){
+    const app = this.props.app;
+    const ui = app.store.ui;
+    const bs = ui.basicStyle;
+    const buttonStyle = Object.assign({}, ui.containerStyle, ui.buttonStyle, {
+      width: scale[0],
+      height: scale[1],
+      backgroundColor: ui.ultraLightGrey
+    });
+    return <button onClick={_onClick} style={buttonStyle}>{this.icon(icon_add,[bs.height * 0.05, bs.height * 0.05])}</button>
   }
 
   addButton(_onClick){
@@ -227,6 +268,16 @@ class UI extends Component {
       margin: '2%'
     }
     return <input id={_id} type={_type} defaultValue={_value} style={inputStyle} />
+  }
+
+  textArea(_id, scale, size, value){
+    const textAreaStyle = {
+      width: scale[0],
+      height: scale[1],
+      fontSize: '100%',
+      margin: '2%'
+    }
+    return <textarea id={_id} style={textAreaStyle} row={size[0]} cols={size[1]} defaultValue={value}/>
   }
 
   inputField(_id, _type, _placeholder, _value){

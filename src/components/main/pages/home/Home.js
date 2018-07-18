@@ -14,6 +14,11 @@ import AddCourse from './views/home/courses/AddCourse';
 import JoinCourse from './views/home/courses/JoinCourse';
 import Course from './views/home/courses/Course';
 
+import AddProject from './views/home/projects/AddProject';
+import Project from './views/home/projects/Project';
+
+import AddCard from './views/home/cards/AddCard';
+
 import StudentHome from './views/home/StudentHome';
 
 class Home extends Component {
@@ -43,6 +48,12 @@ class Home extends Component {
         return <JoinCourse app={this.props.app}/>;
       case 'course':
         return <Course app={this.props.app}/>;
+      case 'addProject':
+        return <AddProject app={this.props.app}/>;
+      case 'project':
+        return <Project app={this.props.app}/>;
+      case 'addCard':
+        return <AddCard app={this.props.app}/>;
       default:
         return null;
     }

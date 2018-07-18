@@ -8,6 +8,7 @@ import userReducer from './data/user';
 import profileReducer from './data/profile';
 import coursesReducer from './data/courses';
 import studentsReducer from './data/students';
+import projectsReducer from './data/projects';
 
 const rootReducer = combineReducers({
   main: mainReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   profile: profileReducer,
   courses: coursesReducer,
-  students: studentsReducer
+  students: studentsReducer,
+  projects: projectsReducer
 });
 
 export default rootReducer;

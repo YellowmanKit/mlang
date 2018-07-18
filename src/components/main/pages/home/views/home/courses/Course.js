@@ -4,6 +4,7 @@ import UI from 'components/UI';
 import SubNav from 'components/main/items/SubNav';
 import CourseDetail from './subviews/CourseDetail';
 import CourseStudents from './subviews/CourseStudents';
+import CourseProjects from './subviews/CourseProjects';
 
 class Course extends UI {
 
@@ -11,7 +12,26 @@ class Course extends UI {
     const app = this.props.app;
     const actions = app.actions;
     this.getStudentProfiles();
-    actions.content.setSubView('courseStudents');
+    this.getCourseProjects();
+    actions.content.setSubView('courseProjects');
+  }
+
+  getCourseProjects(){
+    const app = this.props.app;
+    const func = app.functions;
+    const course = app.store.courses.viewingCourse;
+
+    const projectsToGet = [];
+    const projectsToShow = course.projects;
+
+    for(var i=0;i<projectsToShow.length;i++){
+      if(func.getProjectById(projectsToShow[i]) === null){
+        projectsToGet.splice(0,0, projectsToShow[i]);
+      }
+    }
+    if(projectsToGet.length > 0){
+      app.actions.projects.getProjects(projectsToGet);
+    }
   }
 
   getStudentProfiles(){
@@ -27,7 +47,9 @@ class Course extends UI {
         studentsToGet.splice(0,0, studentsToShow[i]);
       }
     }
-    app.actions.students.getStudentProfiles(studentsToGet);
+    if(studentsToGet.length > 0){
+      app.actions.students.getStudentProfiles(studentsToGet);
+    }
   }
 
   subView(){
@@ -37,6 +59,8 @@ class Course extends UI {
         return <CourseDetail app={this.props.app}/>
       case 'courseStudents':
         return <CourseStudents app={this.props.app}/>
+      case 'courseProjects':
+        return <CourseProjects app={this.props.app}/>
       default:
         return null;
     }

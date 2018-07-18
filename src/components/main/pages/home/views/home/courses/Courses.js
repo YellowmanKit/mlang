@@ -21,16 +21,10 @@ class Courses extends UI {
       alignItems: 'center',
       overflow: 'auto'
     });
-    const buttonArea = {
-      width: bs.width * 0.08,
-      height: bs.height * 0.1,
-      margin: '2%',
-      display: 'flex',
-      alignItems: 'center'
-    }
     return(
       <div style={areaStyle}>
-        <div style={buttonArea}>{this.addButton(onAdd)}</div>
+        {this.listAddButton([bs.width * 0.1, '100%'], onAdd)}
+        {this.verGap('2%')}
         {this.coursesCells()}
         {this.verGap('5%')}
       </div>
@@ -51,7 +45,7 @@ class Courses extends UI {
         <Cell key={i} app={this.props.app}
         type={'courseCell'}
         data={course}
-        onCellClick={()=>{ actions.courses.viewCourse(course); actions.content.pushView('course'); }}/>
+        onCellClick={()=>{ actions.courses.viewCourse(i, course); actions.content.pushView('course'); }}/>
       )
     });
   }
@@ -64,7 +58,7 @@ class Courses extends UI {
     const containerStyle = {
       width: '100%',
       height: bs.height * 0.28,
-      background: 'linear-gradient(to right, #ededed 0%, #dbdbdb 100%)'
+      background: ui.gradientBasic
     }
 
     return(
