@@ -43,6 +43,11 @@ class Main extends Component {
     type === 'teacher'? 'teacherHome':
     '';
     app.actions.content.pushView(initView);
+
+    const name = app.store.profile.name;
+    if(!name || name === ''){
+      app.actions.content.pushView('forceProfile');
+    }
     //app.actions.content.pushView('addCourse');
   }
 

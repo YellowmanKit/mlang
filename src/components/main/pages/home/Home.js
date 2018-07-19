@@ -34,6 +34,8 @@ class Home extends Component {
         return <Account app={this.props.app}/>;
       case 'profile':
         return <Profile app={this.props.app}/>;
+      case 'forceProfile':
+        return <Profile app={this.props.app}/>;
       /*case 'setting':
         return null;*/
       case 'credit':

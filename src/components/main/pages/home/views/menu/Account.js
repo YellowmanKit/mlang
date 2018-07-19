@@ -15,7 +15,8 @@ class Account extends UI {
 
         {this.subTitle(['User type','用戶類型'])}
         {this.sep()}
-        {this.optionBar('type', [student, teacher], user.type === 'student'? student: teacher)}
+        {this.gap('2%')}
+        {this.optionBar('type', ['25%','4%'], [student, teacher], user.type === 'student'? student: teacher)}
         {this.gap('2%')}
 
         {this.subTitle(['Identity','登入名稱'])}

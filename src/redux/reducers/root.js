@@ -10,6 +10,9 @@ import coursesReducer from './data/courses';
 import studentsReducer from './data/students';
 import projectsReducer from './data/projects';
 
+import cardsReducer from './data/cards';
+import langsReducer from './data/langs';
+
 const rootReducer = combineReducers({
   main: mainReducer,
   user: userReducer,
@@ -19,7 +22,10 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   courses: coursesReducer,
   students: studentsReducer,
-  projects: projectsReducer
+  projects: projectsReducer,
+
+  cards: cardsReducer,
+  langs: langsReducer
 });
 
 export default rootReducer;

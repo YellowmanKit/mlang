@@ -30,8 +30,9 @@ class AddProject extends UI {
 
         {this.subTitle(['Description','描述'])}
         {this.sep()}
-        {this.textArea('desc', ['67%', '15%'], ['5','50'], '')}
         {this.gap('2%')}
+        {this.textArea('desc', ['67%', '15%'], '100%', '')}
+        {this.gap('4%')}
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}

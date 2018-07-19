@@ -12,9 +12,22 @@ import * as coursesActions from './redux/actions/data/courses';
 import * as studentsActions from './redux/actions/data/students';
 import * as projectsActions from './redux/actions/data/projects';
 
+import * as cardsActions from './redux/actions/data/cards';
+import * as langsActions from './redux/actions/data/langs';
+
 import Main from './components/main/Main';
 
 class App extends Component {
+
+  langKeyToLangName(langKey){
+    const langKeys = this.props.store.langs.langKeys;
+    for(var i=0;i<langKeys.length;i++){
+      if(langKey === langKeys[i].key){
+        return this.multiLang(langKeys[i].name[0], langKeys[i].name[1]);
+      }
+    }
+    return '';
+  }
 
   getProjectById(projectId){
     const projectsData = this.props.store.projects.projects;
@@ -79,6 +92,7 @@ class App extends Component {
         getDateString: this.getDateString.bind(this),
         getStudentProfileByUserId: this.getStudentProfileByUserId.bind(this),
         getProjectById: this.getProjectById.bind(this),
+        langKeyToLangName: this.langKeyToLangName.bind(this)
       }
     }
     return (
@@ -113,10 +127,14 @@ function mapDispatchToProps(dispatch){
       ui: bindActionCreators(uiActions, dispatch),
       content: bindActionCreators(contentActions, dispatch),
       modal: bindActionCreators(modalActions, dispatch),
+
       profile: bindActionCreators(profileActions, dispatch),
       courses: bindActionCreators(coursesActions, dispatch),
       students: bindActionCreators(studentsActions, dispatch),
       projects: bindActionCreators(projectsActions, dispatch),
+
+      cards: bindActionCreators(cardsActions, dispatch),
+      langs: bindActionCreators(langsActions, dispatch),
     }
   }
 }

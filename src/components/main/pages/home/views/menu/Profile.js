@@ -1,11 +1,28 @@
 import React from 'react';
 import UI from 'components/UI';
 import redButton from 'resources/images/buttons/btn_red.png';
+import greenButton from 'resources/images/buttons/btn_green.png';
 
 class Profile extends UI {
 
   render() {
-    const profile = this.props.app.store.profile;
+    const app = this.props.app;
+    const profile = app.store.profile;
+    const view = app.store.content.view;
+    if(view === 'forceProfile'){
+      return(
+        <div style={this.viewStyle()}>
+          {this.gap('4%')}
+
+          {this.subTitle(['Please enter your name','請輸入你的名稱'])}
+          {this.sep()}
+          {this.inputField('name','text','', profile.name)}
+          {this.gap('2%')}
+
+          {this.eventButton(['Confirm','確定'], greenButton, ()=>{this.changing()})}
+        </div>
+      )
+    }
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}
@@ -36,22 +53,21 @@ class Profile extends UI {
   }
 
   changing(){
-    const user = this.props.app.store.user;
-    const profile = this.props.app.store.profile;
-    //const func = this.props.app.functions;
-    const actions = this.props.app.actions;
+    const app = this.props.app;
+    const profile = app.store.profile;
+    const view = app.store.content.view;
+    const user = app.store.user;
+    const actions = app.actions;
 
     const newName = document.getElementById('name').value;
-    const pw = document.getElementById('pw').value;
-
-    //actions.modal.message(func.multiLang({eng:'Changing...', chi:'變更中...'}));
 
     //console.log(newId)
-    if(newName.length < 6){
-      return this.failedMessage(['Failed to change! Name must be atlease 6 characters long!', '變更失敗! 登入名稱至少須由六個字元組成!'])
+    if(newName === ''){
+      return this.failedMessage(['Failed to change! Name is missing!', '變更失敗! 請輸入名稱!'])
     }
-    if(pw !== user.pw){
-      return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!'])
+
+    if(view !== 'forceProfile' && document.getElementById('pw').value !== user.pw){
+        return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!'])
     }
 
     actions.profile.changeProfile({

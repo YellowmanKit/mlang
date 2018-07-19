@@ -37,7 +37,7 @@ class SubmittedCards extends UI {
 
     return(
       <div style={this.subViewStyle()}>
-        {this.listAddButton([bs.width, bs.height * 0.1], onAdd)}
+        {this.listAddButton([bs.width, bs.height * 0.1], onAdd, ['CREATE CARD','製作卡片'], '200%')}
         {this.cards()}
       </div>
     )

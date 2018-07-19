@@ -20,11 +20,13 @@ class CourseProjects extends UI {
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const areaStyle = Object.assign({}, bs, ui.listStyle)
+    const areaStyle = Object.assign({}, bs, ui.listStyle);
+    const addBtnText = ['CREATE PROJECT','創建專題研習'];
+
     return(
       <div style={this.subViewStyle()}>
         <div style={areaStyle}>
-          {app.store.user.type === 'teacher' && this.listAddButton([bs.width, bs.height * 0.1], ()=>{app.actions.content.pushView('addProject')})}
+          {app.store.user.type === 'teacher' && this.listAddButton([bs.width, bs.height * 0.1], ()=>{app.actions.content.pushView('addProject')}, addBtnText, '200%')}
           {this.projectsList()}
         </div>
       </div>

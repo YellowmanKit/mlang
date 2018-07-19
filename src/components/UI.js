@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import no_image from 'resources/images/general/no_image.png';
 import tab_bar from 'resources/images/general/tab_bar.png';
 
-import btn_add from 'resources/images/buttons/btn_add.png';
-
 import icon_file from 'resources/images/buttons/buttonIcons/file.png';
-import icon_add from 'resources/images/buttons/buttonIcons/add.png';
 import icon_camera from 'resources/images/buttons/buttonIcons/camera.png';
 
 class UI extends Component {
@@ -79,9 +76,10 @@ class UI extends Component {
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
+    const size = bs.height * 0.1;
     const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: bs.width * 0.15,
-      height: bs.width * 0.15,
+      width: size,
+      height: size,
       margin: '5%',
       backgroundImage: 'url(' + icon_camera + ')'
     });
@@ -92,13 +90,14 @@ class UI extends Component {
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
+    const size = bs.height * 0.1;
     const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: bs.width * 0.15,
-      height: bs.width * 0.15,
+      width: size,
+      height: size,
       margin: '5%',
       backgroundImage: 'url(' + icon_camera + ')',
       boxSizing: 'border-box',
-      paddingTop: bs.width * 0.15,
+      paddingTop: size,
       overflow: 'hidden'
     });
     return <input type="file" accept="image/*" capture="camera" style={buttonStyle} alt='' onChange={event=>{app.actions.main.setPhoto({blob: event.target.files[0], url: URL.createObjectURL(event.target.files[0])})}}/>
@@ -108,13 +107,14 @@ class UI extends Component {
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
+    const size = bs.height * 0.1;
     const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: bs.width * 0.15,
-      height: bs.width * 0.15,
+      width: size,
+      height: size,
       margin: '5%',
       backgroundImage: 'url(' + icon_file + ')',
       boxSizing: 'border-box',
-      paddingTop: bs.width * 0.15,
+      paddingTop: size,
       overflow: 'hidden'
     });
     return <input type="file" accept="image/*" style={buttonStyle} alt='' onChange={event=>{app.actions.main.setPhoto({blob: event.target.files[0], url: URL.createObjectURL(event.target.files[0])})}}/>
@@ -167,11 +167,10 @@ class UI extends Component {
     return <div style={countStyle}>{text}</div>
   }
 
-  optionBar(_id, options, selectedId){
+  optionBar(_id, _scale, options, _default){
     const barStyle = {
-      width: '25%',
-      height: '6%',
-      margin: '2%',
+      width: _scale[0],
+      height: _scale[1],
       fontSize: '100%',
       display: 'flex',
       flexFlow: 'row nowrap',
@@ -180,7 +179,7 @@ class UI extends Component {
     }
 
     return(
-      <select id={_id} style={barStyle} defaultValue={selectedId}>
+      <select id={_id} style={barStyle} defaultValue={_default}>
         {options.map((option, i)=>{
           return <option key={i}>{option}</option>
         })}
@@ -203,30 +202,28 @@ class UI extends Component {
     return <button style={buttonStyle} onClick={_onClick}>{func.multiLang(text[0],text[1])}</button>
   }
 
-  listAddButton(scale, _onClick){
+  listAddButton(scale, _onClick, text, fontSize){
     const app = this.props.app;
+    const func = app.functions;
     const ui = app.store.ui;
-    const bs = ui.basicStyle;
+    //const bs = ui.basicStyle;
     const buttonStyle = Object.assign({}, ui.containerStyle, ui.buttonStyle, {
       width: scale[0],
       height: scale[1],
-      backgroundColor: ui.ultraLightGrey
+      backgroundColor: ui.darkGrey,
+      flexShrink: 0
     });
-    return <button onClick={_onClick} style={buttonStyle}>{this.icon(icon_add,[bs.height * 0.05, bs.height * 0.05])}</button>
+    return <button onClick={_onClick} style={buttonStyle}>{this.textDisplay(func.multiLang(text[0],text[1]),['100%','100%'], fontSize, 'white')}</button>
   }
 
-  addButton(_onClick){
+  barButton(icon, scale, onClick){
     const app = this.props.app;
     const ui = app.store.ui;
-    const bs = ui.basicStyle;
     const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: bs.width * 0.075,
-      height: bs.width * 0.075,
-      opacity: 0.75,
-      fontWeight: 'bold',
-      color: 'white',
+      width: scale[0],
+      height: scale[1]
     });
-    return this.button(buttonStyle, ['', ''], btn_add, _onClick)
+    return this.button(buttonStyle, ['', ''], icon, onClick)
   }
 
   eventButton(text, imageUrl, _onClick){
@@ -270,14 +267,13 @@ class UI extends Component {
     return <input id={_id} type={_type} defaultValue={_value} style={inputStyle} />
   }
 
-  textArea(_id, scale, size, value){
+  textArea(_id, scale, _fontSize, value){
     const textAreaStyle = {
       width: scale[0],
       height: scale[1],
-      fontSize: '100%',
-      margin: '2%'
+      fontSize: _fontSize
     }
-    return <textarea id={_id} style={textAreaStyle} row={size[0]} cols={size[1]} defaultValue={value}/>
+    return <textarea id={_id} style={textAreaStyle} defaultValue={value}/>
   }
 
   inputField(_id, _type, _placeholder, _value){

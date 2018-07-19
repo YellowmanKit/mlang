@@ -45,6 +45,11 @@ class NavBar extends Component {
         case 'profile':
           title = ['PROFILE','個人檔案'];
           break;
+        case 'forceProfile':
+          title = ['WELCOME!','歡迎!'];
+          leftOnClick = this.none;
+          leftIcon = null;
+          break;
         case 'setting':
           title = ['SETTING','設定'];
           break;
@@ -67,7 +72,7 @@ class NavBar extends Component {
           title = ['PROJECT', '專題研習'];
           break;
         case 'addCard':
-          title = ['ADD CARD', '提交卡片'];
+          title = ['ADD CARD', '製作卡片'];
           break;
         default:
           title = ['','']
