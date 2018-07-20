@@ -32,46 +32,6 @@ class UI extends Component {
     return <div style={iconStyle}/>
   }
 
-  image(url){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const containerSize = bs.height * 0.23;
-    const containerStyle = Object.assign({} ,ui.borderStyle ,ui.containerStyle,{
-      width: containerSize,
-      height: containerSize,
-      backgroundColor: 'white'
-    });
-    const imgBg = url === null? no_image: null;
-    const size = bs.height * 0.22;
-    const backgroundStyle = Object.assign({}, ui.containerStyle,{
-      width: size,
-      height: size,
-      backgroundImage: 'url(' + imgBg + ')'
-    });
-    const imageStyle = Object.assign({}, {
-      maxHeight: size,
-      maxWidth: size,
-      backgroundColor: 'white'
-    });
-    const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: containerSize,
-      height: containerSize,
-      position: 'absolute',
-      opacity: 0
-    });
-
-    return(
-      <div style={containerStyle}>
-        <div style={backgroundStyle}>
-          <img style={imageStyle} src={url} alt=''/>
-          <button style={buttonStyle}/>
-        </div>
-      </div>
-    )
-  }
-
   takePictureButton(){
     const app = this.props.app;
     const ui = app.store.ui;
@@ -149,7 +109,7 @@ class UI extends Component {
 
   failedMessage(message){
     const actions = this.props.app.actions;
-    actions.modal.message({eng: message[0], chi: message[1]});
+    actions.modal.message([message[0], message[1]]);
     actions.modal.showModalButton();
   }
 
@@ -167,7 +127,7 @@ class UI extends Component {
     return <div style={countStyle}>{text}</div>
   }
 
-  optionBar(_id, _scale, options, _default){
+  optionBar(_id, _scale, options, _default, _onChange){
     const barStyle = {
       width: _scale[0],
       height: _scale[1],
@@ -179,7 +139,7 @@ class UI extends Component {
     }
 
     return(
-      <select id={_id} style={barStyle} defaultValue={_default}>
+      <select id={_id} style={barStyle} defaultValue={_default} onChange={_onChange?(event)=>{_onChange(event)}:null}>
         {options.map((option, i)=>{
           return <option key={i}>{option}</option>
         })}
@@ -202,7 +162,7 @@ class UI extends Component {
     return <button style={buttonStyle} onClick={_onClick}>{func.multiLang(text[0],text[1])}</button>
   }
 
-  listAddButton(scale, _onClick, text, fontSize){
+  listAddButton(scale, onClick, text, fontSize){
     const app = this.props.app;
     const func = app.functions;
     const ui = app.store.ui;
@@ -213,23 +173,24 @@ class UI extends Component {
       backgroundColor: ui.darkGrey,
       flexShrink: 0
     });
-    return <button onClick={_onClick} style={buttonStyle}>{this.textDisplay(func.multiLang(text[0],text[1]),['100%','100%'], fontSize, 'white')}</button>
+    return <button onClick={onClick} style={buttonStyle}>{this.textDisplay(func.multiLang(text[0],text[1]),['100%','100%'], fontSize, 'white')}</button>
   }
 
-  barButton(icon, scale, onClick){
+  barButton(icon, opacity, scale, onClick){
     const app = this.props.app;
     const ui = app.store.ui;
     const buttonStyle = Object.assign({}, ui.buttonStyle, {
       width: scale[0],
-      height: scale[1]
+      height: scale[1],
+      opacity: opacity
     });
     return this.button(buttonStyle, ['', ''], icon, onClick)
   }
 
-  eventButton(text, imageUrl, _onClick){
+  eventButton(text, imageUrl, onClick){
     const app = this.props.app;
     const ui = app.store.ui;
-    return this.button(ui.eventBtnStyle, text, imageUrl, _onClick)
+    return this.button(ui.eventBtnStyle, text, imageUrl, onClick)
   }
 
   button(customStyle, text, imageUrl, _onClick){
@@ -267,13 +228,13 @@ class UI extends Component {
     return <input id={_id} type={_type} defaultValue={_value} style={inputStyle} />
   }
 
-  textArea(_id, scale, _fontSize, value){
+  textArea(_id, scale, _fontSize, value, _onChange){
     const textAreaStyle = {
       width: scale[0],
       height: scale[1],
       fontSize: _fontSize
     }
-    return <textarea id={_id} style={textAreaStyle} defaultValue={value}/>
+    return <textarea id={_id} style={textAreaStyle} defaultValue={value} onChange={_onChange?_onChange:null}/>
   }
 
   inputField(_id, _type, _placeholder, _value){

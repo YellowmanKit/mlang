@@ -1,7 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
 
-import ProfileRow from 'components/main/items/ProfileRow';
+import ProfileRow from 'components/main/items/rows/ProfileRow';
 
 class CourseStudents extends UI {
 

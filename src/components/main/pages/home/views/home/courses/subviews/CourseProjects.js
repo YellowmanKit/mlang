@@ -1,7 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
 
-import ProjectRow from 'components/main/items/ProjectRow';
+import ProjectRow from 'components/main/items/rows/ProjectRow';
 
 class CourseProjects extends UI {
 

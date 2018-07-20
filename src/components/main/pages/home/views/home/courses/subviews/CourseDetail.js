@@ -1,5 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
+import Image from 'components/main/items/ui/Image';
 
 class CourseDetail extends UI {
 
@@ -7,6 +8,7 @@ class CourseDetail extends UI {
     const app = this.props.app;
     const func = app.functions;
     const course = app.store.courses.viewingCourse;
+    const bs = app.store.ui.basicStyle;
 
     return(
       <div style={this.subViewStyle()}>
@@ -15,7 +17,7 @@ class CourseDetail extends UI {
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        {this.image(func.url(course.icon, 'courseIcon'))}
+        <Image app={this.props.app} url={func.url(course.icon, 'courseIcon')} size={bs.height * 0.22}/>
         {this.gap('2%')}
         {this.sep()}
         {this.gap('2%')}

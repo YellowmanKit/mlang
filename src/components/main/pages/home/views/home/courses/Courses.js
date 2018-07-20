@@ -16,7 +16,7 @@ class Courses extends UI {
     [];
 
     const addBtnText =
-    store.user.type === 'teacher'? ['CREATE','創建']:
+    store.user.type === 'teacher'? ['ADD','創建']:
     store.user.type === 'student'?  ['JOIN','加入']:
     '';
 
@@ -28,7 +28,7 @@ class Courses extends UI {
     });
     return(
       <div style={areaStyle}>
-        {this.listAddButton([bs.width * 0.125, '100%'], onAdd, addBtnText, '90%')}
+        {this.listAddButton([bs.width * 0.125, '100%'], onAdd, addBtnText, '110%')}
         {this.verGap('2%')}
         {this.coursesCells()}
         {this.verGap('5%')}

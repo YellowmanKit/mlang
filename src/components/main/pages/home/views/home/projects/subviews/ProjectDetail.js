@@ -1,5 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
+import Image from 'components/main/items/ui/Image';
 
 class ProjectDetail extends UI {
 
@@ -7,6 +8,7 @@ class ProjectDetail extends UI {
     const app = this.props.app;
     const func = app.functions;
     const project = app.store.projects.viewingProject;
+    const bs = app.store.ui.basicStyle;
 
     return(
       <div style={this.subViewStyle()}>
@@ -15,7 +17,7 @@ class ProjectDetail extends UI {
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        {this.image(func.url(project.icon, 'projectIcon'))}
+        <Image app={this.props.app} url={func.url(project.icon, 'projectIcon')} size={bs.height * 0.22}/>
         {this.gap('2%')}
         {this.sep()}
         {this.gap('2%')}

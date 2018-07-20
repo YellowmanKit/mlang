@@ -1,3 +1,10 @@
+export const errorMessage = (message) =>{
+  return {
+    type: 'errorMessage',
+    payload: message
+  }
+}
+
 export const message = (message) =>{
   return {
     type: 'message',

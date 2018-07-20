@@ -30,6 +30,8 @@ class NavBar extends Component {
 
     leftOnClick = action.pullView;
     rightOnClick = this.none;
+    //rightOnClick = ()=>{this.props.app.actions.modal.errorMessage(['testing', 'testing']);}
+
     leftIcon = back_arrow;
 
     if(view === 'studentHome' ||  view === 'teacherHome'){

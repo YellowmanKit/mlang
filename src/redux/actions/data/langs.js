@@ -1,4 +1,18 @@
 
+export const setLangAudio = (audio) =>{
+  return {
+    type: 'setLangAudio',
+    payload: audio
+  }
+}
+
+export const setEditLang = (editLang) =>{
+  return {
+    type: 'setEditLang',
+    payload: editLang
+  }
+}
+
 export const setEditLangs = (editLangs) =>{
   return {
     type: 'setEditLangs',
@@ -6,14 +20,12 @@ export const setEditLangs = (editLangs) =>{
   }
 }
 
-
 export const removeEditLangsItem = (index) =>{
   return {
     type: 'removeEditLangsItem',
     payload: index
   }
 }
-
 
 export const pushEditLangs = (lang) =>{
   return {

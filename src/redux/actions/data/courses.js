@@ -20,10 +20,10 @@ export function joinCourse(_data){
       dispatch({type: "showModalButton"});
       const data = res.data;
       if(data.result === 'failed'){
-        dispatch({type: "message", payload: {eng: 'Join course failed! Please make sure to enter a correct code!', chi: '加入失敗! 請確定代碼輸入正確!'}});
+        dispatch({type: "message", payload: ['Join course failed! Please make sure to enter a correct code!',  '加入失敗! 請確定代碼輸入正確!']});
         return;
       }
-      dispatch({type: "message", payload: {eng: 'Join course succeed!', chi: '成功加入班別!'}});
+      dispatch({type: "message", payload: ['Join course succeed!', '成功加入班別!']});
       const courseJoined = data.joinedCourse;
       dispatch({type: "appendJoinedCourses", payload: courseJoined});
       const updatedProfile = data.updatedProfile;
@@ -61,12 +61,12 @@ export function addCourse(newCourse){
         const result = res.data.result
         console.log(res.data);
         if(result === 'success'){
-          dispatch({type: "message", payload: {eng: 'Add course succeed!', chi: '成功創建班別!'}});
+          dispatch({type: "message", payload: ['Add course succeed!', '成功創建班別!']});
           dispatch({type: "appendTeachingCourses", payload: res.data.newCourse});
           dispatch({type: "backToHome"});
           //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
         }else{
-          dispatch({type: "message", payload: {eng: 'Add course failed! Please try again!', chi: '創建失敗! 請再試一次!'}});
+          dispatch({type: "message", payload: ['Add course failed! Please try again!', '創建失敗! 請再試一次!']});
         }
       }).catch(err=>{
         actions.connectionError(dispatch);

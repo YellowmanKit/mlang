@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-//import background2 from 'resources/images/general/background2.png';
-
 import Login from './Login';
 import Home from './home/Home';
 import Capture from './Capture';
@@ -34,7 +32,6 @@ class Pages extends Component {
       </div>
     )
   }
-
 }
 
 export default Pages;

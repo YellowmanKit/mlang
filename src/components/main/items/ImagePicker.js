@@ -2,6 +2,8 @@ import React from 'react';
 import UI from 'components/UI';
 import MediaQuery from 'react-responsive';
 
+import Image from 'components/main/items/ui/Image';
+
 class ImagePicker extends UI {
 
   render() {
@@ -27,7 +29,7 @@ class ImagePicker extends UI {
     return(
       <div style={pickerStyle}>
         <div style={toolBarStyle}/>
-        {this.image(app.store.main.photoUrl)}
+        <Image app={this.props.app} url={app.store.main.photoUrl} size={bs.height * 0.22}/>
         {this.verGap('2%')}
         {this.verSep('white', '90%')}
         <div style={toolBarStyle}>

@@ -74,8 +74,11 @@ const langsReducer = (
   switch (action.type) {
     case 'setLangAudio':
       const i = action.payload.index;
-      newEditLangs[i] = {...newEditLangs[i], audio: action.payload.audio}
+      newEditLangs[i] = {...newEditLangs[i], audioBlob: action.payload.blob, audioUrl: action.payload.url}
       return {...state, editLangs: newEditLangs}
+    case 'setEditLang':
+      newEditLangs[action.payload.index] = action.payload.editLang;
+      return {...state, editLangs: newEditLangs};
     case 'setEditLangs':
       return {...state, editLangs: action.payload};
     case 'removeEditLangsItem':

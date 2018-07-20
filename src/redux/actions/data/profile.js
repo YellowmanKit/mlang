@@ -12,11 +12,11 @@ export function changeProfile(newProfile){
     }).then(res=>{
       dispatch({type: "showModalButton"});
       if(res.data.result === 'success'){
-        dispatch({type: "message", payload: {eng: 'Update succeed!', chi: '更改成功!'}});
+        dispatch({type: "message", payload: ['Update succeed!', '更改成功!']});
         dispatch({type: "setProfile", payload: res.data.updatedProfile});
         dispatch({type: "backToHome"});
       }else{
-        dispatch({type: "message", payload: {eng: 'Update failed! Please try again!', chi: '更改失敗! 請再試一次!'}});
+        dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!']});
       }
     }).catch(err=>{
       actions.connectionError(dispatch);

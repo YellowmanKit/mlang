@@ -19,7 +19,7 @@ export function getProjects(projects){
         dispatch({type: "appendProjects", payload: res.data.projects});
       }else{
         dispatch({type: "showModalButton"});
-        dispatch({type: "message", payload: {eng: 'Failed to get projects data!', chi: '無法查閱專題研習資料!'}});
+        dispatch({type: "message", payload: ['Failed to get projects data!', '無法查閱專題研習資料!']});
       }
     }).catch(err=>{
       actions.connectionError(dispatch);
@@ -49,15 +49,15 @@ export function addProject(newProject){
       }).then(res=>{
         dispatch({type: "showModalButton"});
         const result = res.data.result
-        console.log(res.data);
+        //console.log(res.data);
         if(result === 'success'){
-          dispatch({type: "message", payload: {eng: 'Add project succeed!', chi: '成功創建專題研習!'}});
+          dispatch({type: "message", payload: ['Add project succeed!', '成功創建專題研習!']});
           dispatch({type: "appendProjects", payload: [res.data.newProject]});
           dispatch({type: "updateTeachingCourse", payload: res.data.updatedCourse});
           dispatch({type: "pullView"});
           //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
         }else{
-          dispatch({type: "message", payload: {eng: 'Add project failed! Please try again!', chi: '創建失敗! 請再試一次!'}});
+          dispatch({type: "message", payload: ['Add project failed! Please try again!', '創建失敗! 請再試一次!']});
         }
       }).catch(err=>{
         actions.connectionError(dispatch);

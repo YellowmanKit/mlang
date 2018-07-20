@@ -13,7 +13,7 @@ export function getStudentProfiles(students){
         dispatch({type: "appendStudents", payload: res.data.profiles});
       }else{
         dispatch({type: "showModalButton"});
-        dispatch({type: "message", payload: {eng: 'Failed to get students data!', chi: '無法查閱學生資料!'}});
+        dispatch({type: "message", payload: ['Failed to get students data!', '無法查閱學生資料!']});
       }
     }).catch(err=>{
       actions.connectionError(dispatch);

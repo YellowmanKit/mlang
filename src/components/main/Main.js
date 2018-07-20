@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import Pages from './pages/Pages';
 import Modal from './Modal';
+import Recording from './Recording';
+import Enlarger from './Enlarger';
+
 
 import background from 'resources/images/general/background.png';
 
@@ -21,8 +24,8 @@ class Main extends Component {
     //console.log(previous);
     //console.log(next);
     if(previous === 'waitForLogin' && next === 'ready'){
-      const newStore = newProps.app.store;
-      localStorage.setItem('loginInfo', JSON.stringify({id: newStore.user.id, pw: newStore.user.pw}));
+      const newUser = newProps.app.store.user;
+      this.rememberLoginInfo(newUser.id, newUser.pw);
       //console.log(JSON.parse(localStorage.getItem('loginInfo')).id);
       this.initView(this.props.app.store.user.type);
     }
@@ -33,6 +36,11 @@ class Main extends Component {
       app.actions.content.clearView();
       this.initView(newType);
     }
+
+  }
+
+  rememberLoginInfo(id, pw){
+    localStorage.setItem('loginInfo', JSON.stringify({id: id, pw: pw}));
   }
 
   initView(type){
@@ -65,8 +73,10 @@ class Main extends Component {
     }
     return (
       <div style={mainStyle}>
-        <Modal app={this.props.app}/>
         <Pages app={this.props.app}/>
+        <Enlarger app={this.props.app}/>
+        <Recording app={this.props.app}/>
+        <Modal app={this.props.app}/>
       </div>
     )
   }

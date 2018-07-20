@@ -12,10 +12,10 @@ export function changeUserInfo(newUser){
     }).then(res=>{
       dispatch({type: "showModalButton"});
       if(res.data.result === 'success'){
-        dispatch({type: "message", payload: {eng: 'Update succeed!', chi: '更改成功!'}});
+        dispatch({type: "message", payload: ['Update succeed!', '更改成功!']});
         dispatch({type: "setUser", payload: res.data.updatedUser});
       }else{
-        dispatch({type: "message", payload: {eng: 'Update failed! Please try again!', chi: '更改失敗! 請再試一次!'}});
+        dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!']});
       }
     }).catch(err=>{
       actions.connectionError(dispatch);
@@ -26,15 +26,15 @@ export function changeUserInfo(newUser){
 export function resetPassword (_email) {
   //console.log('login: ' + _id + ' ' + _pw);
   return function (dispatch) {
-    dispatch({type: "message", payload: {eng: 'Reseting password...', chi: '密碼重置中...'}});
+    dispatch({type: "message", payload: ['Reseting password...', '密碼重置中...']});
 
     axios.get(api + '/user/resetPassword',{ headers: { email: _email }})
     .then(res=>{
       dispatch({type: "showModalButton"});
       if(res.data.result === 'success'){
-        dispatch({type: "message", payload: {eng: 'Reset password succeed! Please check email for new password!', chi: '密碼重置成功! 請查看電子郵件!'}});
+        dispatch({type: "message", payload: ['Reset password succeed! Please check email for new password!', '密碼重置成功! 請查看電子郵件!']});
       }else{
-        dispatch({type: "message", payload: {eng: 'Failed to reset password! Please make sure to enter a correct email address!', chi: '密碼重置失敗! 請確定電郵地址正確!'}});
+        dispatch({type: "message", payload: ['Failed to reset password! Please make sure to enter a correct email address!', '密碼重置失敗! 請確定電郵地址正確!']});
       }
 
     }).catch(err=>{
@@ -46,15 +46,15 @@ export function resetPassword (_email) {
 export function getNewAccount (_email) {
   //console.log('login: ' + _id + ' ' + _pw);
   return function (dispatch) {
-    dispatch({type: "message", payload: {eng: 'Acquiring for new account...', chi: '申請進行中...'}});
+    dispatch({type: "message", payload: ['Acquiring for new account...', '申請進行中...']});
 
     axios.get(api + '/user/getNewAccount',{ headers: { email: _email }})
     .then(res=>{
       dispatch({type: "showModalButton"});
       if(res.data.result === 'success'){
-        dispatch({type: "message", payload: {eng: 'Acquire succeed! Please check your email for login infomation!', chi: '申請成功! 請查看電子郵件!'}});
+        dispatch({type: "message", payload: ['Acquire succeed! Please check your email for login infomation!', '申請成功! 請查看電子郵件!']});
       }else{
-        dispatch({type: "message", payload: {eng: 'Failed to acquire new account! The email address is either invalid or already used!', chi: '申請失敗! 電郵地址不正確或已被使用!'}});
+        dispatch({type: "message", payload: ['Failed to acquire new account! The email address is either invalid or already used!', '申請失敗! 電郵地址不正確或已被使用!']});
       }
     }).catch(err=>{
       actions.connectionError(dispatch);
@@ -63,10 +63,10 @@ export function getNewAccount (_email) {
 }
 
 export function login (_id, _pw) {
-  //console.log('login: ' + _id + ' ' + _pw);
+  //console.log(api);
 
   return function (dispatch) {
-    dispatch({type: "message", payload: {eng: 'Logging in...', chi: '登入中...'}});
+    dispatch({type: "message", payload: ['Logging in...', '登入中...']});
     axios.get(api + '/user/login',{ headers: { id: _id, pw: _pw }})
     .then(res=>{
       if(res.data.result === 'success'){
@@ -77,7 +77,7 @@ export function login (_id, _pw) {
         dispatch({type: "setStatus", payload: "ready"});
         dispatch({type: "hideModal"});
       }else{
-        dispatch({type: "message", payload: {eng: 'Login failed! Invalid id or password!', chi: '登入失敗! 名稱或密碼不正確!'}});
+        dispatch({type: "message", payload: ['Login failed! Invalid id or password!', '登入失敗! 名稱或密碼不正確!']});
         dispatch({type: "showModalButton"});
       }
     }).catch(err=>{

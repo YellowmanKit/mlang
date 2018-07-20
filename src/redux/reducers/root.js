@@ -1,31 +1,31 @@
 import { combineReducers } from "redux";
-import mainReducer from './control/main';
-import contentReducer from './control/content';
-import uiReducer from './control/ui';
-import modalReducer from './control/modal';
+import main from './control/main';
+import content from './control/content';
+import ui from './control/ui';
+import modal from './control/modal';
 
-import userReducer from './data/user';
-import profileReducer from './data/profile';
-import coursesReducer from './data/courses';
-import studentsReducer from './data/students';
-import projectsReducer from './data/projects';
+import user from './data/user';
+import profile from './data/profile';
+import courses from './data/courses';
+import students from './data/students';
+import projects from './data/projects';
 
-import cardsReducer from './data/cards';
-import langsReducer from './data/langs';
+import cards from './data/cards';
+import langs from './data/langs';
 
 const rootReducer = combineReducers({
-  main: mainReducer,
-  user: userReducer,
-  content: contentReducer,
-  ui: uiReducer,
-  modal: modalReducer,
-  profile: profileReducer,
-  courses: coursesReducer,
-  students: studentsReducer,
-  projects: projectsReducer,
+  main: main,
+  user: user,
+  content: content,
+  ui: ui,
+  modal: modal,
+  profile: profile,
+  courses: courses,
+  students: students,
+  projects: projects,
 
-  cards: cardsReducer,
-  langs: langsReducer
+  cards: cards,
+  langs: langs
 });
 
 export default rootReducer;

@@ -26,15 +26,11 @@ class Modal extends Component {
     const app = this.props.app;
     const modal = app.store.modal;
     const lang = app.store.main.language;
-    const text =
-    lang === 'english'? modal.messageEng:
-    lang === 'chinese'? modal.messageChi:
-    '';
+    const text = modal[lang];
 
     const messageStyle = {
       width: '85%',
       height: '55%',
-      backgroundColor: 'transparent',
       color: 'white',
       fontSize: '100%',
       fontWeight: 'bold',
@@ -92,11 +88,12 @@ class Modal extends Component {
     }
 
     const ui = app.store.ui;
+    const bs = ui.basicStyle;
     const modalStyle = {
       position: 'absolute',
-      width: ui.basicStyle.width,
-      height: ui.basicStyle.height,
-      minHeight: ui.basicStyle.minHeight,
+      width: bs.width,
+      height: bs.height,
+      minHeight: bs.minHeight,
       backgroundColor: 'transparent',
       opacity: 1,
       display: 'flex',

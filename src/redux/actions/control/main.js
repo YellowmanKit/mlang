@@ -1,3 +1,30 @@
+export const enlargeText = (text) =>{
+  return {
+    type: 'enlargeText',
+    payload: text
+  }
+}
+
+export const enlargeImage = (image) =>{
+  return {
+    type: 'enlargeImage',
+    payload: image
+  }
+}
+
+export const closeEnlarger = () =>{
+  return {
+    type: 'closeEnlarger'
+  }
+}
+
+export const setAudioRecorder = (record) =>{
+  return {
+    type: 'setAudioRecorder',
+    payload: record
+  }
+}
+
 
 export const setPhoto = (photo) =>{
   return {

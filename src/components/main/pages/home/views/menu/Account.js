@@ -64,8 +64,6 @@ class Account extends UI {
     const confirmPw = document.getElementById('confirmPw').value;
     const pw = document.getElementById('pw').value;
 
-    //actions.modal.message(func.multiLang({eng:'Changing...', chi:'變更中...'}));
-
     //console.log(newId)
     if(newId.length < 6){
       return this.failedMessage(['Failed to change! Identity must be atlease 6 characters long!', '變更失敗! 登入名稱至少須由六個字元組成!'])
