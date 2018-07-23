@@ -1,9 +1,7 @@
 import React from 'react';
-import UI from 'components/UI';
+import View from 'components/main/pages/home/views/View';
 
-import btn_green from 'resources/images/buttons/btn_green.png';
-
-class JoinCourse extends UI {
+class JoinCourse extends View {
 
   render() {
     return(
@@ -12,10 +10,10 @@ class JoinCourse extends UI {
 
         {this.subTitle(['Course Code','班別代碼'])}
         {this.sep()}
-        {this.inputField('code','text', '', '')}
+        {this.inputs.inputField('code','text', '', '')}
         {this.gap('2%')}
 
-        {this.eventButton(['Confirm','確定'], btn_green, ()=>{this.joinCourse()})}
+        {this.buttons.rectGreen(['Confirm','確定'], ()=>{this.joinCourse()})}
       </div>
     )
   }

@@ -13,62 +13,48 @@ const uiReducer = (
       flexFlow: 'column nowrap',
       alignItems: 'center'
     },
-    viewStyle: {
-      justifyContent: 'flex-start',
-      backgroundColor: 'white'
+    styles: {
+      view: {
+        justifyContent: 'flex-start',
+        backgroundColor: 'white'
+      },
+      container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundSize: '100% 100%'
+      },
+      area: {
+        width: '100%',
+        display: 'flex',
+        flexFlow: 'row warp'
+      },
+      button: {
+        backgroundColor: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        backgroundSize: '100% 100%'
+      },
+      border: {
+        borderStyle: 'solid',
+        borderWidth: '1px',
+        borderColor: 'grey'
+      },
+      list: {
+        width: '100%',
+        height: '100%',
+        overflow: 'auto'
+      }
     },
-    containerStyle: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundSize: '100% 100%'
-    },
-    areaStyle: {
-      width: '100%',
-      display: 'flex',
-      flexFlow: 'row warp'
-    },
-    buttonStyle: {
-      backgroundColor: 'transparent',
-      border: 'none',
-      cursor: 'pointer',
-      backgroundSize: '100% 100%'
-    },
-    eventBtnStyle: {
-      width: '67%',
-      height: '5%',
-      fontWeight: 'bold',
-      color: 'white',
-      fontSize: '100%',
-      marginTop: '5%'
-    },
-    absoluteBtnStyle: {
-      position: 'absolute',
-      bottom: '10%',
-      backgroundColor: 'rgba(100, 100, 100, 0.5)',
-      color: 'white',
-      fontSize: '100%',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      borderRadius: '5px'
-    },
-    borderStyle: {
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderColor: 'grey'
-    },
-    listStyle: {
-      width: '100%',
-      height: '100%',
-      overflow: 'auto'
-    },
-    mlangGreen: '#91c33b',
-    ultraLightGrey: '#f3f3f3',
-    lightGrey: '#ededed',
-    darkGrey: '#dbdbdb',
-    deepDarkGrey: '#777777',
-    selectedGrey: '#444444',
-    gradientBasic: 'linear-gradient(to right, white 0%, #ededed 100%)'
+    colors: {
+      mlangGreen: '#91c33b',
+      ultraLightGrey: '#f3f3f3',
+      lightGrey: '#ededed',
+      darkGrey: '#dbdbdb',
+      deepDarkGrey: '#777777',
+      selectedGrey: '#444444',
+      gradientBasic: 'linear-gradient(to right, white 0%, #ededed 100%)'
+    }
   }, action)=>{
   switch (action.type) {
     case 'setDimension':

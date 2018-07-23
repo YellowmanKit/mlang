@@ -1,12 +1,12 @@
 import React from 'react';
-import UI from 'components/UI';
+import View from 'components/main/pages/home/views/View';
 
 import SubNav from 'components/main/items/SubNav';
 import CourseDetail from './subviews/CourseDetail';
 import CourseStudents from './subviews/CourseStudents';
 import CourseProjects from './subviews/CourseProjects';
 
-class Course extends UI {
+class Course extends View {
 
   componentDidMount(){
     const app = this.props.app;
@@ -53,14 +53,15 @@ class Course extends UI {
   }
 
   subView(){
+    const app = this.props.app;
     const subView = this.props.app.store.content.subView;
     switch (subView) {
       case 'courseDetail':
-        return <CourseDetail app={this.props.app}/>
+        return <CourseDetail app={app}/>
       case 'courseStudents':
-        return <CourseStudents app={this.props.app}/>
+        return <CourseStudents app={app}/>
       case 'courseProjects':
-        return <CourseProjects app={this.props.app}/>
+        return <CourseProjects app={app}/>
       default:
         return null;
     }

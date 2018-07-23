@@ -7,17 +7,18 @@ import Capture from './Capture';
 class Pages extends Component {
 
   page(){
+    const app = this.props.app;
     switch (this.props.app.store.main.status) {
       case 'waitForLogin':
-        return <Login app={this.props.app}/>
+        return <Login app={app}/>
       case 'getNewAccount':
-        return <Login app={this.props.app}/>
+        return <Login app={app}/>
       case 'forgotPassword':
-        return <Login app={this.props.app}/>
+        return <Login app={app}/>
       case 'ready':
-        return <Home app={this.props.app}/>
+        return <Home app={app}/>
       case 'capture':
-        return <Capture app={this.props.app}/>
+        return <Capture app={app}/>
       default:
         return <div/>
     }

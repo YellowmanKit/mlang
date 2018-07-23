@@ -7,15 +7,15 @@ class SubNav extends UI {
     const app = this.props.app;
     const ui = app.store.ui;
     const func = app.functions;
-    const areaStyle = Object.assign({}, ui.areaStyle, {
+    const areaStyle = {...ui.styles.area, ...{
       height: '100%',
       alignItems: 'center',
       flexGrow: 1
-    })
-    const optionStyle = Object.assign({}, ui.buttonStyle, {
+    }}
+    const optionStyle = {...ui.styles.button, ...{
       width: '100%',
       height: '100%'
-    })
+    }}
     const tagStyle = {
       width: '100%',
       fontSize: '150%',
@@ -27,9 +27,9 @@ class SubNav extends UI {
       return(
         <div key={i} style={areaStyle}>
           <button style={optionStyle} onClick={()=>{app.actions.content.setSubView(option.subView)}}>
-            <div style={Object.assign({},tagStyle,{color: option.subView === app.store.content.subView? ui.selectedGrey: ui.lightGrey})}>{func.multiLang(option.tag[0],option.tag[1])}</div>
+            <div style={Object.assign({},tagStyle,{color: option.subView === app.store.content.subView? ui.colors.selectedGrey: ui.colors.lightGrey})}>{func.multiLang(option.tag[0],option.tag[1])}</div>
           </button>
-          {i < length && this.verSep(ui.darkGrey, '70%')}
+          {i < length && this.verSep(ui.colors.darkGrey, '70%')}
         </div>
       )
     })
@@ -39,11 +39,11 @@ class SubNav extends UI {
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const subNavStyle = Object.assign({}, ui.areaStyle,{
+    const style = {...ui.styles.area, ...{
       height: bs.height * 0.05
-    });
+    }};
     return (
-      <div style={subNavStyle}>
+      <div style={style}>
         {this.subNavOptions()}
       </div>
     )

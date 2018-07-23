@@ -1,8 +1,7 @@
 import React from 'react';
-import UI from 'components/UI';
-import btn_red from 'resources/images/buttons/btn_red.png';
+import View from 'components/main/pages/home/views/View';
 
-class Account extends UI {
+class Account extends View {
 
   render() {
     const user = this.props.app.store.user;
@@ -16,40 +15,39 @@ class Account extends UI {
         {this.subTitle(['User type','用戶類型'])}
         {this.sep()}
         {this.gap('2%')}
-        {this.optionBar('type', ['25%','4%'], [student, teacher], user.type === 'student'? student: teacher)}
+        {this.inputs.optionBar('type', ['25%','4%'], [student, teacher], user.type === 'student'? student: teacher)}
         {this.gap('2%')}
 
         {this.subTitle(['Identity','登入名稱'])}
         {this.sep()}
-        {this.inputField('id','text','', user.id)}
+        {this.inputs.inputField('id','text','', user.id)}
         {this.gap('2%')}
 
         {this.subTitle(['Email address','電郵地址'])}
         {this.sep()}
-        {this.inputField('email','text','', user.email)}
+        {this.inputs.inputField('email','text','', user.email)}
         {this.gap('2%')}
 
         {this.subTitle(['New password','新密碼'])}
         {this.sep()}
-        {this.inputField('newPw','password',['Leave blank if not changing','不更改密碼時請留空'],'')}
+        {this.inputs.inputField('newPw','password',['Leave blank if not changing','不更改密碼時請留空'],'')}
         {this.gap('2%')}
 
         {this.subTitle(['Confirm new password','確定新密碼'])}
         {this.sep()}
-        {this.inputField('confirmPw','password',['Leave blank if not changing','不更改密碼時請留空'],'')}
+        {this.inputs.inputField('confirmPw','password',['Leave blank if not changing','不更改密碼時請留空'],'')}
         {this.gap('4%')}
 
         {this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊'])}
         {this.sep()}
-        {this.inputField('pw','password','','')}
-        {this.eventButton(['Confirm change','確定變更'], btn_red, ()=>{this.changing()})}
+        {this.inputs.inputField('pw','password','','')}
+        {this.buttons.rectRed(['Confirm change','確定變更'], ()=>{this.changing()})}
       </div>
     )
   }
 
   changing(){
     const user = this.props.app.store.user;
-    //const func = this.props.app.functions;
     const actions = this.props.app.actions;
 
     const selected = document.getElementById('type').selectedIndex;

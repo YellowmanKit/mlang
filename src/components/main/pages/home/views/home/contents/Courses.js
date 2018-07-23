@@ -10,6 +10,7 @@ class Courses extends UI {
     const bs = ui.basicStyle;
     const store = app.store;
     const actions = app.actions;
+
     const onAdd =
     store.user.type === 'teacher'? ()=>{actions.content.pushView('addCourse')}:
     store.user.type === 'student'? ()=>{actions.content.pushView('joinCourse')}:
@@ -20,7 +21,7 @@ class Courses extends UI {
     store.user.type === 'student'?  ['JOIN','加入']:
     '';
 
-    const areaStyle = Object.assign({},ui.areaStyle, {
+    const areaStyle = Object.assign({},ui.styles.area, {
       width: '100%',
       height: bs.height * 0.23,
       alignItems: 'center',
@@ -28,7 +29,7 @@ class Courses extends UI {
     });
     return(
       <div style={areaStyle}>
-        {this.listAddButton([bs.width * 0.125, '100%'], onAdd, addBtnText, '110%')}
+        {this.buttons.listAdd([bs.width * 0.125, '100%'], addBtnText, '110%', onAdd)}
         {this.verGap('2%')}
         {this.coursesCells()}
         {this.verGap('5%')}
@@ -47,10 +48,10 @@ class Courses extends UI {
 
     return courses.map((course, i)=>{
       return(
-        <Cell key={i} app={this.props.app}
+        <Cell key={i} app={app}
         type={'courseCell'}
         data={course}
-        onCellClick={()=>{ actions.courses.viewCourse(i, course); actions.content.pushView('course'); }}/>
+        onClick={()=>{ actions.courses.viewCourse(i, course); actions.content.pushView('course'); }}/>
       )
     });
   }
@@ -59,6 +60,7 @@ class Courses extends UI {
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
+
     const type = app.store.user.type;
     const title =
     type === 'teacher'? ['Course - created','班別 - 已創建']:
@@ -68,7 +70,7 @@ class Courses extends UI {
     const containerStyle = {
       width: '100%',
       height: bs.height * 0.28,
-      background: ui.gradientBasic
+      background: ui.colors.gradientBasic
     }
 
     return(

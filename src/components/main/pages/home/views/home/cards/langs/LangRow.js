@@ -71,14 +71,14 @@ class LangRow extends UI {
       width: bs.width * 0.9,
       height: bs.height * 0.185,
       backgroundColor: 'white',
-      borderBottom: '5px solid ' + ui.ultraLightGrey,
+      borderBottom: '5px solid ' + ui.colors.ultraLightGrey,
       flexShrink: 0
     });
 
     return(
       <div key={editLang.key} style={rowStyle}>
         {this.langBar(i, editLang)}
-        {this.textArea('langText' + i, [bs.width * 0.87, bs.height * 0.1], '150%', '', this.onTextChange.bind(this))}
+        {this.inputs.textArea('langText' + i, [bs.width * 0.87, bs.height * 0.1], '150%', '', this.onTextChange.bind(this))}
         {this.gap('1%')}
       </div>
     )
@@ -89,11 +89,11 @@ class LangRow extends UI {
     const ui = app.store.ui;
     const bs = ui.basicStyle;
 
-    const barStyle = Object.assign({}, ui.areaStyle, {
+    const barStyle = {...ui.styles.area, ...{
       width: bs.width * 0.9,
       height: bs.height * 0.065,
       alignItems: 'center'
-    });
+    }}
 
     const sizeSmall = [bs.width * 0.05,bs.width * 0.05];
     const sizeBig = [bs.width * 0.06,bs.width * 0.06];
@@ -104,15 +104,15 @@ class LangRow extends UI {
     return(
       <div style={barStyle}>
         {this.verGap('1%')}
-        {this.optionBar('langKey' + i, ['30%','75%'], this.langKeyOptions(), this.langKeyDefault(i), this.onOptionChange.bind(this))}
+        {this.inputs.optionBar('langKey' + i, ['30%','75%'], this.langKeyOptions(), this.langKeyDefault(i), this.onOptionChange.bind(this))}
         {this.verGap('9%')}
-        {this.barButton(icon_recorder, audioBlob? 1: 0.2, sizeBig, ()=>{this.record(i)})}
+        {this.buttons.langBar(icon_recorder, audioBlob? 1: 0.2, sizeBig, ()=>{this.record(i)})}
         {this.verGap('8%')}
-        {this.barButton(icon_play , (audioBlob && !isPlaying)? 1:0.2, sizeSmall,()=>{this.playback(i)})}
+        {this.buttons.langBar(icon_play , (audioBlob && !isPlaying)? 1:0.2, sizeSmall,()=>{this.playback(i)})}
         {this.verGap('8%')}
-        {this.barButton(icon_stop, (audioBlob && isPlaying)? 1:0.2, sizeBig,()=>{this.stopPlayback(i)})}
+        {this.buttons.langBar(icon_stop, (audioBlob && isPlaying)? 1:0.2, sizeBig,()=>{this.stopPlayback(i)})}
         {this.verGap('18%')}
-        {i > 0 && this.barButton(icon_cross, 0.1, sizeSmall,()=>{app.actions.langs.removeEditLangsItem(i)})}
+        {i > 0 && this.buttons.langBar(icon_cross, 0.1, sizeSmall,()=>{app.actions.langs.removeEditLangsItem(i)})}
         {this.verGap('1%')}
       </div>
     )

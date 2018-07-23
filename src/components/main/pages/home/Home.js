@@ -4,6 +4,7 @@ import background2 from 'resources/images/general/background2.png';
 
 import NavBar from './NavBar';
 import Menu from './Menu';
+import Enlarger from './Enlarger';
 
 import Account from './views/menu/Account';
 import Profile from './views/menu/Profile';
@@ -31,31 +32,31 @@ class Home extends Component {
     }
     switch (view) {
       case 'account':
-        return <Account app={this.props.app}/>;
+        return <Account app={app}/>;
       case 'profile':
-        return <Profile app={this.props.app}/>;
+        return <Profile app={app}/>;
       case 'forceProfile':
-        return <Profile app={this.props.app}/>;
+        return <Profile app={app}/>;
       /*case 'setting':
         return null;*/
       case 'credit':
-        return <Credit app={this.props.app}/>;
+        return <Credit app={app}/>;
       case 'teacherHome':
-        return <TeacherHome app={this.props.app}/>;
+        return <TeacherHome app={app}/>;
       case 'studentHome':
-        return <StudentHome app={this.props.app}/>;
+        return <StudentHome app={app}/>;
       case 'addCourse':
-        return <AddCourse app={this.props.app}/>;
+        return <AddCourse app={app}/>;
       case 'joinCourse':
-        return <JoinCourse app={this.props.app}/>;
+        return <JoinCourse app={app}/>;
       case 'course':
-        return <Course app={this.props.app}/>;
+        return <Course app={app}/>;
       case 'addProject':
-        return <AddProject app={this.props.app}/>;
+        return <AddProject app={app}/>;
       case 'project':
-        return <Project app={this.props.app}/>;
+        return <Project app={app}/>;
       case 'addCard':
-        return <AddCard app={this.props.app}/>;
+        return <AddCard app={app}/>;
       default:
         return null;
     }
@@ -66,23 +67,23 @@ class Home extends Component {
     if(app.store.content.menu === 'off'){
       return null;
     }
-    return <Menu app={this.props.app}/>
+    return <Menu app={app}/>
   }
 
   render() {
     const app = this.props.app;
     const ui = app.store.ui;
-    const pageStyle = Object.assign({},ui.basicStyle,{
+    const pageStyle = {...ui.basicStyle, ...{
       justifyContent: 'flex-start',
       backgroundImage: 'url(' + background2 + ')',
       backgroundSize: '100% 100%',
-    })
-    //const func = app.functions;
+    }}
     return(
       <div style={pageStyle}>
-        <NavBar app={this.props.app}/>
+        <NavBar app={app}/>
         {this.views()}
         {this.menu()}
+        <Enlarger app={app}/>
       </div>
     )
   }

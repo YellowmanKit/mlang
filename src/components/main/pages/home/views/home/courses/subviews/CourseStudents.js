@@ -1,16 +1,16 @@
 import React from 'react';
-import UI from 'components/UI';
+import SubView from 'components/main/pages/home/views/SubView';
 
 import ProfileRow from 'components/main/items/rows/ProfileRow';
 
-class CourseStudents extends UI {
+class CourseStudents extends SubView {
 
   studentsList(){
     const app = this.props.app;
     const func = app.functions;
     const students = app.store.courses.viewingCourse.joinedStudents;
     return students.map((userId, i)=>{
-      return <ProfileRow app={this.props.app} profile={func.getStudentProfileByUserId(userId)} key={i}/>
+      return <ProfileRow app={app} profile={func.getStudentProfileByUserId(userId)} key={i}/>
     })
   }
 

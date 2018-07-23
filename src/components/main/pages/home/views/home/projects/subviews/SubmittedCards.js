@@ -1,16 +1,14 @@
 import React from 'react';
-import UI from 'components/UI';
+import SubView from 'components/main/pages/home/views/SubView';
 
-class SubmittedCards extends UI {
+class SubmittedCards extends SubView {
 
   cards(){
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    //const store = app.store;
-    //const actions = app.actions;
 
-    const areaStyle = Object.assign({},ui.areaStyle, {
+    const areaStyle = Object.assign({},ui.styles.area, {
       height: bs.height * 0.72,
       overflow: 'auto'
     });
@@ -29,15 +27,13 @@ class SubmittedCards extends UI {
 
   render() {
     const app = this.props.app;
-    /*const func = app.functions;
-    const project = app.store.projects.viewingProject;*/
     const ui = app.store.ui;
     const bs = ui.basicStyle;
     const onAdd = ()=>{app.actions.content.pushView('addCard')};
 
     return(
       <div style={this.subViewStyle()}>
-        {this.listAddButton([bs.width, bs.height * 0.1], onAdd, ['CREATE CARD','製作卡片'], '200%')}
+        {this.buttons.listAdd([bs.width, bs.height * 0.1], ['CREATE CARD','製作卡片'], '200%', onAdd)}
         {this.cards()}
       </div>
     )

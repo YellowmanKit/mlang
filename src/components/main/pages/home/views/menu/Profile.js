@@ -1,9 +1,7 @@
 import React from 'react';
-import UI from 'components/UI';
-import redButton from 'resources/images/buttons/btn_red.png';
-import greenButton from 'resources/images/buttons/btn_green.png';
+import View from 'components/main/pages/home/views/View';
 
-class Profile extends UI {
+class Profile extends View {
 
   render() {
     const app = this.props.app;
@@ -16,10 +14,10 @@ class Profile extends UI {
 
           {this.subTitle(['Please enter your name','請輸入你的名稱'])}
           {this.sep()}
-          {this.inputField('name','text','', profile.name)}
+          {this.inputs.inputField('name','text','', profile.name)}
           {this.gap('2%')}
 
-          {this.eventButton(['Confirm','確定'], greenButton, ()=>{this.changing()})}
+          {this.buttons.rectGreen(['Confirm','確定'], ()=>{this.changing()})}
         </div>
       )
     }
@@ -29,7 +27,7 @@ class Profile extends UI {
 
         {this.subTitle(['Name','名稱'])}
         {this.sep()}
-        {this.inputField('name','text','', profile.name)}
+        {this.inputs.inputField('name','text','', profile.name)}
         {this.gap('2%')}
 
         {this.subTitle(['Total submitted cards','卡片總數'])}
@@ -46,8 +44,8 @@ class Profile extends UI {
 
         {this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊'])}
         {this.sep()}
-        {this.inputField('pw','password','','')}
-        {this.eventButton(['Confirm change','確定變更'], redButton, ()=>{this.changing()})}
+        {this.inputs.inputField('pw','password','','')}
+        {this.buttons.rectRed(['Confirm change','確定變更'], ()=>{this.changing()})}
       </div>
     )
   }

@@ -39,7 +39,7 @@ class Menu extends Component {
       backgroundColor: 'transparent',
       flexGrow: 95
     });
-    const buttonStyle = Object.assign({}, ui.buttonStyle, listBtnStyle, {
+    const buttonStyle = Object.assign({}, ui.styles.button, listBtnStyle, {
       color: 'white'
     });
     const buttons =
@@ -67,8 +67,8 @@ class Menu extends Component {
       flexGrow: 8,
       justifyContent: 'flex-end'
     });
-    const buttonStyle = Object.assign({}, ui.buttonStyle, listBtnStyle, {
-      color: ui.mlangGreen
+    const buttonStyle = Object.assign({}, ui.styles.button, listBtnStyle, {
+      color: ui.colors.mlangGreen
     });
     return(
       <div style={areaStyle}>
@@ -81,7 +81,7 @@ class Menu extends Component {
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const areaStyle = Object.assign({}, ui.buttonStyle, {
+    const areaStyle = Object.assign({}, ui.styles.button, {
       position: 'absolute',
       right: 0,
       width: bs.width * 0.2,

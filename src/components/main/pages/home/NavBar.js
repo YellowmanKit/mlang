@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import UI from 'components/UI';
+import Button from 'components/main/items/ui/Button';
 
 import topBar from 'resources/images/general/top_bar.png';
 import back_arrow from 'resources/images/buttons/buttonIcons/back_arrow.png';
 import menu from 'resources/images/buttons/buttonIcons/menu.png';
 //import search from 'resources/images/buttons/buttonIcons/search.png';
 
-class NavBar extends Component {
+class NavBar extends UI {
 
   constructor(props){
     super(props);
@@ -29,8 +31,8 @@ class NavBar extends Component {
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
     leftOnClick = action.pullView;
-    rightOnClick = this.none;
-    //rightOnClick = ()=>{this.props.app.actions.modal.errorMessage(['testing', 'testing']);}
+    //rightOnClick = this.none;
+    rightOnClick = ()=>{this.props.app.actions.modal.errorMessage(['testing', 'testing']);}
 
     leftIcon = back_arrow;
 
@@ -81,26 +83,13 @@ class NavBar extends Component {
           break;
       }
     }
+    this.buttons = new Button(app);
     this.setState({
-      leftNav: ()=>{return this.navButton(leftIcon, ()=>{ leftOnClick();});},
-      rightNav: ()=>{return this.navButton(rightIcon, ()=>{ rightOnClick();});},
-      titleArea: ()=>{return this.titleArea(func.multiLang(title[0], title[1]));},
+      leftNav: ()=>{ return this.buttons.nav(leftIcon, ()=>{ leftOnClick() })},
+      rightNav: ()=>{ return this.buttons.nav(rightIcon, ()=>{ rightOnClick() })},
+      titleArea: ()=>{ return this.titleArea(func.multiLang(title[0], title[1]));},
       init: true
     });
-  }
-
-  navButton(icon, _onClick){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: bs.height * 0.06,
-      height: bs.height * 0.06,
-      margin: bs.width * 0.015,
-      backgroundImage: 'url(' + icon + ')'
-    });
-    return <button style={buttonStyle} onClick={_onClick}/>
   }
 
   titleArea(title){

@@ -1,11 +1,9 @@
 import React from 'react';
-import UI from 'components/UI';
+import View from 'components/main/pages/home/views/View';
 
 import ImagePicker from 'components/main/items/ImagePicker';
 
-import btn_green from 'resources/images/buttons/btn_green.png';
-
-class AddCourse extends UI {
+class AddCourse extends View {
 
   render() {
     const app = this.props.app;
@@ -19,21 +17,21 @@ class AddCourse extends UI {
 
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
-        <ImagePicker app={this.props.app} />
+        <ImagePicker app={app} />
         {this.sep()}
         {this.gap('2%')}
 
         {this.subTitle(['Title','班名'])}
         {this.sep()}
-        {this.inputField('title','text', '', '')}
+        {this.inputs.inputField('title','text', '', '')}
         {this.gap('2%')}
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
-        {this.inputField('endDate','date', ['',''], func.getDateString(defaultDate))}
+        {this.inputs.inputField('endDate','date', ['',''], func.getDateString(defaultDate))}
         {this.gap('2%')}
 
-        {this.eventButton(['Confirm','確定'], btn_green, ()=>{this.addCourse()})}
+        {this.buttons.rectGreen(['Confirm','確定'], ()=>{this.addCourse()})}
       </div>
     )
   }

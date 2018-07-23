@@ -1,7 +1,7 @@
 import React from 'react';
-import UI from 'components/UI';
 import MediaQuery from 'react-responsive';
 
+import UI from 'components/UI';
 import Image from 'components/main/items/ui/Image';
 
 class ImagePicker extends UI {
@@ -14,7 +14,7 @@ class ImagePicker extends UI {
     const pickerStyle = {
       width: '100%',
       height: bs.height * 0.25,
-      backgroundColor: ui.lightGrey,
+      backgroundColor: ui.colors.lightGrey,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
@@ -29,16 +29,16 @@ class ImagePicker extends UI {
     return(
       <div style={pickerStyle}>
         <div style={toolBarStyle}/>
-        <Image app={this.props.app} url={app.store.main.photoUrl} size={bs.height * 0.22}/>
+        <Image app={app} url={app.store.main.photoUrl} size={bs.height * 0.22}/>
         {this.verGap('2%')}
         {this.verSep('white', '90%')}
         <div style={toolBarStyle}>
-          {this.selectImageButton()}
+          {this.buttons.selectImage(bs.height * 0.1)}
           <MediaQuery minDeviceWidth={1224}>
-            {this.takePictureButton()}
+            {this.buttons.takePicture(bs.height * 0.1)}
           </MediaQuery>
           <MediaQuery maxDeviceWidth={1224}>
-            {this.mobileTakePictureButton()}
+            {this.buttons.mobileTakePicture(bs.height * 0.1)}
           </MediaQuery>
         </div>
       </div>

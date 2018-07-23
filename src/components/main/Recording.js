@@ -15,7 +15,7 @@ class Recording extends UI {
     const bs = ui.basicStyle;
     const func = app.functions;
 
-    const containerStyle = Object.assign({},ui.basicStyle, ui.buttonStyle, {
+    const containerStyle = Object.assign({},ui.basicStyle, ui.styles.button, {
       position: 'absolute',
       width: bs.width,
       height: bs.height,

@@ -1,11 +1,11 @@
 import React from 'react';
-import UI from 'components/UI';
+import View from 'components/main/pages/home/views/View';
 
 import SubNav from 'components/main/items/SubNav';
 import ProjectDetail from './subviews/ProjectDetail';
 import SubmittedCards from './subviews/SubmittedCards';
 
-class Project extends UI {
+class Project extends View {
 
   componentDidMount(){
     const app = this.props.app;
@@ -20,10 +20,10 @@ class Project extends UI {
 
     switch (subView) {
       case 'projectDetail':
-        return <ProjectDetail app={this.props.app}/>
+        return <ProjectDetail app={app}/>
       case 'projectSubmitted':
         return(
-          type === 'student'? <SubmittedCards app={this.props.app}/>:
+          type === 'student'? <SubmittedCards app={app}/>:
           null
         )
       default:

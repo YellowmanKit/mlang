@@ -1,7 +1,7 @@
 import React from 'react';
-import UI from 'components/UI';
+import View from 'components/main/pages/home/views/View';
 
-class Credit extends UI {
+class Credit extends View {
 
   creditTextDisplay(text){
     return this.textDisplay(text, ['100%',''], '125%');

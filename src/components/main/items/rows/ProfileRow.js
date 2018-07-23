@@ -1,62 +1,31 @@
 import React from 'react';
-import UI from 'components/UI';
+import Row from './Row';
 
 import icon_student from 'resources/images/icons/student.png';
 import cards from 'resources/images/icons/cards_lightgrey.png';
 import star2 from 'resources/images/icons/star2_lightgrey.png';
 
-class ProfileRow extends UI {
+class ProfileRow extends Row {
 
-  info(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const infoStyle = Object.assign({}, ui.basicStyle, {
-      width: '72%',
-      height: bs.height * 0.12,
-      marginLeft: bs.height * 0.02
-    })
-    return(
-      <div style={infoStyle}>
-        {this.profileName()}
-        {this.infoRow()}
-      </div>
-    )
-  }
-
-  profileName(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const nameStyle = {
-      width: '100%',
-      height: bs.height * 0.06,
-      fontWeight: 'bold',
-      fontSize: '125%'
-    }
-    return <div style={nameStyle}>{this.props.profile.name}</div>
-  }
-
-  infoRow(){
+  rowInfo(){
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
     const profile = this.props.profile;
 
-    const rowStyle = Object.assign({}, ui.areaStyle, {
+    const rowStyle = {...ui.styles.area, ...{
       width: '100%',
       height: bs.height * 0.06,
       alignItems: 'center'
-    })
+    }}
     const iconSize = bs.height * 0.05;
-    const textScale = [bs.height * 0.06,bs.height * 0.04];
+    const textScale = [bs.height * 0.05,''];
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
-        {this.textDisplay(profile.cardCount, textScale, '150%', ui.deepDarkGrey)}
+        {this.textDisplay(profile.cardCount, textScale, '150%', '')}
         {this.icon(star2, [iconSize, iconSize])}
-        {this.textDisplay(profile.featuredCount, textScale, '150%', ui.deepDarkGrey)}
+        {this.textDisplay(profile.featuredCount, textScale, '150%', '')}
       </div>
     )
   }
@@ -69,10 +38,10 @@ class ProfileRow extends UI {
     const ui = app.store.ui;
     const bs = ui.basicStyle;
 
-    const rowStyle = Object.assign({}, ui.areaStyle, {
+    const rowStyle = Object.assign({}, ui.styles.area, {
       flexShrink: 0,
       height: bs.height * 0.15,
-      borderBottom: '1px solid ' + ui.darkGrey,
+      borderBottom: '1px solid ' + ui.colors.darkGrey,
       alignItems: 'center'
     })
 
@@ -80,7 +49,7 @@ class ProfileRow extends UI {
       <div style={rowStyle}>
         {this.verGap('3%')}
         {this.rowIcon(icon_student)}
-        {this.info()}
+        {this.rowContent(this.props.profile.name, this.rowInfo.bind(this) )}
       </div>
     )
   }

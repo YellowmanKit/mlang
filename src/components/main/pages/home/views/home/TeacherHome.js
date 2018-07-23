@@ -1,9 +1,9 @@
 import React from 'react';
-import UI from 'components/UI';
+import View from 'components/main/pages/home/views/View';
 
-import Courses from './courses/Courses';
+import Courses from './contents/Courses';
 
-class TeacherHome extends UI {
+class TeacherHome extends View {
 
   render() {
     return(

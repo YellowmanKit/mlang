@@ -2,9 +2,6 @@ import React from 'react';
 import UI from 'components/UI';
 
 import icon from 'resources/images/icons/mlang_green.png';
-import btn_red from 'resources/images/buttons/btn_red.png';
-import btn_green from 'resources/images/buttons/btn_green.png';
-import btn_yellow from 'resources/images/buttons/btn_yellow.png';
 
 class Login extends UI {
 
@@ -36,12 +33,16 @@ class Login extends UI {
       border: 'none',
       backgroundColor: 'transparent',
       color: 'grey',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      fontWeight: 'normal'
     }
+    const chineseStyle = {...buttonStyle, ...{color: lang === 'chinese'? 'white': 'grey'}};
+    const englishStyle = {...buttonStyle, ...{color: lang === 'english'? 'white': 'grey'}};
+
     return(
       <div style={barStyle}>
-        <button onClick={()=>actions.main.setLanguage('chinese')} style={Object.assign({}, buttonStyle, {color: lang === 'chinese'? 'white': 'grey'})}>中文</button>
-        <button onClick={()=>actions.main.setLanguage('english')} style={Object.assign({}, buttonStyle, {color: lang === 'english'? 'white': 'grey'})}>English</button>
+        {this.buttons.button(chineseStyle, ['中文','中文'], '', ()=>actions.main.setLanguage('chinese'))}
+        {this.buttons.button(englishStyle, ['English','English'], '', ()=>actions.main.setLanguage('english'))}
       </div>
     )
   }
@@ -70,35 +71,38 @@ class Login extends UI {
     const actions = app.actions;
     const status = app.store.main.status;
 
-    const pageStyle = Object.assign({}, ui.basicStyle,{ justifyContent: 'center' });
+    const pageStyle = {...ui.basicStyle, ...{ justifyContent: 'center' }};
     const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
 
     if(status === 'waitForLogin'){
       return(
         <div style={pageStyle}>
           {this.icon()}
-          {this.inputField('id','text', ['Enter your identity','登入名稱'], loginInfo !== null? loginInfo.id:'')}
-          {this.inputField('pw','password', ['Enter your password','密碼'], loginInfo !== null? loginInfo.pw:'')}
-          {this.eventButton(['Login','登入'], btn_green, ()=>this.login() )}
-          {this.eventButton(['Get new account','申請帳號'], btn_yellow, ()=>actions.main.setStatus('getNewAccount') )}
-          {this.eventButton(['Forget password','忘記密碼'], btn_red, ()=>actions.main.setStatus('forgotPassword') )}
+          {this.inputs.inputField('id','text', ['Enter your identity','登入名稱'], loginInfo !== null? loginInfo.id:'')}
+          {this.inputs.inputField('pw','password', ['Enter your password','密碼'], loginInfo !== null? loginInfo.pw:'')}
+          {this.buttons.rectGreen(['Login','登入'], ()=>this.login())}
+          {this.buttons.rectYellow(['Get new account','申請帳號'], ()=>actions.main.setStatus('getNewAccount'))}
+          {this.buttons.rectRed(['Forget password','忘記密碼'], ()=>actions.main.setStatus('forgotPassword'))}
           {this.languageBar()}
           {this.versionCode()}
-        </div>)
+        </div>
+      )
     }else if(status === 'getNewAccount'){
       return(
         <div style={pageStyle}>
-          {this.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.eventButton(['Acquire new account','獲得新帳號'], btn_green, ()=>actions.user.getNewAccount(document.getElementById('email').value))}
-          {this.eventButton(['Cancel','取消'], btn_red, ()=>actions.main.setStatus('waitForLogin') )}
-        </div>)
+          {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
+          {this.buttons.rectGreen(['Acquire new account','獲得新帳號'], ()=>actions.user.getNewAccount(document.getElementById('email').value))}
+          {this.buttons.rectRed(['Cancel','取消'], ()=>actions.main.setStatus('waitForLogin'))}
+        </div>
+      )
     }else if(status === 'forgotPassword'){
       return(
         <div style={pageStyle}>
-          {this.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.eventButton(['Reset password','重設密碼'], btn_green, ()=>actions.user.resetPassword(document.getElementById('email').value))}
-          {this.eventButton(['Cancel','取消'], btn_red, ()=>actions.main.setStatus('waitForLogin') )}
-        </div>)
+          {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
+          {this.buttons.rectGreen(['Reset password','重設密碼'], ()=>actions.user.resetPassword(document.getElementById('email').value))}
+          {this.buttons.rectRed(['Cancel','取消'], ()=>actions.main.setStatus('waitForLogin') )}
+        </div>
+      )
     }else{
       return null;
     }

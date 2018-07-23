@@ -31,7 +31,7 @@ class Capture extends UI {
     return(
       <div style={pageStyle}>
         <Camera style={{}} ref={_camera=>{this.camera = _camera}} />
-        {this.absoluteButton(['Capture','拍照'], ()=>{ this.takePicture(); })}
+        {this.buttons.absolute(['Capture','拍照'], ()=>{ this.takePicture(); })}
       </div>
     )
   }

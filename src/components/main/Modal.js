@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import UI from 'components/UI';
 
-class Modal extends Component {
+class Modal extends UI {
 
   board(){
     const bs = this.props.app.store.ui.basicStyle;
@@ -42,7 +43,6 @@ class Modal extends Component {
 
   buttonsArea(){
     const app = this.props.app;
-    const func = app.functions;
     const button = app.store.modal.button;
     if(button === 'off'){
       return null;
@@ -59,25 +59,9 @@ class Modal extends Component {
     }
     return(
       <div style={areaStyle}>
-        {this.button(func.multiLang('Confirm','確定'), ()=>{app.actions.modal.hideModal()})}
+        {this.buttons.modal(['Confirm','確定'], ()=>{app.actions.modal.hideModal()})}
       </div>
     )
-  }
-
-  button(text, _onClick){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: '50%',
-      height: '75%',
-      backgroundColor: 'rgba(100, 100, 100, 0.5)',
-      color: 'white',
-      fontSize: '100%',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      borderRadius: '5px',
-    });
-    return <button style={buttonStyle} onClick={_onClick}>{text}</button>
   }
 
   render() {

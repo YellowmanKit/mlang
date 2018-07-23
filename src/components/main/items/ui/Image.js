@@ -5,52 +5,54 @@ import no_image from 'resources/images/general/no_image.png';
 
 class Image extends UI {
 
-  image(url, size){
+  render(){
+    const url = this.props.url;
+    const size = this.props.size;
+
     const app = this.props.app;
     const ui = app.store.ui;
 
-    const containerSize = size;
-    const containerStyle = Object.assign({} ,ui.borderStyle ,ui.containerStyle,{
-      width: containerSize,
-      height: containerSize,
+    const containerStyle = {...ui.styles.border , ...ui.styles.container, ...{
+      width: size,
+      height: size,
       backgroundColor: 'white'
-    });
+    }}
     const imgBg = url === null? no_image: null;
     const imgSize = size * 0.95;
-    const backgroundStyle = Object.assign({}, ui.containerStyle,{
+    const backgroundStyle = {...ui.styles.container, ...{
       width: imgSize,
       height: imgSize,
       backgroundImage: 'url(' + imgBg + ')'
-    });
-    const imageStyle = Object.assign({}, {
-      maxHeight: imgSize,
-      maxWidth: imgSize,
-      backgroundColor: 'white'
-    });
-    const buttonStyle = Object.assign({}, ui.buttonStyle, {
-      width: containerSize,
-      height: containerSize,
+    }}
+    const buttonStyle = {...ui.styles.button, ...{
+      width: size,
+      height: size,
       position: 'absolute',
       opacity: 0
-    });
+    }}
 
     return(
       <div style={containerStyle}>
         <div style={backgroundStyle}>
-          <img style={imageStyle} src={url} alt=''/>
-          {this.button(buttonStyle,['',''],'',()=>{this.onImageClick()})}
+          {this.image(url, imgSize)}
+          {url !== null && this.buttons.button(buttonStyle, ['',''], '',()=>{this.onImageClick()})}
         </div>
       </div>
     )
   }
 
+  image(url, size){
+    const style = {
+      maxHeight: size,
+      maxWidth: size,
+      backgroundColor: 'white'
+    }
+    return <img style={style} src={url} alt=''/>
+  }
+
   onImageClick(){
     const actions = this.props.app.actions;
     actions.main.enlargeImage(this.props.url);
-  }
-
-  render(){
-    return this.image(this.props.url, this.props.size);
   }
 
 }

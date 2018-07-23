@@ -94,7 +94,7 @@ class App extends Component {
   }
 
   render() {
-    const _app = {
+    const app = {
       store: this.props.store,
       actions: this.props.actions,
       functions: {
@@ -108,7 +108,7 @@ class App extends Component {
       }
     }
     return (
-      <Main app={_app}/>
+      <Main app={app}/>
     );
   }
 

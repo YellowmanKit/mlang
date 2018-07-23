@@ -1,8 +1,8 @@
 import React from 'react';
-import UI from 'components/UI';
+import SubView from 'components/main/pages/home/views/SubView';
 import Image from 'components/main/items/ui/Image';
 
-class ProjectDetail extends UI {
+class ProjectDetail extends SubView {
 
   render() {
     const app = this.props.app;
@@ -17,7 +17,7 @@ class ProjectDetail extends UI {
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        <Image app={this.props.app} url={func.url(project.icon, 'projectIcon')} size={bs.height * 0.22}/>
+        <Image app={app} url={func.url(project.icon, 'projectIcon')} size={bs.height * 0.22}/>
         {this.gap('2%')}
         {this.sep()}
         {this.gap('2%')}

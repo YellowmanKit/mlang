@@ -1,9 +1,9 @@
 import React from 'react';
-import UI from 'components/UI';
+import SubView from 'components/main/pages/home/views/SubView';
 
 import ProjectRow from 'components/main/items/rows/ProjectRow';
 
-class CourseProjects extends UI {
+class CourseProjects extends SubView {
 
   projectsList(){
     const app = this.props.app;
@@ -12,7 +12,7 @@ class CourseProjects extends UI {
     const projects = app.store.courses.viewingCourse.projects;
     return projects.map((projectId, i)=>{
       const _project = func.getProjectById(projectId)
-      return <ProjectRow _onClick={()=>{actions.projects.viewProject(i,_project); actions.content.pushView('project');}} app={this.props.app} project={_project} key={i}/>
+      return <ProjectRow onClick={()=>{actions.projects.viewProject(i,_project); actions.content.pushView('project');}} app={app} project={_project} key={i}/>
     })
   }
 
@@ -26,7 +26,7 @@ class CourseProjects extends UI {
     return(
       <div style={this.subViewStyle()}>
         <div style={areaStyle}>
-          {app.store.user.type === 'teacher' && this.listAddButton([bs.width, bs.height * 0.1], ()=>{app.actions.content.pushView('addProject')}, addBtnText, '200%')}
+          {app.store.user.type === 'teacher' && this.buttons.listAdd([bs.width, bs.height * 0.1], addBtnText, '200%', ()=>{app.actions.content.pushView('addProject')})}
           {this.projectsList()}
         </div>
       </div>

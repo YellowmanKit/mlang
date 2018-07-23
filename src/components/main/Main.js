@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Pages from './pages/Pages';
 import Modal from './Modal';
 import Recording from './Recording';
-import Enlarger from './Enlarger';
-
 
 import background from 'resources/images/general/background.png';
 
@@ -60,8 +58,9 @@ class Main extends Component {
   }
 
   render() {
-    var ui = this.props.app.store.ui;
-    var mainStyle = {
+    const app = this.props.app;
+    const ui = app.store.ui;
+    const mainStyle = {
       width: ui.windowWidth,
       height: ui.windowHeight,
       minHeight: ui.basicStyle.height,
@@ -73,10 +72,9 @@ class Main extends Component {
     }
     return (
       <div style={mainStyle}>
-        <Pages app={this.props.app}/>
-        <Enlarger app={this.props.app}/>
-        <Recording app={this.props.app}/>
-        <Modal app={this.props.app}/>
+        <Pages app={app}/>
+        <Recording app={app}/>
+        <Modal app={app}/>
       </div>
     )
   }

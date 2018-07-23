@@ -1,12 +1,10 @@
 import React from 'react';
-import UI from 'components/UI';
-
+import View from 'components/main/pages/home/views/View';
 import ImagePicker from 'components/main/items/ImagePicker';
+
 import LangEditor from './langs/LangEditor';
 
-import btn_green from 'resources/images/buttons/btn_green.png';
-
-class AddCard extends UI {
+class AddCard extends View {
 
   render() {
     return(
@@ -24,7 +22,7 @@ class AddCard extends UI {
         <LangEditor app={this.props.app}/>
         {this.sep()}
 
-        {this.eventButton(['Submit','提交'], btn_green, ()=>{this.addCard()})}
+        {this.buttons.rectGreen(['Submit','提交'], ()=>{this.addCard()})}
         {this.gap('2%')}
       </div>
     )
