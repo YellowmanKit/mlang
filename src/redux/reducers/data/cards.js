@@ -2,7 +2,7 @@ const cardsReducer = (
   state = {
     cards: [],
     viewingCard: {},
-    indexOfViewing: 0
+    indexOfViewing: -1
   }, action)=>{
   switch (action.type) {
     case 'viewCards':

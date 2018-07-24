@@ -12,6 +12,7 @@ import * as profile from './redux/actions/data/profile';
 import * as courses from './redux/actions/data/courses';
 import * as students from './redux/actions/data/students';
 import * as projects from './redux/actions/data/projects';
+import * as studentProjects from './redux/actions/data/studentProjects';
 
 import * as cards from './redux/actions/data/cards';
 import * as langs from './redux/actions/data/langs';
@@ -20,24 +21,41 @@ import Main from './components/main/Main';
 
 class App extends Component {
 
-  langNameToLangKey(langName){
-    const langKeys = this.props.store.langs.langKeys;
-    for(var i=0;i<langKeys.length;i++){
-      if(langName === langKeys[i].name[0] || langName === langKeys[i].name[1]){
-        return langKeys[i].key;
+  getLangById(langId){
+    const langsData = this.props.store.langs.langs;
+    for(var i=0;i<langsData.length;i++){
+      if(langsData[i]._id === langId){
+        return langsData[i];
       }
     }
-    return '';
+    return null;
   }
 
-  langKeyToLangName(langKey){
-    const langKeys = this.props.store.langs.langKeys;
-    for(var i=0;i<langKeys.length;i++){
-      if(langKey === langKeys[i].key){
-        return this.multiLang(langKeys[i].name[0], langKeys[i].name[1]);
+  getCardById(cardId){
+    const cardsData = this.props.store.cards.cards;
+    for(var i=0;i<cardsData.length;i++){
+      if(cardsData[i]._id === cardId){
+        return cardsData[i];
       }
     }
-    return '';
+    return null;
+  }
+
+  getStudentProject(studentId, projectId){
+    const studentProjectsData = this.props.store.studentProjects.studentProjects;
+    for(var i=0;i<studentProjectsData.length;i++){
+      if(studentProjectsData[i].project === projectId &&
+        studentProjectsData[i].student === studentId){
+        return {
+          index: i,
+          data: studentProjectsData[i]
+        }
+      }
+    }
+    return {
+      index: -1,
+      data: null
+    }
   }
 
   getProjectById(projectId){
@@ -58,6 +76,26 @@ class App extends Component {
       }
     }
     return null;
+  }
+
+  langNameToLangKey(langName){
+    const langKeys = this.props.store.langs.langKeys;
+    for(var i=0;i<langKeys.length;i++){
+      if(langName === langKeys[i].name[0] || langName === langKeys[i].name[1]){
+        return langKeys[i].key;
+      }
+    }
+    return '';
+  }
+
+  langKeyToLangName(langKey){
+    const langKeys = this.props.store.langs.langKeys;
+    for(var i=0;i<langKeys.length;i++){
+      if(langKey === langKeys[i].key){
+        return this.multiLang(langKeys[i].name[0], langKeys[i].name[1]);
+      }
+    }
+    return '';
   }
 
   url(filename, type){
@@ -82,14 +120,14 @@ class App extends Component {
     return dateStr;
   }
 
-  multiLang(eng,chi){
+  multiLang(english, chinese){
     switch (this.props.store.main.language) {
       case 'english':
-        return eng;
+        return english;
       case 'chinese':
-        return chi;
+        return chinese;
       default:
-        return eng;
+        return english;
     }
   }
 
@@ -103,6 +141,9 @@ class App extends Component {
         getDateString: this.getDateString.bind(this),
         getStudentProfileByUserId: this.getStudentProfileByUserId.bind(this),
         getProjectById: this.getProjectById.bind(this),
+        getStudentProject: this.getStudentProject.bind(this),
+        getCardById: this.getCardById.bind(this),
+        getLangById: this.getLangById.bind(this),
         langKeyToLangName: this.langKeyToLangName.bind(this),
         langNameToLangKey: this.langNameToLangKey.bind(this)
       }
@@ -144,6 +185,7 @@ function mapDispatchToProps(dispatch){
       courses: Action(courses, dispatch),
       students: Action(students, dispatch),
       projects: Action(projects, dispatch),
+      studentProjects: Action(studentProjects, dispatch),
 
       cards: Action(cards, dispatch),
       langs: Action(langs, dispatch),

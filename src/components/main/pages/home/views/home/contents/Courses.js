@@ -49,7 +49,7 @@ class Courses extends UI {
     return courses.map((course, i)=>{
       return(
         <Cell key={i} app={app}
-        type={'courseCell'}
+        type={'course'}
         data={course}
         onClick={()=>{ actions.courses.viewCourse(i, course); actions.content.pushView('course'); }}/>
       )

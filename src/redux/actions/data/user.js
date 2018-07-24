@@ -46,6 +46,11 @@ export function resetPassword (_email) {
 export function getNewAccount (_email) {
   //console.log('login: ' + _id + ' ' + _pw);
   return function (dispatch) {
+    if(_email.indexOf('@') < 0){
+      dispatch({type: "showModalButton"});
+      dispatch({type: "message", payload: ['Invalid email!', '電郵地址不正確!']});
+      return;
+    }
     dispatch({type: "message", payload: ['Acquiring for new account...', '申請進行中...']});
 
     axios.get(api + '/user/getNewAccount',{ headers: { email: _email }})

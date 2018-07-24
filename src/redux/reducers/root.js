@@ -9,6 +9,7 @@ import profile from './data/profile';
 import courses from './data/courses';
 import students from './data/students';
 import projects from './data/projects';
+import studentProjects from './data/studentProjects';
 
 import cards from './data/cards';
 import langs from './data/langs';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   courses: courses,
   students: students,
   projects: projects,
+  studentProjects: studentProjects,
 
   cards: cards,
   langs: langs

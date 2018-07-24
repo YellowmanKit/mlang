@@ -5,6 +5,28 @@ import ProjectRow from 'components/main/items/rows/ProjectRow';
 
 class CourseProjects extends SubView {
 
+  componentDidMount(){
+    this.getCourseProjects();
+  }
+
+  getCourseProjects(){
+    const app = this.props.app;
+    const func = app.functions;
+    const course = app.store.courses.viewingCourse;
+
+    const projectsToGet = [];
+    const projectsToShow = course.projects;
+
+    for(var i=0;i<projectsToShow.length;i++){
+      if(func.getProjectById(projectsToShow[i]) === null){
+        projectsToGet.splice(0,0, projectsToShow[i]);
+      }
+    }
+    if(projectsToGet.length > 0){
+      app.actions.projects.getProjects(projectsToGet);
+    }
+  }
+
   projectsList(){
     const app = this.props.app;
     const func = app.functions;

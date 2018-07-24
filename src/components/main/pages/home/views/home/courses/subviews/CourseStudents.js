@@ -5,6 +5,28 @@ import ProfileRow from 'components/main/items/rows/ProfileRow';
 
 class CourseStudents extends SubView {
 
+  componentDidMount(){
+    this.getStudentProfiles();
+  }
+
+  getStudentProfiles(){
+    const app = this.props.app;
+    const func = app.functions;
+    const course = app.store.courses.viewingCourse;
+
+    const studentsToGet = [];
+    const studentsToShow = course.joinedStudents;
+
+    for(var i=0;i<studentsToShow.length;i++){
+      if(func.getStudentProfileByUserId(studentsToShow[i]) === null){
+        studentsToGet.splice(0,0, studentsToShow[i]);
+      }
+    }
+    if(studentsToGet.length > 0){
+      app.actions.students.getStudentProfiles(studentsToGet);
+    }
+  }
+
   studentsList(){
     const app = this.props.app;
     const func = app.functions;

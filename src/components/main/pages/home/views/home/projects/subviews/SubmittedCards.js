@@ -1,28 +1,49 @@
 import React from 'react';
 import SubView from 'components/main/pages/home/views/SubView';
+import Cards from 'components/main/pages/home/views/home/contents/Cards';
 
 class SubmittedCards extends SubView {
+
+  componentDidMount(){
+    this.getStudentProject();
+  }
+
+  getStudentProject(){
+    const app = this.props.app;
+    const func = app.functions;
+    const viewingProject = app.store.projects.viewingProject;
+    const studentProject = func.getStudentProject(app.store.user._id, viewingProject._id)
+    if(studentProject.data === null){
+      app.actions.studentProjects.getStudentProject(app.store.user._id, viewingProject._id, app.store.studentProjects.studentProjects.length)
+    }else {
+      app.actions.studentProjects.viewStudentProject(studentProject.index, studentProject.data)
+    }
+  }
 
   cards(){
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
 
-    const areaStyle = Object.assign({},ui.styles.area, {
+    const areaStyle = {...ui.styles.area, ...{
       height: bs.height * 0.72,
       overflow: 'auto'
-    });
+    }}
     return(
       <div style={areaStyle}>
-        {this.verGap('2%')}
         {this.cardCells()}
-        {this.verGap('5%')}
       </div>
     )
   }
 
   cardCells(){
-
+    const app = this.props.app;
+    const studentProject = app.store.studentProjects.viewingStudentProject;
+    if(studentProject.cards !== undefined){
+      return <Cards app={app} cardsId={studentProject.cards} />
+    }else{
+      //console.log('no viewingStudentProject')
+    }
   }
 
   render() {

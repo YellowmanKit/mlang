@@ -8,7 +8,12 @@ class Cell extends UI {
     const func = app.functions;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const url = func.url(this.props.data.icon, 'courseIcon');
+    const type = this.props.type;
+    const append =
+    type === 'course'? 'courseIcon':
+    type === 'card'? 'cardIcon':
+    '';
+    const url = func.url(this.props.data.icon, append);
 
     const imageStyle = {...ui.styles.container, ...ui.styles.border, ...{
       width: bs.height * 0.14,
@@ -16,7 +21,7 @@ class Cell extends UI {
       marginTop: '4%',
       backgroundImage: 'url(' + url + ')'
     }};
-    //console.log(url)
+    console.log(url)
     return <div style={imageStyle}/>
   }
 
@@ -26,6 +31,12 @@ class Cell extends UI {
   }
 
   render(){
+    const data = this.props.data
+    console.log(data)
+    if(data === null){
+      return null;
+    }
+
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;

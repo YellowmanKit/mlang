@@ -1,6 +1,6 @@
 const coursesReducer = (
   state = {
-    indexOfViewing: 0,
+    indexOfViewing: -1,
     viewingCourse: {},
     teachingCourses: [],
     joinedCourses: []

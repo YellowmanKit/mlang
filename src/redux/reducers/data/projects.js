@@ -2,7 +2,7 @@ const projectsReducer = (
   state = {
     projects: [],
     viewingProject: {},
-    indexOfViewing: 0
+    indexOfViewing: -1
   }, action)=>{
   switch (action.type) {
     case 'viewProject':
