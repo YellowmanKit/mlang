@@ -42,7 +42,7 @@ export function addCourse(newCourse){
     actions.connecting(dispatch);
 
     var iconFile = new FormData();
-    iconFile.append('files', newCourse.icon);
+    iconFile.append('files', newCourse.icon, 'courseIcon');
 
     axios.post(api + '/upload', iconFile, { headers: { type: 'courseIcon'}}).then(res=>{
       //console.log("File uploaded");

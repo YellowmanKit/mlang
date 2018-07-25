@@ -26,8 +26,7 @@ class SubmittedCards extends SubView {
     const bs = ui.basicStyle;
 
     const areaStyle = {...ui.styles.area, ...{
-      height: bs.height * 0.72,
-      overflow: 'auto'
+      height: bs.height * 0.72
     }}
     return(
       <div style={areaStyle}>

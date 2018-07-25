@@ -38,30 +38,38 @@ export function addCard(data){
     }*/
 
     var cardFile = new FormData();
-    //data.icon.originalname = 'cardIcon';
-    cardFile.append('files', data.icon);
+    cardFile.append('files', data.icon, 'cardIcon');
     const editLangs = data.editLangs;
     for(var i=0;i<editLangs.length;i++){
-      //editLangs[i].audioBlob.originalname = 'langAudio';
-      cardFile.append('files', editLangs[i].audioBlob);
+      cardFile.append('files', editLangs[i].audioBlob, 'langAudio_' + i);
     }
     let err, uploadRes, cardRes;
     [err, uploadRes] = await to(axios.post(api + '/upload', cardFile, { headers: { type: 'card'}}))
     if(err){actions.connectionError(dispatch); return;}
 
     const filenames = uploadRes.data.filenames;
+    var cardIcon;
+    var langAudios = [];
+    for(var j=0;j<filenames.length;j++){
+      const splted = filenames[j].split('-');
+      if(splted[1] === 'cardIcon'){
+        cardIcon = filenames[j];
+      }else{
+        langAudios.splice(0,0, filenames[j]);
+      }
+    }
 
     const card = {
-      icon: filenames[filenames.length - 1],
+      icon: cardIcon,
       author: data.author,
       studentProject: data.studentProject
     }
     const langs = [];
-    for(var j=0;j<editLangs.length;j++){
+    for(var k=0;k<editLangs.length;k++){
       const lang = {
-        key: editLangs[j].key,
-        text: editLangs[j].text,
-        audio: filenames[j]
+        key: editLangs[k].key,
+        text: editLangs[k].text,
+        audio: getLangAudio(langAudios, k)
       }
       langs.splice(0,0,lang);
     }
@@ -83,4 +91,14 @@ export function addCard(data){
     }
 
   }
+}
+
+function getLangAudio(audios, index){
+  for(var i=0;i<audios.length;i++){
+    const langIndex = audios[i].slice(-1);
+    if(langIndex === '' + index){
+      return audios[i]
+    }
+  }
+  return '';
 }

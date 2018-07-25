@@ -19,6 +19,7 @@ import AddProject from './views/home/projects/AddProject';
 import Project from './views/home/projects/Project';
 
 import AddCard from './views/home/cards/AddCard';
+import ViewCards from './views/home/cards/ViewCards';
 
 import StudentHome from './views/home/StudentHome';
 
@@ -57,6 +58,8 @@ class Home extends Component {
         return <Project app={app}/>;
       case 'addCard':
         return <AddCard app={app}/>;
+      case 'viewCards':
+        return <ViewCards app={app}/>;
       default:
         return null;
     }

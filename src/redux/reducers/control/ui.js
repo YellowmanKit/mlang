@@ -14,10 +14,6 @@ const uiReducer = (
       alignItems: 'center'
     },
     styles: {
-      view: {
-        justifyContent: 'flex-start',
-        backgroundColor: 'white'
-      },
       container: {
         display: 'flex',
         justifyContent: 'center',

@@ -33,7 +33,7 @@ export function addProject(newProject){
     actions.connecting(dispatch);
 
     var iconFile = new FormData();
-    iconFile.append('files', newProject.icon);
+    iconFile.append('files', newProject.icon, 'projectIcon');
 
     axios.post(api + '/upload', iconFile, { headers: { type: 'projectIcon'}}).then(res=>{
       //console.log("File uploaded");

@@ -27,13 +27,38 @@ class Cards extends UI {
 
   render(){
     const app = this.props.app;
+    const ui = app.store.ui;
+    const bs = ui.basicStyle;
     const func = app.functions;
+    const actions = app.actions;
     const cardsToShow = this.props.cardsId;
     //console.log(cardsToShow)
+    const cardsStyle = {
+      width: '100%',
+      height: '100%',
+      overflowY: 'auto',
+      display: 'flex',
+      flexFlow: 'row wrap',
+      alignContent: 'flex-start'
+    }
+    const cardContainerStyle = {
+      width: bs.width * 0.32,
+      height: bs.width * 0.4,
+      display: 'flex',
+      justifyContent: 'center'
+    }
     return(
-      cardsToShow.map((cardId,i)=>{
-        return <Cell key={i} app={app} data={func.getCardById(cardId)} type='card' onClick={()=>{}}/>
-      })
+      <div style={cardsStyle}>
+        {this.gap('3%')}
+        {cardsToShow.map((cardId,i)=>{
+          const card = func.getCardById(cardId);
+          return(
+            <div key={i} style={cardContainerStyle}>
+              <Cell app={app} data={card} type='card' onClick={()=>{actions.cards.viewCard(i, card); actions.content.pushView('viewCards')}}/>
+            </div>
+          )
+        })}
+      </div>
     )
   }
 

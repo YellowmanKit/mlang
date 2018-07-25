@@ -24,6 +24,8 @@ class App extends Component {
   getLangById(langId){
     const langsData = this.props.store.langs.langs;
     for(var i=0;i<langsData.length;i++){
+      //console.log(langId)
+      //console.log(langsData[i]._id)
       if(langsData[i]._id === langId){
         return langsData[i];
       }

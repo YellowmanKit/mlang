@@ -2,7 +2,7 @@ import React from 'react';
 import View from 'components/main/pages/home/views/View';
 import ImagePicker from 'components/main/items/ImagePicker';
 
-import LangEditor from './langs/LangEditor';
+import LangEditor from './editLangs/LangEditor';
 
 class AddCard extends View {
 

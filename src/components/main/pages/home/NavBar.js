@@ -78,6 +78,9 @@ class NavBar extends UI {
         case 'addCard':
           title = ['ADD CARD', '製作卡片'];
           break;
+        case 'viewCards':
+          title = ['VIEW CARDS', '檢視卡片'];
+          break;
         default:
           title = ['','']
           break;

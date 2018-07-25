@@ -1,7 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
 
-import LangRow from './LangRow';
+import LangEditRow from './LangEditRow';
 
 class LangEditor extends UI {
 
@@ -30,13 +30,13 @@ class LangEditor extends UI {
     app.actions.langs.pushEditLangs(newLangRow);
   }
 
-  langRows(){
+  langEditRows(){
     const app = this.props.app;
     const editLangs = app.store.langs.editLangs;
 
     return editLangs.map((editLang,i)=>{
       return(
-        <LangRow key={editLang.key + i} app={app} editLang={editLang} index={i}/>
+        <LangEditRow key={editLang.key + i} app={app} editLang={editLang} index={i}/>
       )
     })
   }
@@ -48,14 +48,14 @@ class LangEditor extends UI {
     const langs = app.store.langs;
     const editLangs = langs.editLangs;
 
-    const editorStyle = Object.assign({}, ui.basicStyle, ui.styles.list, {
+    const editorStyle = {...ui.basicStyle, ...ui.styles.list, ...{
       width: bs.width * 1,
       height: bs.height * 0.45,
       backgroundColor: ui.colors.ultraLightGrey
-    })
+    }}
     return(
       <div style={editorStyle}>
-        {this.langRows()}
+        {this.langEditRows()}
         {editLangs.length < app.store.langs.langKeys.length && this.buttons.listAdd([bs.width * 0.9, bs.height * 0.075], ['ADD LANG ROW','增加語言欄'], '200%', ()=>{this.pushRow()})}
       </div>
     )

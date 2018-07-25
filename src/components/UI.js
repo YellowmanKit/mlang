@@ -45,15 +45,16 @@ class UI extends Component {
     )
   }
 
-  textDisplay(text, scale, fontSize, color){
+  textDisplay(text, scale, fontSize, color, textAlign){
     const countStyle = {
       width: scale[0],
       height: scale[1],
       margin: '1%',
       fontSize: fontSize,
       fontWeight: 'bold',
-      textAlign: 'center',
+      textAlign: textAlign,
       overflow: 'hidden',
+      overflowWrap: 'break-word',
       color: color !== undefined? color: 'black'
     }
     return <div style={countStyle}>{text}</div>

@@ -24,12 +24,25 @@ class Enlarger extends UI {
       justifyContent: 'center'
     }}
 
+    const textStyle = {
+      color: 'white',
+      fontWeight: 'bold',
+      width: '100%',
+      height: '',
+      fontSize: '200%',
+      overflow: 'auto',
+      overflowWrap: 'break-word',
+      textAlign: 'center'
+    }
+
     this.buttons = new Button(app);
     return(
       <div style={style}>
         {this.buttons.absoluteClose(()=>{app.actions.main.closeEnlarger()})}
         {status === 'image' &&
         <img src={main.enlargeImage} style={{maxWidth: bs.width}} alt=''/>}
+        {status === 'text' &&
+        <div style={textStyle}>{main.enlargeText}</div>}
       </div>
     )
   }

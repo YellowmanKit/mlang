@@ -7,6 +7,8 @@ import btn_yellow from 'resources/images/buttons/btn_yellow.png';
 import icon_file from 'resources/images/buttons/buttonIcons/file.png';
 import icon_camera from 'resources/images/buttons/buttonIcons/camera.png';
 import icon_cross from 'resources/images/buttons/buttonIcons/cross.png';
+import icon_arrow from 'resources/images/buttons/buttonIcons/arrow.png';
+import icon_arrow_reverse from 'resources/images/buttons/buttonIcons/arrow_reverse.png';
 
 class Button {
 
@@ -18,12 +20,20 @@ class Button {
     this.actions = app.actions;
   }
 
+  next(onClick){
+    return this.button({...this.dynamicStyles('next'), ...this.dynamicStyles('arrow')}, ['',''], icon_arrow_reverse, onClick)
+  }
+
+  previous(onClick){
+    return this.button({...this.dynamicStyles('previous'), ...this.dynamicStyles('arrow')}, ['',''], icon_arrow, onClick)
+  }
+
   absoluteClose(onClick){
     return this.button(this.dynamicStyles('absoluteClose'), ['',''], icon_cross, onClick)
   }
 
   modal(text, onClick){
-    const style = {...this.ui.styles.button, ...{
+    const style = {
       width: '50%',
       height: '75%',
       backgroundColor: 'rgba(100, 100, 100, 0.5)',
@@ -32,12 +42,12 @@ class Button {
       fontWeight: 'bold',
       textAlign: 'center',
       borderRadius: '5px',
-    }}
+    }
     return this.button(style, text, '', onClick)
   }
 
   absolute(text, onClick){
-    const style = {...styles.button, ...{
+    const style = {
       position: 'absolute',
       bottom: '10%',
       backgroundColor: 'rgba(100, 100, 100, 0.5)',
@@ -46,17 +56,17 @@ class Button {
       width: this.bs.width * 0.3,
       height: this.bs.width * 0.1,
       fontSize: '150%'
-    }}
+    }
 
     return this.button(style, text, '', onClick)
   }
 
   langBar(icon, opacity, scale, onClick){
-    const style = {...styles.button, ...{
+    const style = {
       width: scale[0],
       height: scale[1],
       opacity: opacity
-    }}
+    }
     return this.button(style, ['', ''], icon, onClick)
   }
 
@@ -71,7 +81,7 @@ class Button {
   }
 
   mobileTakePicture(size){
-    const style = {...styles.button, ...styles.fileInput, ...{
+    const style = {...styles.button,...styles.fileInput, ...{
       width: size,
       height: size,
       margin: '5%',
@@ -93,7 +103,7 @@ class Button {
   }
 
   listAdd(scale, text, fontSize, onClick){
-    const style = {...this.ui.containerStyle, ...styles.button, ...{
+    const style = {...this.ui.containerStyle, ...{
       width: scale[0],
       height: scale[1],
       fontSize: fontSize,
@@ -127,20 +137,38 @@ class Button {
   dynamicStyles(name){
     switch (name) {
       case 'nav':
-        return {...this.ui.styles.button, ...{
+        return {
           width: this.bs.height * 0.06,
           height: this.bs.height * 0.06,
           margin: this.bs.width * 0.015
-        }}
+        }
       case 'absoluteClose':
-        return {...this.ui.styles.button, ...{
+        return {
           width: this.bs.height * 0.06,
           height: this.bs.height * 0.06,
           margin: this.bs.width * 0.015,
           position: 'absolute',
           top: 0,
           right: 0
-        }}
+        }
+      case 'arrow':
+        return {
+          width: this.bs.width * 0.08,
+          height: this.bs.height * 0.5,
+          opacity: 0.25
+        }
+      case 'previous':
+        return {
+          position: 'absolute',
+          top: this.bs.height * 0.21,
+          left: 0
+        }
+      case 'next':
+        return {
+          position: 'absolute',
+          top: this.bs.height * 0.21,
+          right: 0
+        }
       default:
         return {}
     }
@@ -155,7 +183,8 @@ const styles = {
     backgroundColor: 'transparent',
     fontWeight: 'bold',
     fontSize: '100%',
-    color: 'white'
+    color: 'white',
+    flexShrink: 0
   },
   rect: {
     width: '67%',
