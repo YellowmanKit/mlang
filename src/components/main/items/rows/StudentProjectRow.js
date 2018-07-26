@@ -4,14 +4,15 @@ import Row from './Row';
 import icon_student from 'resources/images/icons/student.png';
 import cards from 'resources/images/icons/cards_lightgrey.png';
 import star2 from 'resources/images/icons/star2_lightgrey.png';
+import alert from 'resources/images/icons/alert_black.png';
 
-class ProfileRow extends Row {
+class StudentProjectRow extends Row {
 
   rowInfo(){
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
-    const profile = this.props.profile;
+    const studentProject = this.props.studentProject;
 
     const rowStyle = {...ui.styles.area, ...{
       width: '100%',
@@ -23,37 +24,43 @@ class ProfileRow extends Row {
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
-        {this.textDisplay(profile.cardCount, textScale, '150%', 'center')}
+        {this.textDisplay(studentProject.total, textScale, '150%', 'center')}
         {this.verGap('5%')}
         {this.icon(star2, [iconSize, iconSize])}
-        {this.textDisplay(profile.featuredCount, textScale, '150%', 'center')}
+        {this.textDisplay(studentProject.featured, textScale, '150%', 'center')}
+        {this.verGap('5%')}
+        {this.icon(alert, [iconSize, iconSize], 0.2)}
+        {this.textDisplay(studentProject.alert, textScale, '150%', 'center')}
       </div>
     )
   }
 
   render(){
-    if(this.props.profile === null){
+    const studentProject = this.props.studentProject;
+    if(studentProject === null){
       return null;
     }
     const app = this.props.app;
+    const func = app.functions;
+    const actions = app.actions;
     const ui = app.store.ui;
     const bs = ui.basicStyle;
 
-    const rowStyle = Object.assign({}, ui.styles.area, {
+    const rowStyle = {...ui.styles.area, ...ui.styles.button, ...{
       flexShrink: 0,
       height: bs.height * 0.15,
       borderBottom: '1px solid ' + ui.colors.darkGrey,
       alignItems: 'center'
-    })
-
+    }}
+    const profile = func.getStudentProfileByUserId(studentProject.student);
     return(
-      <div style={rowStyle}>
+      <button style={rowStyle} onClick={()=>{actions.studentProjects.viewStudentProject(studentProject); actions.content.pushView('gradingCards');}}>
         {this.verGap('3%')}
         {this.rowIcon(icon_student)}
-        {this.rowContent(this.props.profile.name, this.rowInfo.bind(this) )}
-      </div>
+        {profile && this.rowContent(profile.name, this.rowInfo.bind(this) )}
+      </button>
     )
   }
 }
 
-export default ProfileRow;
+export default StudentProjectRow;

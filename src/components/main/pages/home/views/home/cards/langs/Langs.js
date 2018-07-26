@@ -36,7 +36,7 @@ class Langs extends UI {
   langRows(){
     const single = this.state.langs.length === 1? true:false;
     return(
-      this.state.langs.map((lang, i)=>{
+      this.state.langs.slice(0).reverse().map((lang, i)=>{
         return <LangRow key={i} app={this.props.app} lang={lang} single={single}/>
       })
     )

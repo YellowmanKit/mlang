@@ -6,6 +6,13 @@ import to from '../to';
 
 var api = process.env.REACT_APP_API;
 
+export const gradeCards = (id, cards) =>{
+  return {
+    type: 'gradeCards',
+    payload: { studentProjectId: id, cards: cards}
+  }
+}
+
 export const viewCard = (index, card) =>{
   return {
     type: 'viewCard',
@@ -21,8 +28,9 @@ export function getCards(cardsId){
     if(err){actions.connectionError(dispatch); return;}
 
     if(cardsRes.data.result === 'success'){
-      dispatch({type: "appendCards", payload: cardsRes.data.cards});
       dispatch({type: "appendLangs", payload: cardsRes.data.langs});
+      dispatch({type: "appendCards", payload: cardsRes.data.cards});
+      dispatch({type: "appendStudents", payload: cardsRes.data.students});
     }else{
       console.log('get cards failed!')
     }
@@ -84,7 +92,10 @@ export function addCard(data){
       //console.log(cardRes.data.newStudentProject)
       dispatch({type: "appendCards", payload: [cardRes.data.card]});
       dispatch({type: "appendLangs", payload: cardRes.data.langs});
-      dispatch({type: "updateStudentProjects", payload: cardRes.data.updatedStudentProject});
+      //dispatch({type: "updateProject", payload: cardRes.data.updatedProject});
+      dispatch({type: "updateStudentProject", payload: cardRes.data.updatedStudentProject});
+      dispatch({type: "setEditLangs", payload: []});
+      //dispatch({type: "setPhoto", payload: {photoUrl: null, photoBlob: null}});
       dispatch({type: "pullView"});
     }else{
       dispatch({type: "message", payload: ['Submit card failed! Please try again!', '提交失敗! 請再試一次!']});

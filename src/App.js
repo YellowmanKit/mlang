@@ -21,26 +21,33 @@ import Main from './components/main/Main';
 
 class App extends Component {
 
-  getLangById(langId){
-    const langsData = this.props.store.langs.langs;
-    for(var i=0;i<langsData.length;i++){
-      //console.log(langId)
-      //console.log(langsData[i]._id)
-      if(langsData[i]._id === langId){
-        return langsData[i];
+  getItemById(data, id){
+    for(var i=0;i<data.length;i++){
+      if(data[i]._id === id){
+        return data[i];
       }
     }
     return null;
   }
 
+  getLangById(langId){
+    const langsData = this.props.store.langs.langs;
+    return this.getItemById(langsData, langId);
+  }
+
   getCardById(cardId){
     const cardsData = this.props.store.cards.cards;
-    for(var i=0;i<cardsData.length;i++){
-      if(cardsData[i]._id === cardId){
-        return cardsData[i];
-      }
-    }
-    return null;
+    return this.getItemById(cardsData, cardId);
+  }
+
+  getStudentProjectById(id){
+    const data = this.props.store.studentProjects.studentProjects;
+    return this.getItemById(data, id);
+  }
+
+  getProjectById(projectId){
+    const projectsData = this.props.store.projects.projects;
+    return this.getItemById(projectsData, projectId);
   }
 
   getStudentProject(studentId, projectId){
@@ -48,23 +55,7 @@ class App extends Component {
     for(var i=0;i<studentProjectsData.length;i++){
       if(studentProjectsData[i].project === projectId &&
         studentProjectsData[i].student === studentId){
-        return {
-          index: i,
-          data: studentProjectsData[i]
-        }
-      }
-    }
-    return {
-      index: -1,
-      data: null
-    }
-  }
-
-  getProjectById(projectId){
-    const projectsData = this.props.store.projects.projects;
-    for(var i=0;i<projectsData.length;i++){
-      if(projectsData[i]._id === projectId){
-        return projectsData[i];
+        return studentProjectsData[i];
       }
     }
     return null;
@@ -146,6 +137,7 @@ class App extends Component {
         getStudentProject: this.getStudentProject.bind(this),
         getCardById: this.getCardById.bind(this),
         getLangById: this.getLangById.bind(this),
+        getStudentProjectById: this.getStudentProjectById.bind(this),
         langKeyToLangName: this.langKeyToLangName.bind(this),
         langNameToLangKey: this.langNameToLangKey.bind(this)
       }

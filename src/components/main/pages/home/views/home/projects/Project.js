@@ -4,6 +4,7 @@ import View from 'components/main/pages/home/views/View';
 import SubNav from 'components/main/items/SubNav';
 import ProjectDetail from './subviews/ProjectDetail';
 import SubmittedCards from './subviews/SubmittedCards';
+import StudentProjects from './subviews/StudentProjects';
 
 class Project extends View {
 
@@ -24,6 +25,7 @@ class Project extends View {
       case 'projectSubmitted':
         return(
           type === 'student'? <SubmittedCards app={app}/>:
+          type === 'teacher'? <StudentProjects app={app}/>:
           null
         )
       default:

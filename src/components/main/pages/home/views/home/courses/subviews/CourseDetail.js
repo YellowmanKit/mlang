@@ -24,17 +24,17 @@ class CourseDetail extends SubView {
 
         {this.subTitle(['Title','班名'])}
         {this.sep()}
-        {this.textDisplay(course.title, ['100%',''], '125%')}
+        {this.textDisplay(course.title, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
-        {this.textDisplay(func.getDateString(new Date(course.endDate)), ['100%',''], '125%')}
+        {this.textDisplay(func.getDateString(new Date(course.endDate)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['Code','代碼'])}
         {this.sep()}
-        {this.textDisplay(course.code, ['100%',''], '125%')}
+        {this.textDisplay(course.code, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
       </div>
     )

@@ -37,16 +37,18 @@ class Card extends UI {
   footer(data){
     const app = this.props.app;
     const ui = app.store.ui;
+    const func = app.functions;
     const style = {...ui.styles.area, ...ui.styles.container, ...{
       height: '6%',
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
       textAlign: 'left'
     }}
+    const profile = func.getStudentProfileByUserId(data.author);
     return(
       <div style={style}>
         {this.verGap('2%')}
-        {this.textDisplay(data.author, ['','40%'], '75%', ui.colors.deepDarkGrey)}
+        {profile && this.textDisplay(profile.name, ['','40%'], '75%', ui.colors.deepDarkGrey)}
       </div>
     )
   }

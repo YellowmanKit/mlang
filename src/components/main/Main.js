@@ -68,7 +68,10 @@ class Main extends Component {
       backgroundSize: '10% 10%',
       display: 'flex',
       flexFlow: 'row nowrap',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      
+      boxSizing: 'border-box',
+      overflow: 'hidden'
     }
     return (
       <div style={mainStyle}>

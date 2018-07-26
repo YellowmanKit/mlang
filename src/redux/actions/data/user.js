@@ -94,5 +94,6 @@ export function login (_id, _pw) {
 export function logout() {
   return function (dispatch) {
     dispatch({type: "setStatus", payload: "waitForLogin"});
+    //window.location.reload();
   }
 }

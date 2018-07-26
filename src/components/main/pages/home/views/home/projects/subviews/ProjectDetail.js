@@ -24,17 +24,17 @@ class ProjectDetail extends SubView {
 
         {this.subTitle(['Title','班名'])}
         {this.sep()}
-        {this.textDisplay(project.title, ['100%',''], '125%')}
+        {this.textDisplay(project.title, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['Description','描述'])}
         {this.sep()}
-        {this.textDisplay(project.description, ['100%',''], '125%')}
+        {this.textDisplay(project.description, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
-        {this.textDisplay(func.getDateString(new Date(project.endDate)), ['100%',''], '125%')}
+        {this.textDisplay(func.getDateString(new Date(project.endDate)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}
       </div>
     )

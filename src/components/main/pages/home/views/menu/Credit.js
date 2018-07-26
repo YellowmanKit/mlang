@@ -4,7 +4,7 @@ import View from 'components/main/pages/home/views/View';
 class Credit extends View {
 
   creditTextDisplay(text){
-    return this.textDisplay(text, ['100%',''], '125%');
+    return this.textDisplay(text, ['100%',''], '125%', 'center');
   }
 
   render() {

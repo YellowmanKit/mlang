@@ -81,6 +81,9 @@ class NavBar extends UI {
         case 'viewCards':
           title = ['VIEW CARDS', '檢視卡片'];
           break;
+        case 'gradingCards':
+          title = ['GRADING CARDS', '評核卡片'];
+          break;
         default:
           title = ['','']
           break;
@@ -96,11 +99,14 @@ class NavBar extends UI {
   }
 
   titleArea(title){
+    const app = this.props.app;
+    const ui = app.store.ui;
+    const bs = ui.basicStyle;
     const titleAreaStyle = {
       flexGrow: 5,
       textAlign: 'center',
       color: 'white',
-      fontSize: '225%',
+      fontSize: bs.height * 0.055,
       fontWeight: 'bold'
     }
     return <div style={titleAreaStyle}>{title}</div>

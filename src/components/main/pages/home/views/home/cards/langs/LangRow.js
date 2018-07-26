@@ -42,7 +42,7 @@ class LangRow extends UI {
       width: '100%',
       height: this.props.single? bs.height * 0.37: bs.height * 0.185,
       backgroundColor: 'white',
-      borderBottom: '5px solid ' + ui.colors.ultraLightGrey,
+      borderBottom: '4px solid ' + ui.colors.ultraLightGrey,
       flexShrink: 0
     });
 
@@ -90,7 +90,7 @@ class LangRow extends UI {
     return(
       <div style={barStyle}>
         {this.verGap('1%')}
-        {this.textDisplay(func.langKeyToLangName(lang.key), ['75%',''], '75%', 'left')}
+        {this.textDisplay(func.langKeyToLangName(lang.key), ['75%',''], '75%', 'left', ui.colors.deepDarkGrey)}
         {this.verGap('12%')}
         {!this.state.isPlaying && this.buttons.langBar(icon_play , 0.25, sizeSmall,()=>{this.playback()})}
         {this.state.isPlaying && this.buttons.langBar(icon_stop, 0.25, sizeSmall,()=>{this.stopPlayback()})}

@@ -10,6 +10,7 @@ class View extends UI {
       height: bs.height * 0.92,
       position: 'relative',
       justifyContent: 'flex-start',
+      alignItems: 'center',
       backgroundColor: 'white'
     }}
   }

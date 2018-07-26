@@ -8,10 +8,11 @@ class UI extends Component {
   buttons = new Button(this.props.app)
   inputs = new Input(this.props.app)
 
-  icon(url, scale){
+  icon(url, scale, opacity){
     const iconStyle = {
       width: scale[0],
       height: scale[1],
+      opacity: opacity,
       backgroundImage: 'url(' + url + ')',
       backgroundSize: '100% 100%'
     }
@@ -45,7 +46,7 @@ class UI extends Component {
     )
   }
 
-  textDisplay(text, scale, fontSize, color, textAlign){
+  textDisplay(text, scale, fontSize, textAlign, color){
     const countStyle = {
       width: scale[0],
       height: scale[1],

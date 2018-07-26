@@ -32,12 +32,12 @@ class Profile extends View {
 
         {this.subTitle(['Total submitted cards','卡片總數'])}
         {this.sep()}
-        {this.textDisplay(profile.cardCount, ['50%','6%'], '150%')}
+        {this.textDisplay(profile.cardCount, ['50%','6%'], '150%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['Total featured cards','精選卡片總數'])}
         {this.sep()}
-        {this.textDisplay(profile.featuredCount, ['50%','6%'], '150%')}
+        {this.textDisplay(profile.featuredCount, ['50%','6%'], '150%', 'center')}
         {this.gap('2%')}
 
         {this.gap('4%')}

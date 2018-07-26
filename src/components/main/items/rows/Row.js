@@ -23,6 +23,9 @@ class Row extends UI {
   }
 
   rowTitle(title){
+    if(!title){
+      return null;
+    }
     const app = this.props.app;
     const bs = app.store.ui.basicStyle;
     const nameStyle = {

@@ -15,13 +15,12 @@ class Cell extends UI {
     const url = func.url(this.props.data.icon, append);
 
     const imageStyle = {...ui.styles.container, ...ui.styles.border, ...{
-      width: bs.width * 0.22,
-      height: bs.width * 0.22,
-      marginTop: '4%',
-      backgroundImage: 'url(' + url + ')'
+      maxWidth: bs.width * 0.22,
+      maxHeight: bs.width * 0.22,
+      marginTop: '4%'
     }};
     //console.log(url)
-    return <div style={imageStyle}/>
+    return <img style={imageStyle} src={url} alt=''/>
   }
 
   cellTitle(type){
@@ -40,11 +39,15 @@ class Cell extends UI {
     }
 
     const scale =
-    type === 'course'? [bs.width * 0.23,bs.width * 0.05]:
-    type === 'card'? [bs.width * 0.23, bs.width * 0.1]:
+    type === 'course'? [bs.width * 0.23,'']:
+    type === 'card'? [bs.width * 0.23, '']:
     '';
 
-    return this.textDisplay(text, scale, '125%')
+    return(
+      <div style={{flexGrow: 1}}>
+        {this.textDisplay(text, scale, '125%')}
+      </div>
+    )
   }
 
   render(){
@@ -72,7 +75,9 @@ class Cell extends UI {
       flexShrink: 0,
       display: 'flex',
       flexFlow: 'column nowrap',
-      alignItems: 'center'
+      alignItems: 'center',
+      position: 'relative',
+      overflow: 'hidden'
     }}
 
     return(

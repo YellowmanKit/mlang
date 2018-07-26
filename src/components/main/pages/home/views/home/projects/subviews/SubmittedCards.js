@@ -13,10 +13,10 @@ class SubmittedCards extends SubView {
     const func = app.functions;
     const viewingProject = app.store.projects.viewingProject;
     const studentProject = func.getStudentProject(app.store.user._id, viewingProject._id)
-    if(studentProject.data === null){
+    if(studentProject === null){
       app.actions.studentProjects.getStudentProject(app.store.user._id, viewingProject._id, app.store.studentProjects.studentProjects.length)
     }else {
-      app.actions.studentProjects.viewStudentProject(studentProject.index, studentProject.data)
+      app.actions.studentProjects.viewStudentProject(studentProject)
     }
   }
 
