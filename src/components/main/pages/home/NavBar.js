@@ -1,11 +1,12 @@
 import React from 'react';
 import UI from 'components/UI';
-import Button from 'components/main/items/ui/Button';
 
 import topBar from 'resources/images/general/top_bar.png';
 import back_arrow from 'resources/images/buttons/buttonIcons/back_arrow.png';
 import menu from 'resources/images/buttons/buttonIcons/menu.png';
 //import search from 'resources/images/buttons/buttonIcons/search.png';
+import floppy from 'resources/images/buttons/buttonIcons/floppy.png';
+
 
 class NavBar extends UI {
 
@@ -25,19 +26,19 @@ class NavBar extends UI {
   init(newProp){
     const app = newProp.app;
     const func = app.functions;
-    const action = app.actions.content;
+    const actions = app.actions;
     const view = app.store.content.view;
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
-    leftOnClick = action.pullView;
+    leftOnClick = actions.content.pullView;
     //rightOnClick = this.none;
-    rightOnClick = ()=>{this.props.app.actions.modal.errorMessage(['testing', 'testing']);}
+    rightOnClick = ()=>{this.props.app.actions.content.modal.errorMessage(['testing', 'testing']);}
 
     leftIcon = back_arrow;
 
     if(view === 'studentHome' ||  view === 'teacherHome'){
-      leftOnClick = action.toggleMenu;
+      leftOnClick = actions.content.toggleMenu;
       leftIcon = menu;
       //rightIcon = search;
       title = ['HOME','主頁'];
@@ -83,13 +84,15 @@ class NavBar extends UI {
           break;
         case 'gradingCards':
           title = ['GRADING CARDS', '評核卡片'];
+          rightIcon = floppy;
+          rightOnClick = this.saveCard.bind(this)
           break;
         default:
           title = ['','']
           break;
       }
     }
-    this.buttons = new Button(app);
+    this.buttons.init(app);
     this.setState({
       leftNav: ()=>{ return this.buttons.nav(leftIcon, ()=>{ leftOnClick() })},
       rightNav: ()=>{ return this.buttons.nav(rightIcon, ()=>{ rightOnClick() })},
@@ -140,6 +143,13 @@ class NavBar extends UI {
   }
 
   none(){}
+
+  saveCard(){
+    const app = this.props.app;
+    const studentProject = app.store.studentProjects.viewingStudentProject;
+    const gradingCards = app.store.cards.gradingCards[studentProject._id];
+    app.actions.cards.saveGradingCards(gradingCards);
+  }
 
 }
 

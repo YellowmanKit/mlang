@@ -1,64 +1,10 @@
 import React from 'react';
 import UI from 'components/UI';
-import WAVEInterface from 'components/audio/waveInterface';
+import RecorderBar from 'components/audio/RecorderBar';
 
 import icon_cross from 'resources/images/buttons/buttonIcons/cross_grey.png';
-import icon_recorder from 'resources/images/buttons/buttonIcons/recorder_grey.png';
-import icon_play from 'resources/images/buttons/buttonIcons/play_grey.png';
-import icon_stop from 'resources/images/buttons/buttonIcons/stop_grey.png';
 
 class LangEditRow extends UI {
-  waveInterface = new WAVEInterface();
-
-  componentWillMount() { this.waveInterface.reset(); }
-  componentWillUnmount() { this.waveInterface.reset(); }
-
-  record(){
-    const actions = this.props.app.actions;
-
-    this.waveInterface.reset();
-
-    this.waveInterface.startRecording()
-    .then(() => {
-      actions.main.setAudioRecorder({recording: true, onRecordStop: ()=>{this.stopRecord()}});
-    })
-    .catch((err) => {
-      actions.modal.errorMessage([err.message, err.message]);
-      throw err;
-    })
-  }
-
-  stopRecord(){
-    const actions = this.props.app.actions;
-    this.waveInterface.stopRecording()
-    actions.main.setAudioRecorder({recording: false, onRecordStop: null});
-
-    const _blob = this.waveInterface.audioData;
-    const _url = URL.createObjectURL(_blob);
-    actions.langs.setLangAudio({index: this.props.index, blob: _blob, url: _url});
-  }
-
-  playback(){
-    const editLang = this.props.editLang;
-    if(editLang.audioPlaying || !editLang.audioBlob){ return; }
-    const actions = this.props.app.actions;
-    this.waveInterface.startPlayback(false,this.props.editLang.audioBlob, ()=>{this.onPlaybackEnd()})
-    .then(()=>{
-      actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, audioPlaying: true}});
-    })
-  }
-
-  onPlaybackEnd(){
-    const actions = this.props.app.actions;
-    actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, audioPlaying: false}});
-  }
-
-  stopPlayback(){
-    if(!this.props.editLang.audioPlaying){ return; }
-    this.waveInterface.stopPlayback();
-    const actions = this.props.app.actions;
-    actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, audioPlaying: false}});
-  }
 
   langRow(){
     const app = this.props.app;
@@ -95,27 +41,21 @@ class LangEditRow extends UI {
       alignItems: 'center'
     }}
 
-    const sizeSmall = [bs.width * 0.05,bs.width * 0.05];
-    const sizeBig = [bs.width * 0.06,bs.width * 0.06];
-
     const audioBlob = this.props.editLang.audioBlob;
-    const isPlaying = this.props.editLang.audioPlaying;
-
     return(
       <div style={barStyle}>
         {this.verGap('1%')}
         {this.inputs.optionBar('langKey' + i, ['30%','75%'], this.langKeyOptions(), this.langKeyDefault(i), this.onOptionChange.bind(this))}
-        {this.verGap('9%')}
-        {this.buttons.langBar(icon_recorder, audioBlob? 1: 0.2, sizeBig, ()=>{this.record(i)})}
-        {this.verGap('8%')}
-        {this.buttons.langBar(icon_play , (audioBlob && !isPlaying)? 1:0.2, sizeSmall,()=>{this.playback(i)})}
-        {this.verGap('8%')}
-        {this.buttons.langBar(icon_stop, (audioBlob && isPlaying)? 1:0.2, sizeBig,()=>{this.stopPlayback(i)})}
-        {this.verGap('18%')}
-        {i > 0 && this.buttons.langBar(icon_cross, 0.1, sizeSmall,()=>{app.actions.langs.removeEditLangsItem(i)})}
+        <RecorderBar app={app} scale={['65%','100%']} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={false}/>
+        {i > 0 && this.buttons.langBar(icon_cross, 0.1, [bs.width * 0.05,bs.width * 0.05],()=>{app.actions.langs.removeEditLangsItem(i)})}
         {this.verGap('1%')}
       </div>
     )
+  }
+
+  onStopRecording(blob){
+    const actions = this.props.app.actions;
+    actions.langs.setLangAudio({index: this.props.index, blob: blob});
   }
 
   onOptionChange(event){

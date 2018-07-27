@@ -20,7 +20,7 @@ import Project from './views/home/projects/Project';
 
 import AddCard from './views/home/cards/AddCard';
 import ViewCards from './views/home/cards/ViewCards';
-import GradingCards from './views/home/cards/GradingCards';
+import GradingCards from './views/home/cards/gradingCards/GradingCards';
 
 
 import StudentHome from './views/home/StudentHome';

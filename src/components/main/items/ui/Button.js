@@ -10,14 +10,75 @@ import icon_cross from 'resources/images/buttons/buttonIcons/cross.png';
 import icon_arrow from 'resources/images/buttons/buttonIcons/arrow.png';
 import icon_arrow_reverse from 'resources/images/buttons/buttonIcons/arrow_reverse.png';
 
+import icon_passed from 'resources/images/buttons/buttonIcons/tick.png';
+import icon_featured from 'resources/images/buttons/buttonIcons/star2.png';
+import icon_comment from 'resources/images/buttons/buttonIcons/edit.png';
+import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment.png';
+
+
 class Button {
 
   constructor(app){
+    this.init(app);
+  }
+
+  init(app){
     this.app = app;
     this.ui = app.store.ui;
     this.bs = this.ui.basicStyle;
     this.func = app.functions;
     this.actions = app.actions;
+  }
+
+  gradingFailed(onClick){
+    const style = {
+      width: '60%',
+      height: '60%'
+    }
+    return this.grading(icon_cross, style, '#ce0000', onClick)
+  }
+
+  gradingPassed(onClick){
+    const style = {
+      width: '70%',
+      height: '70%'
+    }
+    return this.grading(icon_passed, style, '#09ba00', onClick)
+  }
+
+  gradingFeatured(onClick){
+    const style = {
+      width: '75%',
+      height: '75%'
+    }
+    return this.grading(icon_featured, style, '#e0d800', onClick)
+  }
+
+  gradingComment(onClick){
+    const style = {
+      width: '65%',
+      height: '65%'
+    }
+    return this.grading(icon_comment, style, '#444444', onClick)
+  }
+
+  gradingAudioComment(onClick){
+    const style = {
+      width: '65%',
+      height: '65%'
+    }
+    return this.grading(icon_audioComment, style, '#7f7f7f', onClick)
+  }
+
+  grading(icon, iconStyle, color, onClick){
+    const buttonStyle = {...this.ui.styles.button, ...this.ui.styles.container, ...styles.grading, ...{
+      background: 'linear-gradient(to top left, '+ color + ' 0%, #ffffff 125%)'
+    }}
+    return(
+      <button style={buttonStyle} onClick={onClick}>
+        <img style={iconStyle} src={icon} alt=''/>
+      </button>
+    )
   }
 
   next(onClick){
@@ -194,6 +255,11 @@ const styles = {
   fileInput: {
     boxSizing: 'border-box',
     overflow: 'hidden'
+  },
+  grading: {
+    width: '80%',
+    height: '80%',
+    borderRadius: '15px'
   }
 }
 

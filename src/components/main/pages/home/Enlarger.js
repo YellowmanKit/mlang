@@ -1,6 +1,5 @@
 import React from 'react';
 import UI from 'components/UI';
-import Button from 'components/main/items/ui/Button';
 
 class Enlarger extends UI {
 
@@ -35,7 +34,7 @@ class Enlarger extends UI {
       textAlign: 'center'
     }
 
-    this.buttons = new Button(app);
+    this.buttons.init(app);
     return(
       <div style={style}>
         {this.buttons.absoluteClose(()=>{app.actions.main.closeEnlarger()})}

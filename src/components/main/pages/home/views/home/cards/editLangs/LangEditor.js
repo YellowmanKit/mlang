@@ -23,9 +23,7 @@ class LangEditor extends UI {
     var newLangRow = {
       key: langKeys[length].key,
       text: '',
-      audioPlaying: false,
-      audioBlob: null,
-      audioUrl: ''
+      audioBlob: null
     }
     app.actions.langs.pushEditLangs(newLangRow);
   }

@@ -6,6 +6,13 @@ import to from '../to';
 
 var api = process.env.REACT_APP_API;
 
+export const gradeCard = (id, index, gradeCard) =>{
+  return {
+    type: 'gradeCard',
+    payload: { studentProjectId: id, index: index, gradeCard: gradeCard}
+  }
+}
+
 export const gradeCards = (id, cards) =>{
   return {
     type: 'gradeCards',
@@ -17,6 +24,13 @@ export const viewCard = (index, card) =>{
   return {
     type: 'viewCard',
     payload: { index: index, card: card}
+  }
+}
+
+export function saveGradingCards(gradingCards){
+  console.log(gradingCards)
+  return async function (dispatch) {
+
   }
 }
 

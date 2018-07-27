@@ -21,7 +21,7 @@ class Recording extends UI {
       height: bs.height,
       minHeight: bs.minHeight,
       backgroundColor: 'white',
-      opacity: 0.75,
+      opacity: 0.9,
       justifyContent: 'center'
     });
     return(

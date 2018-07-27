@@ -3,10 +3,33 @@ import Button from 'components/main/items/ui/Button';
 import Input from 'components/main/items/ui/Input';
 
 import tab_bar from 'resources/images/general/tab_bar.png';
+import icon_comment from 'resources/images/buttons/buttonIcons/edit_black.png';
+import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment_black.png';
 
 class UI extends Component {
   buttons = new Button(this.props.app)
   inputs = new Input(this.props.app)
+
+  cardTags(commented, audioCommented){
+    const app = this.props.app;
+    const ui = app.store.ui;
+    const bs = ui.basicStyle;
+    const width = bs.width * 0.05;
+    const style = {...ui.basicStyle, ...{
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      width: width,
+      height: width * 2,
+      justifyContent: 'flex-end'
+    }}
+    return(
+      <div style={style}>
+        {this.icon(icon_comment, [width, width], commented? 0.85:0.1)}
+        {this.icon(icon_audioComment, [width, width], audioCommented? 0.85:0.1)}
+      </div>
+    )
+  }
 
   icon(url, scale, opacity){
     const iconStyle = {
@@ -77,7 +100,7 @@ class UI extends Component {
   }
 
   gap(height){
-    return <div style={{height: height, width: '100%'}} />
+    return <div style={{height: height, width: '100%', flexShrink: 0}} />
   }
 
   sep(){

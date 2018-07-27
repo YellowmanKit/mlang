@@ -37,13 +37,13 @@ class Input {
     return <input id={id} type={type} defaultValue={value} style={inputStyle} />
   }
 
-  textArea(id, scale, fontSize, value, onChange){
+  textArea(id, scale, fontSize, value, onChange, placeholder){
     const textAreaStyle = {
       width: scale[0],
       height: scale[1],
       fontSize: fontSize
     }
-    return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null}/>
+    return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1]):''}/>
   }
 
   inputField(id, type, placeholder, value){

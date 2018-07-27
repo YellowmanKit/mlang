@@ -5,9 +5,12 @@ const cardsReducer = (
     indexOfViewing: -1,
     gradingCards: {}
   }, action)=>{
+  var _gradingCards = state.gradingCards;
   switch (action.type) {
+    case 'gradeCard':
+      _gradingCards[action.payload.studentProjectId][action.payload.index] = action.payload.gradeCard;
+      return {...state, gradingCards: _gradingCards};
     case 'gradeCards':
-      var _gradingCards = state.gradingCards;
       _gradingCards[action.payload.studentProjectId] = action.payload.cards;
       return {...state, gradingCards: _gradingCards};
     case 'viewCard':
