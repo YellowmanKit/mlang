@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import UI from 'components/UI';
 
 import Pages from './pages/Pages';
 import Modal from './Modal';
@@ -6,18 +7,18 @@ import Recording from './Recording';
 
 import background from 'resources/images/general/background.png';
 
-class Main extends Component {
+class Main extends UI {
 
   componentDidMount(){
+    this.init(this.props);
     //localStorage.clear();
-    const actions = this.props.app.actions;
-    actions.main.setStatus('waitForLogin');
+    this.actions.main.setStatus('waitForLogin');
     //actions.main.setStatus('ready');
   }
 
   componentWillReceiveProps(newProps){
-    const app = this.props.app;
-    const previous = app.store.main.status;
+    this.init(this.props);
+    const previous = this.app.store.main.status;
     const next = newProps.app.store.main.status;
     //console.log(previous);
     //console.log(next);
@@ -25,16 +26,15 @@ class Main extends Component {
       const newUser = newProps.app.store.user;
       this.rememberLoginInfo(newUser.id, newUser.pw);
       //console.log(JSON.parse(localStorage.getItem('loginInfo')).id);
-      this.initView(this.props.app.store.user.type);
+      this.initView(this.app.store.user.type);
     }
 
-    const oldType = app.store.user.type;
+    const oldType = this.app.store.user.type;
     const newType = newProps.app.store.user.type;
     if(oldType !== newType){
-      app.actions.content.clearView();
+      this.app.actions.content.clearView();
       this.initView(newType);
     }
-
   }
 
   rememberLoginInfo(id, pw){
@@ -42,42 +42,39 @@ class Main extends Component {
   }
 
   initView(type){
-    const app = this.props.app;
-
     const initView =
     type === 'student'? 'studentHome':
     type === 'teacher'? 'teacherHome':
     '';
-    app.actions.content.pushView(initView);
+    this.actions.content.pushView(initView);
 
-    const name = app.store.profile.name;
+    const name = this.store.profile.name;
     if(!name || name === ''){
-      app.actions.content.pushView('forceProfile');
+      this.actions.content.pushView('forceProfile');
     }
-    //app.actions.content.pushView('addCourse');
   }
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
+    this.init(this.props);
+
     const mainStyle = {
-      width: ui.windowWidth,
-      height: ui.windowHeight,
-      minHeight: ui.basicStyle.height,
+      width: this.ui.windowWidth,
+      height: this.ui.windowHeight,
+      minHeight: this.bs.height,
       backgroundImage: 'url(' + background + ')',
       backgroundSize: '10% 10%',
       display: 'flex',
       flexFlow: 'row nowrap',
       justifyContent: 'center',
-      
+
       boxSizing: 'border-box',
       overflow: 'hidden'
     }
     return (
       <div style={mainStyle}>
-        <Pages app={app}/>
-        <Recording app={app}/>
-        <Modal app={app}/>
+        <Pages app={this.app}/>
+        <Recording app={this.app}/>
+        <Modal app={this.app}/>
       </div>
     )
   }

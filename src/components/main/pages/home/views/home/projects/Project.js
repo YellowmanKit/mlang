@@ -9,23 +9,21 @@ import StudentProjects from './subviews/StudentProjects';
 class Project extends View {
 
   componentDidMount(){
-    const app = this.props.app;
-    const actions = app.actions;
-    actions.content.setSubView('projectSubmitted');
+    this.init(this.props);
+    this.actions.content.setSubView('projectSubmitted');
   }
 
   subView(){
-    const app = this.props.app;
-    const subView = app.store.content.subView;
-    const type = app.store.user.type;
+    const subView = this.store.content.subView;
+    const type = this.store.user.type;
 
     switch (subView) {
       case 'projectDetail':
-        return <ProjectDetail app={app}/>
+        return <ProjectDetail app={this.app}/>
       case 'projectSubmitted':
         return(
-          type === 'student'? <SubmittedCards app={app}/>:
-          type === 'teacher'? <StudentProjects app={app}/>:
+          type === 'student'? <SubmittedCards app={this.app}/>:
+          type === 'teacher'? <StudentProjects app={this.app}/>:
           null
         )
       default:
@@ -48,13 +46,12 @@ class Project extends View {
         subView: 'projectFeatured'
       }
     ]
-    return <SubNav app={this.props.app} options={_options} />
+    return <SubNav app={this.app} options={_options} />
   }
 
   render(){
-    const app = this.props.app;
-    const store = app.store;
-    const project = store.projects.viewingProject;
+    this.init(this.props);
+    const project = this.store.projects.viewingProject;
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([project.title,project.title])}

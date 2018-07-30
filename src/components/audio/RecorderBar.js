@@ -22,23 +22,21 @@ class RecorderBar extends UI {
   }
 
   record(){
-    const actions = this.props.app.actions;
     this.waveInterface.reset();
 
     this.waveInterface.startRecording()
     .then(() => {
-      actions.main.setAudioRecorder({recording: true, onRecordStop: ()=>{this.stopRecord()}});
+      this.actions.main.setAudioRecorder({recording: true, onRecordStop: ()=>{this.stopRecord()}});
     })
     .catch((err) => {
-      actions.modal.errorMessage([err.message, err.message]);
+      this.actions.modal.errorMessage([err.message, err.message]);
       throw err;
     })
   }
 
   stopRecord(){
-    const actions = this.props.app.actions;
     this.waveInterface.stopRecording()
-    actions.main.setAudioRecorder({recording: false, onRecordStop: null});
+    this.actions.main.setAudioRecorder({recording: false, onRecordStop: null});
 
     const blob = this.waveInterface.audioData;
     this.props.onStopRecording(blob);
@@ -46,10 +44,13 @@ class RecorderBar extends UI {
 
   playback(){
     if(this.state.audioPlaying || !this.props.audioBlob){ return; }
+    //console.log(this.props.audioBlob)
+
     this.waveInterface.startPlayback(false, this.props.audioBlob, ()=>{this.onPlaybackEnd()})
     .then(()=>{
       this.setState({ audioPlaying: true })
     })
+
   }
 
   onPlaybackEnd(){
@@ -63,18 +64,14 @@ class RecorderBar extends UI {
   }
 
   langBar(i){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const barStyle = {...ui.styles.area, ...{
+    const barStyle = {...this.ui.styles.area, ...{
       width: this.props.scale[0],
       height: this.props.scale[1],
       alignItems: 'center'
     }}
 
-    const sizeSmall = [bs.width * 0.05,bs.width * 0.05];
-    const sizeBig = [bs.width * 0.06,bs.width * 0.06];
+    const sizeSmall = [this.bs.width * 0.05,this.bs.width * 0.05];
+    const sizeBig = [this.bs.width * 0.06,this.bs.width * 0.06];
 
     const audioBlob = this.props.audioBlob;
     const isPlaying = this.state.audioPlaying
@@ -94,6 +91,7 @@ class RecorderBar extends UI {
   }
 
   render() {
+    this.init(this.props);
     return this.langBar(this.props.index);
   }
 

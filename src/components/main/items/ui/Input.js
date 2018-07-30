@@ -3,6 +3,10 @@ import React from 'react';
 class Input {
 
   constructor(app){
+    this.init(app);
+  }
+  
+  init(app){
     this.app = app;
     this.func = app.functions;
   }

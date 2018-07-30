@@ -6,40 +6,36 @@ import ProfileRow from 'components/main/items/rows/ProfileRow';
 class CourseStudents extends SubView {
 
   componentDidMount(){
+    this.init(this.props);
     this.getStudentProfiles();
   }
 
   getStudentProfiles(){
-    const app = this.props.app;
-    const func = app.functions;
-    const course = app.store.courses.viewingCourse;
+    const course = this.store.courses.viewingCourse;
 
     const studentsToGet = [];
     const studentsToShow = course.joinedStudents;
 
     for(var i=0;i<studentsToShow.length;i++){
-      if(func.getStudentProfileByUserId(studentsToShow[i]) === null){
+      if(this.func.getStudentProfileByUserId(studentsToShow[i]) === null){
         studentsToGet.splice(0,0, studentsToShow[i]);
       }
     }
     if(studentsToGet.length > 0){
-      app.actions.students.getStudentProfiles(studentsToGet);
+      this.actions.students.getStudentProfiles(studentsToGet);
     }
   }
 
   studentsList(){
-    const app = this.props.app;
-    const func = app.functions;
-    const students = app.store.courses.viewingCourse.joinedStudents;
+    const students = this.store.courses.viewingCourse.joinedStudents;
     return students.map((userId, i)=>{
-      return <ProfileRow app={app} profile={func.getStudentProfileByUserId(userId)} key={i}/>
+      return <ProfileRow app={this.app} profile={this.func.getStudentProfileByUserId(userId)} key={i}/>
     })
   }
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const areaStyle = Object.assign({},ui.basicStyle, ui.listStyle)
+    this.init(this.props);
+    const areaStyle = {...this.bs, ...this.ui.listStyle}
     return(
       <div style={this.subViewStyle()}>
         <div style={areaStyle}>

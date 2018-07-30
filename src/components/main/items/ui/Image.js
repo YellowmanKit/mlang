@@ -6,25 +6,23 @@ import no_image from 'resources/images/general/no_image.png';
 class Image extends UI {
 
   render(){
+    this.init(this.props);
     const url = this.props.url;
     const size = this.props.size;
 
-    const app = this.props.app;
-    const ui = app.store.ui;
-
-    const containerStyle = {...ui.styles.border , ...ui.styles.container, ...{
+    const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
       width: size,
       height: size,
       backgroundColor: 'white'
     }}
     const imgBg = url === null? no_image: null;
     const imgSize = size * 0.95;
-    const backgroundStyle = {...ui.styles.container, ...{
+    const backgroundStyle = {...this.ui.styles.container, ...{
       width: imgSize,
       height: imgSize,
       backgroundImage: 'url(' + imgBg + ')'
     }}
-    const buttonStyle = {...ui.styles.button, ...{
+    const buttonStyle = {...this.ui.styles.button, ...{
       width: size,
       height: size,
       position: 'absolute',
@@ -51,8 +49,7 @@ class Image extends UI {
   }
 
   onImageClick(){
-    const actions = this.props.app.actions;
-    actions.main.enlargeImage(this.props.url);
+    this.actions.main.enlargeImage(this.props.url);
   }
 
 }

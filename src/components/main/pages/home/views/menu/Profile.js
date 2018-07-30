@@ -4,9 +4,9 @@ import View from 'components/main/pages/home/views/View';
 class Profile extends View {
 
   render() {
-    const app = this.props.app;
-    const profile = app.store.profile;
-    const view = app.store.content.view;
+    this.init(this.props);
+    const profile = this.store.profile;
+    const view = this.store.content.view;
     if(view === 'forceProfile'){
       return(
         <div style={this.viewStyle()}>
@@ -51,11 +51,9 @@ class Profile extends View {
   }
 
   changing(){
-    const app = this.props.app;
-    const profile = app.store.profile;
-    const view = app.store.content.view;
-    const user = app.store.user;
-    const actions = app.actions;
+    const profile = this.store.profile;
+    const view = this.store.content.view;
+    const user = this.store.user;
 
     const newName = document.getElementById('name').value;
 
@@ -68,7 +66,7 @@ class Profile extends View {
         return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!'])
     }
 
-    actions.profile.changeProfile({
+    this.actions.profile.changeProfile({
       _id: profile._id,
       name: newName
     });

@@ -210,7 +210,8 @@ class Button {
           margin: this.bs.width * 0.015,
           position: 'absolute',
           top: 0,
-          right: 0
+          right: 0,
+          opacity: 0.25
         }
       case 'arrow':
         return {

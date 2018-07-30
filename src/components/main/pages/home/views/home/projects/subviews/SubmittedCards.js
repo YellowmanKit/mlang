@@ -5,28 +5,23 @@ import Cards from 'components/main/pages/home/views/home/contents/Cards';
 class SubmittedCards extends SubView {
 
   componentDidMount(){
+    this.init(this.props);
     this.getStudentProject();
   }
 
   getStudentProject(){
-    const app = this.props.app;
-    const func = app.functions;
-    const viewingProject = app.store.projects.viewingProject;
-    const studentProject = func.getStudentProject(app.store.user._id, viewingProject._id)
+    const viewingProject = this.store.projects.viewingProject;
+    const studentProject = this.func.getStudentProject(this.store.user._id, viewingProject._id)
     if(studentProject === null){
-      app.actions.studentProjects.getStudentProject(app.store.user._id, viewingProject._id, app.store.studentProjects.studentProjects.length)
+      this.actions.studentProjects.getStudentProject(this.store.user._id, viewingProject._id, this.store.studentProjects.studentProjects.length)
     }else {
-      app.actions.studentProjects.viewStudentProject(studentProject)
+      this.actions.studentProjects.viewStudentProject(studentProject)
     }
   }
 
   cards(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const areaStyle = {...ui.styles.area, ...{
-      height: bs.height * 0.72
+    const areaStyle = {...this.ui.styles.area, ...{
+      height: this.bs.height * 0.72
     }}
     return(
       <div style={areaStyle}>
@@ -36,24 +31,21 @@ class SubmittedCards extends SubView {
   }
 
   cardCells(){
-    const app = this.props.app;
-    const studentProject = app.store.studentProjects.viewingStudentProject;
+    const studentProject = this.store.studentProjects.viewingStudentProject;
     if(studentProject.cards !== undefined){
-      return <Cards app={app} cardsId={studentProject.cards} />
+      return <Cards app={this.app} cardsId={studentProject.cards} />
     }else{
       //console.log('no viewingStudentProject')
     }
   }
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const onAdd = ()=>{app.actions.content.pushView('addCard')};
+    this.init(this.props);
+    const onAdd = ()=>{this.actions.content.pushView('addCard')};
 
     return(
       <div style={this.subViewStyle()}>
-        {this.buttons.listAdd([bs.width, bs.height * 0.1], ['CREATE CARD','製作卡片'], '200%', onAdd)}
+        {this.buttons.listAdd([this.bs.width, this.bs.height * 0.1], ['CREATE CARD','製作卡片'], '200%', onAdd)}
         {this.cards()}
       </div>
     )

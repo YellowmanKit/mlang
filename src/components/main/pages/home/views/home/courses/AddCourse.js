@@ -6,8 +6,7 @@ import ImagePicker from 'components/main/items/ImagePicker';
 class AddCourse extends View {
 
   render() {
-    const app = this.props.app;
-    const func = app.functions;
+    this.init(this.props);
     var defaultDate = new Date();
     defaultDate.setFullYear(defaultDate.getFullYear() + 1);
 
@@ -17,7 +16,7 @@ class AddCourse extends View {
 
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
-        <ImagePicker app={app} />
+        <ImagePicker app={this.app} />
         {this.sep()}
         {this.gap('2%')}
 
@@ -28,7 +27,7 @@ class AddCourse extends View {
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
-        {this.inputs.inputField('endDate','date', ['',''], func.getDateString(defaultDate))}
+        {this.inputs.inputField('endDate','date', ['',''], this.func.getDateString(defaultDate))}
         {this.gap('2%')}
 
         {this.buttons.rectGreen(['Confirm','確定'], ()=>{this.addCourse()})}
@@ -37,10 +36,7 @@ class AddCourse extends View {
   }
 
   addCourse(){
-    const app = this.props.app;
-    const actions = this.props.app.actions;
-
-    const _icon = app.store.main.photoBlob;
+    const _icon = this.store.main.photoBlob;
     const _title = document.getElementById('title').value;
     const _endDate = document.getElementById('endDate').value;
 
@@ -56,8 +52,8 @@ class AddCourse extends View {
       return this.failedMessage(['Failed to add! End date is in the past!', '創建失敗! 結束日期早於現在!'])
     }
 
-    actions.courses.addCourse({
-      teacher: app.store.user._id,
+    this.actions.courses.addCourse({
+      teacher: this.store.user._id,
       icon: _icon,
       title: _title,
       endDate: _endDate

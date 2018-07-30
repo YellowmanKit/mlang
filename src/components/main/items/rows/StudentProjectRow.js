@@ -9,18 +9,15 @@ import alert from 'resources/images/icons/alert_black.png';
 class StudentProjectRow extends Row {
 
   rowInfo(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
     const studentProject = this.props.studentProject;
 
-    const rowStyle = {...ui.styles.area, ...{
+    const rowStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: bs.height * 0.06,
+      height: this.bs.height * 0.06,
       alignItems: 'center'
     }}
-    const iconSize = bs.height * 0.05;
-    const textScale = [bs.height * 0.05,''];
+    const iconSize = this.bs.height * 0.05;
+    const textScale = [this.bs.height * 0.05,''];
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
@@ -36,25 +33,20 @@ class StudentProjectRow extends Row {
   }
 
   render(){
+    this.init(this.props);
     const studentProject = this.props.studentProject;
     if(studentProject === null){
       return null;
     }
-    const app = this.props.app;
-    const func = app.functions;
-    const actions = app.actions;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const rowStyle = {...ui.styles.area, ...ui.styles.button, ...{
+    const rowStyle = {...this.ui.styles.area, ...this.ui.styles.button, ...{
       flexShrink: 0,
-      height: bs.height * 0.15,
-      borderBottom: '1px solid ' + ui.colors.darkGrey,
+      height: this.bs.height * 0.15,
+      borderBottom: '1px solid ' + this.ui.colors.darkGrey,
       alignItems: 'center'
     }}
-    const profile = func.getStudentProfileByUserId(studentProject.student);
+    const profile = this.func.getStudentProfileByUserId(studentProject.student);
     return(
-      <button style={rowStyle} onClick={()=>{actions.studentProjects.viewStudentProject(studentProject); actions.content.pushView('gradingCards');}}>
+      <button style={rowStyle} onClick={()=>{this.actions.studentProjects.viewStudentProject(studentProject); this.actions.content.pushView('gradingCards');}}>
         {this.verGap('3%')}
         {this.rowIcon(icon_student)}
         {profile && this.rowContent(profile.name, this.rowInfo.bind(this) )}

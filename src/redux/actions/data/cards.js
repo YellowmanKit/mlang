@@ -13,13 +13,6 @@ export const gradeCard = (id, index, gradeCard) =>{
   }
 }
 
-export const gradeCards = (id, cards) =>{
-  return {
-    type: 'gradeCards',
-    payload: { studentProjectId: id, cards: cards}
-  }
-}
-
 export const viewCard = (index, card) =>{
   return {
     type: 'viewCard',
@@ -27,9 +20,67 @@ export const viewCard = (index, card) =>{
   }
 }
 
-export function saveGradingCards(gradingCards){
-  console.log(gradingCards)
+export function gradeCards(id, cards){
+  console.log('cards')
   return async function (dispatch) {
+    var gradingCards = [...cards];
+    if(!gradingCards){ return; }
+    console.log(gradingCards)
+    let err, res;
+    for(var i=0;i<gradingCards.length;i++){
+      if(gradingCards[i].audioComment){
+        [err, res] = await(to(axios.get(api + '/download/audioComment/' + gradingCards[i].audioComment, {responseType: 'arraybuffer'})));
+        if(err || res === null){dispatch({type: "message", payload: ['Failed to download audio comment! Please try again!', '錄音留言下載失敗! 請再試一次!']});}
+        gradingCards[i] = {...gradingCards[i], audioCommentBlob: res.data}
+      }
+    }
+    dispatch({type: 'gradeCards', payload: { studentProjectId: id, cards: gradingCards}})
+  }
+}
+
+export function saveGradingCards(studentProjectId, gradingCards){
+  //console.log(gradingCards)
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+    var cardFile = new FormData();
+    for(var i=0;i<gradingCards.length;i++){
+      if(gradingCards[i].audioCommentEdited && gradingCards[i].audioCommentBlob){
+        cardFile.append('files', gradingCards[i].audioCommentBlob, 'audioComment_' + i);
+      }
+    }
+
+    let err, uploadRes, cardRes;
+    [err, uploadRes] = await to(axios.post(api + '/upload', cardFile, { headers: { type: 'audioComment'}}))
+    if(err){actions.connectionError(dispatch); return;}
+
+    const filenames = uploadRes.data.filenames;
+    var cardsToUpdate = [];
+    for(var j=0;j<gradingCards.length;j++){
+      if(gradingCards[j].audioCommentEdited || gradingCards[j].edited){
+        var cardToUpdate = {...gradingCards[j]};
+        if(gradingCards[j].audioCommentEdited){
+          cardToUpdate = {...cardToUpdate, ...{
+            audioComment: getFile(filenames, j)
+          }}
+        }
+        cardsToUpdate.splice(0,0,cardToUpdate);
+      }
+    }
+    //console.log(cardsToUpdate);
+
+    [err, cardRes] = await to(axios.post(api + '/card/update', { data: { cards: cardsToUpdate}}))
+    if(err){actions.connectionError(dispatch); return;}
+
+    dispatch({type: "showModalButton"});
+    if(cardRes.data.result === 'success'){
+      dispatch({type: "message", payload: ['Grading card succeed!', '成功評核卡片!']});
+      console.log(cardRes.data.updatedCards)
+      dispatch({type: "pullView"});
+      dispatch({type: "updateCards", payload: cardRes.data.updatedCards});
+      //dispatch({type: "resetGradeCards", payload: studentProjectId});
+    }else{
+      dispatch({type: "message", payload: ['Grading card failed! Please try again!', '評核失敗! 請再試一次!']});
+    }
 
   }
 }
@@ -91,7 +142,7 @@ export function addCard(data){
       const lang = {
         key: editLangs[k].key,
         text: editLangs[k].text,
-        audio: getLangAudio(langAudios, k)
+        audio: getFile(langAudios, k)
       }
       langs.splice(0,0,lang);
     }
@@ -118,11 +169,11 @@ export function addCard(data){
   }
 }
 
-function getLangAudio(audios, index){
-  for(var i=0;i<audios.length;i++){
-    const langIndex = audios[i].slice(-1);
-    if(langIndex === '' + index){
-      return audios[i]
+function getFile(files, index){
+  for(var i=0;i<files.length;i++){
+    const fileIndex = files[i].slice(-1);
+    if(fileIndex === '' + index){
+      return files[i]
     }
   }
   return '';

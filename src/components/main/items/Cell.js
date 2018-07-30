@@ -1,22 +1,20 @@
 import React from 'react';
 import UI from 'components/UI';
+import Badge from 'components/main/items/Badge';
 
 class Cell extends UI {
 
   cellImage(type){
-    const app = this.props.app;
-    const func = app.functions;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
+    const data = this.props.data
     const append =
     type === 'course'? 'courseIcon':
     type === 'card'? 'cardIcon':
     '';
-    const url = func.url(this.props.data.icon, append);
+    const url = this.func.url(data.icon, append);
 
-    const imageStyle = {...ui.styles.container, ...ui.styles.border, ...{
-      maxWidth: bs.width * 0.22,
-      maxHeight: bs.width * 0.22,
+    const imageStyle = {...this.ui.styles.container, ...this.ui.styles.border, ...{
+      maxWidth: this.bs.width * 0.22,
+      maxHeight: this.bs.width * 0.22,
       marginTop: '4%'
     }};
     //console.log(url)
@@ -24,33 +22,30 @@ class Cell extends UI {
   }
 
   cellTitle(type){
-    const app = this.props.app;
-    const func = app.functions;
     const data = this.props.data
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
     var text = '';
     if(type === 'course'){
-      text = this.props.data.title;
+      text = data.title;
     }
     if(type === 'card'){
-      const firstLang = func.getLangById(data.langs[0]);
+      const firstLang = this.func.getLangById(data.langs[0]);
       text = firstLang !== null? firstLang.text: '';
     }
 
     const scale =
-    type === 'course'? [bs.width * 0.23,'']:
-    type === 'card'? [bs.width * 0.23, '']:
+    type === 'course'? [this.bs.width * 0.23,'']:
+    type === 'card'? [this.bs.width * 0.23, '']:
     '';
 
     return(
-      <div style={{flexGrow: 1}}>
+      <div style={{flexGrow: 1, overflow: 'hidden'}}>
         {this.textDisplay(text, scale, '125%')}
       </div>
     )
   }
 
   render(){
+    this.init(this.props);
     const data = this.props.data
     const type = this.props.type;
     //console.log(data)
@@ -58,16 +53,12 @@ class Cell extends UI {
       return null;
     }
 
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
     const scale =
-    type === 'course'? [bs.width * 0.25,bs.width * 0.25]:
-    type === 'card'? [bs.width * 0.25, bs.width * 0.35]:
+    type === 'course'? [this.bs.width * 0.25,this.bs.width * 0.25]:
+    type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';
 
-    const cellStyle = {...ui.styles.button, ...ui.styles.border, ...{
+    const cellStyle = {...this.ui.styles.button, ...this.ui.styles.border, ...{
       width: scale[0],
       height: scale[1],
       margin: '1.5%',
@@ -76,12 +67,13 @@ class Cell extends UI {
       display: 'flex',
       flexFlow: 'column nowrap',
       alignItems: 'center',
-      position: 'relative',
-      overflow: 'hidden'
+      position: 'relative'
     }}
+    const badgeScale = [this.bs.width * 0.125, this.bs.width * 0.125]
 
     return(
       <button style={cellStyle} onClick={this.props.onClick}>
+        {type === 'card' && <Badge app={this.app} grade={data.grade} scale={badgeScale} />}
         {this.cellImage(type)}
         {this.cellTitle(type)}
       </button>

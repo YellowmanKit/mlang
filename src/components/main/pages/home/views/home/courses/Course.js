@@ -9,21 +9,18 @@ import CourseProjects from './subviews/CourseProjects';
 class Course extends View {
 
   componentDidMount(){
-    const app = this.props.app;
-    const actions = app.actions;
-    actions.content.setSubView('courseProjects');
+    this.actions.content.setSubView('courseProjects');
   }
 
   subView(){
-    const app = this.props.app;
-    const subView = this.props.app.store.content.subView;
+    const subView = this.store.content.subView;
     switch (subView) {
       case 'courseDetail':
-        return <CourseDetail app={app}/>
+        return <CourseDetail app={this.app}/>
       case 'courseStudents':
-        return <CourseStudents app={app}/>
+        return <CourseStudents app={this.app}/>
       case 'courseProjects':
-        return <CourseProjects app={app}/>
+        return <CourseProjects app={this.app}/>
       default:
         return null;
     }
@@ -44,13 +41,12 @@ class Course extends View {
         subView: 'courseProjects'
       }
     ]
-    return <SubNav app={this.props.app} options={_options} />
+    return <SubNav app={this.app} options={_options} />
   }
 
   render(){
-    const app = this.props.app;
-    const store = app.store;
-    const course = store.courses.viewingCourse;
+    this.init(this.props);
+    const course = this.store.courses.viewingCourse;
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([course.title,course.title])}

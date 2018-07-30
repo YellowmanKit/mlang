@@ -57,6 +57,7 @@ class Courses extends UI {
   }
 
   render() {
+    this.init(this.props);
     const app = this.props.app;
     const ui = app.store.ui;
     const bs = ui.basicStyle;

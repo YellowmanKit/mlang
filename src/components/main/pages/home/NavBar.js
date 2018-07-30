@@ -7,7 +7,6 @@ import menu from 'resources/images/buttons/buttonIcons/menu.png';
 //import search from 'resources/images/buttons/buttonIcons/search.png';
 import floppy from 'resources/images/buttons/buttonIcons/floppy.png';
 
-
 class NavBar extends UI {
 
   constructor(props){
@@ -17,28 +16,27 @@ class NavBar extends UI {
 
   componentDidMount(){
     this.init(this.props);
+    this.initNavBar(this.props);
   }
 
   componentWillReceiveProps(newProp){
     this.init(newProp);
+    this.initNavBar(newProp);
   }
 
-  init(newProp){
-    const app = newProp.app;
-    const func = app.functions;
-    const actions = app.actions;
-    const view = app.store.content.view;
+  initNavBar(newProp){
+    const view = this.store.content.view;
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
-    leftOnClick = actions.content.pullView;
+    leftOnClick = this.actions.content.pullView;
     //rightOnClick = this.none;
-    rightOnClick = ()=>{this.props.app.actions.content.modal.errorMessage(['testing', 'testing']);}
+    rightOnClick = ()=>{this.actions.content.modal.errorMessage(['testing', 'testing']);}
 
     leftIcon = back_arrow;
 
     if(view === 'studentHome' ||  view === 'teacherHome'){
-      leftOnClick = actions.content.toggleMenu;
+      leftOnClick = this.actions.content.toggleMenu;
       leftIcon = menu;
       //rightIcon = search;
       title = ['HOME','主頁'];
@@ -92,41 +90,35 @@ class NavBar extends UI {
           break;
       }
     }
-    this.buttons.init(app);
     this.setState({
       leftNav: ()=>{ return this.buttons.nav(leftIcon, ()=>{ leftOnClick() })},
       rightNav: ()=>{ return this.buttons.nav(rightIcon, ()=>{ rightOnClick() })},
-      titleArea: ()=>{ return this.titleArea(func.multiLang(title[0], title[1]));},
+      titleArea: ()=>{ return this.titleArea(this.func.multiLang(title[0], title[1]));},
       init: true
     });
   }
 
   titleArea(title){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
     const titleAreaStyle = {
       flexGrow: 5,
       textAlign: 'center',
       color: 'white',
-      fontSize: bs.height * 0.055,
+      fontSize: this.bs.height * 0.055,
       fontWeight: 'bold'
     }
     return <div style={titleAreaStyle}>{title}</div>
   }
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const view = app.store.content.view;
+    this.init(this.props);
+    const view = this.store.content.view;
     if(view === '' || !this.state.init){
       return null;
     }
 
     const navBarStyle = {
       width: '100%',
-      height: bs.height * 0.08,
+      height: this.bs.height * 0.08,
       backgroundImage: 'url(' + topBar + ')',
       backgroundSize: '100% 100%',
       display: 'flex',
@@ -145,10 +137,9 @@ class NavBar extends UI {
   none(){}
 
   saveCard(){
-    const app = this.props.app;
-    const studentProject = app.store.studentProjects.viewingStudentProject;
-    const gradingCards = app.store.cards.gradingCards[studentProject._id];
-    app.actions.cards.saveGradingCards(gradingCards);
+    const studentProject = this.store.studentProjects.viewingStudentProject;
+    const gradingCards = this.store.cards.gradingCards[studentProject._id];
+    this.actions.cards.saveGradingCards(studentProject._id, gradingCards);
   }
 
 }

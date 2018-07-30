@@ -7,73 +7,76 @@ class GradingCards extends View {
 
   constructor(props){
     super(props);
-
-    this.init(props);
+    this.init(this.props);
+    //this.initGradingCards(props);
     this.state = {
       selected: 0,
       commenting: false,
-      audioCommenting: false
+      audioCommenting: false,
+      gradingCardsInited: false
     }
   }
 
   componentDidMount(){
+    this.init(this.props);
     this.getCards(this.props);
   }
 
   componentWillReceiveProps(newProps){
-    const app = this.props.app;
-    const studentProject = app.store.studentProjects.viewingStudentProject;
-    const gradingCards = app.store.cards.gradingCards[studentProject._id];
+    const studentProject = this.store.studentProjects.viewingStudentProject;
+    const gradingCards = this.store.cards.gradingCards[studentProject._id];
     if(!gradingCards){
-      this.init(newProps);
+      //console.log('componentWillReceiveProps')
+      this.initGradingCards(newProps);
     }
   }
 
   getCards(props){
-    const app = props.app;
-    const func = app.functions;
-    const studentProject = app.store.studentProjects.viewingStudentProject;
+    const studentProject = this.store.studentProjects.viewingStudentProject;
 
     const cardsToGet = [];
     const cardsToShow = studentProject.cards;
 
     for(var i=0;i<cardsToShow.length;i++){
-      if(func.getCardById(cardsToShow[i]) === null){
+      if(this.func.getCardById(cardsToShow[i]) === null){
         cardsToGet.splice(0,0, cardsToShow[i]);
       }
     }
     if(cardsToGet.length > 0){
-      app.actions.cards.getCards(cardsToGet);
+      this.actions.cards.getCards(cardsToGet);
     }
   }
 
-  init(props){
-    const app = props.app;
-    const actions = app.actions;
-    const func = app.functions;
-    const studentProject = app.store.studentProjects.viewingStudentProject;
+  initGradingCards(props){
+    if(this.state.gradingCardsInited){
+      return;
+    }
+    console.log('initGradingCards')
+    const studentProject = this.store.studentProjects.viewingStudentProject;
     const cards = [];
     const cardsId = studentProject.cards;
     for(var i=0;i<cardsId.length;i++){
-      const card = func.getCardById(cardsId[i]);
+      const card = this.func.getCardById(cardsId[i]);
       if(card === null){ return; }
       cards.splice(0,0, card);
     }
-    actions.cards.gradeCards(studentProject._id, cards);
+    if(cards.length === studentProject.cards.length){
+      this.setState({
+        gradingCardsInited: true
+      })
+      this.actions.cards.gradeCards(studentProject._id, cards);
+    }
   }
 
   gradingCardsList(gradingCards){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const listStyle = {...bs, ...ui.styles.list, ...{
-      height: (bs.height * 0.92) - (bs.width * 0.2),
+    const listStyle = {...this.bs, ...this.ui.styles.list, ...{
+      height: (this.bs.height * 0.92) - (this.bs.width * 0.2),
       justifyContent: 'flex-start',
-      backgroundColor: ui.colors.ultraLightGrey
+      backgroundColor: this.ui.colors.ultraLightGrey
     }}
-    const containerStyle = {...ui.styles.container, ...{
+    const containerStyle = {...this.ui.styles.container, ...{
       width: '100%',
-      margin: bs.width * 0.02,
+      margin: this.bs.width * 0.02,
       flexShrink: 0
     }}
     return(
@@ -84,13 +87,13 @@ class GradingCards extends View {
               <GradingCardRow
               selected={this.state.selected}
               index={i}
-              app={this.props.app}
+              app={this.app}
               card={card}
               onClick={()=>{this.onRowSelect(i)}} />
             </div>
           )
         })}
-        {this.gap(bs.width * 0.3)}
+        {this.gap(this.bs.width * 0.3)}
       </div>
     )
   }
@@ -105,17 +108,14 @@ class GradingCards extends View {
   }
 
   gradingPanel(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const style = {...ui.styles.area, ...{
-      height: bs.width * 0.2,
+    const style = {...this.ui.styles.area, ...{
+      height: this.bs.width * 0.2,
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: ui.colors.lightGrey,
-      borderTop: '2px solid ' + ui.colors.darkGrey,
+      backgroundColor: this.ui.colors.lightGrey,
+      borderTop: '2px solid ' + this.ui.colors.darkGrey,
     }}
-    const container = {...ui.styles.container, ...{
+    const container = {...this.ui.styles.container, ...{
       width: '20%',
       height: '100%'
     }}
@@ -145,16 +145,13 @@ class GradingCards extends View {
   }
 
   commentPanel(gradingCard){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const style = {...ui.styles.area, ...ui.styles.container, ...{
-      height: bs.width * 0.2,
-      backgroundColor: ui.colors.lightGrey,
-      borderTop: '2px solid ' + ui.colors.darkGrey,
-      borderBottom: '2px solid ' + ui.colors.darkGrey,
+    const style = {...this.ui.styles.area, ...this.ui.styles.container, ...{
+      height: this.bs.width * 0.2,
+      backgroundColor: this.ui.colors.lightGrey,
+      borderTop: '2px solid ' + this.ui.colors.darkGrey,
+      borderBottom: '2px solid ' + this.ui.colors.darkGrey,
       position: 'absolute',
-      bottom: bs.width * 0.2
+      bottom: this.bs.width * 0.2
     }}
     return(
       <div style={style}>
@@ -164,26 +161,24 @@ class GradingCards extends View {
   }
 
   audioCommentPanel(gradingCard){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const style = {...ui.styles.area, ...ui.styles.container, ...{
-      height: bs.width * 0.2,
-      backgroundColor: ui.colors.lightGrey,
-      borderTop: '2px solid ' + ui.colors.darkGrey,
-      borderBottom: '2px solid ' + ui.colors.darkGrey,
+    const style = {...this.ui.styles.area, ...this.ui.styles.container, ...{
+      height: this.bs.width * 0.2,
+      backgroundColor: this.ui.colors.lightGrey,
+      borderTop: '2px solid ' + this.ui.colors.darkGrey,
+      borderBottom: '2px solid ' + this.ui.colors.darkGrey,
       position: 'absolute',
-      bottom: bs.width * 0.2
+      bottom: this.bs.width * 0.2
     }}
-    const audioBlob = gradingCard.audioComment;
+    const audioBlob = gradingCard.audioCommentBlob? gradingCard.audioCommentBlob: null;
     return(
       <div style={style}>
-        <RecorderBar app={app} scale={['75%','100%']} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
+        <RecorderBar app={this.app} scale={['75%','100%']} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
       </div>
     )
   }
 
   render() {
+    this.init(this.props);
     const gradingCards = this.getGradingCards();
     if(!gradingCards){
       return null;
@@ -200,20 +195,17 @@ class GradingCards extends View {
   }
 
   getGradingCards(){
-    const app = this.props.app;
-    const studentProject = app.store.studentProjects.viewingStudentProject;
-    return app.store.cards.gradingCards[studentProject._id];
+    const studentProject = this.store.studentProjects.viewingStudentProject;
+    return this.store.cards.gradingCards[studentProject._id];
   }
 
-  onCardChange(grade, comment, audioComment, removeAudio){
-    const app = this.props.app;
-    const actions = app.actions;
-    const studentProjectId = app.store.studentProjects.viewingStudentProject._id;
-    var gradingCard = app.store.cards.gradingCards[studentProjectId][this.state.selected];
+  onCardChange(grade, comment, audioCommentBlob, removeAudio){
+    const studentProjectId = this.store.studentProjects.viewingStudentProject._id;
+    var gradingCard = {...this.store.cards.gradingCards[studentProjectId][this.state.selected]};
     if(grade){ gradingCard.grade = grade; gradingCard.edited = true;}
     if(comment || comment === ''){ gradingCard.comment = comment; gradingCard.edited = true;}
-    if(audioComment || removeAudio){ gradingCard.audioComment = audioComment; gradingCard.audioCommentEdited = true;}
-    actions.cards.gradeCard(studentProjectId, this.state.selected, gradingCard);
+    if(audioCommentBlob || removeAudio){ gradingCard.audioCommentBlob = audioCommentBlob; gradingCard.audioCommentEdited = true;}
+    this.actions.cards.gradeCard(studentProjectId, this.state.selected, gradingCard);
   }
 
   onStopRecording(blob){
@@ -229,11 +221,8 @@ class GradingCards extends View {
   }
 
   scrollToNext(index){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
     const row = document.getElementById('row' + index);
-    const scrollValue = row.offsetHeight + bs.width * 0.04;
+    const scrollValue = row.offsetHeight + this.bs.width * 0.04;
     document.getElementById("list").scrollBy(0, scrollValue)
   }
 

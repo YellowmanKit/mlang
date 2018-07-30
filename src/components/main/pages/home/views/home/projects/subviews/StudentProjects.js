@@ -13,25 +13,23 @@ class StudentProjects extends SubView {
   }
 
   componentDidMount(){
-    //console.log('componentDidMount')
+    this.init(this.props);
     this.getStudentProjects(this.props);
   }
 
   componentWillReceiveProps(newProps){
+    this.init(this.props);
     if(this.state.studentProjects.length === 0){
       //console.log('componentWillReceiveProps')
       this.getStudentProjects(newProps);
     }
   }
 
-  init(props){
-    const app = props.app;
-    const func = app.functions;
-
-    var studentProjects = app.store.projects.viewingProject.studentProjects.slice(0);
+  initStudentProjects(props){
+    var studentProjects = this.store.projects.viewingProject.studentProjects.slice(0);
 
     for(var i=0;i<studentProjects.length;i++){
-      studentProjects[i] = func.getStudentProjectById(studentProjects[i])
+      studentProjects[i] = this.func.getStudentProjectById(studentProjects[i])
       //console.log(studentProjects[i])
       if(studentProjects[i] === null){ return; }
       var total = 0;
@@ -55,37 +53,30 @@ class StudentProjects extends SubView {
   }
 
   getStudentProjects(props){
-    const app = props.app;
-    const func = app.functions;
-    const viewingProject = app.store.projects.viewingProject;
+    const viewingProject = this.store.projects.viewingProject;
 
     const studentProjectsToGet = [];
     const studentProjectsToShow = viewingProject.studentProjects;
 
     for(var i=0;i<studentProjectsToShow.length;i++){
-      if(func.getStudentProjectById(studentProjectsToShow[i]) === null){
+      if(this.func.getStudentProjectById(studentProjectsToShow[i]) === null){
         studentProjectsToGet.splice(0,0, studentProjectsToShow[i]);
       }
     }
     if(studentProjectsToGet.length > 0){
-      app.actions.studentProjects.getStudentProjects(studentProjectsToGet);
+      this.actions.studentProjects.getStudentProjects(studentProjectsToGet);
     }
-    this.init(props);
+    this.initStudentProjects(props);
   }
 
   studentProjectsList(){
-    const app = this.props.app;
-    //const studentProjects = app.store.projects.viewingProject.studentProjects;
     return this.state.studentProjects.map((studentProject, i)=>{
-      return <StudentProjectRow app={app} studentProject={studentProject} key={i}/>
+      return <StudentProjectRow app={this.app} studentProject={studentProject} key={i}/>
     })
   }
 
   render() {
-    //const app = this.props.app;
-    //const ui = app.store.ui;
-    //const bs = ui.basicStyle;
-
+    this.init(this.props);
     return(
       <div style={this.subViewStyle()}>
         {this.studentProjectsList()}

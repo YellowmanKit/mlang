@@ -7,19 +7,20 @@ import LangEditor from './editLangs/LangEditor';
 class AddCard extends View {
 
   render() {
+    this.init(this.props);
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}
 
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
-        <ImagePicker app={this.props.app}/>
+        <ImagePicker app={this.app}/>
         {this.sep()}
         {this.gap('2%')}
 
         {this.subTitle(['Lang rows','語言欄'])}
         {this.sep()}
-        <LangEditor app={this.props.app}/>
+        <LangEditor app={this.app}/>
         {this.sep()}
 
         {this.buttons.rectGreen(['Submit','提交'], ()=>{this.addCard()})}
@@ -29,14 +30,12 @@ class AddCard extends View {
   }
 
   addCard(){
-    const app = this.props.app;
-    const actions = this.props.app.actions;
 
-    const icon = app.store.main.photoBlob;
+    const icon = this.store.main.photoBlob;
     if(icon === null){
       return this.failedMessage(['Failed to create! Icon is missing!', '製作失敗! 未有照片!'])
     }
-    const editLangs = app.store.langs.editLangs;
+    const editLangs = this.store.langs.editLangs;
     var usedKeys = [];
     for(var i=0;i<editLangs.length;i++){
       if(usedKeys.includes(editLangs[i].key)){
@@ -51,12 +50,12 @@ class AddCard extends View {
       usedKeys.splice(0,0,editLangs[i].key)
     }
 
-    actions.cards.addCard({
+    this.actions.cards.addCard({
       icon: icon,
       editLangs: editLangs,
-      project: app.store.projects.viewingProject,
-      studentProject: app.store.studentProjects.viewingStudentProject,
-      author: app.store.user._id
+      project: this.store.projects.viewingProject,
+      studentProject: this.store.studentProjects.viewingStudentProject,
+      author: this.store.user._id
     });
   }
 }

@@ -5,10 +5,8 @@ import Image from 'components/main/items/ui/Image';
 class CourseDetail extends SubView {
 
   render() {
-    const app = this.props.app;
-    const func = app.functions;
-    const course = app.store.courses.viewingCourse;
-    const bs = app.store.ui.basicStyle;
+    this.init(this.props);
+    const course = this.store.courses.viewingCourse;
 
     return(
       <div style={this.subViewStyle()}>
@@ -17,7 +15,7 @@ class CourseDetail extends SubView {
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        <Image app={app} url={func.url(course.icon, 'courseIcon')} size={bs.height * 0.22}/>
+        <Image app={this.app} url={this.func.url(course.icon, 'courseIcon')} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
         {this.sep()}
         {this.gap('2%')}
@@ -29,7 +27,7 @@ class CourseDetail extends SubView {
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
-        {this.textDisplay(func.getDateString(new Date(course.endDate)), ['100%',''], '125%', 'center')}
+        {this.textDisplay(this.func.getDateString(new Date(course.endDate)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['Code','代碼'])}

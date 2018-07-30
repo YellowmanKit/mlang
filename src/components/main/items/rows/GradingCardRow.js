@@ -61,17 +61,13 @@ class GradingCardRow extends Row {
   }
 
   render(){
+    this.init(this.props);
     if(this.props.project === null){
       return null;
     }
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const func = app.functions;
-
     const isSelected = this.props.selected === this.props.index;
 
-    const rowStyle = {...ui.styles.border, ...ui.styles.area, ...{
+    const rowStyle = {...this.ui.styles.border, ...this.ui.styles.area, ...{
       flexShrink: 0,
       width: '95%',
       backgroundColor: 'white',
@@ -80,22 +76,22 @@ class GradingCardRow extends Row {
       margin: '5px',
       opacity: isSelected? 1:0.25
     }}
-    const iconContainerStyle = {...ui.styles.container, ...{
-      width: bs.width * 0.28,
-      height: bs.width * 0.28
+    const iconContainerStyle = {...this.ui.styles.container, ...{
+      width: this.bs.width * 0.28,
+      height: this.bs.width * 0.28
     }}
 
     const card = this.props.card;
-    const badgeScale = [bs.width * 0.15, bs.width * 0.15]
+    const badgeScale = [this.bs.width * 0.15, this.bs.width * 0.15]
 
     return(
       <div id={'row' + this.props.index} style={rowStyle}>
-        <Badge app={app} grade={card.grade} scale={badgeScale} />
+        <Badge app={this.app} grade={card.grade} scale={badgeScale} />
         <div style={iconContainerStyle}>
-          <Image app={app} url={func.url(card.icon,'cardIcon')} size={bs.width * 0.24}/>
+          <Image app={this.app} url={this.func.url(card.icon,'cardIcon')} size={this.bs.width * 0.24}/>
         </div>
         {this.langRows()}
-        {this.cardTags(card.comment && card.comment.length > 0, card.audioComment)}
+        {this.cardTags(card.comment && card.comment.length > 0, (card.audioCommentBlob))}
         {!isSelected && this.selecter()}
       </div>
     )

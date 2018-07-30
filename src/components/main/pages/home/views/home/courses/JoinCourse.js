@@ -4,6 +4,7 @@ import View from 'components/main/pages/home/views/View';
 class JoinCourse extends View {
 
   render() {
+    this.init(this.props);
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}
@@ -19,22 +20,19 @@ class JoinCourse extends View {
   }
 
   joinCourse(){
-    const app = this.props.app;
-    const actions = app.actions;
-
     const _code = document.getElementById('code').value;
     if(_code === ''){
       return this.failedMessage(['Failed to join! Code is missing!', '操作失敗! 未填入班別代碼!'])
     }
-    const joinedCourses = app.store.courses.joinedCourses;
+    const joinedCourses = this.store.courses.joinedCourses;
     for(var i=0;i<joinedCourses.length;i++){
       if(joinedCourses[i].code === _code){
         return this.failedMessage(['You already joined this course!', '此班別已經加入!'])
       }
     }
 
-    actions.courses.joinCourse({
-      userId: app.store.user._id,
+    this.actions.courses.joinCourse({
+      userId: this.store.user._id,
       code: _code
     });
   }

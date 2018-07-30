@@ -4,10 +4,10 @@ import View from 'components/main/pages/home/views/View';
 class Account extends View {
 
   render() {
-    const user = this.props.app.store.user;
-    const func = this.props.app.functions;
-    const student = func.multiLang('Student','學生');
-    const teacher = func.multiLang('Teacher','老師');
+    this.init(this.props);
+    const user = this.store.user;
+    const student = this.func.multiLang('Student','學生');
+    const teacher = this.func.multiLang('Teacher','老師');
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}
@@ -47,8 +47,7 @@ class Account extends View {
   }
 
   changing(){
-    const user = this.props.app.store.user;
-    const actions = this.props.app.actions;
+    const user = this.store.user;
 
     const selected = document.getElementById('type').selectedIndex;
     const newType =
@@ -81,7 +80,7 @@ class Account extends View {
       return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!'])
     }
 
-    actions.user.changeUserInfo({
+    this.actions.user.changeUserInfo({
       _id: user._id,
       type: newType,
       id: newId,

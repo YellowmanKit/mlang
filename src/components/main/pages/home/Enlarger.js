@@ -4,21 +4,17 @@ import UI from 'components/UI';
 class Enlarger extends UI {
 
   render() {
-    const app = this.props.app;
-    const main = app.store.main;
+    this.init(this.props);
+    const main = this.store.main;
     const status = main.enlarger;
     //console.log(this.buttons.bs)
     if(status === 'off'){
       return null;
     }
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
 
-    const style = {...ui.basicStyle, ...{
+    const style = {...this.bs, ...{
       position: 'absolute',
-      width: bs.width,
-      height: bs.height,
-      minHeight: bs.minHeight,
+      minHeight: this.bs.minHeight,
       backgroundColor: 'rgba(1,1,1,0.9)',
       justifyContent: 'center'
     }}
@@ -34,12 +30,11 @@ class Enlarger extends UI {
       textAlign: 'center'
     }
 
-    this.buttons.init(app);
     return(
       <div style={style}>
-        {this.buttons.absoluteClose(()=>{app.actions.main.closeEnlarger()})}
+        {this.buttons.absoluteClose(()=>{this.actions.main.closeEnlarger()})}
         {status === 'image' &&
-        <img src={main.enlargeImage} style={{maxWidth: bs.width}} alt=''/>}
+        <img src={main.enlargeImage} style={{maxWidth: this.bs.width}} alt=''/>}
         {status === 'text' &&
         <div style={textStyle}>{main.enlargeText}</div>}
       </div>

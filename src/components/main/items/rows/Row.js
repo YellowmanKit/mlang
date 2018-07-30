@@ -5,15 +5,11 @@ import no_image from 'resources/images/general/no_image.png';
 class Row extends UI {
 
   rowContent(title, rowInfo){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const infoStyle = Object.assign({}, ui.basicStyle, {
+    const infoStyle = {...this.bs, ...{
       width: '72%',
-      height: bs.height * 0.12,
-      marginLeft: bs.height * 0.02
-    })
+      height: this.bs.height * 0.12,
+      marginLeft: this.bs.height * 0.02
+    }}
     return(
       <div style={infoStyle}>
         {this.rowTitle(title)}
@@ -26,11 +22,9 @@ class Row extends UI {
     if(!title){
       return null;
     }
-    const app = this.props.app;
-    const bs = app.store.ui.basicStyle;
     const nameStyle = {
       width: '100%',
-      height: bs.height * 0.06,
+      height: this.bs.height * 0.06,
       fontWeight: 'bold',
       fontSize: '125%',
       textAlign: 'left'
@@ -39,17 +33,13 @@ class Row extends UI {
   }
 
   rowIcon(url){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const iconStyle = Object.assign({}, ui.styles.border, {
-      width: bs.height * 0.12,
-      height: bs.height * 0.12,
-      backgroundColor: ui.colors.lightGrey,
+    const iconStyle = {...this.ui.styles.border, ...{
+      width: this.bs.height * 0.12,
+      height: this.bs.height * 0.12,
+      backgroundColor: this.ui.colors.lightGrey,
       backgroundImage: 'url(' + (url !== null? url: no_image) + ')',
       backgroundSize: '100% 100%'
-    })
+    }}
     return <div style={iconStyle}></div>
   }
 

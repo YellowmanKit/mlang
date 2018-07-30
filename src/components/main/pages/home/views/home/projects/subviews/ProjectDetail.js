@@ -5,10 +5,8 @@ import Image from 'components/main/items/ui/Image';
 class ProjectDetail extends SubView {
 
   render() {
-    const app = this.props.app;
-    const func = app.functions;
-    const project = app.store.projects.viewingProject;
-    const bs = app.store.ui.basicStyle;
+    this.init(this.props);
+    const project = this.store.projects.viewingProject;
 
     return(
       <div style={this.subViewStyle()}>
@@ -17,7 +15,7 @@ class ProjectDetail extends SubView {
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        <Image app={app} url={func.url(project.icon, 'projectIcon')} size={bs.height * 0.22}/>
+        <Image app={this.app} url={this.func.url(project.icon, 'projectIcon')} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
         {this.sep()}
         {this.gap('2%')}
@@ -34,7 +32,7 @@ class ProjectDetail extends SubView {
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
-        {this.textDisplay(func.getDateString(new Date(project.endDate)), ['100%',''], '125%', 'center')}
+        {this.textDisplay(this.func.getDateString(new Date(project.endDate)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}
       </div>
     )

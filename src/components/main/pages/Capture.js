@@ -8,9 +8,8 @@ import background2 from 'resources/images/general/background2.png';
 class Capture extends UI {
 
   onCapture(_blob){
-    const app = this.props.app;
-    app.actions.main.setPhoto({blob: _blob, url: URL.createObjectURL(_blob)});
-    app.actions.main.setStatus('ready');
+    this.actions.main.setPhoto({blob: _blob, url: URL.createObjectURL(_blob)});
+    this.actions.main.setStatus('ready');
   }
 
   takePicture() {
@@ -21,13 +20,12 @@ class Capture extends UI {
   }
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const pageStyle = Object.assign({},ui.basicStyle,{
+    this.init(this.props);
+    const pageStyle = {...this.bs, ...{
       justifyContent: 'center',
       backgroundImage: 'url(' + background2 + ')',
       backgroundSize: '100% 100%',
-    })
+    }}
     return(
       <div style={pageStyle}>
         <Camera style={{}} ref={_camera=>{this.camera = _camera}} />

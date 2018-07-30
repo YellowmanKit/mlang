@@ -13,7 +13,11 @@ export default class WAVEInterface {
   get bufferLength() { return this.buffers[0].length * WAVEInterface.bufferSize; }
   get audioDuration() { return this.bufferLength / WAVEInterface.audioContext.sampleRate; }
   get audioData() {
-    return this.encodingCache || encodeWAV(this.buffers, this.bufferLength, WAVEInterface.audioContext.sampleRate);
+    return this.encodingCache || this.encode(this.buffers);
+  }
+
+  encode(buffers){
+    return encodeWAV(buffers, this.bufferLength, WAVEInterface.audioContext.sampleRate);
   }
 
   startRecording() {
@@ -61,20 +65,32 @@ export default class WAVEInterface {
 
   startPlayback(loop: boolean = false, audioData, onended: () => void) {
     return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsArrayBuffer(audioData);
-      reader.onloadend = () => {
-        WAVEInterface.audioContext.decodeAudioData(reader.result, (buffer) => {
-          const source = WAVEInterface.audioContext.createBufferSource();
-          source.buffer = buffer;
-          source.connect(WAVEInterface.audioContext.destination);
-          source.loop = loop;
-          source.start(0);
-          source.onended = onended;
-          this.playbackNode = source;
-          resolve(source);
-        });
-      };
+      if(audioData instanceof Blob){
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(audioData);
+        reader.onloadend = () => {
+          resolve(this.decodeAudioData(reader.result, loop, onended, audioData))
+        };
+      }else{
+        this.decodeAudioData(audioData.slice(0), loop, onended)
+      }
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  decodeAudioData(arrayBuffer, loop, onended){
+    WAVEInterface.audioContext.decodeAudioData(arrayBuffer, (buffer) => {
+      const source = WAVEInterface.audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(WAVEInterface.audioContext.destination);
+      source.loop = loop;
+      source.start(0);
+      source.onended = onended;
+      this.playbackNode = source;
+      return source;
+    }).catch(err=>{
+      console.log(err);
     });
   }
 

@@ -6,6 +6,7 @@ import Courses from './contents/Courses';
 class StudentHome extends View {
 
   render() {
+    this.init(this.props);
     return(
       <div style={this.viewStyle()}>
         <Courses app={this.props.app}/>

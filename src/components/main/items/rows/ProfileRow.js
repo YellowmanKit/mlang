@@ -8,18 +8,15 @@ import star2 from 'resources/images/icons/star2_lightgrey.png';
 class ProfileRow extends Row {
 
   rowInfo(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
     const profile = this.props.profile;
 
-    const rowStyle = {...ui.styles.area, ...{
+    const rowStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: bs.height * 0.06,
+      height: this.bs.height * 0.06,
       alignItems: 'center'
     }}
-    const iconSize = bs.height * 0.05;
-    const textScale = [bs.height * 0.05,''];
+    const iconSize = this.bs.height * 0.05;
+    const textScale = [this.bs.height * 0.05,''];
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
@@ -32,19 +29,16 @@ class ProfileRow extends Row {
   }
 
   render(){
+    this.init(this.props);
     if(this.props.profile === null){
       return null;
     }
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-
-    const rowStyle = Object.assign({}, ui.styles.area, {
+    const rowStyle = {...this.ui.styles.area, ...{
       flexShrink: 0,
-      height: bs.height * 0.15,
-      borderBottom: '1px solid ' + ui.colors.darkGrey,
+      height: this.bs.height * 0.15,
+      borderBottom: '1px solid ' + this.ui.colors.darkGrey,
       alignItems: 'center'
-    })
+    }}
 
     return(
       <div style={rowStyle}>

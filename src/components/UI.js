@@ -10,12 +10,20 @@ class UI extends Component {
   buttons = new Button(this.props.app)
   inputs = new Input(this.props.app)
 
+  init(props){
+    this.app = props.app;
+    this.ui = this.app.store.ui;
+    this.bs = this.ui.basicStyle;
+    this.store = this.app.store;
+    this.func = this.app.functions;
+    this.actions = this.app.actions;
+    this.buttons.init(props.app)
+    this.inputs.init(props.app)
+  }
+
   cardTags(commented, audioCommented){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const width = bs.width * 0.05;
-    const style = {...ui.basicStyle, ...{
+    const width = this.bs.width * 0.05;
+    const style = {...this.bs, ...{
       position: 'absolute',
       bottom: 0,
       right: 0,
@@ -43,14 +51,11 @@ class UI extends Component {
   }
 
   tabBar(title){
-    const app = this.props.app;
-    const bs = app.store.ui.basicStyle;
-    const func = app.functions;
     const barStyle = {
       backgroundImage: 'url(' + tab_bar + ')',
       backgroundSize: '100% 100%',
       width: '100%',
-      height: bs.height * 0.05,
+      height: this.bs.height * 0.05,
       display: 'flex',
       alignItems: 'center'
     }
@@ -63,7 +68,7 @@ class UI extends Component {
     return(
       <div style={barStyle}>
        <div style={textStyle}>
-        {func.multiLang(title[0], title[1])}
+        {this.func.multiLang(title[0], title[1])}
        </div>
       </div>
     )
@@ -85,18 +90,14 @@ class UI extends Component {
   }
 
   subTitle(title){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const func = app.functions;
     const subTitleStyle = {
-      width: bs.width,
-      color: ui.colors.mlangGreen,
+      width: this.bs.width,
+      color: this.ui.colors.mlangGreen,
       fontSize: '110%',
       fontWeight: 'bold',
       textAlign: 'center'
     }
-    return <div style={subTitleStyle}>{func.multiLang(title[0], title[1])}</div>
+    return <div style={subTitleStyle}>{this.func.multiLang(title[0], title[1])}</div>
   }
 
   gap(height){
@@ -116,9 +117,8 @@ class UI extends Component {
   }
 
   failedMessage(message){
-    const actions = this.props.app.actions;
-    actions.modal.message([message[0], message[1]]);
-    actions.modal.showModalButton();
+    this.actions.modal.message([message[0], message[1]]);
+    this.actions.modal.showModalButton();
   }
 
 }

@@ -4,10 +4,9 @@ import UI from 'components/UI';
 class Modal extends UI {
 
   board(){
-    const bs = this.props.app.store.ui.basicStyle;
     const boardStyle = {
-      width: bs.width * 0.6,
-      height:  bs.height * 0.3,
+      width: this.bs.width * 0.6,
+      height:  this.bs.height * 0.3,
       backgroundColor: 'rgba(0, 0, 0, 0.85)',
       borderRadius: '20px',
       display: 'flex',
@@ -24,9 +23,8 @@ class Modal extends UI {
   }
 
   message(){
-    const app = this.props.app;
-    const modal = app.store.modal;
-    const lang = app.store.main.language;
+    const modal = this.store.modal;
+    const lang = this.store.main.language;
     const text = modal[lang];
 
     const messageStyle = {
@@ -42,9 +40,8 @@ class Modal extends UI {
   }
 
   buttonsArea(){
-    const app = this.props.app;
-    const button = app.store.modal.button;
-    if(button === 'off'){
+    const status = this.store.modal.button;
+    if(status === 'off'){
       return null;
     }
 
@@ -59,25 +56,23 @@ class Modal extends UI {
     }
     return(
       <div style={areaStyle}>
-        {this.buttons.modal(['Confirm','確定'], ()=>{app.actions.modal.hideModal()})}
+        {this.buttons.modal(['Confirm','確定'], ()=>{this.actions.modal.hideModal()})}
       </div>
     )
   }
 
   render() {
-    const app = this.props.app;
-    const status = app.store.modal.status;
+    this.init(this.props);
+    const status = this.store.modal.status;
     if(status === 'off'){
       return null;
     }
 
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
     const modalStyle = {
       position: 'absolute',
-      width: bs.width,
-      height: bs.height,
-      minHeight: bs.minHeight,
+      width: this.bs.width,
+      height: this.bs.height,
+      minHeight: this.bs.minHeight,
       backgroundColor: 'transparent',
       opacity: 1,
       display: 'flex',

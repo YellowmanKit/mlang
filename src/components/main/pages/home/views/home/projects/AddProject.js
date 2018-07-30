@@ -5,8 +5,7 @@ import ImagePicker from 'components/main/items/ImagePicker';
 class AddProject extends View {
 
   render() {
-    const app = this.props.app;
-    const func = app.functions;
+    this.init(this.props);
     var defaultDate = new Date();
     defaultDate.setMonth(defaultDate.getMonth() + 1);
 
@@ -16,7 +15,7 @@ class AddProject extends View {
 
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
-        <ImagePicker app={app} />
+        <ImagePicker app={this.app} />
         {this.sep()}
         {this.gap('2%')}
 
@@ -33,7 +32,7 @@ class AddProject extends View {
 
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
-        {this.inputs.inputField('endDate','date', ['',''], func.getDateString(defaultDate))}
+        {this.inputs.inputField('endDate','date', ['',''], this.func.getDateString(defaultDate))}
         {this.gap('2%')}
 
         {this.buttons.rectGreen(['Confirm','確定'], ()=>{this.addProject()})}
@@ -42,10 +41,7 @@ class AddProject extends View {
   }
 
   addProject(){
-    const app = this.props.app;
-    const actions = this.props.app.actions;
-
-    const _icon = app.store.main.photoBlob;
+    const _icon = this.store.main.photoBlob;
     const _title = document.getElementById('title').value;
     const _desc = document.getElementById('desc').value;
     const _endDate = document.getElementById('endDate').value;
@@ -62,8 +58,8 @@ class AddProject extends View {
       return this.failedMessage(['Failed to add! End date is in the past!', '創建失敗! 結束日期早於現在!'])
     }
 
-    actions.projects.addProject({
-      course: app.store.courses.viewingCourse._id,
+    this.actions.projects.addProject({
+      course: this.store.courses.viewingCourse._id,
       icon: _icon,
       title: _title,
       description: _desc,

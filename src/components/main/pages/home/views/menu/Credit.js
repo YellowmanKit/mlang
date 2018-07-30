@@ -8,6 +8,7 @@ class Credit extends View {
   }
 
   render() {
+    this.init(this.props);
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}

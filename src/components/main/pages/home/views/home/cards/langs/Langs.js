@@ -13,20 +13,20 @@ class Langs extends UI {
   }
 
   componentDidMount(){
+    this.init(this.props);
     this.getLangs(this.props);
   }
 
   componentWillReceiveProps (newProp){
+    this.init(this.props);
     this.getLangs(newProp);
   }
 
   getLangs(props){
-    const app = props.app;
-    const func = app.functions;
     const langsId = props.card.langs;
     var _langs = [];
     for(var i=0;i<langsId.length;i++){
-      _langs.splice(0,0, func.getLangById(langsId[i]))
+      _langs.splice(0,0, this.func.getLangById(langsId[i]))
     }
     this.setState({
       langs: _langs
@@ -43,13 +43,9 @@ class Langs extends UI {
   }
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    //const bs = ui.basicStyle;
-    //const card = this.props.card;
-
-    const langsStyle = {...ui.basicStyle, ...ui.styles.list, ...{
-      width: '90%',
+    this.init(this.props);
+    const langsStyle = {...this.bs, ...this.ui.styles.list, ...{
+      width: '85%',
       height: '100%',
       backgroundColor: 'white'
     }}

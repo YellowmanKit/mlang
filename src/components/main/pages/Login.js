@@ -16,9 +16,7 @@ class Login extends UI {
   }
 
   languageBar(){
-    const app = this.props.app;
-    const actions = app.actions;
-    const lang = app.store.main.language;
+    const lang = this.store.main.language;
 
     const barStyle = {
       width: '67%',
@@ -41,8 +39,8 @@ class Login extends UI {
 
     return(
       <div style={barStyle}>
-        {this.buttons.button(chineseStyle, ['中文','中文'], '', ()=>actions.main.setLanguage('chinese'))}
-        {this.buttons.button(englishStyle, ['English','English'], '', ()=>actions.main.setLanguage('english'))}
+        {this.buttons.button(chineseStyle, ['中文','中文'], '', ()=>this.actions.main.setLanguage('chinese'))}
+        {this.buttons.button(englishStyle, ['English','English'], '', ()=>this.actions.main.setLanguage('english'))}
       </div>
     )
   }
@@ -66,12 +64,10 @@ class Login extends UI {
   }
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const actions = app.actions;
-    const status = app.store.main.status;
+    this.init(this.props);
+    const status = this.store.main.status;
 
-    const pageStyle = {...ui.basicStyle, ...{ justifyContent: 'center' }};
+    const pageStyle = {...this.bs, ...{ justifyContent: 'center' }};
     const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
 
     if(status === 'waitForLogin'){
@@ -81,8 +77,8 @@ class Login extends UI {
           {this.inputs.inputField('id','text', ['Enter your identity','登入名稱'], loginInfo !== null? loginInfo.id:'')}
           {this.inputs.inputField('pw','password', ['Enter your password','密碼'], loginInfo !== null? loginInfo.pw:'')}
           {this.buttons.rectGreen(['Login','登入'], ()=>this.login())}
-          {this.buttons.rectYellow(['Get new account','申請帳號'], ()=>actions.main.setStatus('getNewAccount'))}
-          {this.buttons.rectRed(['Forget password','忘記密碼'], ()=>actions.main.setStatus('forgotPassword'))}
+          {this.buttons.rectYellow(['Get new account','申請帳號'], ()=>this.actions.main.setStatus('getNewAccount'))}
+          {this.buttons.rectRed(['Forget password','忘記密碼'], ()=>this.actions.main.setStatus('forgotPassword'))}
           {this.languageBar()}
           {this.versionCode()}
         </div>
@@ -91,16 +87,16 @@ class Login extends UI {
       return(
         <div style={pageStyle}>
           {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.buttons.rectGreen(['Acquire new account','獲得新帳號'], ()=>actions.user.getNewAccount(document.getElementById('email').value))}
-          {this.buttons.rectRed(['Cancel','取消'], ()=>actions.main.setStatus('waitForLogin'))}
+          {this.buttons.rectGreen(['Acquire new account','獲得新帳號'], ()=>this.actions.user.getNewAccount(document.getElementById('email').value))}
+          {this.buttons.rectRed(['Cancel','取消'], ()=>this.actions.main.setStatus('waitForLogin'))}
         </div>
       )
     }else if(status === 'forgotPassword'){
       return(
         <div style={pageStyle}>
           {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.buttons.rectGreen(['Reset password','重設密碼'], ()=>actions.user.resetPassword(document.getElementById('email').value))}
-          {this.buttons.rectRed(['Cancel','取消'], ()=>actions.main.setStatus('waitForLogin') )}
+          {this.buttons.rectGreen(['Reset password','重設密碼'], ()=>this.actions.user.resetPassword(document.getElementById('email').value))}
+          {this.buttons.rectRed(['Cancel','取消'], ()=>this.actions.main.setStatus('waitForLogin') )}
         </div>
       )
     }else{
