@@ -5,12 +5,30 @@ import SubNav from 'components/main/items/SubNav';
 import ProjectDetail from './subviews/ProjectDetail';
 import SubmittedCards from './subviews/SubmittedCards';
 import StudentProjects from './subviews/StudentProjects';
+import ProjectFeatured from './subviews/ProjectFeatured';
 
 class Project extends View {
 
   componentDidMount(){
     this.init(this.props);
-    this.actions.content.setSubView('projectSubmitted');
+    this.actions.content.setSubView('projectFeatured');
+    this.getStudentProjects(this.props);
+  }
+
+  getStudentProjects(props){
+    const viewingProject = this.store.projects.viewingProject;
+
+    const studentProjectsToGet = [];
+    const studentProjectsToShow = viewingProject.studentProjects;
+
+    for(var i=0;i<studentProjectsToShow.length;i++){
+      if(this.func.getStudentProjectById(studentProjectsToShow[i]) === null){
+        studentProjectsToGet.splice(0,0, studentProjectsToShow[i]);
+      }
+    }
+    if(studentProjectsToGet.length > 0){
+      this.actions.studentProjects.getStudentProjects(studentProjectsToGet);
+    }
   }
 
   subView(){
@@ -26,6 +44,8 @@ class Project extends View {
           type === 'teacher'? <StudentProjects app={this.app}/>:
           null
         )
+      case 'projectFeatured':
+        return <ProjectFeatured app={this.app}/>
       default:
         return null;
     }

@@ -15,8 +15,10 @@ export function getStudentProjects(studentProjects){
     axios.post(api + '/studentProject/getMultiple', { data: studentProjects })
     .then(res=>{
       if(res.data.result === 'success'){
-        dispatch({type: "appendStudentProjects", payload: res.data.studentProjects});
-        dispatch({type: "appendStudents", payload: res.data.students});
+        dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
+        dispatch({type: "updateCards", payload: res.data.cards});
+        dispatch({type: "updateLangs", payload: res.data.langs});
+        dispatch({type: "updateStudents", payload: res.data.students});
       }else{
         dispatch({type: "showModalButton"});
         dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});
@@ -41,7 +43,7 @@ export function getStudentProject(_student, _project, studentProjectsLength){
       actions.connectionError(dispatch);
     })
     if(res.data.result === 'success'){
-      dispatch({type: "appendStudentProjects", payload: [res.data.studentProject]});
+      dispatch({type: "updateStudentProjects", payload: [res.data.studentProject]});
       dispatch({type: "viewStudentProject", payload: res.data.studentProject});
       dispatch({type: "updateProject", payload: res.data.updatedProject});
     }else{

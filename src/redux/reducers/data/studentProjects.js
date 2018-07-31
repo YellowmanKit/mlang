@@ -1,3 +1,5 @@
+import * as reducer from '../reducer';
+
 const studentProjectsReducer = (
   state = {
     studentProjects: [],
@@ -6,15 +8,8 @@ const studentProjectsReducer = (
   }, action)=>{
   const _studentProjects = state.studentProjects.slice(0);
   switch (action.type) {
-    case 'updateStudentProject':
-      const updatedStudentProject = action.payload;
-      for(var i=0;i<_studentProjects.length;i++){
-        if(_studentProjects[i]._id === updatedStudentProject._id){
-          _studentProjects[i] = updatedStudentProject;
-          return {...state, studentProjects: _studentProjects};
-        }
-      }
-      return {...state, studentProjects: [...state.studentProjects, updatedStudentProject]};
+    case 'updateStudentProjects':
+     return {...state, studentProjects: reducer.updateElements(state.studentProjects, action.payload)};
     case 'viewStudentProject':
       const studentProject = action.payload;
       var index = -1;

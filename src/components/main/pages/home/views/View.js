@@ -8,6 +8,7 @@ class View extends UI {
       position: 'relative',
       justifyContent: 'flex-start',
       alignItems: 'center',
+      overflow: 'hidden',
       backgroundColor: 'white'
     }}
   }

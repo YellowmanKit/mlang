@@ -23,11 +23,15 @@ class GradingCards extends View {
   }
 
   componentWillReceiveProps(newProps){
+    this.checkInit(newProps);
+  }
+
+  checkInit(props){
     const studentProject = this.store.studentProjects.viewingStudentProject;
     const gradingCards = this.store.cards.gradingCards[studentProject._id];
     if(!gradingCards){
       //console.log('componentWillReceiveProps')
-      this.initGradingCards(newProps);
+      this.initGradingCards(props);
     }
   }
 
@@ -44,6 +48,8 @@ class GradingCards extends View {
     }
     if(cardsToGet.length > 0){
       this.actions.cards.getCards(cardsToGet);
+    }else{
+      this.checkInit(this.props);
     }
   }
 
@@ -51,7 +57,7 @@ class GradingCards extends View {
     if(this.state.gradingCardsInited){
       return;
     }
-    console.log('initGradingCards')
+    //console.log('initGradingCards')
     const studentProject = this.store.studentProjects.viewingStudentProject;
     const cards = [];
     const cardsId = studentProject.cards;
@@ -215,15 +221,18 @@ class GradingCards extends View {
   grading(grade){
     this.onCardChange(grade);
     if(this.state.selected < this.getGradingCards().length - 1){
-      this.onRowSelect(this.state.selected + 1);
+      clearTimeout(this.autoScroll);
+      this.autoScroll = setTimeout(()=>{
+        this.scrollToNext(this.state.selected);
+        this.onRowSelect(this.state.selected + 1);
+      }, 500);
     }
-    this.scrollToNext(this.state.selected)
   }
 
   scrollToNext(index){
     const row = document.getElementById('row' + index);
     const scrollValue = row.offsetHeight + this.bs.width * 0.04;
-    document.getElementById("list").scrollBy(0, scrollValue)
+    document.getElementById("list").scrollBy(0, scrollValue);
   }
 
   commenting(e){

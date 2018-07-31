@@ -14,14 +14,15 @@ class StudentProjects extends SubView {
 
   componentDidMount(){
     this.init(this.props);
-    this.getStudentProjects(this.props);
+    if(this.state.studentProjects.length === 0){
+      this.initStudentProjects(this.props);
+    }
   }
 
   componentWillReceiveProps(newProps){
     this.init(this.props);
     if(this.state.studentProjects.length === 0){
-      //console.log('componentWillReceiveProps')
-      this.getStudentProjects(newProps);
+      this.initStudentProjects(newProps);
     }
   }
 
@@ -31,17 +32,19 @@ class StudentProjects extends SubView {
     for(var i=0;i<studentProjects.length;i++){
       studentProjects[i] = this.func.getStudentProjectById(studentProjects[i])
       //console.log(studentProjects[i])
-      if(studentProjects[i] === null){ return; }
+      if(studentProjects[i] === null){ console.log('no studentProjects'); return; }
       var total = 0;
       var featured = 0;
       var alert = 0;
-      const cards = studentProjects[i].cards;
-      total = cards.length;
-      for(var j=0;j<cards.length;j++){
-        if(!cards[j].grade || cards[j].grade === 'notGraded'){
+      const cardsId = studentProjects[i].cards;
+      total = cardsId.length;
+      for(var j=0;j<cardsId.length;j++){
+        const card = this.func.getCardById(cardsId[j]);
+        if(card === null){ console.log('no card data'); return; }
+        if(!card.grade || card.grade === 'notGraded'){
           alert++;
         }
-        if(cards[j].grade && cards[j].grade === 'featured'){
+        if(card.grade && card.grade === 'featured'){
           featured++;
         }
       }
@@ -50,23 +53,6 @@ class StudentProjects extends SubView {
     this.setState({
       studentProjects: studentProjects
     })
-  }
-
-  getStudentProjects(props){
-    const viewingProject = this.store.projects.viewingProject;
-
-    const studentProjectsToGet = [];
-    const studentProjectsToShow = viewingProject.studentProjects;
-
-    for(var i=0;i<studentProjectsToShow.length;i++){
-      if(this.func.getStudentProjectById(studentProjectsToShow[i]) === null){
-        studentProjectsToGet.splice(0,0, studentProjectsToShow[i]);
-      }
-    }
-    if(studentProjectsToGet.length > 0){
-      this.actions.studentProjects.getStudentProjects(studentProjectsToGet);
-    }
-    this.initStudentProjects(props);
   }
 
   studentProjectsList(){

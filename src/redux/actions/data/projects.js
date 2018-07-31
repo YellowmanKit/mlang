@@ -16,7 +16,7 @@ export function getProjects(projects){
     axios.post(api + '/project/getMultiple', { data: projects })
     .then(res=>{
       if(res.data.result === 'success'){
-        dispatch({type: "appendProjects", payload: res.data.projects});
+        dispatch({type: "updateProjects", payload: res.data.projects});
       }else{
         dispatch({type: "showModalButton"});
         dispatch({type: "message", payload: ['Failed to get projects data!', '無法查閱專題研習資料!']});
@@ -52,7 +52,7 @@ export function addProject(newProject){
         //console.log(res.data);
         if(result === 'success'){
           dispatch({type: "message", payload: ['Add project succeed!', '成功創建專題研習!']});
-          dispatch({type: "appendProjects", payload: [res.data.newProject]});
+          dispatch({type: "updateProjects", payload: [res.data.newProject]});
           dispatch({type: "updateTeachingCourse", payload: res.data.updatedCourse});
           dispatch({type: "pullView"});
           //dispatch({type: "setPhoto", payload: {blob: null, url: null}});

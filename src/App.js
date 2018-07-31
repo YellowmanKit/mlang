@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   getStudentProfileByUserId(userId){
-    const studentsData = this.props.store.students;
+    const studentsData = this.props.store.students.students;
     for(var i=0;i<studentsData.length;i++){
       if(studentsData[i].belongTo === userId){
         return studentsData[i];

@@ -1,3 +1,5 @@
+import * as reducer from '../reducer';
+
 const cardsReducer = (
   state = {
     cards: [],
@@ -8,17 +10,7 @@ const cardsReducer = (
   var _gradingCards = {...state.gradingCards};
   switch (action.type) {
     case 'updateCards':
-      const updatedCards = action.payload;
-      var cards = state.cards;
-      for(var i=0;i<cards.length;i++){
-        for(var j=0;j<updatedCards.length;j++){
-          if(cards[i]._id === updatedCards[j]._id){
-            cards[i] = {...cards[i], ...updatedCards[j]};
-            break;
-          }
-        }
-      }
-      return {...state, cards: cards};
+      return {...state, cards: reducer.updateElements(state.cards, action.payload)};
     case 'gradeCard':
       _gradingCards[action.payload.studentProjectId][action.payload.index] = action.payload.gradeCard;
       return {...state, gradingCards: _gradingCards};

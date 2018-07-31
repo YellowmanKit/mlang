@@ -21,11 +21,11 @@ export const viewCard = (index, card) =>{
 }
 
 export function gradeCards(id, cards){
-  console.log('cards')
+  //console.log('cards')
   return async function (dispatch) {
     var gradingCards = [...cards];
     if(!gradingCards){ return; }
-    console.log(gradingCards)
+    //console.log(gradingCards)
     let err, res;
     for(var i=0;i<gradingCards.length;i++){
       if(gradingCards[i].audioComment){
@@ -93,9 +93,9 @@ export function getCards(cardsId){
     if(err){actions.connectionError(dispatch); return;}
 
     if(cardsRes.data.result === 'success'){
-      dispatch({type: "appendLangs", payload: cardsRes.data.langs});
-      dispatch({type: "appendCards", payload: cardsRes.data.cards});
-      dispatch({type: "appendStudents", payload: cardsRes.data.students});
+      dispatch({type: "updateLangs", payload: cardsRes.data.langs});
+      dispatch({type: "updateCards", payload: cardsRes.data.cards});
+      dispatch({type: "updateStudents", payload: cardsRes.data.students});
     }else{
       console.log('get cards failed!')
     }
@@ -155,8 +155,8 @@ export function addCard(data){
       //console.log(cardRes.data.card)
       //console.log(cardRes.data.langs)
       //console.log(cardRes.data.newStudentProject)
-      dispatch({type: "appendCards", payload: [cardRes.data.card]});
-      dispatch({type: "appendLangs", payload: cardRes.data.langs});
+      dispatch({type: "updateCards", payload: [cardRes.data.card]});
+      dispatch({type: "updateLangs", payload: cardRes.data.langs});
       //dispatch({type: "updateProject", payload: cardRes.data.updatedProject});
       dispatch({type: "updateStudentProject", payload: cardRes.data.updatedStudentProject});
       dispatch({type: "setEditLangs", payload: []});

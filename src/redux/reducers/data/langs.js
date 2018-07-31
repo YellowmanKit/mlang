@@ -1,3 +1,5 @@
+import * as reducer from '../reducer';
+
 const langsReducer = (
   state = {
     editLangs:[],
@@ -72,9 +74,11 @@ const langsReducer = (
   }, action)=>{
   const newEditLangs = state.editLangs.slice(0);
   switch (action.type) {
+    case 'updateLangs':
+      return {...state, langs: reducer.updateElements(state.langs, action.payload)};
     case 'setLangAudio':
-      const i = action.payload.index;
-      newEditLangs[i] = {...newEditLangs[i], audioBlob: action.payload.blob}
+      const index = action.payload.index;
+      newEditLangs[index] = {...newEditLangs[index], audioBlob: action.payload.blob}
       return {...state, editLangs: newEditLangs}
     case 'setEditLang':
       newEditLangs[action.payload.index] = action.payload.editLang;

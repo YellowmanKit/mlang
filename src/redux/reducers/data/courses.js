@@ -1,3 +1,5 @@
+import * as reducer from '../reducer';
+
 const coursesReducer = (
   state = {
     indexOfViewing: -1,
@@ -6,10 +8,10 @@ const coursesReducer = (
     joinedCourses: []
   }, action)=>{
   switch (action.type) {
-    case 'updateTeachingCourse':
-      var newTeachingCourses = state.teachingCourses;
-      newTeachingCourses[state.indexOfViewing] = action.payload;
-      return {...state, viewingCourse: action.payload, teachingCourses: newTeachingCourses}
+    case 'updateJoinedCourses':
+        return {...state, joinedCourses: reducer.updateElements(state.joinedCourses, action.payload)};
+    case 'updateTeachingCourses':
+        return {...state, teachingCourses: reducer.updateElements(state.teachingCourses, action.payload)};
     case 'viewCourse':
       return {...state, indexOfViewing: action.payload.index, viewingCourse: action.payload.course};
     case 'appendJoinedCourses':

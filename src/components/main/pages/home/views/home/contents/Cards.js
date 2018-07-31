@@ -5,33 +5,29 @@ import Cell from 'components/main/items/Cell';
 class Cards extends UI {
 
   componentDidMount(){
+    this.init(this.props);
     this.getCards();
   }
 
   getCards(){
-    const app = this.props.app;
-    const func = app.functions;
-
     const cardsToGet = [];
     const cardsToShow = this.props.cardsId;
-
+    if(!cardsToShow){ return;}
+    
     for(var i=0;i<cardsToShow.length;i++){
-      if(func.getCardById(cardsToShow[i]) === null){
+      if(this.func.getCardById(cardsToShow[i]) === null){
         cardsToGet.splice(0,0, cardsToShow[i]);
       }
     }
     if(cardsToGet.length > 0){
-      app.actions.cards.getCards(cardsToGet);
+      this.actions.cards.getCards(cardsToGet);
     }
   }
 
   render(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const func = app.functions;
-    const actions = app.actions;
+    this.init(this.props);
     const cardsToShow = this.props.cardsId;
+    if(!cardsToShow){ return null;}
     //console.log(cardsToShow)
     const cardsStyle = {
       width: '100%',
@@ -42,8 +38,8 @@ class Cards extends UI {
       alignContent: 'flex-start'
     }
     const cardContainerStyle = {
-      width: bs.width * 0.32,
-      height: bs.width * 0.4,
+      width: this.bs.width * 0.32,
+      height: this.bs.width * 0.4,
       display: 'flex',
       justifyContent: 'center'
     }
@@ -51,10 +47,15 @@ class Cards extends UI {
       <div style={cardsStyle}>
         {this.gap('3%')}
         {cardsToShow.map((cardId,i)=>{
-          const card = func.getCardById(cardId);
+          const card = this.func.getCardById(cardId);
+          if(!card){ return null;}
+          //console.log(card);
+          if(this.props.featuredOnly && (!card.grade || card.grade !== 'featured')){
+            return null;
+          }
           return(
             <div key={i} style={cardContainerStyle}>
-              <Cell app={app} data={card} type='card' onClick={()=>{actions.cards.viewCard(i, card); actions.content.pushView('viewCards')}}/>
+              <Cell app={this.app} data={card} type='card' onClick={()=>{this.actions.cards.viewCard(i, card); this.actions.content.pushView('viewCards')}}/>
             </div>
           )
         })}

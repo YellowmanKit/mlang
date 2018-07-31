@@ -25,7 +25,7 @@ export function joinCourse(_data){
       }
       dispatch({type: "message", payload: ['Join course succeed!', '成功加入班別!']});
       const courseJoined = data.joinedCourse;
-      dispatch({type: "appendJoinedCourses", payload: courseJoined});
+      dispatch({type: "updateJoinedCourses", payload: courseJoined});
       const updatedProfile = data.updatedProfile;
       dispatch({type: "setProfile", payload: updatedProfile});
       dispatch({type: "backToHome"});
@@ -45,7 +45,7 @@ export function addCourse(newCourse){
     iconFile.append('files', newCourse.icon, 'courseIcon');
 
     axios.post(api + '/upload', iconFile, { headers: { type: 'courseIcon'}}).then(res=>{
-      //console.log("File uploaded");
+      //console.lupdatele uploaded");
       const data = res.data;
       if(data.result === 'failed'){
         actions.connectionError(dispatch);
@@ -62,7 +62,7 @@ export function addCourse(newCourse){
         console.log(res.data);
         if(result === 'success'){
           dispatch({type: "message", payload: ['Add course succeed!', '成功創建班別!']});
-          dispatch({type: "appendTeachingCourses", payload: res.data.newCourse});
+          dispatch({type: "updateTeachingCourses", payload: res.data.newCourse});
           dispatch({type: "backToHome"});
           //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
         }else{

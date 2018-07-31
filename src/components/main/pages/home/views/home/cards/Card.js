@@ -2,7 +2,6 @@ import React from 'react';
 import UI from 'components/UI';
 import Image from 'components/main/items/ui/Image';
 import Badge from 'components/main/items/Badge';
-
 import Langs from './langs/Langs';
 
 class Card extends UI {

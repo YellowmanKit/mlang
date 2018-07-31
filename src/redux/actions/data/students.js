@@ -10,7 +10,7 @@ export function getStudentProfiles(students){
     axios.post(api + '/profile/getMultiple', { data: students })
     .then(res=>{
       if(res.data.result === 'success'){
-        dispatch({type: "appendStudents", payload: res.data.profiles});
+        dispatch({type: "updateStudents", payload: res.data.profiles});
       }else{
         dispatch({type: "showModalButton"});
         dispatch({type: "message", payload: ['Failed to get students data!', '無法查閱學生資料!']});

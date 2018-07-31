@@ -1,18 +1,14 @@
-const studentsReducer = (
-  state = [
+import * as reducer from '../reducer';
 
-  ], action)=>{
+const studentsReducer = (
+  state = {
+    students: [],
+    viewingStudent: {},
+    indexOfViewing: -1
+  }, action)=>{
   switch (action.type) {
-    case 'appendStudents':
-      var studentsToAppend = action.payload;
-      for(var i=0;i<state.length;i++){
-        for(var j=studentsToAppend.length - 1;j>=0;j--){
-          if(studentsToAppend[j].belongTo === state[i].belongTo){
-            studentsToAppend.splice(j, 1);
-          }
-        }
-      }
-      return [...state, ...studentsToAppend];
+    case 'updateStudents':
+      return {...state, students: reducer.updateElements(state.students, action.payload)};
     default:
       return state;
   }

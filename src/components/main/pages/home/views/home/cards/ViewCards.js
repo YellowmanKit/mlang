@@ -1,6 +1,6 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
-
+import CardBar from './CardBar';
 import Card from './Card';
 
 class ViewCards extends View {
@@ -18,7 +18,8 @@ class ViewCards extends View {
       backgroundColor: this.ui.colors.ultraLightGrey
     }}
     const viewingCard = this.store.cards.viewingCard;
-    const viewingCards = this.store.studentProjects.viewingStudentProject.cards;
+    const viewingCards = this.getViewingCards();
+
     var previous, next, previousIndex, nextIndex;
     for(var i=0;i<viewingCards.length;i++){
       if(viewingCards[i] === viewingCard._id){
@@ -42,8 +43,16 @@ class ViewCards extends View {
           <Card app={this.app} card={viewingCard}/>
         </div>
         {next && this.buttons.next(()=>{this.actions.cards.viewCard(nextIndex, next)})}
+        <CardBar app={this.app} card={viewingCard}/>
       </div>
     )
+  }
+
+  getViewingCards(){
+    if(this.store.content.subView === 'projectFeatured'){
+      return this.getAllFeaturedCardsIdInViewingProject();
+    }
+    return this.store.studentProjects.viewingStudentProject.cards;
   }
 
 }

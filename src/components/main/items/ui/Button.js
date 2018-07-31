@@ -15,7 +15,6 @@ import icon_featured from 'resources/images/buttons/buttonIcons/star2.png';
 import icon_comment from 'resources/images/buttons/buttonIcons/edit.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment.png';
 
-
 class Button {
 
   constructor(app){
@@ -28,6 +27,30 @@ class Button {
     this.bs = this.ui.basicStyle;
     this.func = app.functions;
     this.actions = app.actions;
+  }
+
+  barAudioComment(onClick){
+    return this.bar(icon_audioComment, onClick);
+  }
+
+  barComment(onClick){
+    return this.bar(icon_comment, onClick);
+  }
+
+  barExpend(onClick){
+    return this.bar(icon_arrow, onClick);
+  }
+
+  barCollapse(onClick){
+    return this.bar(icon_arrow_reverse, onClick);
+  }
+
+  bar(icon, onClick){
+    const style = {
+      width: this.bs.width * 0.075,
+      height: this.bs.width * 0.075
+    }
+    return this.button(style, ['',''], icon, onClick)
   }
 
   gradingFailed(onClick){
