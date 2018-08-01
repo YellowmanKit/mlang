@@ -15,7 +15,7 @@ class Enlarger extends UI {
     const style = {...this.bs, ...{
       position: 'absolute',
       minHeight: this.bs.minHeight,
-      backgroundColor: 'rgba(1,1,1,0.9)',
+      backgroundColor: 'rgba(1,1,1,0.95)',
       justifyContent: 'center'
     }}
 

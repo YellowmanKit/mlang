@@ -1,7 +1,7 @@
 import React from 'react';
 import Row from './Row';
 
-import icon_student from 'resources/images/icons/student.png';
+import icon_student from 'resources/images/icons/student_grey.png';
 import cards from 'resources/images/icons/cards_lightgrey.png';
 import star2 from 'resources/images/icons/star2_lightgrey.png';
 

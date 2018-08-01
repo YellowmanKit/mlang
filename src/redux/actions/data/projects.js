@@ -2,10 +2,10 @@ import axios from 'axios';
 import * as actions from '../actions';
 var api = process.env.REACT_APP_API;
 
-export const viewProject = (_index, _project) =>{
+export const viewProject = (project) =>{
   return {
     type: 'viewProject',
-    payload: { index: _index, project: _project}
+    payload: project
   }
 }
 
@@ -33,7 +33,7 @@ export function addProject(newProject){
     actions.connecting(dispatch);
 
     var iconFile = new FormData();
-    iconFile.append('files', newProject.icon, 'projectIcon');
+    iconFile.append('files', newProject.icon, 'projectIcon.png');
 
     axios.post(api + '/upload', iconFile, { headers: { type: 'projectIcon'}}).then(res=>{
       //console.log("File uploaded");
@@ -53,7 +53,9 @@ export function addProject(newProject){
         if(result === 'success'){
           dispatch({type: "message", payload: ['Add project succeed!', '成功創建專題研習!']});
           dispatch({type: "updateProjects", payload: [res.data.newProject]});
-          dispatch({type: "updateTeachingCourse", payload: res.data.updatedCourse});
+          dispatch({type: "updateTeachingProjects", payload: [res.data.newProject._id]});
+          dispatch({type: "updateCourses", payload: [res.data.updatedCourse]});
+          dispatch({type: "viewCourse", payload: res.data.updatedCourse});
           dispatch({type: "pullView"});
           //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
         }else{

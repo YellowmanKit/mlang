@@ -18,7 +18,8 @@ const uiReducer = (
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundSize: '100% 100%'
+        backgroundSize: '100% 100%',
+        flexShrink: 0
       },
       area: {
         width: '100%',

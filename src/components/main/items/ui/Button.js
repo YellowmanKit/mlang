@@ -9,6 +9,8 @@ import icon_camera from 'resources/images/buttons/buttonIcons/camera.png';
 import icon_cross from 'resources/images/buttons/buttonIcons/cross.png';
 import icon_arrow from 'resources/images/buttons/buttonIcons/arrow.png';
 import icon_arrow_reverse from 'resources/images/buttons/buttonIcons/arrow_reverse.png';
+import icon_arrow2 from 'resources/images/buttons/buttonIcons/arrow2.png';
+import icon_arrow2_reverse from 'resources/images/buttons/buttonIcons/arrow2_reverse.png';
 
 import icon_passed from 'resources/images/buttons/buttonIcons/tick.png';
 import icon_featured from 'resources/images/buttons/buttonIcons/star2.png';
@@ -29,26 +31,27 @@ class Button {
     this.actions = app.actions;
   }
 
-  barAudioComment(onClick){
-    return this.bar(icon_audioComment, onClick);
+  barAudioComment(onClick, active){
+    return this.bar(icon_audioComment, onClick, active);
   }
 
-  barComment(onClick){
-    return this.bar(icon_comment, onClick);
+  barComment(onClick, active){
+    return this.bar(icon_comment, onClick, active);
   }
 
   barExpend(onClick){
-    return this.bar(icon_arrow, onClick);
+    return this.bar(icon_arrow2, onClick, true);
   }
 
   barCollapse(onClick){
-    return this.bar(icon_arrow_reverse, onClick);
+    return this.bar(icon_arrow2_reverse, onClick, true);
   }
 
-  bar(icon, onClick){
+  bar(icon, onClick, active){
     const style = {
-      width: this.bs.width * 0.075,
-      height: this.bs.width * 0.075
+      width: this.bs.width * 0.09,
+      height: this.bs.width * 0.09,
+      opacity: active? 1: 0.1
     }
     return this.button(style, ['',''], icon, onClick)
   }

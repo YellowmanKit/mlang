@@ -21,9 +21,7 @@ const cardsReducer = (
       _gradingCards[action.payload.studentProjectId] = [...action.payload.cards];
       return {...state, gradingCards: _gradingCards};
     case 'viewCard':
-      return {...state, indexOfViewing: action.payload.index, viewingCard: action.payload.card};
-    case 'appendCards':
-      return {...state, cards: [...state.cards, ...action.payload]};
+      return {...state, indexOfViewing: reducer.getElementIndex(state.cards, action.payload), viewingCard: action.payload};
     default:
       return state;
   }

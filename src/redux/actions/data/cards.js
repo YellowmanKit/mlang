@@ -13,10 +13,10 @@ export const gradeCard = (id, index, gradeCard) =>{
   }
 }
 
-export const viewCard = (index, card) =>{
+export const viewCard = (card) =>{
   return {
     type: 'viewCard',
-    payload: { index: index, card: card}
+    payload: card
   }
 }
 
@@ -45,7 +45,7 @@ export function saveGradingCards(studentProjectId, gradingCards){
     var cardFile = new FormData();
     for(var i=0;i<gradingCards.length;i++){
       if(gradingCards[i].audioCommentEdited && gradingCards[i].audioCommentBlob){
-        cardFile.append('files', gradingCards[i].audioCommentBlob, 'audioComment_' + i);
+        cardFile.append('files', gradingCards[i].audioCommentBlob, 'audioComment_' + i + '.wav');
       }
     }
 
@@ -111,10 +111,10 @@ export function addCard(data){
     }*/
 
     var cardFile = new FormData();
-    cardFile.append('files', data.icon, 'cardIcon');
+    cardFile.append('files', data.icon, 'cardIcon.png');
     const editLangs = data.editLangs;
     for(var i=0;i<editLangs.length;i++){
-      cardFile.append('files', editLangs[i].audioBlob, 'langAudio_' + i);
+      cardFile.append('files', editLangs[i].audioBlob, 'langAudio_' + i + '.wav');
     }
     let err, uploadRes, cardRes;
     [err, uploadRes] = await to(axios.post(api + '/upload', cardFile, { headers: { type: 'card'}}))
@@ -125,7 +125,7 @@ export function addCard(data){
     var langAudios = [];
     for(var j=0;j<filenames.length;j++){
       const splted = filenames[j].split('-');
-      if(splted[1] === 'cardIcon'){
+      if(splted[1] === 'cardIcon.png'){
         cardIcon = filenames[j];
       }else{
         langAudios.splice(0,0, filenames[j]);
@@ -158,7 +158,8 @@ export function addCard(data){
       dispatch({type: "updateCards", payload: [cardRes.data.card]});
       dispatch({type: "updateLangs", payload: cardRes.data.langs});
       //dispatch({type: "updateProject", payload: cardRes.data.updatedProject});
-      dispatch({type: "updateStudentProject", payload: cardRes.data.updatedStudentProject});
+      dispatch({type: "updateStudentProjects", payload: [cardRes.data.updatedStudentProject]});
+
       dispatch({type: "setEditLangs", payload: []});
       //dispatch({type: "setPhoto", payload: {photoUrl: null, photoBlob: null}});
       dispatch({type: "pullView"});
@@ -171,7 +172,8 @@ export function addCard(data){
 
 function getFile(files, index){
   for(var i=0;i<files.length;i++){
-    const fileIndex = files[i].slice(-1);
+    const splited = files[i].split('.');
+    const fileIndex = splited[0].slice(-1);
     if(fileIndex === '' + index){
       return files[i]
     }

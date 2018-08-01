@@ -90,8 +90,6 @@ const langsReducer = (
       return {...state, editLangs: newEditLangs};
     case 'pushEditLangs':
       return {...state, editLangs: [...state.editLangs, action.payload]};
-    case 'appendLangs':
-      return {...state, langs: [...state.langs, ...action.payload]};
     default:
       return state;
   }

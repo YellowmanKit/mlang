@@ -2,10 +2,10 @@ import axios from 'axios';
 import * as actions from '../actions';
 var api = process.env.REACT_APP_API;
 
-export const viewCourse = (_index, _course) =>{
+export const viewCourse = (course) =>{
   return {
     type: 'viewCourse',
-    payload: { index: _index, course: _course}
+    payload: course
   }
 }
 
@@ -18,16 +18,14 @@ export function joinCourse(_data){
       data: _data
     }).then(res=>{
       dispatch({type: "showModalButton"});
-      const data = res.data;
-      if(data.result === 'failed'){
+      if(res.data.result === 'failed'){
         dispatch({type: "message", payload: ['Join course failed! Please make sure to enter a correct code!',  '加入失敗! 請確定代碼輸入正確!']});
         return;
       }
       dispatch({type: "message", payload: ['Join course succeed!', '成功加入班別!']});
-      const courseJoined = data.joinedCourse;
-      dispatch({type: "updateJoinedCourses", payload: courseJoined});
-      const updatedProfile = data.updatedProfile;
-      dispatch({type: "setProfile", payload: updatedProfile});
+      dispatch({type: "updateCourses", payload: [res.data.joinedCourse]});
+      dispatch({type: "updateJoinedCourses", payload: [res.data.joinedCourse._id]});
+      dispatch({type: "setProfile", payload: res.data.updatedProfile});
       dispatch({type: "backToHome"});
 
     }).catch(err=>{
@@ -42,7 +40,7 @@ export function addCourse(newCourse){
     actions.connecting(dispatch);
 
     var iconFile = new FormData();
-    iconFile.append('files', newCourse.icon, 'courseIcon');
+    iconFile.append('files', newCourse.icon, 'courseIcon.png');
 
     axios.post(api + '/upload', iconFile, { headers: { type: 'courseIcon'}}).then(res=>{
       //console.lupdatele uploaded");
@@ -58,11 +56,10 @@ export function addCourse(newCourse){
         data: newCourse
       }).then(res=>{
         dispatch({type: "showModalButton"});
-        const result = res.data.result
-        console.log(res.data);
-        if(result === 'success'){
+        if(res.data.result === 'success'){
           dispatch({type: "message", payload: ['Add course succeed!', '成功創建班別!']});
-          dispatch({type: "updateTeachingCourses", payload: res.data.newCourse});
+          dispatch({type: "updateCourses", payload: [res.data.newCourse]});
+          dispatch({type: "updateTeachingCourses", payload: [res.data.newCourse._id]});
           dispatch({type: "backToHome"});
           //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
         }else{

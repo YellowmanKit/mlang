@@ -21,6 +21,24 @@ import Main from './components/main/Main';
 
 class App extends Component {
 
+  getAllFeaturedCardsIdInViewingProject(){
+    var featuredCardsId = [];
+    const project = this.props.store.projects.viewingProject;
+    const studentProjects = project.studentProjects;
+    for(var i=0;i<studentProjects.length;i++){
+      const studentProject = this.getStudentProjectById(studentProjects[i]);
+      if(!studentProject){ return null; }
+      const cardsId = studentProject.cards;
+      for(var j=0;j<cardsId.length;j++){
+        const card = this.getCardById(cardsId[j]);
+        if(card.grade === 'featured'){
+          featuredCardsId = [...featuredCardsId, cardsId[j]];
+        }
+      }
+    }
+    return featuredCardsId;
+  }
+
   getItemById(data, id){
     for(var i=0;i<data.length;i++){
       if(data[i]._id === id){
@@ -48,6 +66,11 @@ class App extends Component {
   getProjectById(projectId){
     const projectsData = this.props.store.projects.projects;
     return this.getItemById(projectsData, projectId);
+  }
+
+  getCourseById(courseId){
+    const coursesData = this.props.store.courses.courses;
+    return this.getItemById(coursesData, courseId);
   }
 
   getStudentProject(studentId, projectId){
@@ -92,8 +115,19 @@ class App extends Component {
   }
 
   url(filename, type){
-    return process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
+    const downloadUrl = process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
+    //this.downloadFile(downloadUrl);
+    return downloadUrl;
   }
+
+  downloadFile(absoluteUrl) {
+    var link = document.createElement('a');
+    link.href = absoluteUrl;
+    link.download = 'true';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+ };
 
   addZeroIfSingle(num){
     if(num < 10){
@@ -133,13 +167,15 @@ class App extends Component {
         multiLang: this.multiLang.bind(this),
         getDateString: this.getDateString.bind(this),
         getStudentProfileByUserId: this.getStudentProfileByUserId.bind(this),
+        getCourseById: this.getCourseById.bind(this),
         getProjectById: this.getProjectById.bind(this),
         getStudentProject: this.getStudentProject.bind(this),
         getCardById: this.getCardById.bind(this),
         getLangById: this.getLangById.bind(this),
         getStudentProjectById: this.getStudentProjectById.bind(this),
         langKeyToLangName: this.langKeyToLangName.bind(this),
-        langNameToLangKey: this.langNameToLangKey.bind(this)
+        langNameToLangKey: this.langNameToLangKey.bind(this),
+        getAllFeaturedCardsIdInViewingProject: this.getAllFeaturedCardsIdInViewingProject.bind(this)
       }
     }
     return (

@@ -8,6 +8,7 @@ class Cell extends UI {
     const data = this.props.data
     const append =
     type === 'course'? 'courseIcon':
+    type === 'project'? 'projectIcon':
     type === 'card'? 'cardIcon':
     '';
     const url = this.func.url(data.icon, append);
@@ -24,7 +25,7 @@ class Cell extends UI {
   cellTitle(type){
     const data = this.props.data
     var text = '';
-    if(type === 'course'){
+    if(type === 'course' || type === 'project'){
       text = data.title;
     }
     if(type === 'card'){
@@ -34,6 +35,7 @@ class Cell extends UI {
 
     const scale =
     type === 'course'? [this.bs.width * 0.23,'']:
+    type === 'project'? [this.bs.width * 0.23, '']:
     type === 'card'? [this.bs.width * 0.23, '']:
     '';
 
@@ -55,6 +57,7 @@ class Cell extends UI {
 
     const scale =
     type === 'course'? [this.bs.width * 0.25,this.bs.width * 0.25]:
+    type === 'project'? [this.bs.width * 0.25,this.bs.width * 0.25]:
     type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';
 

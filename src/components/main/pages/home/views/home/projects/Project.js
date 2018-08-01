@@ -11,7 +11,9 @@ class Project extends View {
 
   componentDidMount(){
     this.init(this.props);
-    this.actions.content.setSubView('projectFeatured');
+    if(this.store.content.subView !== 'projectFeatured'){
+      this.actions.content.setSubView('projectSubmitted');
+    }
     this.getStudentProjects(this.props);
   }
 
@@ -54,16 +56,16 @@ class Project extends View {
   projectSubNav(){
     const _options = [
       {
-        tag:['Detail','詳細資訊'],
-        subView: 'projectDetail'
-      },
-      {
         tag:['Submitted','已提交'],
         subView: 'projectSubmitted'
       },
       {
         tag:['Featured','精選卡片'],
         subView: 'projectFeatured'
+      },
+      {
+        tag:['Detail','詳細資訊'],
+        subView: 'projectDetail'
       }
     ]
     return <SubNav app={this.app} options={_options} />

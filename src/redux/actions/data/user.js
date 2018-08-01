@@ -69,16 +69,24 @@ export function getNewAccount (_email) {
 
 export function login (_id, _pw) {
   //console.log(api);
-
   return function (dispatch) {
     dispatch({type: "message", payload: ['Logging in...', '登入中...']});
     axios.get(api + '/user/login',{ headers: { id: _id, pw: _pw }})
     .then(res=>{
       if(res.data.result === 'success'){
+        console.log(res.data);
         dispatch({type: "setUser", payload: res.data.user});
         dispatch({type: "setProfile", payload: res.data.profile});
-        dispatch({type: "setTeachingCourses", payload: res.data.teachingCourses});
-        dispatch({type: "setJoinedCourses", payload: res.data.joinedCourses});
+
+        dispatch({type: "updateCourses", payload: res.data.courses});
+        dispatch({type: "updateProjects", payload: res.data.projects});
+
+        dispatch({type: "updateTeachingCourses", payload: res.data.teachingCourses});
+        dispatch({type: "updateJoinedCourses", payload: res.data.joinedCourses});
+
+        dispatch({type: "updateTeachingProjects", payload: res.data.teachingProjects});
+        dispatch({type: "updateJoinedProjects", payload: res.data.joinedProjects});
+
         dispatch({type: "setStatus", payload: "ready"});
         dispatch({type: "hideModal"});
       }else{
@@ -94,6 +102,6 @@ export function login (_id, _pw) {
 export function logout() {
   return function (dispatch) {
     dispatch({type: "setStatus", payload: "waitForLogin"});
-    //window.location.reload();
+    window.location.reload();
   }
 }

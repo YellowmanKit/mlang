@@ -1,39 +1,61 @@
 import React from 'react';
 import UI from 'components/UI';
+import Sound from 'react-sound';
 
 class CardBar extends UI {
 
   constructor(props){
     super(props);
     this.state = {
-      expended: false
+      expended: false,
+      playAudioComment: false
     }
   }
 
   render(){
     this.init(this.props);
+    const expended = this.state.expended;
+    const card = this.store.cards.viewingCard;
 
     const style = {...this.ui.styles.area, ...this.ui.styles.container, ...{
       position: 'absolute',
       justifyContent: 'flex-start',
-      bottom: this.bs.width * 0.065,
-      right: -this.bs.width * 0.05,
-      height: this.bs.width * 0.1,
-      width: this.bs.width * 0.35,
-      borderRadius: '25px',
-      backgroundColor: 'rgba(0,0,0,0.5)'
+      bottom: this.bs.width * 0.05,
+      right: expended? -this.bs.width * 0.075: -this.bs.width * 0.365,
+      height: this.bs.width * 0.125,
+      width: this.bs.width * 0.45,
+      borderRadius: '35px',
+      backgroundColor: expended? 'rgba(0,0,0,0.85)': 'rgba(0,0,0,0.25)'
     }}
 
     return(
       <div style={style}>
-        {this.state.expended && this.buttons.barCollapse()}
-        {!this.state.expended && this.buttons.barExpend()}
-        {this.verGap('5%')}
-        {this.buttons.barComment()}
-        {this.verGap('5%')}
-        {this.buttons.barAudioComment()}
+        {this.verGap('1%')}
+        {expended && this.buttons.barCollapse(()=>{this.toggleExpend()})}
+        {!expended && this.buttons.barExpend(()=>{this.toggleExpend()})}
+        {this.verGap('6%')}
+        {this.buttons.barComment(()=>{this.actions.main.enlargeText(card.comment)}, card.comment !== '')}
+        {this.verGap('6%')}
+        {this.buttons.barAudioComment(()=>{this.toggleAuidioComment()}, card.audioComment)}
+        {this.state.playAudioComment &&
+          <Sound
+          url={this.func.url(card.audioComment, 'audioComment')}
+          playStatus={Sound.status.PLAYING}
+          onFinishedPlaying={this.toggleAuidioComment.bind(this)}/>}
       </div>
     )
+  }
+
+  toggleAuidioComment(){
+    this.setState({
+      playAudioComment: !this.state.playAudioComment
+    })
+  }
+
+  toggleExpend(){
+    this.setState({
+      expended: !this.state.expended
+    })
   }
 }
 

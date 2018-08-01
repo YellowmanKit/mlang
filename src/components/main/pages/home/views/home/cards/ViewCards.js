@@ -18,39 +18,32 @@ class ViewCards extends View {
       backgroundColor: this.ui.colors.ultraLightGrey
     }}
     const viewingCard = this.store.cards.viewingCard;
-    const viewingCards = this.getViewingCards();
+    const viewingCardsId = this.getViewingCardsId().slice(0).reverse();
+    //console.log(viewingCardsId)
 
-    var previous, next, previousIndex, nextIndex;
-    for(var i=0;i<viewingCards.length;i++){
-      if(viewingCards[i] === viewingCard._id){
-        previous = i===0? null: this.func.getCardById(viewingCards[i-1]);
-        next = i===viewingCards.length-1? null: this.func.getCardById(viewingCards[i+1]);
+    var previous, next;
+    for(var i=0;i<viewingCardsId.length;i++){
+      if(viewingCardsId[i] === viewingCard._id){
+        previous = i===0? null: this.func.getCardById(viewingCardsId[i-1]);
+        next = i===viewingCardsId.length-1? null: this.func.getCardById(viewingCardsId[i+1]);
       }
     }
-    const allCards = this.store.cards.cards;
-    for(var j=0;j<allCards.length;j++){
-      if(previous && allCards[j]._id === previous._id){
-        previousIndex = j;
-      }
-      if(next && allCards[j]._id === next._id){
-        nextIndex = j;
-      }
-    }
+
     return(
       <div style={this.viewStyle()}>
-        {previous && this.buttons.previous(()=>{this.actions.cards.viewCard(previousIndex, previous)})}
+        {previous && this.buttons.previous(()=>{this.actions.cards.viewCard(previous)})}
         <div style={style}>
           <Card app={this.app} card={viewingCard}/>
         </div>
-        {next && this.buttons.next(()=>{this.actions.cards.viewCard(nextIndex, next)})}
+        {next && this.buttons.next(()=>{this.actions.cards.viewCard(next)})}
         <CardBar app={this.app} card={viewingCard}/>
       </div>
     )
   }
 
-  getViewingCards(){
+  getViewingCardsId(){
     if(this.store.content.subView === 'projectFeatured'){
-      return this.getAllFeaturedCardsIdInViewingProject();
+      return this.func.getAllFeaturedCardsIdInViewingProject();
     }
     return this.store.studentProjects.viewingStudentProject.cards;
   }

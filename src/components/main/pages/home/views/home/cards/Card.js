@@ -54,8 +54,8 @@ class Card extends UI {
       flexShrink: 0
     }}
     const cardStyle = {...this.ui.styles.border, ...this.bs, ...{
-      width: this.bs.width * 0.8,
-      height: this.bs.width * 1.2,
+      width: this.bs.height * 0.55,
+      height: this.bs.height * 0.85,
       backgroundColor: 'white',
       position: 'relative',
       flexShrink: 0

@@ -29,16 +29,16 @@ class Course extends View {
   courseSubNav(){
     const _options = [
       {
-        tag:['Detail','詳細資訊'],
-        subView: 'courseDetail'
+        tag:['Projects','專題研習'],
+        subView: 'courseProjects'
       },
       {
         tag:['Students','學生'],
         subView: 'courseStudents'
       },
       {
-        tag:['Projects','專題研習'],
-        subView: 'courseProjects'
+        tag:['Detail','詳細資訊'],
+        subView: 'courseDetail'
       }
     ]
     return <SubNav app={this.app} options={_options} />

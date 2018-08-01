@@ -65,7 +65,9 @@ class StudentProjects extends SubView {
     this.init(this.props);
     return(
       <div style={this.subViewStyle()}>
-        {this.studentProjectsList()}
+        <div style={{...this.bs, ...this.ui.styles.list}}>
+          {this.studentProjectsList()}
+        </div>
       </div>
     )
   }

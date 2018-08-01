@@ -13,7 +13,7 @@ class Cards extends UI {
     const cardsToGet = [];
     const cardsToShow = this.props.cardsId;
     if(!cardsToShow){ return;}
-    
+
     for(var i=0;i<cardsToShow.length;i++){
       if(this.func.getCardById(cardsToShow[i]) === null){
         cardsToGet.splice(0,0, cardsToShow[i]);
@@ -55,7 +55,7 @@ class Cards extends UI {
           }
           return(
             <div key={i} style={cardContainerStyle}>
-              <Cell app={this.app} data={card} type='card' onClick={()=>{this.actions.cards.viewCard(i, card); this.actions.content.pushView('viewCards')}}/>
+              <Cell app={this.app} data={card} type='card' onClick={()=>{this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
             </div>
           )
         })}

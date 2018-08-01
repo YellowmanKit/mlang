@@ -35,10 +35,9 @@ class CourseStudents extends SubView {
 
   render() {
     this.init(this.props);
-    const areaStyle = {...this.bs, ...this.ui.listStyle}
     return(
       <div style={this.subViewStyle()}>
-        <div style={areaStyle}>
+        <div style={{...this.bs, ...this.ui.styles.list}}>
           {this.studentsList()}
         </div>
       </div>

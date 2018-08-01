@@ -5,31 +5,25 @@ import Cell from 'components/main/items/Cell';
 class Courses extends UI {
 
   courses(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const store = app.store;
-    const actions = app.actions;
-
     const onAdd =
-    store.user.type === 'teacher'? ()=>{actions.content.pushView('addCourse')}:
-    store.user.type === 'student'? ()=>{actions.content.pushView('joinCourse')}:
+    this.store.user.type === 'teacher'? ()=>{this.actions.content.pushView('addCourse')}:
+    this.store.user.type === 'student'? ()=>{this.actions.content.pushView('joinCourse')}:
     [];
 
     const addBtnText =
-    store.user.type === 'teacher'? ['ADD','創建']:
-    store.user.type === 'student'?  ['JOIN','加入']:
+    this.store.user.type === 'teacher'? ['ADD','創建']:
+    this.store.user.type === 'student'?  ['JOIN','加入']:
     '';
 
-    const areaStyle = Object.assign({},ui.styles.area, {
+    const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: bs.height * 0.23,
+      height: this.bs.height * 0.23,
       alignItems: 'center',
       overflow: 'auto'
-    });
+    }}
     return(
       <div style={areaStyle}>
-        {this.buttons.listAdd([bs.width * 0.125, '100%'], addBtnText, '110%', onAdd)}
+        {this.buttons.listAdd([this.bs.width * 0.125, '100%'], addBtnText, '110%', onAdd)}
         {this.verGap('2%')}
         {this.coursesCells()}
         {this.verGap('5%')}
@@ -38,40 +32,38 @@ class Courses extends UI {
   }
 
   coursesCells(){
-    const app = this.props.app;
-    const store = app.store;
-    const actions = app.actions;
     const courses =
-    store.user.type === 'teacher'? store.courses.teachingCourses:
-    store.user.type === 'student'? store.courses.joinedCourses:
+    this.store.user.type === 'teacher'? this.store.courses.teachingCourses:
+    this.store.user.type === 'student'? this.store.courses.joinedCourses:
     [];
 
-    return courses.map((course, i)=>{
+    var coursesData = [];
+    courses.map(id=>{
+      return coursesData.push(this.func.getCourseById(id));
+    })
+    return coursesData.map((course, i)=>{
       return(
-        <Cell key={i} app={app}
+        <Cell key={i} app={this.app}
         type={'course'}
         data={course}
-        onClick={()=>{ actions.courses.viewCourse(i, course); actions.content.pushView('course'); }}/>
+        onClick={()=>{ this.actions.courses.viewCourse(course); this.actions.content.pushView('course'); }}/>
       )
     });
   }
 
   render() {
     this.init(this.props);
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
 
-    const type = app.store.user.type;
+    const type = this.store.user.type;
     const title =
-    type === 'teacher'? ['Course - created','班別 - 已創建']:
-    type === 'student'? ['Course - joined','班別 - 已加入']:
+    type === 'teacher'? ['Courses - created','班別 - 已創建']:
+    type === 'student'? ['Courses - joined','班別 - 已加入']:
     ['','']
 
     const containerStyle = {
       width: '100%',
-      height: bs.height * 0.28,
-      background: ui.colors.gradientBasic
+      height: this.bs.height * 0.28,
+      background: this.ui.colors.gradientBasic
     }
 
     return(

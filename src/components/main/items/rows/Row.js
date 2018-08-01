@@ -33,14 +33,24 @@ class Row extends UI {
   }
 
   rowIcon(url){
-    const iconStyle = {...this.ui.styles.border, ...{
-      width: this.bs.height * 0.12,
-      height: this.bs.height * 0.12,
-      backgroundColor: this.ui.colors.lightGrey,
-      backgroundImage: 'url(' + (url !== null? url: no_image) + ')',
-      backgroundSize: '100% 100%'
+    const size = this.bs.height * 0.12;
+    const iconSize = this.bs.height * 0.11;
+    const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
+      width: size,
+      height: size,
+      backgroundColor: 'white'
     }}
-    return <div style={iconStyle}></div>
+    const iconStyle = {...{
+      maxWidth: iconSize,
+      maxHeight: iconSize,
+      backgroundColor: 'white'
+    }}
+    return(
+      <div style={containerStyle}>
+        <img style={iconStyle} src={url? url: no_image} alt=''/>
+      </div>
+    )
+
   }
 
 }

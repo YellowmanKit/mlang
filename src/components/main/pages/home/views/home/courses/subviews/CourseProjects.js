@@ -28,20 +28,19 @@ class CourseProjects extends SubView {
 
   projectsList(){
     const projects = this.store.courses.viewingCourse.projects;
-    return projects.map((projectId, i)=>{
+    return projects.slice(0).reverse().map((projectId, i)=>{
       const _project = this.func.getProjectById(projectId)
-      return <ProjectRow onClick={()=>{this.actions.projects.viewProject(i,_project); this.actions.content.pushView('project');}} app={this.app} project={_project} key={i}/>
+      return <ProjectRow onClick={()=>{this.actions.projects.viewProject(_project); this.actions.content.pushView('project');}} app={this.app} project={_project} key={i}/>
     })
   }
 
   render() {
     this.init(this.props);
-    const areaStyle = {...this.bs, ...this.ui.listStyle};
     const addBtnText = ['CREATE PROJECT','創建專題研習'];
 
     return(
       <div style={this.subViewStyle()}>
-        <div style={areaStyle}>
+        <div style={{...this.bs, ...this.ui.styles.list}}>
           {this.store.user.type === 'teacher' && this.buttons.listAdd([this.bs.width, this.bs.height * 0.1], addBtnText, '200%', ()=>{this.actions.content.pushView('addProject')})}
           {this.projectsList()}
         </div>

@@ -121,18 +121,6 @@ class UI extends Component {
     this.actions.modal.showModalButton();
   }
 
-  getAllFeaturedCardsIdInViewingProject(){
-    var cardsId = [];
-    const project = this.store.projects.viewingProject;
-    const studentProjects = project.studentProjects;
-    for(var i=0;i<studentProjects.length;i++){
-      const studentProject = this.func.getStudentProjectById(studentProjects[i]);
-      if(!studentProject){ return null; }
-      cardsId = [...cardsId, ...studentProject.cards];
-    }
-    return cardsId;
-  }
-
 }
 
 export default UI;

@@ -16,7 +16,7 @@ class ProjectFeatured extends SubView {
   }
 
   cardCells(){
-    return <Cards app={this.app} cardsId={this.getAllFeaturedCardsIdInViewingProject()} featuredOnly={true}/>
+    return <Cards app={this.app} cardsId={this.func.getAllFeaturedCardsIdInViewingProject()} featuredOnly={true}/>
   }
 
   render() {
