@@ -12,6 +12,7 @@ class Main extends UI {
   componentDidMount(){
     this.init(this.props);
     //localStorage.clear();
+    //this.db.clear();
     this.actions.main.setStatus('waitForLogin');
     //actions.main.setStatus('ready');
   }
@@ -38,7 +39,8 @@ class Main extends UI {
   }
 
   rememberLoginInfo(id, pw){
-    localStorage.setItem('loginInfo', JSON.stringify({id: id, pw: pw}));
+    //localStorage.setItem('loginInfo', JSON.stringify({id: id, pw: pw}));
+    this.db.set('loginInfo',{id: id, pw: pw});
   }
 
   initView(type){

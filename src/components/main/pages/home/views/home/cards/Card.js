@@ -12,7 +12,7 @@ class Card extends UI {
     }}
     return(
       <div style={style}>
-        <Image app={this.app} url={this.func.url(card.icon,'cardIcon')} size={this.bs.height * 0.35}/>
+        <Image app={this.app} filename={card.icon} type={'cardIcon'} size={this.bs.height * 0.35}/>
       </div>
     )
   }

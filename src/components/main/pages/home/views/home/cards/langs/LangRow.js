@@ -9,9 +9,19 @@ class LangRow extends UI {
 
   constructor(props){
     super(props);
+    this.init(props);
     this.state = {
+      url: null,
       isPlaying: false
     }
+    this.getLangAudioUrl();
+  }
+
+  async getLangAudioUrl(type){
+    const url = await this.func.url(this.props.lang.audio, 'langAudio');
+    this.setState({
+      url: url
+    })
   }
 
   playback(){
@@ -58,7 +68,7 @@ class LangRow extends UI {
     if(this.state.isPlaying){
       return(
         <Sound
-        url={this.func.url(lang.audio, 'langAudio')}
+        url={this.state.url}
         playStatus={Sound.status.PLAYING}
         onFinishedPlaying={this.onPlaybackEnd.bind(this)}/>
       )

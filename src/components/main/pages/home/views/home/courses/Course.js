@@ -9,7 +9,9 @@ import CourseProjects from './subviews/CourseProjects';
 class Course extends View {
 
   componentDidMount(){
-    this.actions.content.setSubView('courseProjects');
+    if(!this.store.content.subView.includes('course')){
+      this.actions.content.setSubView('courseProjects');
+    }
   }
 
   subView(){

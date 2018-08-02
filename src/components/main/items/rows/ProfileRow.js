@@ -7,6 +7,10 @@ import star2 from 'resources/images/icons/star2_lightgrey.png';
 
 class ProfileRow extends Row {
 
+  componentDidMount(){
+    this.getIconUrl(icon_student);
+  }
+
   rowInfo(){
     const profile = this.props.profile;
 
@@ -33,17 +37,17 @@ class ProfileRow extends Row {
     if(this.props.profile === null){
       return null;
     }
+
     const rowStyle = {...this.ui.styles.area, ...{
       flexShrink: 0,
       height: this.bs.height * 0.15,
       borderBottom: '1px solid ' + this.ui.colors.darkGrey,
       alignItems: 'center'
     }}
-
     return(
       <div style={rowStyle}>
         {this.verGap('3%')}
-        {this.rowIcon(icon_student)}
+        {this.rowIcon()}
         {this.rowContent(this.props.profile.name, this.rowInfo.bind(this) )}
       </div>
     )

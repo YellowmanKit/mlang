@@ -6,6 +6,7 @@ import back_arrow from 'resources/images/buttons/buttonIcons/back_arrow.png';
 import menu from 'resources/images/buttons/buttonIcons/menu.png';
 //import search from 'resources/images/buttons/buttonIcons/search.png';
 import floppy from 'resources/images/buttons/buttonIcons/floppy.png';
+import edit from 'resources/images/buttons/buttonIcons/edit.png';
 
 class NavBar extends UI {
 
@@ -26,6 +27,11 @@ class NavBar extends UI {
 
   initNavBar(newProp){
     const view = this.store.content.view;
+    const user = this.store.user;
+    const viewingCard = this.store.cards.viewingCard;
+    const viewingProject = this.store.projects.viewingProject;
+    const projectEndDate = new Date(viewingProject.endDate);
+    const today = new Date();
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
@@ -67,23 +73,50 @@ class NavBar extends UI {
           break;
         case 'course':
           title = ['COURSE', '班別'];
+          if(user.type === 'teacher' && this.store.content.subView === 'courseDetail'){
+            rightIcon = edit;
+            rightOnClick = ()=>{ this.actions.content.pushView('editCourse'); }
+          }
           break;
         case 'addProject':
           title = ['ADD PROJECT', '創建專題研習'];
           break;
         case 'project':
           title = ['PROJECT', '專題研習'];
+          if(user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
+            rightIcon = edit;
+            rightOnClick = ()=>{ this.actions.content.pushView('editProject'); }
+          }
           break;
         case 'addCard':
           title = ['ADD CARD', '製作卡片'];
           break;
         case 'viewCards':
           title = ['VIEW CARDS', '檢視卡片'];
+          if(viewingCard.author === user._id && viewingCard.grade === 'notGraded' && projectEndDate > today){
+            rightIcon = edit;
+            rightOnClick = ()=>{ this.actions.content.pushView('editCard'); }
+          }
           break;
         case 'gradingCards':
           title = ['GRADING CARDS', '評核卡片'];
           rightIcon = floppy;
-          rightOnClick = this.saveCard.bind(this)
+          rightOnClick = this.saveGradeCard.bind(this)
+          break;
+        case 'editCourse':
+          title = ['EDIT COURSE', '修改班別'];
+          rightIcon = floppy;
+          rightOnClick = this.saveEditCourse.bind(this)
+          break;
+        case 'editProject':
+          title = ['EDIT PROJECT', '修改專題研習'];
+          rightIcon = floppy;
+          rightOnClick = this.saveEditProject.bind(this)
+          break;
+        case 'editCard':
+          title = ['EDIT CARD', '修改卡片'];
+          rightIcon = floppy;
+          rightOnClick = this.saveEditCard.bind(this)
           break;
         default:
           title = ['','']
@@ -136,10 +169,22 @@ class NavBar extends UI {
 
   none(){}
 
-  saveCard(){
+  saveGradeCard(){
     const studentProject = this.store.studentProjects.viewingStudentProject;
     const gradingCards = this.store.cards.gradingCards[studentProject._id];
     this.actions.cards.saveGradingCards(studentProject._id, gradingCards);
+  }
+
+  saveEditCourse(){
+
+  }
+
+  saveEditProject(){
+
+  }
+
+  saveEditCard(){
+
   }
 
 }

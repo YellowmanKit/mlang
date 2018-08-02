@@ -5,6 +5,22 @@ import icon from 'resources/images/icons/mlang_green.png';
 
 class Login extends UI {
 
+  constructor(props){
+    super(props);
+    this.init(this.props);
+    this.state = {
+      loginInfo: null
+    }
+    this.getLoginInfo()
+  }
+
+  async getLoginInfo(){
+    const loginInfo = await this.db.get('loginInfo');
+    this.setState({
+      loginInfo: loginInfo
+    })
+  }
+
   icon(){
     const iconStyle = {
       width: '50%',
@@ -68,14 +84,15 @@ class Login extends UI {
     const status = this.store.main.status;
 
     const pageStyle = {...this.bs, ...{ justifyContent: 'center' }};
-    const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+    //const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+    const loginInfo = this.state.loginInfo;
 
     if(status === 'waitForLogin'){
       return(
         <div style={pageStyle}>
           {this.icon()}
-          {this.inputs.inputField('id','text', ['Enter your identity','登入名稱'], loginInfo !== null? loginInfo.id:'')}
-          {this.inputs.inputField('pw','password', ['Enter your password','密碼'], loginInfo !== null? loginInfo.pw:'')}
+          {this.inputs.inputField('id','text', ['Enter your identity','登入名稱'], loginInfo? loginInfo.id:'')}
+          {this.inputs.inputField('pw','password', ['Enter your password','密碼'], loginInfo? loginInfo.pw:'')}
           {this.buttons.rectGreen(['Login','登入'], ()=>this.login())}
           {this.buttons.rectYellow(['Get new account','申請帳號'], ()=>this.actions.main.setStatus('getNewAccount'))}
           {this.buttons.rectRed(['Forget password','忘記密碼'], ()=>this.actions.main.setStatus('forgotPassword'))}

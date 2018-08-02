@@ -88,10 +88,10 @@ class GradingCardRow extends Row {
       <div id={'row' + this.props.index} style={rowStyle}>
         <Badge app={this.app} grade={card.grade} scale={badgeScale} />
         <div style={iconContainerStyle}>
-          <Image app={this.app} url={this.func.url(card.icon,'cardIcon')} size={this.bs.width * 0.24}/>
+          <Image app={this.app} filename={card.icon} type={'cardIcon'} size={this.bs.width * 0.24}/>
         </div>
         {this.langRows()}
-        {this.cardTags(card.comment && card.comment.length > 0, (card.audioCommentBlob))}
+        {this.cardTags(card.comment && card.comment.length > 0, card.audioComment)}
         {!isSelected && this.selecter()}
       </div>
     )

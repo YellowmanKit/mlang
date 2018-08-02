@@ -11,7 +11,7 @@ class Project extends View {
 
   componentDidMount(){
     this.init(this.props);
-    if(this.store.content.subView !== 'projectFeatured'){
+    if(!this.store.content.subView.includes('project')){
       this.actions.content.setSubView('projectSubmitted');
     }
     this.getStudentProjects(this.props);

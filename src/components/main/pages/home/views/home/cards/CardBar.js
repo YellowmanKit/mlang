@@ -6,10 +6,20 @@ class CardBar extends UI {
 
   constructor(props){
     super(props);
+    this.init(props);
     this.state = {
       expended: false,
+      audioCommentUrl: null,
       playAudioComment: false
     }
+    this.getAudioUrl('audioComment');
+  }
+
+  async getAudioUrl(type){
+    const url = await this.func.url(this.store.cards.viewingCard.audioComment, type);
+    this.setState({
+      audioCommentUrl: url
+    })
   }
 
   render(){
@@ -39,7 +49,7 @@ class CardBar extends UI {
         {this.buttons.barAudioComment(()=>{this.toggleAuidioComment()}, card.audioComment)}
         {this.state.playAudioComment &&
           <Sound
-          url={this.func.url(card.audioComment, 'audioComment')}
+          url={this.state.audioCommentUrl}
           playStatus={Sound.status.PLAYING}
           onFinishedPlaying={this.toggleAuidioComment.bind(this)}/>}
       </div>

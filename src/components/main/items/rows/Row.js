@@ -4,6 +4,21 @@ import no_image from 'resources/images/general/no_image.png';
 
 class Row extends UI {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      iconUrl: null
+    }
+  }
+
+  async getIconUrl(defaultIcon, filename, type){
+    const url = defaultIcon? defaultIcon: await this.func.url(filename, type);
+    this.setState({
+      iconUrl: url
+    })
+  }
+
   rowContent(title, rowInfo){
     const infoStyle = {...this.bs, ...{
       width: '72%',
@@ -32,7 +47,7 @@ class Row extends UI {
     return <div style={nameStyle}>{title}</div>
   }
 
-  rowIcon(url){
+  rowIcon(){
     const size = this.bs.height * 0.12;
     const iconSize = this.bs.height * 0.11;
     const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
@@ -45,6 +60,7 @@ class Row extends UI {
       maxHeight: iconSize,
       backgroundColor: 'white'
     }}
+    const url = this.state.iconUrl;
     return(
       <div style={containerStyle}>
         <img style={iconStyle} src={url? url: no_image} alt=''/>

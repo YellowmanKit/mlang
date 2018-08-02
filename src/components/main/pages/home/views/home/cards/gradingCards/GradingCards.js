@@ -11,9 +11,35 @@ class GradingCards extends View {
     //this.initGradingCards(props);
     this.state = {
       selected: 0,
+      gradingCardsInited: false,
+
       commenting: false,
       audioCommenting: false,
-      gradingCardsInited: false
+
+      audioCommentsBlob:{},
+      blobFetched: false
+    }
+  }
+
+  async getAudioCommentsBlob(newProps){
+    if(this.state.blobFetched){ return; }
+    this.setState({
+      blobFetched: true
+    })
+    this.init(newProps);
+    const gradingCards = this.getGradingCards();
+    if(!gradingCards){ console.log('no gradingCards!'); return; }
+    for(var i=0;i<gradingCards.length;i++){
+      if(!gradingCards[i].audioComment){ continue; }
+      const url = await this.func.url(gradingCards[i].audioComment, 'audioComment');
+      const res = await fetch(url);
+      const blob = await res.blob();
+      //console.log(blob);
+      var newAudioCommentsBlob = {...this.state.audioCommentsBlob};
+      newAudioCommentsBlob[gradingCards[i].audioComment] = blob;
+      this.setState({
+        audioCommentsBlob: newAudioCommentsBlob
+      })
     }
   }
 
@@ -24,6 +50,7 @@ class GradingCards extends View {
 
   componentWillReceiveProps(newProps){
     this.checkInit(newProps);
+    this.getAudioCommentsBlob(newProps);
   }
 
   checkInit(props){
@@ -175,7 +202,11 @@ class GradingCards extends View {
       position: 'absolute',
       bottom: this.bs.width * 0.2
     }}
-    const audioBlob = gradingCard.audioCommentBlob? gradingCard.audioCommentBlob: null;
+    const audioBlob =
+    gradingCard.audioCommentBlob? gradingCard.audioCommentBlob:
+    gradingCard.audioComment? this.state.audioCommentsBlob[gradingCard.audioComment]:
+    null;
+
     return(
       <div style={style}>
         <RecorderBar app={this.app} scale={['75%','100%']} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
@@ -210,7 +241,17 @@ class GradingCards extends View {
     var gradingCard = {...this.store.cards.gradingCards[studentProjectId][this.state.selected]};
     if(grade){ gradingCard.grade = grade; gradingCard.edited = true;}
     if(comment || comment === ''){ gradingCard.comment = comment; gradingCard.edited = true;}
-    if(audioCommentBlob || removeAudio){ gradingCard.audioCommentBlob = audioCommentBlob; gradingCard.audioCommentEdited = true;}
+    if(audioCommentBlob || removeAudio){
+      gradingCard.audioCommentBlob = audioCommentBlob;
+      gradingCard.audioCommentEdited = true;
+
+      var newAudioCommentsBlob = {...this.state.audioCommentsBlob};
+      delete newAudioCommentsBlob[gradingCard.audioComment];
+      this.setState({
+        audioCommentsBlob: newAudioCommentsBlob
+      })
+      gradingCard.audioComment = removeAudio? null: 'newAudioComment';
+    }
     this.actions.cards.gradeCard(studentProjectId, this.state.selected, gradingCard);
   }
 

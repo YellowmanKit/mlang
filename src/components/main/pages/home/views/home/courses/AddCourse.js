@@ -5,6 +5,13 @@ import ImagePicker from 'components/main/items/ImagePicker';
 
 class AddCourse extends View {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.actions.main.setPhoto(null);
+
+  }
+
   render() {
     this.init(this.props);
     var defaultDate = new Date();
@@ -43,13 +50,13 @@ class AddCourse extends View {
     const today = new Date();
     const selectedEndDate = new Date(_endDate)
     if(_icon === null){
-      return this.failedMessage(['Failed to add! Icon is missing!', '創建失敗! 未有照片!'])
+      return this.failedMessage(['Failed to add! Icon is missing!', '提交失敗! 未有照片!'])
     }
     if(_title.length === 0){
-      return this.failedMessage(['Failed to add! Title is missing!', '創建失敗! 未填班名!'])
+      return this.failedMessage(['Failed to add! Title is missing!', '提交失敗! 未填班名!'])
     }
     if(selectedEndDate < today){
-      return this.failedMessage(['Failed to add! End date is in the past!', '創建失敗! 結束日期早於現在!'])
+      return this.failedMessage(['Failed to add! End date is in the past!', '提交失敗! 結束日期早於現在!'])
     }
 
     this.actions.courses.addCourse({

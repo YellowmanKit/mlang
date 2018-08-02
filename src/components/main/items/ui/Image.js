@@ -5,9 +5,25 @@ import no_image from 'resources/images/general/no_image.png';
 
 class Image extends UI {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      url: null
+    }
+    this.getIconUrl();
+  }
+
+  async getIconUrl(){
+    const url = await this.func.url(this.props.filename, this.props.type);
+    this.setState({
+      url: url
+    })
+  }
+
   render(){
     this.init(this.props);
-    const url = this.props.url;
+    const url = this.props.photoUrl? this.props.photoUrl: this.state.url;
     const size = this.props.size;
 
     const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
@@ -15,7 +31,7 @@ class Image extends UI {
       height: size,
       backgroundColor: 'white'
     }}
-    const imgBg = url === null? no_image: null;
+    const imgBg = url? null: no_image;
     const imgSize = size * 0.95;
     const backgroundStyle = {...this.ui.styles.container, ...{
       width: imgSize,
@@ -49,7 +65,7 @@ class Image extends UI {
   }
 
   onImageClick(){
-    this.actions.main.enlargeImage(this.props.url);
+    this.actions.main.enlargeImage(this.state.url);
   }
 
 }

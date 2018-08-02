@@ -4,32 +4,47 @@ import Badge from 'components/main/items/Badge';
 
 class Cell extends UI {
 
-  cellImage(type){
-    const data = this.props.data
-    const append =
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      iconUrl: null
+    }
+    this.data = this.props.data;
+    this.type = this.props.type;
+    this.getIconUrl(this.type);
+  }
+
+  async getIconUrl(type){
+    const fileType =
     type === 'course'? 'courseIcon':
     type === 'project'? 'projectIcon':
     type === 'card'? 'cardIcon':
     '';
-    const url = this.func.url(data.icon, append);
 
+    const url = await this.func.url(this.data.icon, fileType);
+    this.setState({
+      iconUrl: url
+    })
+  }
+
+  cellImage(){
     const imageStyle = {...this.ui.styles.container, ...this.ui.styles.border, ...{
       maxWidth: this.bs.width * 0.22,
       maxHeight: this.bs.width * 0.22,
       marginTop: '4%'
     }};
     //console.log(url)
-    return <img style={imageStyle} src={url} alt=''/>
+    return <img style={imageStyle} src={this.state.iconUrl} alt=''/>
   }
 
   cellTitle(type){
-    const data = this.props.data
     var text = '';
     if(type === 'course' || type === 'project'){
-      text = data.title;
+      text = this.data.title;
     }
     if(type === 'card'){
-      const firstLang = this.func.getLangById(data.langs[0]);
+      const firstLang = this.func.getLangById(this.data.langs[0]);
       text = firstLang !== null? firstLang.text: '';
     }
 
@@ -48,17 +63,15 @@ class Cell extends UI {
 
   render(){
     this.init(this.props);
-    const data = this.props.data
-    const type = this.props.type;
     //console.log(data)
-    if(data === null){
+    if(this.data === null){
       return null;
     }
 
     const scale =
-    type === 'course'? [this.bs.width * 0.25,this.bs.width * 0.25]:
-    type === 'project'? [this.bs.width * 0.25,this.bs.width * 0.25]:
-    type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
+    this.type === 'course'? [this.bs.width * 0.25,this.bs.width * 0.25]:
+    this.type === 'project'? [this.bs.width * 0.25,this.bs.width * 0.25]:
+    this.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';
 
     const cellStyle = {...this.ui.styles.button, ...this.ui.styles.border, ...{
@@ -76,11 +89,20 @@ class Cell extends UI {
 
     return(
       <button style={cellStyle} onClick={this.props.onClick}>
-        {type === 'card' && <Badge app={this.app} grade={data.grade} scale={badgeScale} />}
-        {this.cellImage(type)}
-        {this.cellTitle(type)}
+        {this.type === 'card' && <Badge app={this.app} grade={this.data.grade} scale={badgeScale} />}
+        {this.cellImage()}
+        {this.cellTitle(this.type)}
       </button>
     )
+  }
+
+  getAppend(type){
+    const append =
+    type === 'course'? 'courseIcon':
+    type === 'project'? 'projectIcon':
+    type === 'card'? 'cardIcon':
+    '';
+    return append;
   }
 
 }

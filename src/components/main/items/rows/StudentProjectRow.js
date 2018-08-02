@@ -8,6 +8,10 @@ import alert from 'resources/images/icons/alert_black.png';
 
 class StudentProjectRow extends Row {
 
+  componentDidMount(){
+    this.getIconUrl(icon_student);
+  }
+
   rowInfo(){
     const studentProject = this.props.studentProject;
 
@@ -38,6 +42,7 @@ class StudentProjectRow extends Row {
     if(studentProject === null){
       return null;
     }
+
     const rowStyle = {...this.ui.styles.area, ...this.ui.styles.button, ...{
       flexShrink: 0,
       height: this.bs.height * 0.15,
@@ -48,7 +53,7 @@ class StudentProjectRow extends Row {
     return(
       <button style={rowStyle} onClick={()=>{this.actions.studentProjects.viewStudentProject(studentProject); this.actions.content.pushView('gradingCards');}}>
         {this.verGap('3%')}
-        {this.rowIcon(icon_student)}
+        {this.rowIcon()}
         {profile && this.rowContent(profile.name, this.rowInfo.bind(this) )}
       </button>
     )

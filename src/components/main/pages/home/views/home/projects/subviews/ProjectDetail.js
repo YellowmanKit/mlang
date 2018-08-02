@@ -15,7 +15,7 @@ class ProjectDetail extends SubView {
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        <Image app={this.app} url={this.func.url(project.icon, 'projectIcon')} size={this.bs.height * 0.22}/>
+        <Image app={this.app} filename={project.icon} type={'projectIcon'} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
         {this.sep()}
         {this.gap('2%')}

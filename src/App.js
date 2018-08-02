@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators} from 'redux';
 import { connect } from "react-redux";
+import axios from 'axios';
 
 import * as main from './redux/actions/control/main';
 import * as ui from './redux/actions/control/ui';
@@ -31,6 +32,7 @@ class App extends Component {
       const cardsId = studentProject.cards;
       for(var j=0;j<cardsId.length;j++){
         const card = this.getCardById(cardsId[j]);
+        if(!card){ return null;}
         if(card.grade === 'featured'){
           featuredCardsId = [...featuredCardsId, cardsId[j]];
         }
@@ -114,10 +116,19 @@ class App extends Component {
     return '';
   }
 
-  url(filename, type){
-    const downloadUrl = process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
-    //this.downloadFile(downloadUrl);
-    return downloadUrl;
+  async url(filename, type){
+    if(!filename){ return ''};
+    const localFile = await this.props.db.get(filename);
+    if(localFile){
+      return URL.createObjectURL(localFile);
+    }else{
+      const downloadUrl = process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
+      let err, res;
+      [err, res] = await to(axios.get(downloadUrl, {responseType: 'blob'}));
+      if(err || !res.data){ console.log('file download error!'); return '';}
+      this.props.db.set(filename, res.data);
+      return URL.createObjectURL(res.data);
+    }
   }
 
   downloadFile(absoluteUrl) {
@@ -162,6 +173,7 @@ class App extends Component {
     const app = {
       store: this.props.store,
       actions: this.props.actions,
+      database: this.props.db,
       functions: {
         url: this.url.bind(this),
         multiLang: this.multiLang.bind(this),
@@ -225,6 +237,13 @@ function mapDispatchToProps(dispatch){
 
 function Action(action, dispatch){
   return bindActionCreators(action, dispatch)
+}
+
+function to(promise) {
+   return promise.then(data => {
+      return [null, data];
+   })
+   .catch(err => [err]);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

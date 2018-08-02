@@ -16,6 +16,7 @@ class UI extends Component {
     this.bs = this.ui.basicStyle;
     this.store = this.app.store;
     this.func = this.app.functions;
+    this.db = this.app.database;
     this.actions = this.app.actions;
     this.buttons.init(props.app)
     this.inputs.init(props.app)

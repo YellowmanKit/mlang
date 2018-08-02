@@ -20,7 +20,14 @@ export const viewCard = (card) =>{
   }
 }
 
-export function gradeCards(id, cards){
+export const gradeCards = (id, cards) =>{
+  return {
+    type: 'gradeCards',
+    payload: { studentProjectId: id, cards: cards}
+  }
+}
+
+/*export function gradeCards(id, cards){
   //console.log('cards')
   return async function (dispatch) {
     var gradingCards = [...cards];
@@ -36,7 +43,7 @@ export function gradeCards(id, cards){
     }
     dispatch({type: 'gradeCards', payload: { studentProjectId: id, cards: gradingCards}})
   }
-}
+}*/
 
 export function saveGradingCards(studentProjectId, gradingCards){
   //console.log(gradingCards)

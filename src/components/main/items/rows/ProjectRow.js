@@ -5,6 +5,10 @@ import icon_event from 'resources/images/icons/event_grey.png';
 
 class ProjectRow extends Row {
 
+  componentDidMount(){
+    this.getIconUrl(null, this.props.project.icon, 'projectIcon');
+  }
+
   rowInfo(){
     const project = this.props.project;
 
@@ -39,7 +43,7 @@ class ProjectRow extends Row {
     return(
       <button onClick={this.props.onClick} style={rowStyle}>
         {this.verGap('3%')}
-        {this.rowIcon(this.func.url(this.props.project.icon, 'projectIcon'))}
+        {this.rowIcon()}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
       </button>
     )

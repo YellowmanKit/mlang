@@ -50,16 +50,22 @@ class Home extends Component {
         return <StudentHome app={app}/>;
       case 'addCourse':
         return <AddCourse app={app}/>;
+      case 'editCourse':
+        return <AddCourse editMode={true} app={app}/>;
       case 'joinCourse':
         return <JoinCourse app={app}/>;
       case 'course':
         return <Course app={app}/>;
       case 'addProject':
         return <AddProject app={app}/>;
+      case 'editProject':
+        return <AddProject editMode={true} app={app}/>;
       case 'project':
         return <Project app={app}/>;
       case 'addCard':
         return <AddCard app={app}/>;
+      case 'editCard':
+        return <AddCard editMode={true} app={app}/>;
       case 'viewCards':
         return <ViewCards app={app}/>;
       case 'gradingCards':

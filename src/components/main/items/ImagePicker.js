@@ -7,14 +7,12 @@ import Image from 'components/main/items/ui/Image';
 class ImagePicker extends UI {
 
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
+    this.init(this.props);
 
     const pickerStyle = {
       width: '100%',
-      height: bs.height * 0.25,
-      backgroundColor: ui.colors.lightGrey,
+      height: this.bs.height * 0.25,
+      backgroundColor: this.ui.colors.lightGrey,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
@@ -29,16 +27,16 @@ class ImagePicker extends UI {
     return(
       <div style={pickerStyle}>
         <div style={toolBarStyle}/>
-        <Image app={app} url={app.store.main.photoUrl} size={bs.height * 0.22}/>
+        <Image app={this.app} photoUrl={this.store.main.photoUrl} size={this.bs.height * 0.22}/>
         {this.verGap('2%')}
         {this.verSep('white', '90%')}
         <div style={toolBarStyle}>
-          {this.buttons.selectImage(bs.height * 0.1)}
+          {this.buttons.selectImage(this.bs.height * 0.1)}
           <MediaQuery minDeviceWidth={1224}>
-            {this.buttons.takePicture(bs.height * 0.1)}
+            {this.buttons.takePicture(this.bs.height * 0.1)}
           </MediaQuery>
           <MediaQuery maxDeviceWidth={1224}>
-            {this.buttons.mobileTakePicture(bs.height * 0.1)}
+            {this.buttons.mobileTakePicture(this.bs.height * 0.1)}
           </MediaQuery>
         </div>
       </div>

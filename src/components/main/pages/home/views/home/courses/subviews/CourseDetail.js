@@ -15,7 +15,7 @@ class CourseDetail extends SubView {
         {this.subTitle(['Icon','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        <Image app={this.app} url={this.func.url(course.icon, 'courseIcon')} size={this.bs.height * 0.22}/>
+        <Image app={this.app} filename={course.icon} type={'courseIcon'} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
         {this.sep()}
         {this.gap('2%')}
