@@ -97,8 +97,9 @@ class Button {
   }
 
   grading(icon, iconStyle, color, onClick){
-    const buttonStyle = {...this.ui.styles.button, ...this.ui.styles.container, ...styles.grading, ...{
-      background: 'linear-gradient(to top left, '+ color + ' 0%, #ffffff 125%)'
+    const buttonStyle = {...this.ui.styles.button,...this.ui.styles.border, ...this.ui.styles.container, ...styles.grading, ...{
+      background: 'linear-gradient(to top left, '+ color + ' 0%, #ffffff 125%)',
+      borderColor: color
     }}
     return(
       <button style={buttonStyle} onClick={onClick}>

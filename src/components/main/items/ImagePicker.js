@@ -24,10 +24,15 @@ class ImagePicker extends UI {
       flexFlow: 'column nowrap',
       marginLeft: '2%'
     }
+    const imgUrl =
+    this.store.main.photoUrl? this.store.main.photoUrl:
+    this.props.defaultUrl? this.props.defaultUrl:
+    null;
+
     return(
       <div style={pickerStyle}>
         <div style={toolBarStyle}/>
-        <Image app={this.app} photoUrl={this.store.main.photoUrl} size={this.bs.height * 0.22}/>
+        <Image app={this.app} photoUrl={imgUrl} size={this.bs.height * 0.22}/>
         {this.verGap('2%')}
         {this.verSep('white', '90%')}
         <div style={toolBarStyle}>

@@ -75,7 +75,10 @@ class NavBar extends UI {
           title = ['COURSE', '班別'];
           if(user.type === 'teacher' && this.store.content.subView === 'courseDetail'){
             rightIcon = edit;
-            rightOnClick = ()=>{ this.actions.content.pushView('editCourse'); }
+            rightOnClick = ()=>{
+              this.actions.main.setPhoto({url: null, blob: null});
+              this.actions.content.pushView('editCourse');
+            }
           }
           break;
         case 'addProject':
@@ -85,7 +88,10 @@ class NavBar extends UI {
           title = ['PROJECT', '專題研習'];
           if(user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
             rightIcon = edit;
-            rightOnClick = ()=>{ this.actions.content.pushView('editProject'); }
+            rightOnClick = ()=>{
+              this.actions.main.setPhoto({url: null, blob: null});
+              this.actions.content.pushView('editProject');
+            }
           }
           break;
         case 'addCard':
@@ -95,7 +101,10 @@ class NavBar extends UI {
           title = ['VIEW CARDS', '檢視卡片'];
           if(viewingCard.author === user._id && viewingCard.grade === 'notGraded' && projectEndDate > today){
             rightIcon = edit;
-            rightOnClick = ()=>{ this.actions.content.pushView('editCard'); }
+            rightOnClick = ()=>{
+              this.actions.main.setPhoto({url: null, blob: null});
+              this.actions.content.pushView('editCard');
+            }
           }
           break;
         case 'gradingCards':
@@ -105,18 +114,12 @@ class NavBar extends UI {
           break;
         case 'editCourse':
           title = ['EDIT COURSE', '修改班別'];
-          rightIcon = floppy;
-          rightOnClick = this.saveEditCourse.bind(this)
           break;
         case 'editProject':
           title = ['EDIT PROJECT', '修改專題研習'];
-          rightIcon = floppy;
-          rightOnClick = this.saveEditProject.bind(this)
           break;
         case 'editCard':
           title = ['EDIT CARD', '修改卡片'];
-          rightIcon = floppy;
-          rightOnClick = this.saveEditCard.bind(this)
           break;
         default:
           title = ['','']
@@ -175,17 +178,6 @@ class NavBar extends UI {
     this.actions.cards.saveGradingCards(studentProject._id, gradingCards);
   }
 
-  saveEditCourse(){
-
-  }
-
-  saveEditProject(){
-
-  }
-
-  saveEditCard(){
-
-  }
 
 }
 

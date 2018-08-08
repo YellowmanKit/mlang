@@ -27,7 +27,7 @@ const langsReducer = (
       },
       {
         key: 'pth_spoken',
-        name: ['PTH(Written)','普通話(口語)'],
+        name: ['PTH(Spoken)','普通話(口語)'],
         use: true
       },
       {

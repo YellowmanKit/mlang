@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actions from '../actions';
+import to from '../to';
 var api = process.env.REACT_APP_API;
 
 export const viewProject = (project) =>{
@@ -24,6 +25,36 @@ export function getProjects(projects){
     }).catch(err=>{
       actions.connectionError(dispatch);
     })
+  }
+}
+
+export function editProject(editedProject){
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+
+    let err, uploadRes, updateRes;
+
+    if(editedProject.newIcon){
+      var iconFile = new FormData();
+      iconFile.append('files', editedProject.newIcon, 'projectIcon.png');
+      [err, uploadRes] = await to(axios.post(api + '/upload', iconFile, { headers: { type: 'projectIcon'}}))
+      if(err){actions.connectionError(dispatch); return;}
+
+      editedProject['icon'] = uploadRes.data.filenames[0];
+    }
+
+    [err, updateRes] = await to(axios.post(api + '/project/edit', {data: editedProject}));
+    if(err){actions.connectionError(dispatch); return;}
+    dispatch({type: "showModalButton"});
+
+    if(updateRes.data.result === 'failed'){
+      actions.connectionError(dispatch);
+      return;
+    }
+    dispatch({type: "message", payload: ['Edit project succeed!', '成功修改專題研習!']});
+    dispatch({type: "updateProjects", payload: [updateRes.data.editedProject]});
+    dispatch({type: "viewProject", payload: updateRes.data.editedProject});
+    dispatch({type: "pullView"});
   }
 }
 

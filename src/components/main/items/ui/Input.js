@@ -5,7 +5,7 @@ class Input {
   constructor(app){
     this.init(app);
   }
-  
+
   init(app){
     this.app = app;
     this.func = app.functions;
@@ -50,14 +50,14 @@ class Input {
     return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1]):''}/>
   }
 
-  inputField(id, type, placeholder, value){
+  inputField(id, type, placeholder, value, onChange){
     const inputStyle = {
       width: '67%',
       height: '4%',
       fontSize: '100%',
       margin: '2%'
     }
-    return <input id={id} type={type} placeholder={this.func.multiLang(placeholder[0], placeholder[1])} defaultValue={value} style={inputStyle} />
+    return <input id={id} type={type} placeholder={this.func.multiLang(placeholder[0], placeholder[1])} defaultValue={value} style={inputStyle} onChange={onChange}/>
   }
 
 }

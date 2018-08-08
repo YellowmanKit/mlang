@@ -68,7 +68,7 @@ export function getNewAccount (_email) {
 }
 
 export function login (_id, _pw) {
-  //console.log(api);
+  console.log(api);
   return function (dispatch) {
     dispatch({type: "message", payload: ['Logging in...', '登入中...']});
     axios.get(api + '/user/login',{ headers: { id: _id, pw: _pw }})

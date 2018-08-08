@@ -25,6 +25,11 @@ class CourseDetail extends SubView {
         {this.textDisplay(course.title, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
+        {this.subTitle(['Created at','創建於'])}
+        {this.sep()}
+        {this.textDisplay(this.func.getDateString(new Date(course.createdAt)), ['100%',''], '125%', 'center')}
+        {this.gap('2%')}
+
         {this.subTitle(['End date','結束日期'])}
         {this.sep()}
         {this.textDisplay(this.func.getDateString(new Date(course.endDate)), ['100%',''], '125%', 'center')}

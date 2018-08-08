@@ -33,7 +33,7 @@ class SubmittedCards extends SubView {
   cardCells(){
     const studentProject = this.store.studentProjects.viewingStudentProject;
     if(studentProject.cards !== undefined){
-      return <Cards app={this.app} cardsId={studentProject.cards.slice(0).reverse()} />
+      return <Cards app={this.app} cardsId={studentProject.cards} />
     }else{
       //console.log('no viewingStudentProject')
     }

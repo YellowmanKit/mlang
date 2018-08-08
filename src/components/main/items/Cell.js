@@ -30,8 +30,8 @@ class Cell extends UI {
 
   cellImage(){
     const imageStyle = {...this.ui.styles.container, ...this.ui.styles.border, ...{
-      maxWidth: this.bs.width * 0.22,
-      maxHeight: this.bs.width * 0.22,
+      maxWidth: this.scale[0] * 0.85,
+      maxHeight: this.scale[0] * 0.85,
       marginTop: '4%'
     }};
     //console.log(url)
@@ -48,11 +48,11 @@ class Cell extends UI {
       text = firstLang !== null? firstLang.text: '';
     }
 
-    const scale =
-    type === 'course'? [this.bs.width * 0.23,'']:
-    type === 'project'? [this.bs.width * 0.23, '']:
+    const scale =[this.scale[0] * 0.85,''];
+    /*type === 'course'? [this.scale[0] * 0.85,'']:
+    type === 'project'? [this.bs.width * 0.22, '']:
     type === 'card'? [this.bs.width * 0.23, '']:
-    '';
+    '';*/
 
     return(
       <div style={{flexGrow: 1, overflow: 'hidden'}}>
@@ -68,15 +68,15 @@ class Cell extends UI {
       return null;
     }
 
-    const scale =
-    this.type === 'course'? [this.bs.width * 0.25,this.bs.width * 0.25]:
-    this.type === 'project'? [this.bs.width * 0.25,this.bs.width * 0.25]:
+    this.scale =
+    this.type === 'course'? [this.bs.width * 0.26,this.bs.width * 0.28]:
+    this.type === 'project'? [this.bs.width * 0.24,this.bs.width * 0.26]:
     this.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';
 
     const cellStyle = {...this.ui.styles.button, ...this.ui.styles.border, ...{
-      width: scale[0],
-      height: scale[1],
+      width: this.scale[0],
+      height: this.scale[1],
       margin: '1.5%',
       backgroundColor: 'white',
       flexShrink: 0,

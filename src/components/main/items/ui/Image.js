@@ -11,14 +11,20 @@ class Image extends UI {
     this.state = {
       url: null
     }
-    this.getIconUrl();
+    this.getIconUrl(this.props);
   }
 
-  async getIconUrl(){
-    const url = await this.func.url(this.props.filename, this.props.type);
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    this.getIconUrl(newProps);
+  }
+
+  async getIconUrl(props){
+    if(!props.filename || this.state.url){ return; }
+    const url = await this.func.url(props.filename, props.type);
     this.setState({
       url: url
-    })
+    });
   }
 
   render(){
@@ -65,7 +71,8 @@ class Image extends UI {
   }
 
   onImageClick(){
-    this.actions.main.enlargeImage(this.state.url);
+    if(!this.props.photoUrl && !this.state.url){ return; }
+    this.actions.main.enlargeImage(this.props.photoUrl?this.props.photoUrl:this.state.url);
   }
 
 }

@@ -12,11 +12,16 @@ class CardBar extends UI {
       audioCommentUrl: null,
       playAudioComment: false
     }
-    this.getAudioUrl('audioComment');
+    this.getAudioUrl();
   }
 
-  async getAudioUrl(type){
-    const url = await this.func.url(this.store.cards.viewingCard.audioComment, type);
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    this.getAudioUrl();
+  }
+
+  async getAudioUrl(){
+    const url = await this.func.url(this.store.cards.viewingCard.audioComment, 'audioComment');
     this.setState({
       audioCommentUrl: url
     })

@@ -46,7 +46,7 @@ class Cards extends UI {
     return(
       <div style={cardsStyle}>
         {this.gap('3%')}
-        {cardsToShow.map((cardId,i)=>{
+        {cardsToShow.slice(0).reverse().map((cardId,i)=>{
           const card = this.func.getCardById(cardId);
           if(!card){ return null;}
           //console.log(card);

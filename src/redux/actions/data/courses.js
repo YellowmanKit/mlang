@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actions from '../actions';
+import to from '../to';
 var api = process.env.REACT_APP_API;
 
 export const viewCourse = (course) =>{
@@ -31,6 +32,36 @@ export function joinCourse(_data){
     }).catch(err=>{
       actions.connectionError(dispatch);
     })
+  }
+}
+
+export function editCourse(editedCourse){
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+
+    let err, uploadRes, updateRes;
+
+    if(editedCourse.newIcon){
+      var iconFile = new FormData();
+      iconFile.append('files', editedCourse.newIcon, 'courseIcon.png');
+      [err, uploadRes] = await to(axios.post(api + '/upload', iconFile, { headers: { type: 'courseIcon'}}))
+      if(err){actions.connectionError(dispatch); return;}
+
+      editedCourse['icon'] = uploadRes.data.filenames[0];
+    }
+
+    [err, updateRes] = await to(axios.post(api + '/course/edit', {data: editedCourse}));
+    if(err){actions.connectionError(dispatch); return;}
+    dispatch({type: "showModalButton"});
+
+    if(updateRes.data.result === 'failed'){
+      actions.connectionError(dispatch);
+      return;
+    }
+    dispatch({type: "message", payload: ['Edit course succeed!', '成功修改班別!']});
+    dispatch({type: "updateCourses", payload: [updateRes.data.editedCourse]});
+    dispatch({type: "viewCourse", payload: updateRes.data.editedCourse});
+    dispatch({type: "pullView"});
   }
 }
 
