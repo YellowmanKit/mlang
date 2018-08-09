@@ -36,8 +36,8 @@ class NavBar extends UI {
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
     leftOnClick = this.actions.content.pullView;
-    //rightOnClick = this.none;
-    rightOnClick = ()=>{this.actions.modal.errorMessage(['testing', 'testing']);}
+    rightOnClick = this.none;
+    rightOnClick = ()=>{this.actions.modal.errorMessage(['No effect!', '沒有效果!']);}
 
     leftIcon = back_arrow;
 

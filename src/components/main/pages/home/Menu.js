@@ -34,7 +34,11 @@ class Menu extends UI {
       backgroundColor: 'transparent',
       flexGrow: 95
     }}
-    const buttonStyle = {...this.ui.styles.button, ...styles.listBtn, ...{
+    const buttonStyle = {...this.ui.styles.button, ...{
+      fontWeight: 'bold',
+      fontSize: this.bs.width * 0.035,
+      textAlign: 'left',
+      margin: '3%',
       color: 'white'
     }}
     const buttons =
@@ -57,10 +61,13 @@ class Menu extends UI {
   logoutButton(){
     const areaStyle = {...styles.areaBase, ...{
       backgroundColor: 'transparent',
-      flexGrow: 8,
-      justifyContent: 'flex-end'
+      flexGrow: 5,
+      justifyContent: 'center'
     }}
-    const buttonStyle = {...this.ui.styles.button, ...styles.listBtn, ...{
+    const buttonStyle = {...this.ui.styles.button, ...{
+      fontWeight: 'bold',
+      fontSize: this.bs.width * 0.04,
+      textAlign: 'left',
       color: this.ui.colors.mlangGreen
     }}
     return(
@@ -107,19 +114,13 @@ class Menu extends UI {
 }
 
 const styles = {
-  listBtn: {
-    fontWeight: 'bold',
-    fontSize: '125%',
-    textAlign: 'left',
-    margin: '3%'
-  },
   areaBase: {
     width: '75%',
     display: 'flex',
     flexFlow: 'column nowrap',
     alignItems: 'left',
     opacity: 1,
-    marginLeft: '3%',
+    marginLeft: '2%',
     fontWeight: 'bold'
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
 
+import empty from 'resources/images/general/empty.png';
 import badge_failed from 'resources/images/icons/badges/badge_corner_failed.png';
 import badge_passed from 'resources/images/icons/badges/badge_corner_passed.png';
 import badge_featured from 'resources/images/icons/badges/badge_corner_featured.png';
@@ -19,11 +20,11 @@ class Badge extends UI {
     }
     const grade = this.props.grade;
     const icon =
-    grade === 'notGraded'? '':
+    grade === 'notGraded'? empty:
     grade === 'failed'? badge_failed:
     grade === 'passed'? badge_passed:
     grade === 'featured'? badge_featured:
-    ''
+    empty;
 
     return(
       <img style={badgeStyle} src={icon} alt=''/>

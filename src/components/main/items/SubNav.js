@@ -15,7 +15,7 @@ class SubNav extends UI {
     }}
     const tagStyle = {
       width: '100%',
-      fontSize: '150%',
+      fontSize: this.bs.width * 0.04,
       textAlign: 'center'
     }
 

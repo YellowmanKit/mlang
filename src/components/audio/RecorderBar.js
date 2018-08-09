@@ -7,9 +7,8 @@ import icon_play from 'resources/images/buttons/buttonIcons/play_black.png';
 import icon_stop from 'resources/images/buttons/buttonIcons/stop_black.png';
 import icon_cross from 'resources/images/buttons/buttonIcons/cross_black.png';
 
-
 class RecorderBar extends UI {
-  waveInterface = new WAVEInterface();
+  waveInterface = new WAVEInterface(this.props.app);
 
   componentWillMount() { this.waveInterface.reset(); }
   componentWillUnmount() { this.waveInterface.reset(); }

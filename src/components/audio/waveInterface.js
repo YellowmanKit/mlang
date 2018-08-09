@@ -1,7 +1,17 @@
 import encodeWAV from './waveEncoder';
 
 export default class WAVEInterface {
-  static audioContext = new AudioContext();
+  static audioContext = null;
+  constructor(app){
+    this.message = app.actions.modal.errorMessage;
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (window.AudioContext) {
+      WAVEInterface.audioContext = new window.AudioContext();
+    }else{
+      this.message(['Audio context is not available!', '無法使用錄音功能!']);
+    }
+  }
+  //static audioContext = new AudioContext();
   static bufferSize = 2048;
 
   playbackNode: AudioBufferSourceNode;
@@ -23,33 +33,49 @@ export default class WAVEInterface {
   startRecording() {
 
     return new Promise((resolve, reject) => {
-      navigator.getUserMedia({ audio: true }, (stream) => {
-        const { audioContext } = WAVEInterface;
-        const recGainNode = audioContext.createGain();
-        const recSourceNode = audioContext.createMediaStreamSource(stream);
-        const recProcessingNode = audioContext.createScriptProcessor(WAVEInterface.bufferSize, 2, 2);
-        if (this.encodingCache) this.encodingCache = null;
-
-        recProcessingNode.onaudioprocess = (event) => {
-          if (this.encodingCache) this.encodingCache = null;
-          // save left and right buffers
-          for (let i = 0; i < 2; i++) {
-            const channel = event.inputBuffer.getChannelData(i);
-            this.buffers[i].push(new Float32Array(channel));
-          }
-        };
-
-        recSourceNode.connect(recGainNode);
-        recGainNode.connect(recProcessingNode);
-        recProcessingNode.connect(audioContext.destination);
-
-        this.recordingStream = stream;
-        this.recordingNodes.push(recSourceNode, recGainNode, recProcessingNode);
-        resolve(stream);
-      }, (err) => {
-        reject(err);
-      });
+      if(navigator.getUserMedia !== undefined){
+        navigator.getUserMedia({ audio: true }, (stream) => {
+          this.processingStream(stream);
+          resolve(stream);
+        }, (err) => {
+          reject(err);
+        });
+      }else if(navigator.mediaDevices !== undefined){
+        navigator.mediaDevices.getUserMedia({ audio: true }, (stream) => {
+          this.processingStream(stream);
+          resolve(stream);
+        }, (err) => {
+          reject(err);
+        });
+      }else{
+        const msg = 'no navigator getUserMedia!'
+        this.message([msg,msg]);
+      }
     });
+  }
+
+  processingStream(stream){
+    const { audioContext } = WAVEInterface;
+    const recGainNode = audioContext.createGain();
+    const recSourceNode = audioContext.createMediaStreamSource(stream);
+    const recProcessingNode = audioContext.createScriptProcessor(WAVEInterface.bufferSize, 2, 2);
+    if (this.encodingCache) this.encodingCache = null;
+
+    recProcessingNode.onaudioprocess = (event) => {
+      if (this.encodingCache) this.encodingCache = null;
+      // save left and right buffers
+      for (let i = 0; i < 2; i++) {
+        const channel = event.inputBuffer.getChannelData(i);
+        this.buffers[i].push(new Float32Array(channel));
+      }
+    };
+
+    recSourceNode.connect(recGainNode);
+    recGainNode.connect(recProcessingNode);
+    recProcessingNode.connect(audioContext.destination);
+
+    this.recordingStream = stream;
+    this.recordingNodes.push(recSourceNode, recGainNode, recProcessingNode);
   }
 
   stopRecording() {

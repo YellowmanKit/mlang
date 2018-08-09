@@ -69,8 +69,8 @@ class Cell extends UI {
     }
 
     this.scale =
-    this.type === 'course'? [this.bs.width * 0.26,this.bs.width * 0.28]:
-    this.type === 'project'? [this.bs.width * 0.24,this.bs.width * 0.26]:
+    this.type === 'course'? [this.bs.width * 0.24,this.bs.width * 0.26]:
+    this.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
     this.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';
 

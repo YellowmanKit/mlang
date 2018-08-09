@@ -1,5 +1,6 @@
 import React from 'react';
 
+import btn_listAdd from 'resources/images/buttons/btn_listAdd.png';
 import btn_green from 'resources/images/buttons/btn_green.png';
 import btn_red from 'resources/images/buttons/btn_red.png';
 import btn_yellow from 'resources/images/buttons/btn_yellow.png';
@@ -198,7 +199,7 @@ class Button {
       backgroundColor: this.ui.darkGrey,
       flexShrink: 0
     }}
-    return this.button(style, text, '', onClick)
+    return this.button(style, text, btn_listAdd, onClick)
   }
 
   nav(icon, onClick){
@@ -218,7 +219,10 @@ class Button {
   }
 
   button(customStyle, text, imageUrl, onClick){
-    const style = {...styles.button, ...customStyle, ...{ backgroundImage: 'url(' + imageUrl + ')' }}
+    var style = {...styles.button, ...customStyle }
+    if(imageUrl && imageUrl !== ''){
+      style = {...style, ...{ backgroundImage: 'url(' + imageUrl + ')' }}
+    }
     return <button style={style}  onClick={onClick}>{this.func.multiLang(text[0],text[1])}</button>
   }
 
