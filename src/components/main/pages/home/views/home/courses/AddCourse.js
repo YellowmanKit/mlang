@@ -13,7 +13,7 @@ class AddCourse extends View {
       url: null
     }
     this.course = this.store.courses.viewingCourse;
-    this.getIconUrl(this.props);
+    this.getIconUrl(props);
   }
 
   componentWillReceiveProps(newProps){

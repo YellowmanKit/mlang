@@ -10,9 +10,18 @@ class Cell extends UI {
     this.state = {
       iconUrl: null
     }
-    this.data = this.props.data;
-    this.type = this.props.type;
+    this.initCell(props);
+  }
+
+  initCell(props){
+    this.data = props.data;
+    this.type = props.type;
     this.getIconUrl(this.type);
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    this.initCell(newProps);
   }
 
   async getIconUrl(type){

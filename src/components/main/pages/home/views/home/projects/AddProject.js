@@ -12,7 +12,7 @@ class AddProject extends View {
       url: null
     }
     this.project = this.store.projects.viewingProject;
-    this.getIconUrl(this.props);
+    this.getIconUrl(props);
   }
 
   componentWillReceiveProps(newProps){

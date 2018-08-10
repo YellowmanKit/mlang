@@ -7,11 +7,7 @@ import Badge from 'components/main/items/Badge';
 class GradingCardRow extends Row {
 
   langRows(){
-    const app = this.props.app;
-    const func = app.functions;
-    const ui = app.store.ui;
-    const bs = ui.basicStyle;
-    const style = {...bs, ...{
+    const style = {...this.bs, ...{
       height: '',
       width: '65%'
     }}
@@ -19,7 +15,7 @@ class GradingCardRow extends Row {
     //console.log(langsId)
     const langs = [];
     langsId.map(id=>{
-      return langs.splice(0,0,func.getLangById(id));
+      return langs.splice(0,0,this.func.getLangById(id));
     })
     //console.log(langs)
     return(
@@ -32,25 +28,20 @@ class GradingCardRow extends Row {
   }
 
   langRow(lang, i){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    //const bs = ui.basicStyle;
-    const rowStyle = {...ui.styles.area, ...{
+    const rowStyle = {...this.ui.styles.area, ...{
       flexShrink: 0,
       width: '95%',
       alignItems: 'center'
     }}
     return(
       <div key={i} style={rowStyle}>
-        <LangRow app={app} lang={lang}/>
+        <LangRow app={this.app} lang={lang}/>
       </div>
     )
   }
 
   selecter(){
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const style = {...ui.styles.button, ...{
+    const style = {...this.ui.styles.button, ...{
       position: 'absolute',
       width: '100%',
       height: '100%'

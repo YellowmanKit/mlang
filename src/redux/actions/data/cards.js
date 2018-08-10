@@ -27,24 +27,6 @@ export const gradeCards = (id, cards) =>{
   }
 }
 
-/*export function gradeCards(id, cards){
-  //console.log('cards')
-  return async function (dispatch) {
-    var gradingCards = [...cards];
-    if(!gradingCards){ return; }
-    //console.log(gradingCards)
-    let err, res;
-    for(var i=0;i<gradingCards.length;i++){
-      if(gradingCards[i].audioComment){
-        [err, res] = await(to(axios.get(api + '/download/audioComment/' + gradingCards[i].audioComment, {responseType: 'arraybuffer'})));
-        if(err || res === null){dispatch({type: "message", payload: ['Failed to download audio comment! Please try again!', '錄音留言下載失敗! 請再試一次!']});}
-        gradingCards[i] = {...gradingCards[i], audioCommentBlob: res.data}
-      }
-    }
-    dispatch({type: 'gradeCards', payload: { studentProjectId: id, cards: gradingCards}})
-  }
-}*/
-
 export function saveGradingCards(studentProjectId, gradingCards){
   //console.log(gradingCards)
   return async function (dispatch) {
@@ -106,6 +88,16 @@ export function getCards(cardsId){
     }else{
       console.log('get cards failed!')
     }
+  }
+}
+
+export function editCard(data){
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+    const newIcon = data.newIcon;
+    const newEditLangs = data.editLangs;
+    console.log(newIcon);
+    console.log(newEditLangs);
   }
 }
 

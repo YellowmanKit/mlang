@@ -6,8 +6,34 @@ import icon_cross from 'resources/images/buttons/buttonIcons/cross_grey.png';
 
 class LangEditRow extends UI {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      modified: false,
+      audioblob: null
+    }
+    this.editLang = this.props.editLang;
+    this.getAudioblob(props);
+  }
+
+  componentWillReceiveProps(newProps){
+    this.editLang = newProps.editLang;
+    this.init(newProps);
+    this.getAudioblob(newProps);
+  }
+
+  async getAudioblob(props){
+    if(!this.editLang.defaultAudio || this.state.audioblob){ return; }
+    const url = await this.func.url(this.editLang.defaultAudio, 'langAudio');
+    const res = await fetch(url);
+    const blob = await res.blob();
+    this.setState({
+      audioblob: blob
+    });
+  }
+
   langRow(){
-    const editLang = this.props.editLang;
     const i = this.props.index;
 
     const rowStyle = {...this.bs, ...{
@@ -19,9 +45,9 @@ class LangEditRow extends UI {
     }}
 
     return(
-      <div key={editLang.key} style={rowStyle}>
-        {this.langBar(i, editLang)}
-        {this.inputs.textArea('langText' + i, [this.bs.width * 0.87, this.bs.height * 0.1], '150%', editLang.text, this.onTextChange.bind(this))}
+      <div key={this.editLang.key} style={rowStyle}>
+        {this.langBar(i, this.editLang)}
+        {this.inputs.textArea('langText' + i, [this.bs.width * 0.87, this.bs.height * 0.1], '150%', this.editLang.text, this.onTextChange.bind(this))}
         {this.gap('1%')}
       </div>
     )
@@ -33,8 +59,10 @@ class LangEditRow extends UI {
       height: this.bs.height * 0.065,
       alignItems: 'center'
     }}
-
-    const audioBlob = this.props.editLang.audioBlob;
+    
+    const audioBlob =
+    this.editLang.audioBlob? this.editLang.audioBlob:
+    this.state.audioblob;
     return(
       <div style={barStyle}>
         {this.verGap('1%')}
@@ -54,12 +82,12 @@ class LangEditRow extends UI {
     //console.log(event.target.value)
     const langName = event.target.value;
     const _key = this.func.langNameToLangKey(langName);
-    this.actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, key: _key}});
+    this.actions.langs.setEditLang({index: this.props.index, editLang: {...this.editLang, key: _key}});
   }
 
   onTextChange(event){
     const _text = event.target.value;
-    this.actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, text: _text}});
+    this.actions.langs.setEditLang({index: this.props.index, editLang: {...this.editLang, text: _text}});
   }
 
   langKeyOptions(){
@@ -74,8 +102,7 @@ class LangEditRow extends UI {
   }
 
   langKeyDefault(i){
-    const editLangs = this.store.langs.editLangs;
-    return this.func.langKeyToLangName(editLangs[i].key);
+    return this.func.langKeyToLangName(this.store.langs.editLangs[i].key);
   }
 
   render() {

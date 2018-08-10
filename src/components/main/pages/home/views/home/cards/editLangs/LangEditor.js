@@ -10,11 +10,31 @@ class LangEditor extends UI {
     const langs = this.store.langs;
     const editLangs = langs.editLangs;
     if(editLangs.length === 0){
-      this.pushRow();
+      this.initRow();
     }
   }
 
-  pushRow(){
+  initRow(){
+    const defaultLangs = this.props.defaultLangs;
+    if(defaultLangs){
+      defaultLangs.map(langId=>{
+        const lang = this.func.getLangById(langId);
+        var newLangRow = {
+          _id: lang._id,
+          key: lang.key,
+          text: lang.text,
+          defaultAudio: lang.audio,
+          audioBlob: null
+        }
+        this.actions.langs.pushEditLangs(newLangRow);
+        return null;
+      })
+    }else{
+      this.pushNewRow();
+    }
+  }
+
+  pushNewRow(){
     const langs = this.store.langs;
     const langKeys = langs.langKeys;
     const editLangs = langs.editLangs;
@@ -49,7 +69,7 @@ class LangEditor extends UI {
     return(
       <div style={editorStyle}>
         {this.langEditRows()}
-        {editLangs.length < this.store.langs.langKeys.length && this.buttons.listAdd([this.bs.width * 0.9, this.bs.height * 0.075], ['ADD LANG ROW','增加語言欄'], '200%', ()=>{this.pushRow()})}
+        {editLangs.length < this.store.langs.langKeys.length && this.buttons.listAdd([this.bs.width * 0.9, this.bs.height * 0.075], ['ADD LANG ROW','增加語言欄'], '200%', ()=>{this.pushNewRow()})}
       </div>
     )
   }

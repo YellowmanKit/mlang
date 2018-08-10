@@ -1,7 +1,7 @@
 const uiReducer = (
   state = {
     minWidth: 360,
-    maxWidth: 960,
+    maxWidth: 720,
     minHeight: 540,
     maxHeight: 1440,
     windowWidth: 0,
