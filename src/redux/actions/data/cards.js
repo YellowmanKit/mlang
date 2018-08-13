@@ -57,7 +57,7 @@ export function saveGradingCards(studentProjectId, gradingCards){
     }
     //console.log(cardsToUpdate);
 
-    [err, cardRes] = await to(axios.post(api + '/card/update', { data: { cards: cardsToUpdate}}))
+    [err, cardRes] = await to(axios.post(api + '/card/grade', { data: { cards: cardsToUpdate}}))
     if(err){actions.connectionError(dispatch); return;}
 
     dispatch({type: "showModalButton"});
@@ -94,10 +94,72 @@ export function getCards(cardsId){
 export function editCard(data){
   return async function (dispatch) {
     actions.connecting(dispatch);
+    const card = data.card;
     const newIcon = data.newIcon;
-    const newEditLangs = data.editLangs;
-    console.log(newIcon);
-    console.log(newEditLangs);
+    const editLangs = data.editLangs;
+    //console.log(card);
+    //console.log(newIcon);
+    //console.log(editLangs);
+    var cardFile = new FormData();
+
+    let err, uploadRes, updateRes;
+    if(newIcon){
+      cardFile.append('files', newIcon, 'cardIcon.png');
+    }
+
+    for(var i=0;i<editLangs.length;i++){
+      if(editLangs[i].audioBlob){
+        cardFile.append('files', editLangs[i].audioBlob, 'langAudio_' + i + '.wav');
+      }
+    }
+
+    [err, uploadRes] = await to(axios.post(api + '/upload', cardFile, { headers: { type: 'card'}}))
+    if(err){actions.connectionError(dispatch); return;}
+
+    const filenames = uploadRes.data.filenames;
+    var cardIcon;
+    var langAudios = [];
+    for(var j=0;j<filenames.length;j++){
+      const splted = filenames[j].split('-');
+      if(splted[1] === 'cardIcon.png'){
+        cardIcon = filenames[j];
+      }else{
+        langAudios.splice(0,0, filenames[j]);
+      }
+    }
+
+    if(newIcon){
+      card.icon = cardIcon;
+    }
+    const langs = [];
+    for(var k=0;k<editLangs.length;k++){
+      const lang = {
+        key: editLangs[k].key,
+        text: editLangs[k].text,
+        audio: editLangs[k].audioBlob? getFile(langAudios, k): editLangs[k].defaultAudio,
+        _id: editLangs[k]._id
+      }
+      langs.splice(0,0,lang);
+    }
+
+    [err, updateRes] = await to(axios.post(api + '/card/edit', { data: { card: card, langs: langs}}))
+    if(err){actions.connectionError(dispatch); return;}
+
+    dispatch({type: "showModalButton"});
+    if(updateRes.data.result === 'success'){
+      dispatch({type: "message", payload: ['Edit card succeed!', '成功修改卡片!']});
+      //console.log(updateRes.data.updatedCard);
+      //console.log(updateRes.data.updatedLangs);
+      dispatch({type: "updateCards", payload: [updateRes.data.updatedCard]});
+      dispatch({type: "updateLangs", payload: updateRes.data.updatedLangs});
+
+      dispatch({type: "setEditLangs", payload: []});
+      dispatch({type: "pullView"});
+      dispatch({type: "pullView"});
+    }else{
+      dispatch({type: "message", payload: ['Edit card failed! Please try again!', '修改失敗! 請再試一次!']});
+    }
+
   }
 }
 

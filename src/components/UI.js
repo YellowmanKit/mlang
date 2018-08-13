@@ -22,6 +22,8 @@ class UI extends Component {
     this.inputs.init(props.app)
   }
 
+  componentWillUnmount() { this.unmounted = true; }
+
   cardTags(commented, audioCommented){
     const width = this.bs.width * 0.05;
     const style = {...this.bs, ...{

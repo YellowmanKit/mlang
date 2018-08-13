@@ -8,7 +8,7 @@ class Cell extends UI {
     super(props);
     this.init(props);
     this.state = {
-      iconUrl: null
+      url: null
     }
     this.initCell(props);
   }
@@ -32,9 +32,10 @@ class Cell extends UI {
     '';
 
     const url = await this.func.url(this.data.icon, fileType);
-    this.setState({
-      iconUrl: url
-    })
+    if(!this.unmounted && url){
+      //console.log('set image url ' + url);
+      this.setState({ url: url })
+    }
   }
 
   cellImage(){
@@ -44,7 +45,7 @@ class Cell extends UI {
       marginTop: '4%'
     }};
     //console.log(url)
-    return <img style={imageStyle} src={this.state.iconUrl} alt=''/>
+    return <img style={imageStyle} src={this.state.url} alt=''/>
   }
 
   cellTitle(type){

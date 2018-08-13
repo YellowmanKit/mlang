@@ -24,9 +24,10 @@ class LangRow extends UI {
 
   async getLangAudioUrl(props){
     const url = await this.func.url(props.lang.audio, 'langAudio');
-    this.setState({
-      url: url
-    })
+    if(!this.unmounted && url){
+      //console.log('set lang url');
+      this.setState({ url: url })
+    }
   }
 
   playback(){

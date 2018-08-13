@@ -1,4 +1,9 @@
-
+export const cacheUrl = (filename, url) =>{
+  return {
+    type: 'cacheUrl',
+    payload: { filename: filename, url: url }
+  }
+}
 
 export const setSubView = (subView) =>{
   return {

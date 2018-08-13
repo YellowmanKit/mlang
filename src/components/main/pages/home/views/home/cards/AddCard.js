@@ -83,6 +83,7 @@ class AddCard extends View {
       });
     }else{
       this.actions.cards.editCard({
+        card: this.card,
         newIcon: icon,
         editLangs: editLangs
       });

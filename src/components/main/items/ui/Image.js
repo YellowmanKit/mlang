@@ -22,9 +22,10 @@ class Image extends UI {
   async getIconUrl(props){
     if(!props.filename){ return; }
     const url = await this.func.url(props.filename, props.type);
-    this.setState({
-      url: url
-    });
+    if(!this.unmounted && url){
+      //console.log('set image url');
+      this.setState({ url: url })
+    }
   }
 
   render(){

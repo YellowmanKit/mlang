@@ -22,9 +22,9 @@ class CardBar extends UI {
 
   async getAudioUrl(){
     const url = await this.func.url(this.store.cards.viewingCard.audioComment, 'audioComment');
-    this.setState({
-      audioCommentUrl: url
-    })
+    if(!this.unmounted && url){
+      //console.log('set audioCommentUrl url ' + url);
+      this.setState({ audioCommentUrl: url })}
   }
 
   render(){

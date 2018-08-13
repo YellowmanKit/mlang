@@ -3,9 +3,14 @@ const contentReducer = (
     menu: 'off',
     view: '',
     traces: [],
-    subView: ''
+    subView: '',
+    cachedUrl: {}
   }, action)=>{
   switch (action.type) {
+    case 'cacheUrl':
+      var newCachedUrl = state.cachedUrl;
+      newCachedUrl[action.payload.filename] = action.payload.url;
+     return {...state, cachedUrl: newCachedUrl}
     case 'setSubView':
       return {...state, subView: action.payload}
     case 'backToHome':

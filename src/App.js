@@ -117,17 +117,24 @@ class App extends Component {
   }
 
   async url(filename, type){
+    const action = this.props.actions.content;
     if(!filename){ return ''};
+    const cachedUrl = this.props.store.content.cachedUrl[filename];
+    if(cachedUrl){ /*console.log('use cached url');*/ return cachedUrl; }
+    //console.log('create url');
+    action.cacheUrl(filename, 'processing...');
     const localFile = await this.props.db.get(filename);
     if(localFile){
-      return URL.createObjectURL(localFile);
+      const url = URL.createObjectURL(localFile);
+      return action.cacheUrl(filename, url);
     }else{
       const downloadUrl = process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
       let err, res;
       [err, res] = await to(axios.get(downloadUrl, {responseType: 'blob'}));
       if(err || !res.data){ console.log('file download error!'); return '';}
       this.props.db.set(filename, res.data);
-      return URL.createObjectURL(res.data);
+      const url = URL.createObjectURL(res.data);
+      return action.cacheUrl(filename, url);
     }
   }
 
