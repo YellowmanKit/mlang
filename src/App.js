@@ -11,7 +11,7 @@ import * as modal from './redux/actions/control/modal';
 import * as user from './redux/actions/data/user';
 import * as profile from './redux/actions/data/profile';
 import * as courses from './redux/actions/data/courses';
-import * as students from './redux/actions/data/students';
+import * as profiles from './redux/actions/data/profiles';
 import * as projects from './redux/actions/data/projects';
 import * as studentProjects from './redux/actions/data/studentProjects';
 
@@ -86,11 +86,11 @@ class App extends Component {
     return null;
   }
 
-  getStudentProfileByUserId(userId){
-    const studentsData = this.props.store.students.students;
-    for(var i=0;i<studentsData.length;i++){
-      if(studentsData[i].belongTo === userId){
-        return studentsData[i];
+  getProfileByUserId(userId){
+    const profilesData = this.props.store.profiles.profiles;
+    for(var i=0;i<profilesData.length;i++){
+      if(profilesData[i].belongTo === userId){
+        return profilesData[i];
       }
     }
     return null;
@@ -185,13 +185,15 @@ class App extends Component {
         url: this.url.bind(this),
         multiLang: this.multiLang.bind(this),
         getDateString: this.getDateString.bind(this),
-        getStudentProfileByUserId: this.getStudentProfileByUserId.bind(this),
+
+        getProfileByUserId: this.getProfileByUserId.bind(this),
         getCourseById: this.getCourseById.bind(this),
         getProjectById: this.getProjectById.bind(this),
         getStudentProject: this.getStudentProject.bind(this),
         getCardById: this.getCardById.bind(this),
         getLangById: this.getLangById.bind(this),
         getStudentProjectById: this.getStudentProjectById.bind(this),
+        
         langKeyToLangName: this.langKeyToLangName.bind(this),
         langNameToLangKey: this.langNameToLangKey.bind(this),
         getAllFeaturedCardsIdInViewingProject: this.getAllFeaturedCardsIdInViewingProject.bind(this)
@@ -232,7 +234,7 @@ function mapDispatchToProps(dispatch){
 
       profile: Action(profile, dispatch),
       courses: Action(courses, dispatch),
-      students: Action(students, dispatch),
+      profiles: Action(profiles, dispatch),
       projects: Action(projects, dispatch),
       studentProjects: Action(studentProjects, dispatch),
 

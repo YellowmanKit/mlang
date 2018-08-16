@@ -58,15 +58,11 @@ class Cell extends UI {
       text = firstLang !== null? firstLang.text: '';
     }
 
-    const scale =[this.scale[0] * 0.85,''];
-    /*type === 'course'? [this.scale[0] * 0.85,'']:
-    type === 'project'? [this.bs.width * 0.22, '']:
-    type === 'card'? [this.bs.width * 0.23, '']:
-    '';*/
+    const scale =['100%','100%'];
 
     return(
       <div style={{flexGrow: 1, overflow: 'hidden'}}>
-        {this.textDisplay(text, scale, '125%')}
+        {this.textDisplay(text, scale, this.bs.width * 0.03)}
       </div>
     )
   }

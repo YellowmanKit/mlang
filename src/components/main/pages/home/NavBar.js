@@ -103,6 +103,7 @@ class NavBar extends UI {
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
+              this.actions.langs.setEditLangs([]);
               this.actions.content.pushView('editCard');
             }
           }

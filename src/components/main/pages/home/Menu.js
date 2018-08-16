@@ -36,10 +36,11 @@ class Menu extends UI {
     }}
     const buttonStyle = {...this.ui.styles.button, ...{
       fontWeight: 'bold',
-      fontSize: this.bs.width * 0.035,
+      fontSize: this.bs.width * 0.04,
       textAlign: 'left',
       margin: '3%',
-      color: 'white'
+      color: 'white',
+      height: this.bs.width * 0.075
     }}
     const buttons =
     [
@@ -50,7 +51,7 @@ class Menu extends UI {
     ]
     return(
       <div style={areaStyle}>
-        <div style={{height: this.bs.height * 0.03}} />
+        {this.gap(this.bs.width * 0.05)}
           {buttons.map((item,i)=>{
             return <button key={i} onClick={()=>this.switchView(item[0])} style={buttonStyle}> {this.func.multiLang(item[1],item[2])} </button>
           })}
@@ -66,7 +67,7 @@ class Menu extends UI {
     }}
     const buttonStyle = {...this.ui.styles.button, ...{
       fontWeight: 'bold',
-      fontSize: this.bs.width * 0.04,
+      fontSize: this.bs.width * 0.05,
       textAlign: 'left',
       color: this.ui.colors.mlangGreen
     }}

@@ -30,7 +30,7 @@ class ProjectDetail extends SubView {
         {this.textDisplay(project.description, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
-        {this.subTitle(['Created at','創建於'])}
+        {this.subTitle(['Start date','創建於'])}
         {this.sep()}
         {this.textDisplay(this.func.getDateString(new Date(project.createdAt)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}

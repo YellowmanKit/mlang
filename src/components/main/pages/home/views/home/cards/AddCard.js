@@ -18,6 +18,7 @@ class AddCard extends View {
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
+    this.card = newProps.app.store.cards.viewingCard;
     this.getIconUrl(newProps);
   }
 
@@ -43,7 +44,7 @@ class AddCard extends View {
 
         {this.subTitle(['Lang rows','語言欄'])}
         {this.sep()}
-        <LangEditor defaultLangs={this.card.langs} app={this.app}/>
+        <LangEditor defaultLangs={this.props.editMode? this.card.langs:null} app={this.app}/>
         {this.sep()}
 
         {this.buttons.rectGreen(['Submit','提交'], ()=>{this.addCard()})}

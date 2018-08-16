@@ -78,7 +78,7 @@ class UI extends Component {
   }
 
   textDisplay(text, scale, fontSize, textAlign, color){
-    const countStyle = {
+    const style = {
       width: scale[0],
       height: scale[1],
       margin: '1%',
@@ -89,7 +89,7 @@ class UI extends Component {
       overflowWrap: 'break-word',
       color: color !== undefined? color: 'black'
     }
-    return <div style={countStyle}>{text}</div>
+    return <div style={style}>{text}</div>
   }
 
   subTitle(title){

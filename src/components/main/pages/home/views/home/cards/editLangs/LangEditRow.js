@@ -59,7 +59,7 @@ class LangEditRow extends UI {
       height: this.bs.height * 0.065,
       alignItems: 'center'
     }}
-    
+
     const audioBlob =
     this.editLang.audioBlob? this.editLang.audioBlob:
     this.state.audioblob;

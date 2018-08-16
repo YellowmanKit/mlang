@@ -13,23 +13,23 @@ class CourseStudents extends SubView {
   getStudentProfiles(){
     const course = this.store.courses.viewingCourse;
 
-    const studentsToGet = [];
-    const studentsToShow = course.joinedStudents;
+    const profilesToGet = [];
+    const profilesToShow = course.joinedStudents;
 
-    for(var i=0;i<studentsToShow.length;i++){
-      if(this.func.getStudentProfileByUserId(studentsToShow[i]) === null){
-        studentsToGet.splice(0,0, studentsToShow[i]);
+    for(var i=0;i<profilesToShow.length;i++){
+      if(this.func.getProfileByUserId(profilesToShow[i]) === null){
+        profilesToGet.splice(0,0, profilesToShow[i]);
       }
     }
-    if(studentsToGet.length > 0){
-      this.actions.students.getStudentProfiles(studentsToGet);
+    if(profilesToGet.length > 0){
+      this.actions.profiles.getProfiles(profilesToGet);
     }
   }
 
   studentsList(){
     const students = this.store.courses.viewingCourse.joinedStudents;
     return students.map((userId, i)=>{
-      return <ProfileRow app={this.app} profile={this.func.getStudentProfileByUserId(userId)} key={i}/>
+      return <ProfileRow app={this.app} profile={this.func.getProfileByUserId(userId)} key={i}/>
     })
   }
 

@@ -7,9 +7,8 @@ class LangEditor extends UI {
 
   componentDidMount(){
     this.init(this.props);
-    const langs = this.store.langs;
-    const editLangs = langs.editLangs;
-    if(editLangs.length === 0){
+    this.editLangs = this.store.langs.editLangs;
+    if(this.editLangs.length === 0){
       this.initRow();
     }
   }
@@ -35,10 +34,8 @@ class LangEditor extends UI {
   }
 
   pushNewRow(){
-    const langs = this.store.langs;
-    const langKeys = langs.langKeys;
-    const editLangs = langs.editLangs;
-    const length = editLangs.length;
+    const langKeys = this.store.langs.langKeys;
+    const length = this.editLangs.length;
     var newLangRow = {
       key: langKeys[length].key,
       text: '',
@@ -48,8 +45,7 @@ class LangEditor extends UI {
   }
 
   langEditRows(){
-    const editLangs = this.store.langs.editLangs;
-    return editLangs.map((editLang,i)=>{
+    return this.editLangs.map((editLang,i)=>{
       return(
         <LangEditRow key={editLang.key + i} app={this.app} editLang={editLang} index={i}/>
       )
@@ -58,9 +54,7 @@ class LangEditor extends UI {
 
   render() {
     this.init(this.props);
-    const langs = this.store.langs;
-    const editLangs = langs.editLangs;
-
+    this.editLangs = this.store.langs.editLangs;
     const editorStyle = {...this.bs, ...this.ui.styles.list, ...{
       width: this.bs.width * 1,
       height: this.bs.height * 0.45,
@@ -69,7 +63,7 @@ class LangEditor extends UI {
     return(
       <div style={editorStyle}>
         {this.langEditRows()}
-        {editLangs.length < this.store.langs.langKeys.length && this.buttons.listAdd([this.bs.width * 0.9, this.bs.height * 0.075], ['ADD LANG ROW','增加語言欄'], '200%', ()=>{this.pushNewRow()})}
+        {this.editLangs.length < this.store.langs.langKeys.length && this.buttons.listAdd([this.bs.width * 0.9, this.bs.height * 0.075], ['ADD LANG ROW','增加語言欄'], '200%', ()=>{this.pushNewRow()})}
       </div>
     )
   }
