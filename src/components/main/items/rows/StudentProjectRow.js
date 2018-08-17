@@ -49,7 +49,7 @@ class StudentProjectRow extends Row {
       borderBottom: '1px solid ' + this.ui.colors.darkGrey,
       alignItems: 'center'
     }}
-    const profile = this.func.getStudentProfileByUserId(studentProject.student);
+    const profile = this.func.getProfileByUserId(studentProject.student);
     return(
       <button style={rowStyle} onClick={()=>{this.actions.studentProjects.viewStudentProject(studentProject); this.actions.content.pushView('gradingCards');}}>
         {this.verGap('3%')}

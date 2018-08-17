@@ -9,6 +9,19 @@ export const viewStudentProject = (_studentProject) =>{
   }
 }
 
+export function clearAlert(studentProjectId){
+  return function (dispatch) {
+    axios.post(api + '/studentProject/clearAlert', { data: {studentProjectId: studentProjectId} })
+    .then(res=>{
+      if(res.data.result === 'success'){
+        dispatch({type: "updateStudentProjects", payload: [res.data.updatedStudentProject]});
+      }
+    }).catch(err=>{
+      console.log('failed to clear alert on studentproject')
+    })
+  }
+}
+
 export function getStudentProjects(studentProjects){
   return function (dispatch) {
     //actions.connecting(dispatch);
@@ -18,7 +31,7 @@ export function getStudentProjects(studentProjects){
         dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
         dispatch({type: "updateCards", payload: res.data.cards});
         dispatch({type: "updateLangs", payload: res.data.langs});
-        dispatch({type: "updateStudents", payload: res.data.students});
+        dispatch({type: "updateProfiles", payload: res.data.profiles});
       }else{
         dispatch({type: "showModalButton"});
         dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});

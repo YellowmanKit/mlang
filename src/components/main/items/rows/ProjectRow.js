@@ -22,7 +22,7 @@ class ProjectRow extends Row {
       <div style={rowStyle}>
         {this.icon(icon_event, [iconSize, iconSize])}
         {this.verGap('1%')}
-        {this.textDisplay(this.func.getDateString(new Date(project.endDate)), ['',''], '125%', '')}
+        {this.textDisplay(this.func.getDateString(new Date(project.endDate)), ['',''], '150%')}
       </div>
     )
   }

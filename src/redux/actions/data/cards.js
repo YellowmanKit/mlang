@@ -27,7 +27,7 @@ export const gradeCards = (id, cards) =>{
   }
 }
 
-export function saveGradingCards(studentProjectId, gradingCards){
+export function saveGradingCards(projectId, studentProjectId, gradingCards){
   //console.log(gradingCards)
   return async function (dispatch) {
     actions.connecting(dispatch);
@@ -57,7 +57,7 @@ export function saveGradingCards(studentProjectId, gradingCards){
     }
     //console.log(cardsToUpdate);
 
-    [err, cardRes] = await to(axios.post(api + '/card/grade', { data: { cards: cardsToUpdate}}))
+    [err, cardRes] = await to(axios.post(api + '/card/grade', { data: { projectId: projectId, studentProjectId: studentProjectId, cards: cardsToUpdate}}))
     if(err){actions.connectionError(dispatch); return;}
 
     dispatch({type: "showModalButton"});
@@ -66,6 +66,8 @@ export function saveGradingCards(studentProjectId, gradingCards){
       console.log(cardRes.data.updatedCards)
       dispatch({type: "pullView"});
       dispatch({type: "updateCards", payload: cardRes.data.updatedCards});
+      dispatch({type: "updateProfiles", payload: [cardRes.data.updatedProfile]});
+      dispatch({type: "updateProjects", payload: [cardRes.data.updatedProject]});
       //dispatch({type: "resetGradeCards", payload: studentProjectId});
     }else{
       dispatch({type: "message", payload: ['Grading card failed! Please try again!', '評核失敗! 請再試一次!']});
@@ -84,7 +86,7 @@ export function getCards(cardsId){
     if(cardsRes.data.result === 'success'){
       dispatch({type: "updateLangs", payload: cardsRes.data.langs});
       dispatch({type: "updateCards", payload: cardsRes.data.cards});
-      dispatch({type: "updateStudents", payload: cardsRes.data.students});
+      dispatch({type: "updateProfiles", payload: cardsRes.data.profiles});
     }else{
       console.log('get cards failed!')
     }
@@ -171,18 +173,26 @@ export function addCard(data){
       studentProject = await studentProjects.addStudentProject(data)(dispatch);
     }*/
 
+    //console.log(data);
+
     var cardFile = new FormData();
-    cardFile.append('files', data.icon, 'cardIcon.png');
+    if(!data.resubmit){
+      cardFile.append('files', data.icon, 'cardIcon.png');
+    }else if(data.newIcon){
+      cardFile.append('files', data.newIcon, 'cardIcon.png');
+    }
     const editLangs = data.editLangs;
     for(var i=0;i<editLangs.length;i++){
-      cardFile.append('files', editLangs[i].audioBlob, 'langAudio_' + i + '.wav');
+      if(editLangs[i].audioBlob){
+        cardFile.append('files', editLangs[i].audioBlob, 'langAudio_' + i + '.wav');
+      }
     }
     let err, uploadRes, cardRes;
     [err, uploadRes] = await to(axios.post(api + '/upload', cardFile, { headers: { type: 'card'}}))
     if(err){actions.connectionError(dispatch); return;}
 
     const filenames = uploadRes.data.filenames;
-    var cardIcon;
+    var cardIcon = null;
     var langAudios = [];
     for(var j=0;j<filenames.length;j++){
       const splted = filenames[j].split('-');
@@ -194,7 +204,7 @@ export function addCard(data){
     }
 
     const card = {
-      icon: cardIcon,
+      icon: cardIcon? cardIcon: data.icon,
       author: data.author,
       studentProject: data.studentProject
     }
@@ -203,7 +213,7 @@ export function addCard(data){
       const lang = {
         key: editLangs[k].key,
         text: editLangs[k].text,
-        audio: getFile(langAudios, k)
+        audio: getFile(langAudios, k)? getFile(langAudios, k): editLangs[k].defaultAudio
       }
       langs.splice(0,0,lang);
     }
@@ -213,16 +223,15 @@ export function addCard(data){
     dispatch({type: "showModalButton"});
     if(cardRes.data.result === 'success'){
       dispatch({type: "message", payload: ['Submit card succeed!', '成功提交卡片!']});
-      //console.log(cardRes.data.card)
-      //console.log(cardRes.data.langs)
-      //console.log(cardRes.data.newStudentProject)
+      //console.log(cardRes.data)
       dispatch({type: "updateCards", payload: [cardRes.data.card]});
       dispatch({type: "updateLangs", payload: cardRes.data.langs});
-      //dispatch({type: "updateProject", payload: cardRes.data.updatedProject});
       dispatch({type: "updateStudentProjects", payload: [cardRes.data.updatedStudentProject]});
 
       dispatch({type: "setEditLangs", payload: []});
       //dispatch({type: "setPhoto", payload: {photoUrl: null, photoBlob: null}});
+      dispatch({type: "setProfile", payload: cardRes.data.updatedProfile});
+
       dispatch({type: "pullView"});
     }else{
       dispatch({type: "message", payload: ['Submit card failed! Please try again!', '提交失敗! 請再試一次!']});

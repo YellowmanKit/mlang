@@ -20,10 +20,10 @@ class StudentProjects extends SubView {
   }
 
   componentWillReceiveProps(newProps){
-    this.init(this.props);
-    if(this.state.studentProjects.length === 0){
+    this.init(newProps);
+    //if(this.state.studentProjects.length === 0){
       this.initStudentProjects(newProps);
-    }
+    //}
   }
 
   initStudentProjects(props){

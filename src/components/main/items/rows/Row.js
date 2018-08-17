@@ -41,7 +41,7 @@ class Row extends UI {
       width: '100%',
       height: this.bs.height * 0.06,
       fontWeight: 'bold',
-      fontSize: '125%',
+      fontSize: '150%',
       textAlign: 'left'
     }
     return <div style={nameStyle}>{title}</div>

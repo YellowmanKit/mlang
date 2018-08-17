@@ -2,6 +2,8 @@ import React from 'react';
 import UI from 'components/UI';
 import Badge from 'components/main/items/Badge';
 
+import icon_alert2 from 'resources/images/icons/alert2.png';
+
 class Cell extends UI {
 
   constructor(props){
@@ -40,8 +42,8 @@ class Cell extends UI {
 
   cellImage(){
     const imageStyle = {...this.ui.styles.container, ...this.ui.styles.border, ...{
-      maxWidth: this.scale[0] * 0.85,
-      maxHeight: this.scale[0] * 0.85,
+      maxWidth: this.scale[0] * 0.8,
+      maxHeight: this.scale[0] * 0.8,
       marginTop: '4%'
     }};
     //console.log(url)
@@ -67,6 +69,29 @@ class Cell extends UI {
     )
   }
 
+  checkAlertTag(){
+    if(this.data.teacherAlert && this.store.user.type === 'teacher'){
+      return this.alertTag();
+    }else if(this.type === 'project' && this.store.user.type === 'student'){
+      const studentProject = this.func.getStudentProject(this.store.user._id, this.data._id);
+      if(studentProject && studentProject.studentAlert){
+        return this.alertTag();
+      }
+    }
+    return null;
+  }
+
+  alertTag(){
+    const style = {
+      position: 'absolute',
+      top: this.bs.width * -0.015,
+      right: this.bs.width * -0.015,
+      width: this.bs.width * 0.05,
+      height: this.bs.width * 0.05
+    }
+    return <img style={style} src={icon_alert2} alt=''/>
+  }
+
   render(){
     this.init(this.props);
     //console.log(data)
@@ -75,7 +100,7 @@ class Cell extends UI {
     }
 
     this.scale =
-    this.type === 'course'? [this.bs.width * 0.24,this.bs.width * 0.26]:
+    this.type === 'course'? [this.bs.width * 0.26,this.bs.width * 0.26]:
     this.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
     this.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';
@@ -98,6 +123,7 @@ class Cell extends UI {
         {this.type === 'card' && <Badge app={this.app} grade={this.data.grade} scale={badgeScale} />}
         {this.cellImage()}
         {this.cellTitle(this.type)}
+        {this.checkAlertTag()}
       </button>
     )
   }

@@ -207,15 +207,15 @@ class Button {
   }
 
   rectGreen(text, onClick){
-    return this.button(styles.rect, text, btn_green, onClick);
+    return this.button(this.dynamicStyles('rect'), text, btn_green, onClick);
   }
 
   rectRed(text, onClick){
-    return this.button(styles.rect, text, btn_red, onClick);
+    return this.button(this.dynamicStyles('rect'), text, btn_red, onClick);
   }
 
   rectYellow(text, onClick){
-    return this.button(styles.rect, text, btn_yellow, onClick);
+    return this.button(this.dynamicStyles('rect'), text, btn_yellow, onClick);
   }
 
   button(customStyle, text, imageUrl, onClick){
@@ -228,6 +228,12 @@ class Button {
 
   dynamicStyles(name){
     switch (name) {
+      case 'rect':
+        return {
+            width: this.bs.width * 0.67,
+            height: this.bs.width * 0.065,
+            marginTop: '5%'
+        }
       case 'nav':
         return {
           width: this.bs.height * 0.06,
@@ -278,11 +284,6 @@ const styles = {
     fontSize: '100%',
     color: 'white',
     flexShrink: 0
-  },
-  rect: {
-    width: '67%',
-    height: '5%',
-    marginTop: '5%'
   },
   fileInput: {
     boxSizing: 'border-box',

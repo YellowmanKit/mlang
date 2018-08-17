@@ -66,6 +66,8 @@ class Home extends Component {
         return <AddCard app={app}/>;
       case 'editCard':
         return <AddCard editMode={true} app={app}/>;
+      case 'resubmitCard':
+        return <AddCard editMode={true} resubmit={true} app={app}/>;
       case 'viewCards':
         return <ViewCards app={app}/>;
       case 'gradingCards':

@@ -39,10 +39,19 @@ class Projects extends UI {
           <Cell app={this.app}
           type={'project'}
           data={project}
-          onClick={()=>{ this.actions.projects.viewProject(project); this.actions.content.pushView('project'); }}/>
+          onClick={()=>{ this.clearAlert(project); this.actions.projects.viewProject(project); this.actions.content.pushView('project'); }}/>
         </div>
       )
     });
+  }
+
+  clearAlert(project){
+    if(this.store.user.type === 'student'){
+      const studentProject = this.func.getStudentProject(this.store.user._id, project._id);
+      if(studentProject && studentProject.studentAlert){
+        this.actions.studentProjects.clearAlert(studentProject._id);
+      }
+    }
   }
 
   render() {

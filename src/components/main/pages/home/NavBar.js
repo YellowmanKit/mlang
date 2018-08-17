@@ -106,6 +106,13 @@ class NavBar extends UI {
               this.actions.langs.setEditLangs([]);
               this.actions.content.pushView('editCard');
             }
+          }else if(viewingCard.author === user._id && viewingCard.grade === 'failed' && projectEndDate > today){
+            rightIcon = edit;
+            rightOnClick = ()=>{
+              this.actions.main.setPhoto({url: null, blob: null});
+              this.actions.langs.setEditLangs([]);
+              this.actions.content.pushView('resubmitCard');
+            }
           }
           break;
         case 'gradingCards':
@@ -121,6 +128,9 @@ class NavBar extends UI {
           break;
         case 'editCard':
           title = ['EDIT CARD', '修改卡片'];
+          break;
+        case 'resubmitCard':
+          title = ['RESUBMIT CARD', '重新提交卡片'];
           break;
         default:
           title = ['','']
@@ -174,9 +184,10 @@ class NavBar extends UI {
   none(){}
 
   saveGradeCard(){
+    const project = this.store.projects.viewingProject;
     const studentProject = this.store.studentProjects.viewingStudentProject;
     const gradingCards = this.store.cards.gradingCards[studentProject._id];
-    this.actions.cards.saveGradingCards(studentProject._id, gradingCards);
+    this.actions.cards.saveGradingCards(project._id, studentProject._id, gradingCards);
   }
 
 

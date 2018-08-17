@@ -82,11 +82,21 @@ class AddCard extends View {
         studentProject: this.store.studentProjects.viewingStudentProject,
         author: this.store.user._id
       });
-    }else{
+    }else if(!this.props.resubmit){
       this.actions.cards.editCard({
         card: this.card,
         newIcon: icon,
         editLangs: editLangs
+      });
+    }else{
+      this.actions.cards.addCard({
+        resubmit: true,
+        icon: this.card.icon,
+        newIcon: icon,
+        editLangs: editLangs,
+        project: this.store.projects.viewingProject,
+        studentProject: this.store.studentProjects.viewingStudentProject,
+        author: this.store.user._id
       });
     }
   }
