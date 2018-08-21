@@ -20,7 +20,7 @@ class ProjectDetail extends SubView {
         {this.sep()}
         {this.gap('2%')}
 
-        {this.subTitle(['Title','班名'])}
+        {this.subTitle(['Title','標題'])}
         {this.sep()}
         {this.textDisplay(project.title, ['100%',''], '125%', 'center')}
         {this.gap('2%')}

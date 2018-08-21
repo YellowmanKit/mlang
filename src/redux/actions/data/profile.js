@@ -1,25 +1,37 @@
 import axios from 'axios';
 import * as actions from '../actions';
+import to from '../to';
 var api = process.env.REACT_APP_API;
 
-export function changeProfile(newProfile){
-  //console.log(newProfile)
-  return function (dispatch) {
+export function changeProfile(data){
+  return async function (dispatch) {
     actions.connecting(dispatch);
 
-    axios.post(api + '/profile/update',{
-      data: newProfile
-    }).then(res=>{
-      dispatch({type: "showModalButton"});
-      if(res.data.result === 'success'){
-        dispatch({type: "message", payload: ['Update succeed!', '更改成功!']});
-        dispatch({type: "setProfile", payload: res.data.updatedProfile});
-        dispatch({type: "backToHome"});
-      }else{
-        dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!']});
-      }
-    }).catch(err=>{
+    let err, uploadRes, updateRes;
+
+    var iconFile = new FormData();
+    iconFile.append('files', data.newIconBlob, 'profileIcon.png');
+
+    [err, uploadRes] = await to(axios.post(api + '/upload', iconFile, { headers: { type: 'profileIcon'}}));
+    if(err){actions.connectionError(dispatch); return;}
+    //console.log("File uploaded");
+    if(uploadRes.data.result === 'success'){
+      data['newIcon'] = uploadRes.data.filenames[0];
+    }else{
       actions.connectionError(dispatch);
-    })
+      return;
+    }
+
+    [err, updateRes] = await to(axios.post(api + '/profile/update',{ data: data }));
+    if(err){actions.connectionError(dispatch); return; }
+
+    if(updateRes.data.result === 'success'){
+      dispatch({type: "message", payload: ['Update succeed!', '更改成功!']});
+      dispatch({type: "setProfile", payload: updateRes.data.updatedProfile});
+      dispatch({type: "backToHome"});
+    }else{
+      dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!']});
+    }
+
   }
 }

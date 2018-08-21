@@ -1,7 +1,31 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
+import ImagePicker from 'components/main/items/ImagePicker';
 
 class Profile extends View {
+
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      url: null
+    }
+    this.getIconUrl();
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    this.getIconUrl();
+  }
+
+  async getIconUrl(){
+    if(this.state.url){ return; }
+    const url = await this.func.url(this.store.profile.icon, 'profileIcon');
+    this.setState({
+      url: url
+    });
+    this.actions.main.setStatus('ready');
+  }
 
   render() {
     this.init(this.props);
@@ -11,6 +35,12 @@ class Profile extends View {
       return(
         <div style={this.viewStyle()}>
           {this.gap('4%')}
+
+          {this.subTitle(['Icon','照片'])}
+          {this.sep()}
+          <ImagePicker defaultUrl={this.state.url} app={this.app} />
+          {this.sep()}
+          {this.gap('2%')}
 
           {this.subTitle(['Please enter your name','請輸入你的名稱'])}
           {this.sep()}
@@ -24,6 +54,12 @@ class Profile extends View {
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}
+
+        {this.subTitle(['Icon','照片'])}
+        {this.sep()}
+        <ImagePicker defaultUrl={this.state.url} app={this.app} />
+        {this.sep()}
+        {this.gap('2%')}
 
         {this.subTitle(['Name','名稱'])}
         {this.sep()}
@@ -52,23 +88,27 @@ class Profile extends View {
 
   changing(){
     const profile = this.store.profile;
+    const newIconBlob = this.store.main.photoBlob;
     const view = this.store.content.view;
     const user = this.store.user;
 
     const newName = document.getElementById('name').value;
 
     //console.log(newId)
+    if(!newIconBlob && !profile.icon){
+      return this.failedMessage(['Failed to edit! Icon is missing!', '變更失敗! 未有照片!'])
+    }
     if(newName === ''){
       return this.failedMessage(['Failed to change! Name is missing!', '變更失敗! 請輸入名稱!'])
     }
-
     if(view !== 'forceProfile' && document.getElementById('pw').value !== user.pw){
         return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!'])
     }
 
     this.actions.profile.changeProfile({
-      _id: profile._id,
-      name: newName
+      profile: profile,
+      newName: newName,
+      newIconBlob: newIconBlob
     });
 
   }

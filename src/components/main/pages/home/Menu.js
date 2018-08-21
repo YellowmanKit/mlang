@@ -53,7 +53,7 @@ class Menu extends UI {
       <div style={areaStyle}>
         {this.gap(this.bs.width * 0.05)}
           {buttons.map((item,i)=>{
-            return <button key={i} onClick={()=>this.switchView(item[0])} style={buttonStyle}> {this.func.multiLang(item[1],item[2])} </button>
+            return <button key={i} onClick={()=>{this.actions.main.setPhoto({url: null, blob: null}); this.switchView(item[0]);}} style={buttonStyle}> {this.func.multiLang(item[1],item[2])} </button>
           })}
       </div>
     )

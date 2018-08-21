@@ -12,19 +12,18 @@ export const viewProject = (project) =>{
 
 export function getProjects(projects){
   //console.log(projects)
-  return function (dispatch) {
+  return async function (dispatch) {
     //actions.connecting(dispatch);
-    axios.post(api + '/project/getMultiple', { data: projects })
-    .then(res=>{
-      if(res.data.result === 'success'){
-        dispatch({type: "updateProjects", payload: res.data.projects});
-      }else{
-        dispatch({type: "showModalButton"});
-        dispatch({type: "message", payload: ['Failed to get projects data!', '無法查閱專題研習資料!']});
-      }
-    }).catch(err=>{
-      actions.connectionError(dispatch);
-    })
+    let err, res;
+    [err, res] = await to(axios.post(api + '/project/getMultiple', { data: projects }));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateProjects", payload: res.data.projects});
+    }else{
+      dispatch({type: "message", payload: ['Failed to get projects data!', '無法查閱專題研習資料!']});
+    }
+
   }
 }
 
@@ -45,60 +44,53 @@ export function editProject(editedProject){
 
     [err, updateRes] = await to(axios.post(api + '/project/edit', {data: editedProject}));
     if(err){actions.connectionError(dispatch); return;}
-    dispatch({type: "showModalButton"});
 
-    if(updateRes.data.result === 'failed'){
-      actions.connectionError(dispatch);
-      return;
+    if(updateRes.data.result === 'success'){
+      dispatch({type: "message", payload: ['Edit project succeed!', '成功修改專題研習!']});
+      dispatch({type: "updateProjects", payload: [updateRes.data.editedProject]});
+      dispatch({type: "viewProject", payload: updateRes.data.editedProject});
+      dispatch({type: "pullView"});
+    } else {
+      dispatch({type: "message", payload: ['Edit project failed! Please try again!', '修改失敗! 請再試一次!']});
     }
-    dispatch({type: "message", payload: ['Edit project succeed!', '成功修改專題研習!']});
-    dispatch({type: "updateProjects", payload: [updateRes.data.editedProject]});
-    dispatch({type: "viewProject", payload: updateRes.data.editedProject});
-    dispatch({type: "pullView"});
   }
 }
 
 export function addProject(newProject){
   //console.log(newProject)
-  return function (dispatch) {
+  return async function (dispatch) {
     actions.connecting(dispatch);
+
+    let err, uploadRes, addRes;
 
     var iconFile = new FormData();
     iconFile.append('files', newProject.icon, 'projectIcon.png');
 
-    axios.post(api + '/upload', iconFile, { headers: { type: 'projectIcon'}}).then(res=>{
-      //console.log("File uploaded");
-      const data = res.data;
-      if(data.result === 'failed'){
-        actions.connectionError(dispatch);
-        return;
-      }
-      newProject['icon'] = data.filenames[0];
-
-      axios.post(api + '/project/add', {
-        data: newProject
-      }).then(res=>{
-        dispatch({type: "showModalButton"});
-        const result = res.data.result
-        //console.log(res.data);
-        if(result === 'success'){
-          dispatch({type: "message", payload: ['Add project succeed!', '成功創建專題研習!']});
-          dispatch({type: "updateProjects", payload: [res.data.newProject]});
-          dispatch({type: "updateTeachingProjects", payload: [res.data.newProject._id]});
-          dispatch({type: "updateCourses", payload: [res.data.updatedCourse]});
-          dispatch({type: "viewCourse", payload: res.data.updatedCourse});
-          dispatch({type: "pullView"});
-          //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
-        }else{
-          dispatch({type: "message", payload: ['Add project failed! Please try again!', '創建失敗! 請再試一次!']});
-        }
-      }).catch(err=>{
-        actions.connectionError(dispatch);
-      })
-
-    }).catch(err=>{
+    [err, uploadRes] = await to(axios.post(api + '/upload', iconFile, { headers: { type: 'projectIcon'}}));
+    if(err){actions.connectionError(dispatch); return;}
+    //console.log("File uploaded");
+    if(uploadRes.data.result === 'success'){
+      newProject['icon'] = uploadRes.data.filenames[0];
+    }else{
       actions.connectionError(dispatch);
-    })
+      return;
+    }
+
+    [err, addRes] = await to(axios.post(api + '/project/add', { data: newProject }));
+    if(err){actions.connectionError(dispatch); return;}
+
+    //console.log(res.data);
+    if(addRes.data.result === 'success'){
+      dispatch({type: "message", payload: ['Add project succeed!', '成功創建專題研習!']});
+      dispatch({type: "updateProjects", payload: [addRes.data.newProject]});
+      dispatch({type: "updateTeachingProjects", payload: [addRes.data.newProject._id]});
+      dispatch({type: "updateCourses", payload: [addRes.data.updatedCourse]});
+      dispatch({type: "viewCourse", payload: addRes.data.updatedCourse});
+      dispatch({type: "pullView"});
+      //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
+    }else{
+      dispatch({type: "message", payload: ['Add project failed! Please try again!', '創建失敗! 請再試一次!']});
+    }
 
   }
 }

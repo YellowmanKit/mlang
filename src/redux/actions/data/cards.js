@@ -1,8 +1,6 @@
 import axios from 'axios';
 import * as actions from '../actions';
 import to from '../to';
-//import * as studentProjects from './studentProjects';
-
 
 var api = process.env.REACT_APP_API;
 
@@ -40,7 +38,7 @@ export function saveGradingCards(projectId, studentProjectId, gradingCards){
 
     let err, uploadRes, cardRes;
     [err, uploadRes] = await to(axios.post(api + '/upload', cardFile, { headers: { type: 'audioComment'}}))
-    if(err){actions.connectionError(dispatch); return;}
+    if(err){ actions.connectionError(dispatch); return; }
 
     const filenames = uploadRes.data.filenames;
     var cardsToUpdate = [];
@@ -55,20 +53,16 @@ export function saveGradingCards(projectId, studentProjectId, gradingCards){
         cardsToUpdate.splice(0,0,cardToUpdate);
       }
     }
-    //console.log(cardsToUpdate);
 
     [err, cardRes] = await to(axios.post(api + '/card/grade', { data: { projectId: projectId, studentProjectId: studentProjectId, cards: cardsToUpdate}}))
     if(err){actions.connectionError(dispatch); return;}
 
-    dispatch({type: "showModalButton"});
-    if(cardRes.data.result === 'success'){
+    if(cardRes.data.result !== 'success'){
       dispatch({type: "message", payload: ['Grading card succeed!', '成功評核卡片!']});
-      console.log(cardRes.data.updatedCards)
       dispatch({type: "pullView"});
       dispatch({type: "updateCards", payload: cardRes.data.updatedCards});
       dispatch({type: "updateProfiles", payload: [cardRes.data.updatedProfile]});
       dispatch({type: "updateProjects", payload: [cardRes.data.updatedProject]});
-      //dispatch({type: "resetGradeCards", payload: studentProjectId});
     }else{
       dispatch({type: "message", payload: ['Grading card failed! Please try again!', '評核失敗! 請再試一次!']});
     }
@@ -99,9 +93,7 @@ export function editCard(data){
     const card = data.card;
     const newIcon = data.newIcon;
     const editLangs = data.editLangs;
-    //console.log(card);
-    //console.log(newIcon);
-    //console.log(editLangs);
+
     var cardFile = new FormData();
 
     let err, uploadRes, updateRes;
@@ -147,11 +139,9 @@ export function editCard(data){
     [err, updateRes] = await to(axios.post(api + '/card/edit', { data: { card: card, langs: langs}}))
     if(err){actions.connectionError(dispatch); return;}
 
-    dispatch({type: "showModalButton"});
+
     if(updateRes.data.result === 'success'){
       dispatch({type: "message", payload: ['Edit card succeed!', '成功修改卡片!']});
-      //console.log(updateRes.data.updatedCard);
-      //console.log(updateRes.data.updatedLangs);
       dispatch({type: "updateCards", payload: [updateRes.data.updatedCard]});
       dispatch({type: "updateLangs", payload: updateRes.data.updatedLangs});
 
@@ -168,12 +158,6 @@ export function editCard(data){
 export function addCard(data){
   return async function (dispatch) {
     actions.connecting(dispatch);
-    /*var studentProject = data.studentProject;
-    if(studentProject.project === undefined){
-      studentProject = await studentProjects.addStudentProject(data)(dispatch);
-    }*/
-
-    //console.log(data);
 
     var cardFile = new FormData();
     if(!data.resubmit){
@@ -220,7 +204,6 @@ export function addCard(data){
     [err, cardRes] = await to(axios.post(api + '/card/add', { data: { project: data.project, card: card, langs: langs}}))
     if(err){actions.connectionError(dispatch); return;}
 
-    dispatch({type: "showModalButton"});
     if(cardRes.data.result === 'success'){
       dispatch({type: "message", payload: ['Submit card succeed!', '成功提交卡片!']});
       //console.log(cardRes.data)

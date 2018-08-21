@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actions from '../actions';
+import to from '../to';
 var api = process.env.REACT_APP_API;
 
 export const viewStudentProject = (_studentProject) =>{
@@ -10,51 +11,41 @@ export const viewStudentProject = (_studentProject) =>{
 }
 
 export function clearAlert(studentProjectId){
-  return function (dispatch) {
-    axios.post(api + '/studentProject/clearAlert', { data: {studentProjectId: studentProjectId} })
-    .then(res=>{
-      if(res.data.result === 'success'){
-        dispatch({type: "updateStudentProjects", payload: [res.data.updatedStudentProject]});
-      }
-    }).catch(err=>{
-      console.log('failed to clear alert on studentproject')
-    })
+  return async function (dispatch) {
+    let err, res;
+    [err, res] = await to(axios.post(api + '/studentProject/clearAlert', { data: {studentProjectId: studentProjectId} }));
+    if(err){ actions.connectionError(dispatch); return; }
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateStudentProjects", payload: [res.data.updatedStudentProject]});
+    }
   }
 }
 
 export function getStudentProjects(studentProjects){
-  return function (dispatch) {
+  return async function (dispatch) {
     //actions.connecting(dispatch);
-    axios.post(api + '/studentProject/getMultiple', { data: studentProjects })
-    .then(res=>{
-      if(res.data.result === 'success'){
-        dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
-        dispatch({type: "updateCards", payload: res.data.cards});
-        dispatch({type: "updateLangs", payload: res.data.langs});
-        dispatch({type: "updateProfiles", payload: res.data.profiles});
-      }else{
-        dispatch({type: "showModalButton"});
-        dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});
-      }
-    }).catch(err=>{
-      actions.connectionError(dispatch);
-    })
+    let err, res;
+    [err, res] = await to(axios.post(api + '/studentProject/getMultiple', { data: studentProjects }));
+    if(err){ actions.connectionError(dispatch); return; }
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
+      dispatch({type: "updateCards", payload: res.data.cards});
+      dispatch({type: "updateLangs", payload: res.data.langs});
+      dispatch({type: "updateProfiles", payload: res.data.profiles});
+    }else{
+      dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});
+    }
   }
 }
 
 export function getStudentProject(_student, _project, studentProjectsLength){
-  //console.log(_student)
-  //console.log(_project)
   return async function (dispatch) {
-    //actions.connecting(dispatch);
-    const res = await axios.get(api + '/studentProject/get', {
-      headers: {
-        student: _student,
-        project: _project
-      }
-    }).catch(err=>{
-      actions.connectionError(dispatch);
-    })
+    let err, res;
+    [err, res] = await to(axios.get(api + '/studentProject/get', { headers: { student: _student, project: _project }}))
+    if(err){ actions.connectionError(dispatch); return; }
+
     if(res.data.result === 'success'){
       dispatch({type: "updateStudentProjects", payload: [res.data.studentProject]});
       dispatch({type: "viewStudentProject", payload: res.data.studentProject});
@@ -64,18 +55,3 @@ export function getStudentProject(_student, _project, studentProjectsLength){
     }
   }
 }
-
-/*export function addStudentProject(data){
-  return async function (dispatch) {
-    actions.connecting(dispatch);
-    const res = await axios.post(api + '/studentProject/add', {
-      data: {
-        student: data.author,
-        project: data.project
-      }
-    }).catch(err=>{
-      actions.connectionError(dispatch);
-    })
-    return res.data.studentProject;
-  }
-}*/

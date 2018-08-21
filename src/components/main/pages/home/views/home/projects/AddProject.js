@@ -66,17 +66,17 @@ class AddProject extends View {
 
   addProject(){
     const editMode = this.props.editMode;
-    const _icon = this.store.main.photoBlob;
-    const _title = document.getElementById('title').value;
-    const _desc = document.getElementById('desc').value;
-    const _endDate = document.getElementById('endDate').value;
+    const newIconBlob = this.store.main.photoBlob;
+    const title = document.getElementById('title').value;
+    const desc = document.getElementById('desc').value;
+    const endDate = document.getElementById('endDate').value;
 
     const today = new Date();
-    const selectedEndDate = new Date(_endDate)
-    if(!editMode && _icon === null){
+    const selectedEndDate = new Date(endDate)
+    if(!editMode && newIconBlob === null){
       return this.failedMessage(['Failed to add! Icon is missing!', '創建失敗! 未有照片!'])
     }
-    if(_title.length === 0){
+    if(title.length === 0){
       return this.failedMessage(['Failed to add! Title is missing!', '創建失敗! 未填班名!'])
     }
     if(selectedEndDate < today){
@@ -86,17 +86,17 @@ class AddProject extends View {
     if(!editMode){
       this.actions.projects.addProject({
         course: this.store.courses.viewingCourse._id,
-        icon: _icon,
-        title: _title,
-        description: _desc,
-        endDate: _endDate
+        icon: newIconBlob,
+        title: title,
+        description: desc,
+        endDate: endDate
       });
-    }else if(_icon || this.state.modified){
+    }else if(newIconBlob || this.state.modified){
       this.actions.projects.editProject({...this.project, ...{
-        newIcon: _icon,
-        title: _title,
-        description: _desc,
-        endDate: _endDate
+        newIcon: newIconBlob,
+        title: title,
+        description: desc,
+        endDate: endDate
       }})
     }else{
       return this.failedMessage(['Failed to add! Nothing is modified!', '提交失敗!未作出更改!'])
