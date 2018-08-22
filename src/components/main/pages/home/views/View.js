@@ -8,9 +8,22 @@ class View extends UI {
       position: 'relative',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      overflow: 'hidden',
+      overflowY: 'auto',
       backgroundColor: 'white'
     }}
+  }
+
+  viewContentStyle(){
+    return {
+      width: '100%',
+      display: 'flex',
+      flexFlow: 'column nowrap',
+      flexShrink: 0,
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      overflowY: 'auto',
+      backgroundColor: 'white'
+    }
   }
 
 }

@@ -30,7 +30,7 @@ class ViewCards extends View {
     }
 
     return(
-      <div style={this.viewStyle()}>
+      <div style={{...this.viewStyle(), overflow: 'hidden'}}>
         {previous && this.buttons.previous(()=>{this.actions.cards.viewCard(previous)})}
         <div style={style}>
           <Card app={this.app} card={viewingCard}/>

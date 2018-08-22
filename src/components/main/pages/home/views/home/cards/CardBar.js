@@ -8,23 +8,20 @@ class CardBar extends UI {
     super(props);
     this.init(props);
     this.state = {
-      expended: false,
-      audioCommentUrl: null,
-      playAudioComment: false
+      modified: false,
+      filename: this.store.cards.viewingCard.audioComment,
+      type: 'audioComment'
     }
-    this.getAudioUrl();
+    this.checkUrl();
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    this.getAudioUrl();
-  }
-
-  async getAudioUrl(){
-    const url = await this.func.url(this.store.cards.viewingCard.audioComment, 'audioComment');
-    if(!this.unmounted && url){
-      //console.log('set audioCommentUrl url ' + url);
-      this.setState({ audioCommentUrl: url })}
+    const newFilename = this.store.cards.viewingCard.audioComment;
+    if(this.state.filename !== newFilename){
+      this.setState({ filename: newFilename })
+      this.checkUrl();
+    }
   }
 
   render(){
@@ -54,7 +51,7 @@ class CardBar extends UI {
         {this.buttons.barAudioComment(()=>{this.toggleAuidioComment()}, card.audioComment)}
         {this.state.playAudioComment &&
           <Sound
-          url={this.state.audioCommentUrl}
+          url={this.url.url}
           playStatus={Sound.status.PLAYING}
           onFinishedPlaying={this.toggleAuidioComment.bind(this)}/>}
       </div>

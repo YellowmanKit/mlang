@@ -11,22 +11,19 @@ class LangRow extends UI {
     super(props);
     this.init(props);
     this.state = {
-      url: null,
+      filename: props.lang.audio,
+      type: 'langAudio',
       isPlaying: false
     }
-    this.getLangAudioUrl(this.props);
+    this.checkUrl();
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    this.getLangAudioUrl(newProps);
-  }
-
-  async getLangAudioUrl(props){
-    const url = await this.func.url(props.lang.audio, 'langAudio');
-    if(!this.unmounted && url){
-      //console.log('set lang url');
-      this.setState({ url: url })
+    const newFilename = newProps.lang.audio;
+    if(this.state.filename !== newFilename){
+      this.setState({ filename: newFilename })
+      this.checkUrl();
     }
   }
 
@@ -74,7 +71,7 @@ class LangRow extends UI {
     if(this.state.isPlaying){
       return(
         <Sound
-        url={this.state.url}
+        url={this.url.url}
         playStatus={Sound.status.PLAYING}
         onFinishedPlaying={this.onPlaybackEnd.bind(this)}/>
       )

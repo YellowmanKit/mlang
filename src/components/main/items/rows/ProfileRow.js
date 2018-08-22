@@ -1,14 +1,31 @@
 import React from 'react';
 import Row from './Row';
 
-import icon_student from 'resources/images/icons/student_grey.png';
+//import icon_student from 'resources/images/icons/student_grey.png';
 import cards from 'resources/images/icons/cards_lightgrey.png';
 import star2 from 'resources/images/icons/star2_lightgrey.png';
 
 class ProfileRow extends Row {
 
-  componentDidMount(){
-    this.getIconUrl(icon_student);
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      filename: this.props.profile? this.props.profile.icon: null,
+      type: 'profileIcon'
+    }
+    this.checkUrl();
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    if(newProps.profile && !this.state.filename){
+      this.setState({
+        filename: newProps.profile.icon,
+        type: 'profileIcon'
+      })
+    }
+    this.checkUrl();
   }
 
   rowInfo(){

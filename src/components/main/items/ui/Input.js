@@ -8,6 +8,7 @@ class Input {
 
   init(app){
     this.app = app;
+    this.bs = app.store.ui.basicStyle;
     this.func = app.functions;
   }
 
@@ -41,20 +42,20 @@ class Input {
     return <input id={id} type={type} defaultValue={value} style={inputStyle} />
   }
 
-  textArea(id, scale, fontSize, value, onChange, placeholder){
+  textArea(id, placeholder, value, onChange, scale){
     const textAreaStyle = {
-      width: scale[0],
-      height: scale[1],
-      fontSize: fontSize
+      width: scale? scale[0]: this.bs.width * 0.67,
+      height: scale? scale[1]: this.bs.height * 0.15,
+      fontSize: '150%'
     }
     return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1]):''}/>
   }
 
   inputField(id, type, placeholder, value, onChange){
     const inputStyle = {
-      width: '67%',
-      height: '4%',
-      fontSize: '100%',
+      width: this.bs.width * 0.67,
+      height: this.bs.height * 0.04,
+      fontSize: '125%',
       margin: '2%'
     }
     return <input id={id} type={type} placeholder={this.func.multiLang(placeholder[0], placeholder[1])} defaultValue={value} style={inputStyle} onChange={onChange}/>

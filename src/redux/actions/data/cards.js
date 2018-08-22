@@ -57,7 +57,7 @@ export function saveGradingCards(projectId, studentProjectId, gradingCards){
     [err, cardRes] = await to(axios.post(api + '/card/grade', { data: { projectId: projectId, studentProjectId: studentProjectId, cards: cardsToUpdate}}))
     if(err){actions.connectionError(dispatch); return;}
 
-    if(cardRes.data.result !== 'success'){
+    if(cardRes.data.result === 'success'){
       dispatch({type: "message", payload: ['Grading card succeed!', '成功評核卡片!']});
       dispatch({type: "pullView"});
       dispatch({type: "updateCards", payload: cardRes.data.updatedCards});
@@ -71,7 +71,7 @@ export function saveGradingCards(projectId, studentProjectId, gradingCards){
 }
 
 export function getCards(cardsId){
-  //console.log(cardsId)
+  //console.log(cardsId);
   return async function (dispatch) {
     let err, cardsRes;
     [err, cardsRes] = await to(axios.post(api + '/card/getMultiple', { data: { cards: cardsId}}))

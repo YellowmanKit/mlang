@@ -6,13 +6,17 @@ class Cards extends UI {
 
   componentDidMount(){
     this.init(this.props);
-    this.getCards();
+    this.getCards(this.props);
   }
 
-  getCards(){
+  componentWillReceiveProps(newProps){
+    this.getCards(newProps);
+  }
+
+  getCards(props){
     const cardsToGet = [];
-    const cardsToShow = this.props.cardsId;
-    if(!cardsToShow){ return;}
+    const cardsToShow = props.cardsId;
+    if(!cardsToShow){ console.log('no card to show!'); return;}
 
     for(var i=0;i<cardsToShow.length;i++){
       if(this.func.getCardById(cardsToShow[i]) === null){

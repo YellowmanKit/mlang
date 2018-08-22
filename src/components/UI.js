@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import URL from './URL';
 import Button from 'components/main/items/ui/Button';
 import Input from 'components/main/items/ui/Input';
 
@@ -7,8 +8,18 @@ import icon_comment from 'resources/images/buttons/buttonIcons/edit_black.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment_black.png';
 
 class UI extends Component {
+  url = new URL(this.props.app);
   buttons = new Button(this.props.app)
   inputs = new Input(this.props.app)
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    this.checkUrl();
+  }
+
+  checkUrl(){
+    if(this.state && this.state.filename){ this.url.getUrl(this.state.filename, this.state.type); }
+  }
 
   init(props){
     this.app = props.app;
@@ -18,11 +29,13 @@ class UI extends Component {
     this.func = this.app.functions;
     this.db = this.app.database;
     this.actions = this.app.actions;
-    this.buttons.init(props.app)
-    this.inputs.init(props.app)
-  }
 
-  componentWillUnmount() { this.unmounted = true; }
+    this.buttons.init(props.app);
+    this.inputs.init(props.app);
+
+    this.url.init(props.app);
+    this.checkUrl();
+  }
 
   cardTags(commented, audioCommented){
     const width = this.bs.width * 0.05;
@@ -92,11 +105,11 @@ class UI extends Component {
     return <div style={style}>{text}</div>
   }
 
-  subTitle(title){
+  subTitle(title, fontSize){
     const subTitleStyle = {
       width: this.bs.width,
       color: this.ui.colors.mlangGreen,
-      fontSize: '110%',
+      fontSize: fontSize? fontSize:'110%',
       fontWeight: 'bold',
       textAlign: 'center'
     }

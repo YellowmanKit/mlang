@@ -23,6 +23,7 @@ export function clearAlert(studentProjectId){
 }
 
 export function getStudentProjects(studentProjects){
+  //console.log(studentProjects);
   return async function (dispatch) {
     //actions.connecting(dispatch);
     let err, res;

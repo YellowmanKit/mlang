@@ -10,34 +10,18 @@ class Cell extends UI {
     super(props);
     this.init(props);
     this.state = {
-      url: null
+      filename: props.data.icon,
+      type: this.getFileType(props.type)
     }
-    this.initCell(props);
   }
 
-  initCell(props){
-    this.data = props.data;
-    this.type = props.type;
-    this.getIconUrl(this.type);
-  }
-
-  componentWillReceiveProps(newProps){
-    this.init(newProps);
-    this.initCell(newProps);
-  }
-
-  async getIconUrl(type){
+  getFileType(cellType){
     const fileType =
-    type === 'course'? 'courseIcon':
-    type === 'project'? 'projectIcon':
-    type === 'card'? 'cardIcon':
+    cellType === 'course'? 'courseIcon':
+    cellType === 'project'? 'projectIcon':
+    cellType === 'card'? 'cardIcon':
     '';
-
-    const url = await this.func.url(this.data.icon, fileType);
-    if(!this.unmounted && url){
-      //console.log('set image url ' + url);
-      this.setState({ url: url })
-    }
+    return fileType;
   }
 
   cellImage(){
@@ -47,16 +31,16 @@ class Cell extends UI {
       marginTop: '4%'
     }};
     //console.log(url)
-    return <img style={imageStyle} src={this.state.url} alt=''/>
+    return <img style={imageStyle} src={this.url.url? this.url.url: null} alt=''/>
   }
 
   cellTitle(type){
     var text = '';
     if(type === 'course' || type === 'project'){
-      text = this.data.title;
+      text = this.props.data.title;
     }
     if(type === 'card'){
-      const firstLang = this.func.getLangById(this.data.langs[0]);
+      const firstLang = this.func.getLangById(this.props.data.langs[0]);
       text = firstLang !== null? firstLang.text: '';
     }
 
@@ -70,10 +54,10 @@ class Cell extends UI {
   }
 
   checkAlertTag(){
-    if(this.data.teacherAlert && this.store.user.type === 'teacher'){
+    if(this.props.data.teacherAlert && this.store.user.type === 'teacher'){
       return this.alertTag();
-    }else if(this.type === 'project' && this.store.user.type === 'student'){
-      const studentProject = this.func.getStudentProject(this.store.user._id, this.data._id);
+    }else if(this.props.type === 'project' && this.store.user.type === 'student'){
+      const studentProject = this.func.getStudentProject(this.store.user._id, this.props.data._id);
       if(studentProject && studentProject.studentAlert){
         return this.alertTag();
       }
@@ -95,14 +79,14 @@ class Cell extends UI {
   render(){
     this.init(this.props);
     //console.log(data)
-    if(this.data === null){
+    if(this.props.data === null){
       return null;
     }
 
     this.scale =
-    this.type === 'course'? [this.bs.width * 0.26,this.bs.width * 0.26]:
-    this.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
-    this.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
+    this.props.type === 'course'? [this.bs.width * 0.26,this.bs.width * 0.26]:
+    this.props.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
+    this.props.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';
 
     const cellStyle = {...this.ui.styles.button, ...this.ui.styles.border, ...{
@@ -120,21 +104,12 @@ class Cell extends UI {
 
     return(
       <button style={cellStyle} onClick={this.props.onClick}>
-        {this.type === 'card' && <Badge app={this.app} grade={this.data.grade} scale={badgeScale} />}
+        {this.props.type === 'card' && <Badge app={this.app} grade={this.props.data.grade} scale={badgeScale} />}
         {this.cellImage()}
-        {this.cellTitle(this.type)}
+        {this.cellTitle(this.props.type)}
         {this.checkAlertTag()}
       </button>
     )
-  }
-
-  getAppend(type){
-    const append =
-    type === 'course'? 'courseIcon':
-    type === 'project'? 'projectIcon':
-    type === 'card'? 'cardIcon':
-    '';
-    return append;
   }
 
 }

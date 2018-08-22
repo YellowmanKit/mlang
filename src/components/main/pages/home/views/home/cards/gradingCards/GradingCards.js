@@ -188,7 +188,7 @@ class GradingCards extends View {
     }}
     return(
       <div style={style}>
-        {this.inputs.textArea('comment', ['95%', '90%'], '100%', gradingCard.comment, (e)=>{this.commenting(e)}, ['This card has no comment!','此卡片未有評論!'])}
+        {this.inputs.textArea('comment', ['This card has no comment!','此卡片未有評論!'], gradingCard.comment, (e)=>{this.commenting(e)}, ['95%', '90%'])}
       </div>
     )
   }

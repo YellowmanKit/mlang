@@ -9,28 +9,24 @@ class Image extends UI {
     super(props);
     this.init(props);
     this.state = {
-      url: null
+      filename: props.filename,
+      type: props.type
     }
-    this.getIconUrl(this.props);
+    this.checkUrl();
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    this.getIconUrl(newProps);
-  }
-
-  async getIconUrl(props){
-    if(!props.filename){ return; }
-    const url = await this.func.url(props.filename, props.type);
-    if(!this.unmounted && url){
-      //console.log('set image url');
-      this.setState({ url: url })
+    const newFilename = newProps.filename;
+    if(this.state.filename !== newFilename){
+      this.setState({ filename: newFilename })
+      this.checkUrl();
     }
   }
 
   render(){
     this.init(this.props);
-    const url = this.props.photoUrl? this.props.photoUrl: this.state.url;
+    const url = this.props.photoUrl? this.props.photoUrl: this.url.url;
     const size = this.props.size;
 
     const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
@@ -72,8 +68,8 @@ class Image extends UI {
   }
 
   onImageClick(){
-    if(!this.props.photoUrl && !this.state.url){ return; }
-    this.actions.main.enlargeImage(this.props.photoUrl?this.props.photoUrl:this.state.url);
+    if(!this.props.photoUrl && !this.url.url){ return; }
+    this.actions.main.enlargeImage(this.props.photoUrl? this.props.photoUrl: this.url.url);
   }
 
 }

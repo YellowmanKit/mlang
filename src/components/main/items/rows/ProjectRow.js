@@ -5,8 +5,13 @@ import icon_event from 'resources/images/icons/event_grey.png';
 
 class ProjectRow extends Row {
 
-  componentDidMount(){
-    this.getIconUrl(null, this.props.project.icon, 'projectIcon');
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      filename: this.props.project.icon,
+      type: 'projectIcon'
+    }
   }
 
   rowInfo(){

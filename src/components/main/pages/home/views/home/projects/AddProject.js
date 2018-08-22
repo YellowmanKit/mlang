@@ -51,7 +51,7 @@ class AddProject extends View {
         {this.subTitle(['Description','描述'])}
         {this.sep()}
         {this.gap('2%')}
-        {this.inputs.textArea('desc', ['67%', '15%'], '100%', this.props.editMode? this.project.description:'', ()=>{ this.setState({modified: true})})}
+        {this.inputs.textArea('desc', '', this.props.editMode? this.project.description:'', ()=>{ this.setState({modified: true})})}
         {this.gap('4%')}
 
         {this.subTitle(['End date','結束日期'])}

@@ -15,7 +15,7 @@ class Account extends View {
         {this.subTitle(['User type','用戶類型'])}
         {this.sep()}
         {this.gap('2%')}
-        {this.inputs.optionBar('type', ['25%','4%'], [student, teacher], user.type === 'student'? student: teacher)}
+        {this.inputs.optionBar('type', ['25%', this.bs.height * 0.04], [student, teacher], user.type === 'student'? student: teacher)}
         {this.gap('2%')}
 
         {this.subTitle(['Identity','登入名稱'])}

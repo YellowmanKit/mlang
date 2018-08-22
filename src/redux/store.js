@@ -13,6 +13,7 @@ const error = (store) => (next) => (action) => {
 }
 
 const middleware = applyMiddleware(error, reduxLogger, thunk);
+//const middleware = applyMiddleware(error, thunk);
 const store = createStore(rootReducer,{},middleware);
 
 export default store;

@@ -25,18 +25,32 @@ class App extends Component {
   getAllFeaturedCardsIdInViewingProject(){
     var featuredCardsId = [];
     const project = this.props.store.projects.viewingProject;
-    const studentProjects = project.studentProjects;
-    for(var i=0;i<studentProjects.length;i++){
-      const studentProject = this.getStudentProjectById(studentProjects[i]);
-      if(!studentProject){ return null; }
+    const studentProjectsData = project.studentProjects;
+    var studentProjectsToGet = [];
+    var cardsToGet = [];
+    for(var i=0;i<studentProjectsData.length;i++){
+      const studentProject = this.getStudentProjectById(studentProjectsData[i]);
+      if(!studentProject){
+        studentProjectsToGet = [...studentProjectsToGet, studentProjectsData[i]]
+        continue;
+      }
       const cardsId = studentProject.cards;
       for(var j=0;j<cardsId.length;j++){
         const card = this.getCardById(cardsId[j]);
-        if(!card){ return null;}
+        if(!card){
+          cardsToGet = [...cardsToGet, cardsId[j]]
+          continue;
+        }
         if(card.grade === 'featured'){
           featuredCardsId = [...featuredCardsId, cardsId[j]];
         }
       }
+    }
+    if(studentProjectsToGet.length > 0){
+      this.props.actions.studentProjects.getStudentProjects(studentProjectsToGet)
+    }
+    if(cardsToGet.length > 0){
+      this.props.actions.cards.getCards(cardsToGet)
     }
     return featuredCardsId;
   }
@@ -193,7 +207,7 @@ class App extends Component {
         getCardById: this.getCardById.bind(this),
         getLangById: this.getLangById.bind(this),
         getStudentProjectById: this.getStudentProjectById.bind(this),
-        
+
         langKeyToLangName: this.langKeyToLangName.bind(this),
         langNameToLangKey: this.langNameToLangKey.bind(this),
         getAllFeaturedCardsIdInViewingProject: this.getAllFeaturedCardsIdInViewingProject.bind(this)
