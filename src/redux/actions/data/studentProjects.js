@@ -3,10 +3,32 @@ import * as actions from '../actions';
 import to from '../to';
 var api = process.env.REACT_APP_API;
 
+export const updateStudentProjects = (studentProjects) =>{
+  return {
+    type: 'updateStudentProjects',
+    payload: studentProjects
+  }
+}
+
 export const viewStudentProject = (_studentProject) =>{
   return {
     type: 'viewStudentProject',
     payload:  _studentProject
+  }
+}
+
+export function update(studentProject){
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+    let err, res;
+    [err, res] = await to(axios.post(api + '/studentProject/update', { data: studentProject }));
+    if(err){ actions.connectionError(dispatch); return; }
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateStudentProjects", payload: [res.data.updatedStudentProject]});
+      dispatch({type: "viewStudentProject", payload: res.data.updatedStudentProject});
+      dispatch({type: "hideModal"});
+    }
   }
 }
 
@@ -35,6 +57,7 @@ export function getStudentProjects(studentProjects){
       dispatch({type: "updateCards", payload: res.data.cards});
       dispatch({type: "updateLangs", payload: res.data.langs});
       dispatch({type: "updateProfiles", payload: res.data.profiles});
+      dispatch({type: "viewCards", payload: res.data.studentProjects.cards});
     }else{
       dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});
     }

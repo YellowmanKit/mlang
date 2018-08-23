@@ -17,6 +17,9 @@ import icon_passed from 'resources/images/buttons/buttonIcons/tick.png';
 import icon_featured from 'resources/images/buttons/buttonIcons/star2.png';
 import icon_comment from 'resources/images/buttons/buttonIcons/edit.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment.png';
+import icon_swipeLeft from 'resources/images/buttons/buttonIcons/swipeLeft.png';
+import icon_swipeRight from 'resources/images/buttons/buttonIcons/swipeRight.png';
+import icon_slideshow from 'resources/images/buttons/buttonIcons/slideshow.png';
 
 class Button {
 
@@ -30,6 +33,18 @@ class Button {
     this.bs = this.ui.basicStyle;
     this.func = app.functions;
     this.actions = app.actions;
+  }
+
+  barSlideShow(onClick, active){
+    return this.bar(icon_slideshow, onClick, active);
+  }
+
+  barSwipeLeft(onClick, active){
+    return this.bar(icon_swipeLeft, onClick, active);
+  }
+
+  barSwipeRight(onClick, active){
+    return this.bar(icon_swipeRight, onClick, active);
   }
 
   barAudioComment(onClick, active){
@@ -54,7 +69,7 @@ class Button {
       height: this.bs.width * 0.09,
       opacity: active? 1: 0.1
     }
-    return this.button(style, ['',''], icon, onClick)
+    return this.button(style, ['',''], icon, active? onClick: null)
   }
 
   gradingFailed(onClick){

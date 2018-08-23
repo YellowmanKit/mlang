@@ -18,8 +18,10 @@ class ViewCards extends View {
       backgroundColor: this.ui.colors.ultraLightGrey
     }}
     const viewingCard = this.store.cards.viewingCard;
-    const viewingCardsId = this.getViewingCardsId().slice(0).reverse();
+    const viewingCardsId = this.store.cards.viewingCards;
     //console.log(viewingCardsId)
+
+    if(!viewingCardsId){ this.actions.content.pullView(); return null; }
 
     var previous, next;
     for(var i=0;i<viewingCardsId.length;i++){
@@ -39,13 +41,6 @@ class ViewCards extends View {
         <CardBar app={this.app} card={viewingCard}/>
       </div>
     )
-  }
-
-  getViewingCardsId(){
-    if(this.store.content.subView === 'projectFeatured'){
-      return this.func.getAllFeaturedCardsIdInViewingProject();
-    }
-    return this.store.studentProjects.viewingStudentProject.cards;
   }
 
 }

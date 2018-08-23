@@ -132,6 +132,9 @@ class NavBar extends UI {
         case 'resubmitCard':
           title = ['RESUBMIT CARD', '重新提交卡片'];
           break;
+        case 'slideShow':
+          title = ['SLIDESHOW', '投影片'];
+          break;
         default:
           title = ['','']
           break;

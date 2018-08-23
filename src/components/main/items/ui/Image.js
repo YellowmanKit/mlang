@@ -27,6 +27,7 @@ class Image extends UI {
   render(){
     this.init(this.props);
     const url = this.props.photoUrl? this.props.photoUrl: this.url.url;
+    //console.log(url);
     const size = this.props.size;
 
     const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{

@@ -23,10 +23,11 @@ class Login extends UI {
 
   icon(){
     const iconStyle = {
-      width: '50%',
-      height: '15%',
+      width: this.bs.width * 0.5,
+      height: this.bs.height * 0.15,
       backgroundImage: 'url(' + icon + ')',
       backgroundSize: '100% 100%',
+      flexShrink: 0
     }
     return <div style={iconStyle}/>
   }

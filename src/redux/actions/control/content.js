@@ -1,3 +1,10 @@
+export const setFilter = (filterOption) =>{
+  return {
+    type: 'setFilter',
+    payload: filterOption
+  }
+}
+
 export const cacheUrl = (filename, url) =>{
   return {
     type: 'cacheUrl',

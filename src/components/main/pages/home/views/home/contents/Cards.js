@@ -50,13 +50,10 @@ class Cards extends UI {
     return(
       <div style={cardsStyle}>
         {this.gap('3%')}
-        {cardsToShow.slice(0).reverse().map((cardId,i)=>{
+        {cardsToShow.map((cardId,i)=>{
           const card = this.func.getCardById(cardId);
           if(!card){ return null;}
           //console.log(card);
-          if(this.props.featuredOnly && (!card.grade || card.grade !== 'featured')){
-            return null;
-          }
           return(
             <div key={i} style={cardContainerStyle}>
               <Cell app={this.app} data={card} type='card' onClick={()=>{this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>

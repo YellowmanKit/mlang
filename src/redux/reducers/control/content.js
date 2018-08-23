@@ -3,10 +3,13 @@ const contentReducer = (
     menu: 'off',
     view: '',
     traces: [],
+    filterOption: 'All',
     subView: '',
     cachedUrl: {}
   }, action)=>{
   switch (action.type) {
+    case 'setFilter':
+      return {...state, filterOption: action.payload}
     case 'cacheUrl':
       var newCachedUrl = state.cachedUrl;
       newCachedUrl[action.payload.filename] = action.payload.url;

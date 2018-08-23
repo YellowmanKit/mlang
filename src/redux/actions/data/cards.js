@@ -11,6 +11,13 @@ export const gradeCard = (id, index, gradeCard) =>{
   }
 }
 
+export const viewCards = (cards) =>{
+  return {
+    type: 'viewCards',
+    payload: cards
+  }
+}
+
 export const viewCard = (card) =>{
   return {
     type: 'viewCard',

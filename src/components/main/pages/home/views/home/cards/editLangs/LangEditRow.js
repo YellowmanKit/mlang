@@ -49,7 +49,7 @@ class LangEditRow extends UI {
     this.props.editLang.audioBlob? this.props.editLang.audioBlob:
     this.url.blob;
 
-    console.log(audioBlob)
+    //console.log(audioBlob)
     return(
       <div style={barStyle}>
         {this.verGap('1%')}

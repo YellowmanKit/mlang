@@ -4,11 +4,14 @@ const cardsReducer = (
   state = {
     cards: [],
     viewingCard: {},
+    viewingCards: [],
     indexOfViewing: -1,
     gradingCards: {}
   }, action)=>{
   var _gradingCards = {...state.gradingCards};
   switch (action.type) {
+    case 'viewCards':
+      return {...state, viewingCards: action.payload};
     case 'updateCards':
       return {...state, cards: reducer.updateElements(state.cards, action.payload)};
     case 'gradeCard':

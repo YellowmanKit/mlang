@@ -16,11 +16,11 @@ class Input {
     const barStyle = {
       width: scale[0],
       height: scale[1],
-      fontSize: '100%',
+      fontSize: '125%',
       display: 'flex',
       flexFlow: 'row nowrap',
       justifyContent: 'center',
-      backgroundColor: 'transparent'
+      backgroundColor: 'white'
     }
 
     return(

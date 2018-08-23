@@ -15,6 +15,15 @@ class Cell extends UI {
     }
   }
 
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    const newFilename = newProps.data.icon;
+    if(this.state.filename !== newFilename){
+      this.setState({ filename: newFilename })
+      this.checkUrl();
+    }
+  }
+
   getFileType(cellType){
     const fileType =
     cellType === 'course'? 'courseIcon':
@@ -30,7 +39,6 @@ class Cell extends UI {
       maxHeight: this.scale[0] * 0.8,
       marginTop: '4%'
     }};
-    //console.log(url)
     return <img style={imageStyle} src={this.url.url? this.url.url: null} alt=''/>
   }
 

@@ -15,23 +15,14 @@ class SubmittedCards extends SubView {
     if(studentProject === null){
       this.actions.studentProjects.getStudentProject(this.store.user._id, viewingProject._id, this.store.studentProjects.studentProjects.length)
     }else {
-      this.actions.studentProjects.viewStudentProject(studentProject)
+      this.actions.studentProjects.viewStudentProject(studentProject);
+      this.actions.cards.viewCards(studentProject.cards);
     }
-  }
-
-  cards(){
-    const areaStyle = {...this.ui.styles.area, ...{
-      height: this.bs.height * 0.72
-    }}
-    return(
-      <div style={areaStyle}>
-        {this.cardCells()}
-      </div>
-    )
   }
 
   cardCells(){
     const studentProject = this.store.studentProjects.viewingStudentProject;
+    //console.log(studentProject.cards);
     if(studentProject.cards){
       return <Cards app={this.app} cardsId={studentProject.cards} />
     }else{
@@ -46,7 +37,7 @@ class SubmittedCards extends SubView {
     return(
       <div style={this.subViewStyle()}>
         {this.buttons.listAdd([this.bs.width, this.bs.height * 0.1], ['CREATE CARD','製作卡片'], '200%', onAdd)}
-        {this.cards()}
+        {this.cardCells()}
       </div>
     )
   }

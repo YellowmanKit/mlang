@@ -18,7 +18,10 @@ class UI extends Component {
   }
 
   checkUrl(){
-    if(this.state && this.state.filename){ this.url.getUrl(this.state.filename, this.state.type); }
+    if(this.state && this.state.filename){
+      this.url.getUrl(this.state.filename, this.state.type);
+      //console.log('getting url');
+    }
   }
 
   init(props){
