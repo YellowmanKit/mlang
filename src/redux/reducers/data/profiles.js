@@ -3,8 +3,7 @@ import * as reducer from '../reducer';
 const profilesReducer = (
   state = {
     profiles: [],
-    viewingProfile: {},
-    indexOfViewing: -1
+    viewingProfile: {}
   }, action)=>{
   switch (action.type) {
     case 'updateProfiles':

@@ -35,6 +35,30 @@ class Button {
     this.actions = app.actions;
   }
 
+  slideNext(onClick){
+    const style = {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      width: this.bs.width * 0.2,
+      height: this.bs.height * 0.5,
+      opacity: 0.15
+    }
+    return this.button(style, ['', ''], icon_arrow_reverse, onClick)
+  }
+
+  slideBack(onClick){
+    const style = {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: this.bs.width * 0.2,
+      height: this.bs.height * 0.5,
+      opacity: 0.15
+    }
+    return this.button(style, ['', ''], icon_arrow, onClick)
+  }
+
   barSlideShow(onClick, active){
     return this.bar(icon_slideshow, onClick, active);
   }

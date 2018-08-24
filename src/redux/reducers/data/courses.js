@@ -3,7 +3,6 @@ import * as reducer from '../reducer';
 const coursesReducer = (
   state = {
     courses: [],
-    indexOfViewing: -1,
     viewingCourse: {},
     teachingCourses: [],
     joinedCourses: []
@@ -16,7 +15,7 @@ const coursesReducer = (
     case 'updateTeachingCourses':
         return {...state, teachingCourses: reducer.updateElements(state.teachingCourses, action.payload, true)};
     case 'viewCourse':
-      return {...state, indexOfViewing: reducer.getElementIndex(state.courses, action.payload), viewingCourse: action.payload};
+      return {...state, viewingCourse: action.payload};
     default:
       return state;
   }

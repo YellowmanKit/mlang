@@ -28,23 +28,27 @@ class Image extends UI {
     this.init(this.props);
     const url = this.props.photoUrl? this.props.photoUrl: this.url.url;
     //console.log(url);
-    const size = this.props.size;
+    const size = this.props.size? this.props.size: '100%';
+    const scale = this.props.scale;
 
-    const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
-      width: size,
-      height: size,
-      backgroundColor: 'white'
+    var containerStyle = {...this.ui.styles.container, ...{
+      width: this.props.size? size: scale[0],
+      height: this.props.size? size: scale[1],
+      backgroundColor: this.props.backgroundColor? this.props.backgroundColor: 'white',
     }}
+    if(!this.props.noBorder){
+      containerStyle = {...this.ui.styles.border, ...containerStyle}
+    }
     const imgBg = url? null: no_image;
-    const imgSize = size * 0.95;
+    const imgSize = this.props.size? size * 0.95: '95%';
     const backgroundStyle = {...this.ui.styles.container, ...{
       width: imgSize,
       height: imgSize,
       backgroundImage: 'url(' + imgBg + ')'
     }}
     const buttonStyle = {...this.ui.styles.button, ...{
-      width: size,
-      height: size,
+      width: this.props.size? size: scale[0],
+      height: this.props.size? size: scale[1],
       position: 'absolute',
       opacity: 0
     }}
@@ -52,20 +56,11 @@ class Image extends UI {
     return(
       <div style={containerStyle}>
         <div style={backgroundStyle}>
-          {this.image(url, imgSize)}
-          {url !== null && this.buttons.button(buttonStyle, ['',''], '',()=>{this.onImageClick()})}
+          <img style={{maxWidth: size, maxHeight: size}} src={url} alt=''/>
+          {url !== null && this.buttons.button(buttonStyle, ['',''], '',this.props.noEnlarge? null:()=>{this.onImageClick()})}
         </div>
       </div>
     )
-  }
-
-  image(url, size){
-    const style = {
-      maxHeight: size,
-      maxWidth: size,
-      backgroundColor: 'white'
-    }
-    return <img style={style} src={url} alt=''/>
   }
 
   onImageClick(){

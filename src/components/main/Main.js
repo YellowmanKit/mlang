@@ -41,6 +41,7 @@ class Main extends UI {
   rememberLoginInfo(id, pw){
     //localStorage.setItem('loginInfo', JSON.stringify({id: id, pw: pw}));
     this.db.set('loginInfo',{id: id, pw: pw});
+    this.db.set('language',this.store.main.language);
   }
 
   initView(type){

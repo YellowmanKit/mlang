@@ -48,6 +48,7 @@ class ProjectFeatured extends SubView {
     this.cards.map(cardId=>{
       const card = this.func.getCardById(cardId);
       const profile = this.func.getProfileByUserId(card.author);
+      if(!profile){ return null; }
       if(!options.includes(profile.name)){
         options.push(profile.name);
       }

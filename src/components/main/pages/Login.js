@@ -11,14 +11,16 @@ class Login extends UI {
     this.state = {
       loginInfo: null
     }
-    this.getLoginInfo()
+    this.getLoginInfo();
   }
 
   async getLoginInfo(){
     const loginInfo = await this.db.get('loginInfo');
+    const language = await this.db.get('language');
     this.setState({
       loginInfo: loginInfo
-    })
+    });
+    this.actions.main.setLanguage(language? language: 'chinese');
   }
 
   icon(){

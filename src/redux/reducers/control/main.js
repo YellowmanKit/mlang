@@ -13,7 +13,7 @@ const mainReducer = (
     enlargeImage: null,
     enlargeText: '',
 
-    language: 'english',
+    language: 'chinese',
     version: 'v1.0.0'
   }, action)=>{
   switch (action.type) {

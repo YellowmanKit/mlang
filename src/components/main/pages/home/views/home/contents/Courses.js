@@ -17,7 +17,7 @@ class Courses extends UI {
 
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: this.bs.height * 0.23,
+      height: this.bs.height * 0.25,
       alignItems: 'center',
       overflow: 'auto'
     }}
@@ -62,7 +62,7 @@ class Courses extends UI {
 
     const containerStyle = {
       width: '100%',
-      height: this.bs.height * 0.28,
+      height: this.bs.height * 0.3,
       background: this.ui.colors.gradientBasic
     }
 

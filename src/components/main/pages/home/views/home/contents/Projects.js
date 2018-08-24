@@ -7,7 +7,7 @@ class Projects extends UI {
   projects(){
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: this.bs.height * 0.59,
+      height: this.bs.height * 0.57,
       flexFlow: 'row wrap',
       alignItems: 'flex-start',
       overflow: 'auto'
@@ -30,7 +30,7 @@ class Projects extends UI {
       return projectsData.push(this.func.getProjectById(id));
     })
     const containerStyle = {...this.ui.styles.container, ...{
-      width: this.bs.width * 0.3,
+      width: this.bs.width * 0.275,
       height: this.bs.width * 0.3
     }}
     return projectsData.map((project, i)=>{
@@ -61,7 +61,7 @@ class Projects extends UI {
 
     const containerStyle = {
       width: '100%',
-      height: this.bs.height * 0.64,
+      height: this.bs.height * 0.62,
       background: this.ui.colors.gradientBasic
     }
 

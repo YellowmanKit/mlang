@@ -14,7 +14,7 @@ class Filter extends UI {
 
     return(
       <div style={style}>
-        {this.inputs.optionBar('filter', ['99%','80%'], this.props.options, this.props.defaultValue, this.props.onChange)}
+        {this.inputs.optionBar('filter', ['100%','100%'], this.props.options, this.props.defaultValue, this.props.onChange)}
       </div>
     )
   }

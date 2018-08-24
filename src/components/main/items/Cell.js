@@ -92,7 +92,7 @@ class Cell extends UI {
     }
 
     this.scale =
-    this.props.type === 'course'? [this.bs.width * 0.26,this.bs.width * 0.26]:
+    this.props.type === 'course'? [this.bs.width * 0.24,this.bs.width * 0.24]:
     this.props.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
     this.props.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
     '';

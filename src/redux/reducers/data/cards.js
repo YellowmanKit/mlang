@@ -5,7 +5,6 @@ const cardsReducer = (
     cards: [],
     viewingCard: {},
     viewingCards: [],
-    indexOfViewing: -1,
     gradingCards: {}
   }, action)=>{
   var _gradingCards = {...state.gradingCards};
@@ -24,7 +23,7 @@ const cardsReducer = (
       _gradingCards[action.payload.studentProjectId] = [...action.payload.cards];
       return {...state, gradingCards: _gradingCards};
     case 'viewCard':
-      return {...state, indexOfViewing: reducer.getElementIndex(state.cards, action.payload), viewingCard: action.payload};
+      return {...state, viewingCard: action.payload};
     default:
       return state;
   }

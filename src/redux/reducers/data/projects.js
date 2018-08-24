@@ -4,7 +4,6 @@ const projectsReducer = (
   state = {
     projects: [],
     viewingProject: {},
-    indexOfViewing: -1,
     teachingProjects: [],
     joinedProjects: []
   }, action)=>{
@@ -16,7 +15,7 @@ const projectsReducer = (
     case 'updateTeachingProjects':
         return {...state, teachingProjects: reducer.updateElements(state.teachingProjects, action.payload, true)};
     case 'viewProject':
-      return {...state, indexOfViewing: reducer.getElementIndex(state.projects, action.payload), viewingProject: action.payload};
+      return {...state, viewingProject: action.payload};
     default:
       return state;
   }
