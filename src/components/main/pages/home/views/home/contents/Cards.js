@@ -30,8 +30,8 @@ class Cards extends UI {
 
   render(){
     this.init(this.props);
-    const cardsToShow = this.props.cardsId;
-    if(!cardsToShow){ return null;}
+    if(!this.props.cardsId){ return null;}
+    const cardsToShow = this.props.cardsId.slice(0);
     //console.log(cardsToShow)
     const cardsStyle = {
       width: '100%',
@@ -41,16 +41,22 @@ class Cards extends UI {
       flexFlow: 'row wrap',
       alignContent: 'flex-start'
     }
-    const cardContainerStyle = {
+    const cardContainerStyle = {...this.ui.styles.container, ...{
       width: this.bs.width * 0.32,
-      height: this.bs.width * 0.4,
-      display: 'flex',
-      justifyContent: 'center'
-    }
+      height: this.bs.width * 0.4
+    }}
+    cardsToShow.push('add');
     return(
       <div style={cardsStyle}>
         {this.gap('3%')}
         {cardsToShow.map((cardId,i)=>{
+          if(cardId === 'add'){
+            return(
+              <div key={i} style={cardContainerStyle}>
+                {this.props.onAdd && this.props.onAdd()}
+              </div>
+            )
+          }
           const card = this.func.getCardById(cardId);
           if(!card){ return null;}
           //console.log(card);

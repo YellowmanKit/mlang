@@ -3,6 +3,7 @@ import UI from 'components/UI';
 import Badge from 'components/main/items/Badge';
 
 import icon_alert2 from 'resources/images/icons/alert2.png';
+import passed from 'resources/images/general/passed.png';
 
 class Cell extends UI {
 
@@ -84,6 +85,15 @@ class Cell extends UI {
     return <img style={style} src={icon_alert2} alt=''/>
   }
 
+  passedMark(){
+    const style = {
+      position: 'absolute',
+      width: '100%',
+      height: '100%'
+    }
+    return <img style={style} src={passed} alt=''/>
+  }
+
   render(){
     this.init(this.props);
     //console.log(data)
@@ -95,6 +105,11 @@ class Cell extends UI {
     this.props.type === 'course'? [this.bs.width * 0.24,this.bs.width * 0.24]:
     this.props.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
     this.props.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
+    '';
+
+    this.outDated =
+    this.props.type === 'course'? this.func.outDated(this.props.data.endDate):
+    this.props.type === 'project'? this.func.outDated(this.props.data.endDate):
     '';
 
     const cellStyle = {...this.ui.styles.button, ...this.ui.styles.border, ...{
@@ -116,6 +131,7 @@ class Cell extends UI {
         {this.cellImage()}
         {this.cellTitle(this.props.type)}
         {this.checkAlertTag()}
+        {this.outDated && this.passedMark()}
       </button>
     )
   }

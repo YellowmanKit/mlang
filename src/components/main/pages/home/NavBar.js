@@ -7,6 +7,8 @@ import menu from 'resources/images/buttons/buttonIcons/menu.png';
 //import search from 'resources/images/buttons/buttonIcons/search.png';
 import floppy from 'resources/images/buttons/buttonIcons/floppy.png';
 import edit from 'resources/images/buttons/buttonIcons/edit.png';
+import add from 'resources/images/buttons/buttonIcons/add.png';
+import exit from 'resources/images/buttons/buttonIcons/exit.png';
 
 class NavBar extends UI {
 
@@ -30,8 +32,7 @@ class NavBar extends UI {
     const user = this.store.user;
     const viewingCard = this.store.cards.viewingCard;
     const viewingProject = this.store.projects.viewingProject;
-    const projectEndDate = new Date(viewingProject.endDate);
-    const today = new Date();
+    const viewingCourse = this.store.courses.viewingCourse;
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
@@ -80,6 +81,19 @@ class NavBar extends UI {
               this.actions.content.pushView('editCourse');
             }
           }
+          if(user.type === 'teacher' && this.store.content.subView === 'courseProjects' && !this.func.outDated(viewingCourse.endDate)){
+            rightIcon = add;
+            rightOnClick = ()=>{this.actions.content.pushView('addProject')}
+          }
+          if(user.type === 'student' && this.store.content.subView === 'courseDetail'){
+            rightIcon = exit;
+            rightOnClick = ()=>{
+              this.actions.courses.leaveCourse({
+                userId: this.store.user._id,
+                code: this.store.courses.viewingCourse.code
+              });
+            }
+          }
           break;
         case 'addProject':
           title = ['ADD PROJECT', '創建專題研習'];
@@ -93,20 +107,24 @@ class NavBar extends UI {
               this.actions.content.pushView('editProject');
             }
           }
+          if(user.type === 'teacher' && this.store.content.subView === 'projectFeatured' && !this.func.outDated(viewingProject.endDate)){
+            rightIcon = add;
+            rightOnClick = ()=>{this.actions.content.pushView('addCard')}
+          }
           break;
         case 'addCard':
           title = ['ADD CARD', '製作卡片'];
           break;
         case 'viewCards':
           title = ['VIEW CARDS', '檢視卡片'];
-          if(viewingCard.author === user._id && viewingCard.grade === 'notGraded' && projectEndDate > today){
+          if(viewingCard.author === user._id && viewingCard.grade === 'notGraded'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
               this.actions.langs.setEditLangs([]);
               this.actions.content.pushView('editCard');
             }
-          }else if(viewingCard.author === user._id && viewingCard.grade === 'failed' && projectEndDate > today){
+          }else if(viewingCard.author === user._id && viewingCard.grade === 'failed'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});

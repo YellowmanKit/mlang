@@ -21,22 +21,25 @@ class SubmittedCards extends SubView {
   }
 
   cardCells(){
+    const outDated = this.func.outDated(this.store.projects.viewingProject.endDate);
     const studentProject = this.store.studentProjects.viewingStudentProject;
     //console.log(studentProject.cards);
     if(studentProject.cards){
-      return <Cards app={this.app} cardsId={studentProject.cards} />
+      return <Cards app={this.app} cardsId={studentProject.cards} onAdd={outDated? null:this.onAdd.bind(this)}/>
     }else{
       console.log('no viewingStudentProject cards!')
     }
   }
 
+  onAdd(){
+    return this.buttons.cellAdd(()=>{this.actions.content.pushView('addCard')})
+  }
+
   render() {
     this.init(this.props);
-    const onAdd = ()=>{this.actions.content.pushView('addCard')};
 
     return(
       <div style={this.subViewStyle()}>
-        {this.buttons.listAdd([this.bs.width, this.bs.height * 0.1], ['CREATE CARD','製作卡片'], '200%', onAdd)}
         {this.cardCells()}
       </div>
     )

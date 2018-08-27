@@ -21,6 +21,7 @@ class SlideShow extends View {
       type: 'langAudio'
     }
     this.checkUrl();
+    //this.onNextClick();
   }
 
   getCardIndex(){
@@ -48,7 +49,7 @@ class SlideShow extends View {
       cardIndex += 1;
       this.setCard(cardIndex);
     }
-    this.setState({ cardIndex: cardIndex, langIndex: index })
+    this.setState({ cardIndex: cardIndex, langIndex: index });
     this.lang = this.func.getLangById(this.card.langs[index]);
   }
 

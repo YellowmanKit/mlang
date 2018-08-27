@@ -10,6 +10,28 @@ export const viewCourse = (course) =>{
   }
 }
 
+export function leaveCourse(_data){
+
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+
+    let err, res;
+    [err, res] = await to(axios.post(api + '/course/leave', { data: _data }));
+    if(err){actions.connectionError(dispatch); return;}
+
+
+    if(res.data.result === 'success'){
+      dispatch({type: "message", payload: ['Leave course succeed!', '成功退出班別!']});
+      dispatch({type: "updateCourses", payload: [res.data.leavedCourse]});
+      dispatch({type: "leaveCourse", payload: res.data.leavedCourse._id});
+      dispatch({type: "setProfile", payload: res.data.updatedProfile});
+      dispatch({type: "backToHome"});
+    } else {
+      dispatch({type: "message", payload: ['Leave course failed! Please Try again!',  '退出失敗! 請再試一次!']});
+    }
+  }
+}
+
 export function joinCourse(_data){
 
   return async function (dispatch) {

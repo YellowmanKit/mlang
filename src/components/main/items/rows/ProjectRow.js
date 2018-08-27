@@ -9,7 +9,7 @@ class ProjectRow extends Row {
     super(props);
     this.init(props);
     this.state = {
-      filename: this.props.project.icon,
+      filename: this.props.project? this.props.project.icon: null,
       type: 'projectIcon'
     }
   }

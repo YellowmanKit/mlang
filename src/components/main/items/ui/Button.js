@@ -20,6 +20,7 @@ import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment
 import icon_swipeLeft from 'resources/images/buttons/buttonIcons/swipeLeft.png';
 import icon_swipeRight from 'resources/images/buttons/buttonIcons/swipeRight.png';
 import icon_slideshow from 'resources/images/buttons/buttonIcons/slideshow.png';
+import icon_add_grey from 'resources/images/buttons/buttonIcons/add_grey.png';
 
 class Button {
 
@@ -33,6 +34,16 @@ class Button {
     this.bs = this.ui.basicStyle;
     this.func = app.functions;
     this.actions = app.actions;
+  }
+
+  cellAdd(onClick){
+    const style = {...this.ui.styles.border, ...{
+      width: this.bs.width * 0.12,
+      height: this.bs.width * 0.12,
+      backgroundColor: 'white',
+      opacity: 0.5
+    }}
+    return this.button(style, ['', ''], icon_add_grey, onClick)
   }
 
   slideNext(onClick){

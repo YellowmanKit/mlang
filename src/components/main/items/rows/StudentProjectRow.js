@@ -59,7 +59,7 @@ class StudentProjectRow extends Row {
   render(){
     this.init(this.props);
     const studentProject = this.props.studentProject;
-    if(studentProject === null){
+    if(studentProject === null || studentProject.student === this.store.user._id){
       return null;
     }
 

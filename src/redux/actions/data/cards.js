@@ -197,7 +197,8 @@ export function addCard(data){
     const card = {
       icon: cardIcon? cardIcon: data.icon,
       author: data.author,
-      studentProject: data.studentProject
+      studentProject: data.isTeacher? null: data.studentProject,
+      grade: data.isTeacher? 'featured': 'notGraded'
     }
     const langs = [];
     for(var k=0;k<editLangs.length;k++){
@@ -208,15 +209,20 @@ export function addCard(data){
       }
       langs.splice(0,0,lang);
     }
-    [err, cardRes] = await to(axios.post(api + '/card/add', { data: { project: data.project, card: card, langs: langs}}))
+    [err, cardRes] = await to(axios.post(api + '/card/add', { data: { project: data.project, card: card, langs: langs, isTeacher: data.isTeacher}}))
     if(err){actions.connectionError(dispatch); return;}
 
     if(cardRes.data.result === 'success'){
       dispatch({type: "message", payload: ['Submit card succeed!', '成功提交卡片!']});
-      //console.log(cardRes.data)
+      //console.log(cardRes.data);
       dispatch({type: "updateCards", payload: [cardRes.data.card]});
       dispatch({type: "updateLangs", payload: cardRes.data.langs});
+
+      dispatch({type: "updateProjects", payload: [cardRes.data.updatedProject]});
+      dispatch({type: "viewProject", payload: cardRes.data.updatedProject});
+
       dispatch({type: "updateStudentProjects", payload: [cardRes.data.updatedStudentProject]});
+      dispatch({type: "viewStudentProject", payload: cardRes.data.updatedStudentProject});
 
       dispatch({type: "setEditLangs", payload: []});
       //dispatch({type: "setPhoto", payload: {photoUrl: null, photoBlob: null}});
@@ -224,6 +230,7 @@ export function addCard(data){
 
       dispatch({type: "pullView"});
     }else{
+      console.log(cardRes.data.result);
       dispatch({type: "message", payload: ['Submit card failed! Please try again!', '提交失敗! 請再試一次!']});
     }
 

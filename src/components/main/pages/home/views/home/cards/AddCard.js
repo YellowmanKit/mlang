@@ -80,7 +80,8 @@ class AddCard extends View {
         editLangs: editLangs,
         project: this.store.projects.viewingProject,
         studentProject: this.store.studentProjects.viewingStudentProject,
-        author: this.store.user._id
+        author: this.store.user._id,
+        isTeacher: this.store.user.type === 'teacher'
       });
     }else if(!this.props.resubmit){
       this.actions.cards.editCard({

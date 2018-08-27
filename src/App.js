@@ -22,6 +22,12 @@ import Main from './components/main/Main';
 
 class App extends Component {
 
+  outDated(date){
+    const today = new Date();
+    const dateToCheck = new Date(date);
+    return dateToCheck < today;
+  }
+
   getAllFeaturedCardsIdInViewingProject(){
     var featuredCardsId = [];
     const project = this.props.store.projects.viewingProject;
@@ -199,6 +205,7 @@ class App extends Component {
         url: this.url.bind(this),
         multiLang: this.multiLang.bind(this),
         getDateString: this.getDateString.bind(this),
+        outDated: this.outDated.bind(this),
 
         getProfileByUserId: this.getProfileByUserId.bind(this),
         getCourseById: this.getCourseById.bind(this),

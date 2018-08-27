@@ -36,12 +36,11 @@ class CourseProjects extends SubView {
 
   render() {
     this.init(this.props);
-    const addBtnText = ['CREATE PROJECT','創建專題研習'];
+    //const addBtnText = ['CREATE PROJECT','創建專題研習'];
 
     return(
       <div style={this.subViewStyle()}>
         <div style={{...this.bs, ...this.ui.styles.list}}>
-          {this.store.user.type === 'teacher' && this.buttons.listAdd([this.bs.width, this.bs.height * 0.1], addBtnText, '200%', ()=>{this.actions.content.pushView('addProject')})}
           {this.projectsList()}
         </div>
       </div>

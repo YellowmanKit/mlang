@@ -10,10 +10,10 @@ class Courses extends UI {
     this.store.user.type === 'student'? ()=>{this.actions.content.pushView('joinCourse')}:
     [];
 
-    const addBtnText =
+    /*const addBtnText =
     this.store.user.type === 'teacher'? ['ADD','創建']:
     this.store.user.type === 'student'?  ['JOIN','加入']:
-    '';
+    '';*/
 
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
@@ -23,9 +23,10 @@ class Courses extends UI {
     }}
     return(
       <div style={areaStyle}>
-        {this.buttons.listAdd([this.bs.width * 0.125, '100%'], addBtnText, '110%', onAdd)}
         {this.verGap('2%')}
         {this.coursesCells()}
+        {this.verGap('5%')}
+        {this.buttons.cellAdd(onAdd)}
         {this.verGap('5%')}
       </div>
     )

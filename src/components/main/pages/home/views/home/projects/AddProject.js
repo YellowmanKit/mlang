@@ -43,7 +43,7 @@ class AddProject extends View {
         {this.sep()}
         {this.gap('2%')}
 
-        {this.subTitle(['Title','班名'])}
+        {this.subTitle(['Title','標題'])}
         {this.sep()}
         {this.inputs.inputField('title','text', '', this.props.editMode? this.project.title:'' , ()=>{ this.setState({modified: true})})}
         {this.gap('2%')}
