@@ -25,7 +25,7 @@ class SubmittedCards extends SubView {
     const studentProject = this.store.studentProjects.viewingStudentProject;
     //console.log(studentProject.cards);
     if(studentProject.cards){
-      return <Cards app={this.app} cardsId={studentProject.cards} onAdd={outDated? null:this.onAdd.bind(this)}/>
+      return <Cards app={this.app} cardsId={studentProject.cards} onAdd={outDated? null: this.onAdd.bind(this)}/>
     }else{
       console.log('no viewingStudentProject cards!')
     }

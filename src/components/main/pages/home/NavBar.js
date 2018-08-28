@@ -31,7 +31,7 @@ class NavBar extends UI {
     const view = this.store.content.view;
     const user = this.store.user;
     const viewingCard = this.store.cards.viewingCard;
-    const viewingProject = this.store.projects.viewingProject;
+    //const viewingProject = this.store.projects.viewingProject;
     const viewingCourse = this.store.courses.viewingCourse;
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
@@ -107,17 +107,17 @@ class NavBar extends UI {
               this.actions.content.pushView('editProject');
             }
           }
-          if(user.type === 'teacher' && this.store.content.subView === 'projectFeatured' && !this.func.outDated(viewingProject.endDate)){
+          /*if(user.type === 'teacher' && this.store.content.subView === 'projectFeatured' && !this.func.outDated(viewingProject.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addCard')}
-          }
+          }*/
           break;
         case 'addCard':
           title = ['ADD CARD', '製作卡片'];
           break;
         case 'viewCards':
           title = ['VIEW CARDS', '檢視卡片'];
-          if(viewingCard.author === user._id && viewingCard.grade === 'notGraded'){
+          if(viewingCard.author === user._id && (viewingCard.grade === 'notGraded' || user.type === 'teacher')){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
@@ -152,6 +152,9 @@ class NavBar extends UI {
           break;
         case 'slideShow':
           title = ['SLIDESHOW', '投影片'];
+          break;
+        case 'student':
+          title = ['STUDENT', '學生'];
           break;
         default:
           title = ['','']

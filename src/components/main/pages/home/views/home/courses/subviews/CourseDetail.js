@@ -7,6 +7,7 @@ class CourseDetail extends SubView {
   render() {
     this.init(this.props);
     const course = this.store.courses.viewingCourse;
+    const teacher = this.func.getProfileByUserId(course.teacher);
 
     return(
       <div style={this.subViewStyle()}>
@@ -17,7 +18,10 @@ class CourseDetail extends SubView {
         {this.gap('2%')}
         <Image app={this.app} filename={course.icon} type={'courseIcon'} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
+
+        {this.subTitle(['Teacher','老師'])}
         {this.sep()}
+        {this.textDisplay(teacher? teacher.name: '', ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['Title','班名'])}

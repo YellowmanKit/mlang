@@ -3,6 +3,13 @@ import * as actions from '../actions';
 import to from '../to';
 var api = process.env.REACT_APP_API;
 
+export const viewProfile = (profile) =>{
+  return {
+    type: 'viewProfile',
+    payload: profile
+  }
+}
+
 
 export function getProfiles(usersId){
   //console.log(students)

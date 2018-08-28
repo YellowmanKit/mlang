@@ -9,8 +9,10 @@ import CourseProjects from './subviews/CourseProjects';
 class Course extends View {
 
   componentDidMount(){
-    if(!this.store.content.subView.includes('course')){
-      this.actions.content.setSubView('courseProjects');
+    if(this.store.content.subView.includes('student')){
+      this.actions.content.setSubView('courseStudents');
+    }else if(!this.store.content.subView.includes('course')){
+      this.actions.content.setSubView('courseDetail');
     }
   }
 
@@ -31,16 +33,16 @@ class Course extends View {
   courseSubNav(){
     const _options = [
       {
-        tag:['Projects','專題研習'],
-        subView: 'courseProjects'
+        tag:['Detail','詳細資訊'],
+        subView: 'courseDetail'
       },
       {
         tag:['Students','學生'],
         subView: 'courseStudents'
       },
       {
-        tag:['Detail','詳細資訊'],
-        subView: 'courseDetail'
+        tag:['Projects','專題研習'],
+        subView: 'courseProjects'
       }
     ]
     return <SubNav app={this.app} options={_options} />

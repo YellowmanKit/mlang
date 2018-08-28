@@ -78,6 +78,7 @@ export function login (_id, _pw) {
       //console.log(res.data);
       dispatch({type: "setUser", payload: res.data.user});
       dispatch({type: "setProfile", payload: res.data.profile});
+      dispatch({type: "updateProfiles", payload: res.data.profiles});
 
       dispatch({type: "updateCourses", payload: res.data.courses});
       dispatch({type: "updateProjects", payload: res.data.projects});

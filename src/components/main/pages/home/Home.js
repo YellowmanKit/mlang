@@ -23,6 +23,7 @@ import ViewCards from './views/home/cards/ViewCards';
 import SlideShow from './views/home/cards/SlideShow';
 import GradingCards from './views/home/cards/gradingCards/GradingCards';
 
+import Student from './views/home/student/Student';
 
 import StudentHome from './views/home/StudentHome';
 
@@ -75,6 +76,8 @@ class Home extends Component {
         return <GradingCards app={app}/>;
       case 'slideShow':
         return <SlideShow app={app}/>;
+      case 'student':
+        return <Student app={app}/>;
       default:
         return null;
     }

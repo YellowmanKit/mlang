@@ -7,7 +7,7 @@ class ProjectDetail extends SubView {
   render() {
     this.init(this.props);
     const project = this.store.projects.viewingProject;
-
+    const course = this.func.getCourseById(project.course);
     return(
       <div style={this.subViewStyle()}>
         {this.gap('4%')}
@@ -17,7 +17,10 @@ class ProjectDetail extends SubView {
         {this.gap('2%')}
         <Image app={this.app} filename={project.icon} type={'projectIcon'} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
+
+        {this.subTitle(['Course','班別'])}
         {this.sep()}
+        {this.textDisplay(course.title, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['Title','標題'])}

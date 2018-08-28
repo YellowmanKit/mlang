@@ -35,13 +35,20 @@ class ProjectFeatured extends SubView {
 
   render() {
     this.init(this.props);
+    const outDated = this.func.outDated(this.store.projects.viewingProject.endDate);
+    const isTeacher = this.store.user.type === 'teacher';
+
     return(
       <div style={this.subViewStyle()}>
         <Filter app={this.app} options={this.filterOptions()} defaultValue={this.store.content.filterOption} onChange={()=>{this.onFilterChange()}}/>
         {this.sep()}
-        <Cards app={this.app} cardsId={this.store.cards.viewingCards}/>
+        <Cards app={this.app} cardsId={this.store.cards.viewingCards} onAdd={(outDated || !isTeacher)? null:this.onAdd.bind(this)}/>
       </div>
     )
+  }
+
+  onAdd(){
+    return this.buttons.cellAdd(()=>{this.actions.content.pushView('addCard')})
   }
 
   filterOptions(){

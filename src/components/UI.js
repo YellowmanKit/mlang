@@ -80,7 +80,7 @@ class UI extends Component {
     }
     const textStyle = {
       width: '100%',
-      fontSize: '100%',
+      fontSize: this.bs.width * 0.03,
       fontWeight: 'bold',
       margin: '3%'
     }
@@ -103,7 +103,8 @@ class UI extends Component {
       textAlign: textAlign,
       overflow: 'hidden',
       overflowWrap: 'break-word',
-      color: color !== undefined? color: 'black'
+      color: color !== undefined? color: 'black',
+      flexShrink: 0
     }
     return <div style={style}>{text}</div>
   }
@@ -124,15 +125,15 @@ class UI extends Component {
   }
 
   sep(){
-    return <div style={{height: '1px', width: '100%', backgroundColor:'black', opacity: 0.15}} />
+    return <div style={{height: '1px', width: '100%', backgroundColor:'black', opacity: 0.15, flexShrink: 0}} />
   }
 
   verGap(width){
-    return <div style={{minWidth: width, height: '100%'}}/>
+    return <div style={{minWidth: width, height: '100%', flexShrink: 0}}/>
   }
 
   verSep(color, height){
-    return <div style={{backgroundColor: color, width: '1px', height: height}}/>
+    return <div style={{backgroundColor: color, width: '1px', height: height, flexShrink: 0}}/>
   }
 
   failedMessage(message){

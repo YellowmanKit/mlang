@@ -18,8 +18,7 @@ class Profile extends View {
   render() {
     this.init(this.props);
     const profile = this.store.profile;
-    const view = this.store.content.view;
-    const forceProfile = view === 'forceProfile';
+    const forceProfile = this.store.content.view === 'forceProfile';
 
     return(
       <div style={this.viewStyle()}>
@@ -82,7 +81,6 @@ class Profile extends View {
   changing(){
     const profile = this.store.profile;
     const newIconBlob = this.store.main.photoBlob;
-    const view = this.store.content.view;
     const user = this.store.user;
 
     const newName = document.getElementById('name').value;
@@ -95,7 +93,7 @@ class Profile extends View {
     if(newName === ''){
       return this.failedMessage(['Failed to change! Name is missing!', '變更失敗! 請輸入名稱!'])
     }
-    if(view !== 'forceProfile' && document.getElementById('pw').value !== user.pw){
+    if(this.store.content.view !== 'forceProfile' && document.getElementById('pw').value !== user.pw){
         return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!'])
     }
     if(!this.state.modified && !newIconBlob){

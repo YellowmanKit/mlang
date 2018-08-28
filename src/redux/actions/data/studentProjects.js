@@ -17,6 +17,23 @@ export const viewStudentProject = (_studentProject) =>{
   }
 }
 
+export function getAllStudentProjectsOfUser(profile){
+  return async function (dispatch) {
+    let err, res;
+    [err, res] = await to(axios.post(api + '/studentProject/getByStudent', { data: profile }));
+    if(err){ actions.connectionError(dispatch); return; }
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
+      dispatch({type: "updateProfiles", payload: [res.data.updatedProfile]});
+      dispatch({type: "viewProfile", payload: res.data.updatedProfile});
+      dispatch({type: "hideModal"});
+    }else{
+      dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});
+    }
+  }
+}
+
 export function update(studentProject){
   return async function (dispatch) {
     actions.connecting(dispatch);
@@ -64,7 +81,7 @@ export function getStudentProjects(studentProjects){
   }
 }
 
-export function getStudentProject(_student, _project, studentProjectsLength){
+export function getStudentProject(_student, _project){
   return async function (dispatch) {
     let err, res;
     [err, res] = await to(axios.get(api + '/studentProject/get', { headers: { student: _student, project: _project }}))

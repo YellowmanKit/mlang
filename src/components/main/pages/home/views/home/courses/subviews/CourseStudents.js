@@ -29,7 +29,13 @@ class CourseStudents extends SubView {
   studentsList(){
     const students = this.store.courses.viewingCourse.joinedStudents;
     return students.map((userId, i)=>{
-      return <ProfileRow app={this.app} profile={this.func.getProfileByUserId(userId)} key={i}/>
+      const profile = this.func.getProfileByUserId(userId);
+      return (
+      <ProfileRow
+      app={this.app}
+      profile={profile}
+      key={i}
+      onClick={()=>{ this.actions.profiles.viewProfile(profile); this.actions.content.pushView('student');}}/>)
     })
   }
 

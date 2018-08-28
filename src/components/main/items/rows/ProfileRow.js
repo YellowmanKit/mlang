@@ -55,14 +55,14 @@ class ProfileRow extends Row {
       return null;
     }
 
-    const rowStyle = {...this.ui.styles.area, ...{
+    const rowStyle = {...this.ui.styles.button, ...this.ui.styles.area, ...{
       flexShrink: 0,
       height: this.bs.height * 0.15,
       borderBottom: '1px solid ' + this.ui.colors.darkGrey,
       alignItems: 'center'
     }}
     return(
-      <div style={rowStyle}>
+      <div onClick={this.props.onClick} style={rowStyle}>
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.profile.name, this.rowInfo.bind(this) )}
