@@ -1,6 +1,5 @@
 import React from 'react';
 import SubView from 'components/main/pages/home/views/SubView';
-
 import StudentProjectRow from 'components/main/items/rows/StudentProjectRow';
 
 class StudentProjects extends SubView {
@@ -57,7 +56,14 @@ class StudentProjects extends SubView {
 
   studentProjectsList(){
     return this.state.studentProjects.map((studentProject, i)=>{
-      return <StudentProjectRow app={this.app} studentProject={studentProject} key={i}/>
+      return(
+        <StudentProjectRow
+        app={this.app}
+        studentProject={studentProject}
+        key={i}
+        byStudent={true}
+        onClick={()=>{ this.actions.studentProjects.viewStudentProject(studentProject); this.actions.content.pushView('gradingCards'); }}/>
+      )
     })
   }
 

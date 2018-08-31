@@ -56,15 +56,15 @@ class Project extends View {
   projectSubNav(){
     const _options = [
       {
-        tag:['Submitted','已提交'],
+        tag:['Submitted','已提交','已提交'],
         subView: 'projectSubmitted'
       },
       {
-        tag:['Featured','精選卡片'],
+        tag:['Featured','精選卡片','精选卡片'],
         subView: 'projectFeatured'
       },
       {
-        tag:['Detail','詳細資訊'],
+        tag:['Detail','詳細資訊','详细资讯'],
         subView: 'projectDetail'
       }
     ]
@@ -76,7 +76,7 @@ class Project extends View {
     const project = this.store.projects.viewingProject;
     return(
       <div style={this.viewStyle()}>
-        {this.tabBar([project.title,project.title])}
+        {this.tabBar([project.title,project.title,project.title])}
         {this.projectSubNav()}
         {this.sep()}
         {this.subView()}

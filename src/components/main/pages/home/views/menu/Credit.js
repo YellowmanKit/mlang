@@ -13,20 +13,20 @@ class Credit extends View {
       <div style={this.viewStyle()}>
         {this.gap('4%')}
 
-        {this.subTitle(['Organization','團體'])}
+        {this.subTitle(['Organization','團體','团体'])}
         {this.sep()}
         {this.creditTextDisplay('Hong Kong Applied Science and Technology Research Institute')}
         {this.creditTextDisplay('The University of Hong Kong')}
         {this.gap('8%')}
 
-        {this.subTitle(['Director','總監'])}
+        {this.subTitle(['Director','監督','监督'])}
         {this.sep()}
         {this.creditTextDisplay('Dr. Vincent Lau')}
         {this.creditTextDisplay('Dr. Elizabeth Loh')}
         {this.creditTextDisplay('Dr. W.W. Ki')}
         {this.gap('4%')}
 
-        {this.subTitle(['Developer','開發者'])}
+        {this.subTitle(['Developer','開發者','开发者'])}
         {this.sep()}
         {this.creditTextDisplay('Kit Wong')}
         {this.creditTextDisplay('Phoneix Kwok')}

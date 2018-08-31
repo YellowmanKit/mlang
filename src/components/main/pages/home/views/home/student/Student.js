@@ -13,6 +13,11 @@ class Student extends View {
     this.profile = this.store.profiles.viewingProfile;
   }
 
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    this.profile = this.store.profiles.viewingProfile;
+  }
+
   componentDidMount(){
     this.init(this.props);
     if(!this.store.content.subView.includes('student')){
@@ -36,11 +41,11 @@ class Student extends View {
   studentSubNav(){
     const _options = [
       {
-        tag:['Profile','個人檔案'],
+        tag:['Profile','個人檔案','个人档案'],
         subView: 'studentProfile'
       },
       {
-        tag:['Projects','專題研習'],
+        tag:['Projects','專題研習','专题研习'],
         subView: 'studentFeatured'
       }
     ]
@@ -51,7 +56,7 @@ class Student extends View {
     this.init(this.props);
     return(
       <div style={this.viewStyle()}>
-        {this.tabBar([this.profile.name, this.profile.name])}
+        {this.tabBar([this.profile.name, this.profile.name, this.profile.name])}
         {this.studentSubNav()}
         {this.sep()}
         {this.subView()}

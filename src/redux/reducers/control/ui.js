@@ -1,7 +1,7 @@
 const uiReducer = (
   state = {
     minWidth: 360,
-    maxWidth: 720,
+    maxWidth: 840,
     minHeight: 540,
     maxHeight: 1440,
     windowWidth: 0,
@@ -47,6 +47,7 @@ const uiReducer = (
       mlangGreen: '#91c33b',
       ultraLightGrey: '#f3f3f3',
       lightGrey: '#ededed',
+      grey: '#9b9b9b',
       darkGrey: '#dbdbdb',
       deepDarkGrey: '#777777',
       selectedGrey: '#444444',

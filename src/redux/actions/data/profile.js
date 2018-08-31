@@ -26,11 +26,11 @@ export function changeProfile(data){
     if(err){actions.connectionError(dispatch); return; }
 
     if(updateRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Update succeed!', '更改成功!']});
+      actions.updateSuccess(dispatch);
       dispatch({type: "setProfile", payload: updateRes.data.updatedProfile});
       dispatch({type: "backToHome"});
     }else{
-      dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!']});
+      actions.updateFailed(dispatch);
     }
 
   }

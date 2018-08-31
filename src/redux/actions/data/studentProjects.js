@@ -25,11 +25,12 @@ export function getAllStudentProjectsOfUser(profile){
 
     if(res.data.result === 'success'){
       dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
+      dispatch({type: "updateProjects", payload: res.data.projects});
       dispatch({type: "updateProfiles", payload: [res.data.updatedProfile]});
       dispatch({type: "viewProfile", payload: res.data.updatedProfile});
       dispatch({type: "hideModal"});
     }else{
-      dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});
+      dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!', '无法查阅学生专题研习资料!']});
     }
   }
 }
@@ -40,10 +41,11 @@ export function update(studentProject){
     let err, res;
     [err, res] = await to(axios.post(api + '/studentProject/update', { data: studentProject }));
     if(err){ actions.connectionError(dispatch); return; }
-
+    console.log(res.data.studentProjects.cards);
     if(res.data.result === 'success'){
       dispatch({type: "updateStudentProjects", payload: [res.data.updatedStudentProject]});
       dispatch({type: "viewStudentProject", payload: res.data.updatedStudentProject});
+      dispatch({type: "viewCards", payload: res.data.updatedStudentProject.cards});
       dispatch({type: "hideModal"});
     }
   }
@@ -68,15 +70,14 @@ export function getStudentProjects(studentProjects){
     let err, res;
     [err, res] = await to(axios.post(api + '/studentProject/getMultiple', { data: studentProjects }));
     if(err){ actions.connectionError(dispatch); return; }
-
+    //console.log(res.data);
     if(res.data.result === 'success'){
       dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
       dispatch({type: "updateCards", payload: res.data.cards});
       dispatch({type: "updateLangs", payload: res.data.langs});
       dispatch({type: "updateProfiles", payload: res.data.profiles});
-      dispatch({type: "viewCards", payload: res.data.studentProjects.cards});
     }else{
-      dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!']});
+      dispatch({type: "message", payload: ['Failed to get student projects data!', '無法查閱學生專題研習資料!', '无法查阅学生专题研习资料!']});
     }
   }
 }

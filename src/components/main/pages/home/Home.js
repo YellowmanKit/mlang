@@ -15,6 +15,9 @@ import AddCourse from './views/home/courses/AddCourse';
 import JoinCourse from './views/home/courses/JoinCourse';
 import Course from './views/home/courses/Course';
 
+import AddSubject from './views/home/subjects/AddSubject';
+import Subject from './views/home/subjects/Subject';
+
 import AddProject from './views/home/projects/AddProject';
 import Project from './views/home/projects/Project';
 
@@ -24,8 +27,10 @@ import SlideShow from './views/home/cards/SlideShow';
 import GradingCards from './views/home/cards/gradingCards/GradingCards';
 
 import Student from './views/home/student/Student';
+import StudentProject from './views/home/student/StudentProject';
 
 import StudentHome from './views/home/StudentHome';
+
 
 class Home extends Component {
 
@@ -58,6 +63,10 @@ class Home extends Component {
         return <JoinCourse app={app}/>;
       case 'course':
         return <Course app={app}/>;
+      case 'subject':
+        return <Subject app={app}/>;
+      case 'addSubject':
+        return <AddSubject app={app}/>;
       case 'addProject':
         return <AddProject app={app}/>;
       case 'editProject':
@@ -78,6 +87,8 @@ class Home extends Component {
         return <SlideShow app={app}/>;
       case 'student':
         return <Student app={app}/>;
+      case 'studentProject':
+        return <StudentProject app={app}/>;
       default:
         return null;
     }

@@ -9,6 +9,7 @@ import floppy from 'resources/images/buttons/buttonIcons/floppy.png';
 import edit from 'resources/images/buttons/buttonIcons/edit.png';
 import add from 'resources/images/buttons/buttonIcons/add.png';
 import exit from 'resources/images/buttons/buttonIcons/exit.png';
+import rotate from 'resources/images/buttons/buttonIcons/rotate.png';
 
 class NavBar extends UI {
 
@@ -38,42 +39,43 @@ class NavBar extends UI {
 
     leftOnClick = ()=>{ this.actions.content.pullView(); }
     rightOnClick = this.none;
-    rightOnClick = ()=>{ this.actions.modal.errorMessage(['No effect!', '沒有效果!']); }
+    //rightOnClick = ()=>{ this.actions.modal.message(['No effect!', '沒有效果!', '没有效果!']); }
 
     leftIcon = back_arrow;
 
     if(view === 'studentHome' ||  view === 'teacherHome'){
       leftOnClick = this.actions.content.toggleMenu;
       leftIcon = menu;
-      //rightIcon = search;
-      title = ['HOME','主頁'];
+      rightOnClick = ()=>{ this.actions.user.login(user.id, user.pw); }
+      rightIcon = rotate;
+      title = ['HOME','主頁','主页'];
     }else{
       switch (view) {
         case 'account':
-          title = ['ACCOUNT','帳號資訊'];
+          title = ['ACCOUNT','帳號資訊','帐号资讯'];
           break;
         case 'profile':
-          title = ['PROFILE','個人檔案'];
+          title = ['PROFILE','個人檔案','个人档案'];
           break;
         case 'forceProfile':
-          title = ['WELCOME!','歡迎!'];
+          title = ['WELCOME!','歡迎!','欢迎!'];
           leftOnClick = this.none;
           leftIcon = null;
           break;
         case 'setting':
-          title = ['SETTING','設定'];
+          title = ['SETTING','設定','设定'];
           break;
         case 'credit':
-          title = ['CREDIT','鳴謝'];
+          title = ['CREDIT','鳴謝','鸣谢'];
           break;
         case 'addCourse':
-          title = ['ADD COURSE','創建班別'];
+          title = ['ADD COURSE','創建班別','创建班别'];
           break;
         case 'joinCourse':
-          title = ['JOIN COURSE', '加入班別'];
+          title = ['JOIN COURSE', '加入班別','加入班别'];
           break;
         case 'course':
-          title = ['COURSE', '班別'];
+          title = ['COURSE', '班別','班别'];
           if(user.type === 'teacher' && this.store.content.subView === 'courseDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
@@ -81,9 +83,13 @@ class NavBar extends UI {
               this.actions.content.pushView('editCourse');
             }
           }
-          if(user.type === 'teacher' && this.store.content.subView === 'courseProjects' && !this.func.outDated(viewingCourse.endDate)){
+          /*if(user.type === 'teacher' && this.store.content.subView === 'courseProjects' && !this.func.outDated(viewingCourse.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addProject')}
+          }*/
+          if(user.type === 'teacher' && this.store.content.subView === 'courseSubjects' && !this.func.outDated(viewingCourse.endDate)){
+            rightIcon = add;
+            rightOnClick = ()=>{this.actions.content.pushView('addSubject')}
           }
           if(user.type === 'student' && this.store.content.subView === 'courseDetail'){
             rightIcon = exit;
@@ -95,11 +101,21 @@ class NavBar extends UI {
             }
           }
           break;
+        case 'addSubject':
+          title = ['ADD SUBJECT', '創建議題','创建议题'];
+          break;
+        case 'subject':
+          title = ['SUBJECT', '議題','议题'];
+          if(user.type === 'teacher' && this.store.content.subView === 'subjectProjects' && !this.func.outDated(viewingCourse.endDate)){
+            rightIcon = add;
+            rightOnClick = ()=>{this.actions.content.pushView('addProject')}
+          }
+          break;
         case 'addProject':
-          title = ['ADD PROJECT', '創建專題研習'];
+          title = ['ADD PROJECT', '創建專題研習','创建专题研习'];
           break;
         case 'project':
-          title = ['PROJECT', '專題研習'];
+          title = ['PROJECT', '專題研習','专题研习'];
           if(user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
@@ -113,10 +129,10 @@ class NavBar extends UI {
           }*/
           break;
         case 'addCard':
-          title = ['ADD CARD', '製作卡片'];
+          title = ['ADD CARD', '製作卡片','制作卡片'];
           break;
         case 'viewCards':
-          title = ['VIEW CARDS', '檢視卡片'];
+          title = ['VIEW CARDS', '檢視卡片','检视卡片'];
           if(viewingCard.author === user._id && (viewingCard.grade === 'notGraded' || user.type === 'teacher')){
             rightIcon = edit;
             rightOnClick = ()=>{
@@ -134,27 +150,30 @@ class NavBar extends UI {
           }
           break;
         case 'gradingCards':
-          title = ['GRADING CARDS', '評核卡片'];
+          title = ['GRADING CARDS', '評核卡片','评核卡片'];
           rightIcon = floppy;
           rightOnClick = this.saveGradeCard.bind(this)
           break;
         case 'editCourse':
-          title = ['EDIT COURSE', '修改班別'];
+          title = ['EDIT COURSE', '修改班別','修改班别'];
           break;
         case 'editProject':
-          title = ['EDIT PROJECT', '修改專題研習'];
+          title = ['EDIT PROJECT', '修改專題研習','修改专题研习'];
           break;
         case 'editCard':
-          title = ['EDIT CARD', '修改卡片'];
+          title = ['EDIT CARD', '修改卡片','修改卡片'];
           break;
         case 'resubmitCard':
-          title = ['RESUBMIT CARD', '重新提交卡片'];
+          title = ['RESUBMIT CARD', '重新提交卡片','重新提交卡片'];
           break;
         case 'slideShow':
-          title = ['SLIDESHOW', '投影片'];
+          title = ['SLIDESHOW', '投影片','投影片'];
           break;
         case 'student':
-          title = ['STUDENT', '學生'];
+          title = ['STUDENT', '學生','学生'];
+          break;
+        case 'studentProject':
+          title = ['STUDENT', '學生','学生'];
           break;
         default:
           title = ['','']
@@ -164,7 +183,7 @@ class NavBar extends UI {
     this.setState({
       leftNav: ()=>{ return this.buttons.nav(leftIcon, ()=>{ leftOnClick() })},
       rightNav: ()=>{ return this.buttons.nav(rightIcon, ()=>{ rightOnClick() })},
-      titleArea: ()=>{ return this.titleArea(this.func.multiLang(title[0], title[1]));},
+      titleArea: ()=>{ return this.titleArea(this.func.multiLang(title[0], title[1], title[2]));},
       init: true
     });
   }

@@ -4,13 +4,16 @@ import View from 'components/main/pages/home/views/View';
 import SubNav from 'components/main/items/SubNav';
 import CourseDetail from './subviews/CourseDetail';
 import CourseStudents from './subviews/CourseStudents';
-import CourseProjects from './subviews/CourseProjects';
+//import CourseProjects from './subviews/CourseProjects';
+import CourseSubjects from './subviews/CourseSubjects';
 
 class Course extends View {
 
   componentDidMount(){
     if(this.store.content.subView.includes('student')){
       this.actions.content.setSubView('courseStudents');
+    }else if(this.store.content.subView.includes('subject')){
+      this.actions.content.setSubView('courseSubjects');
     }else if(!this.store.content.subView.includes('course')){
       this.actions.content.setSubView('courseDetail');
     }
@@ -23,8 +26,8 @@ class Course extends View {
         return <CourseDetail app={this.app}/>
       case 'courseStudents':
         return <CourseStudents app={this.app}/>
-      case 'courseProjects':
-        return <CourseProjects app={this.app}/>
+      case 'courseSubjects':
+        return <CourseSubjects app={this.app}/>
       default:
         return null;
     }
@@ -33,16 +36,16 @@ class Course extends View {
   courseSubNav(){
     const _options = [
       {
-        tag:['Detail','詳細資訊'],
+        tag:['Detail','詳細資訊','详细资讯'],
         subView: 'courseDetail'
       },
       {
-        tag:['Students','學生'],
+        tag:['Students','學生','学生'],
         subView: 'courseStudents'
       },
       {
-        tag:['Projects','專題研習'],
-        subView: 'courseProjects'
+        tag:['Subjects','議題','议题'],
+        subView: 'courseSubjects'
       }
     ]
     return <SubNav app={this.app} options={_options} />
@@ -53,7 +56,7 @@ class Course extends View {
     const course = this.store.courses.viewingCourse;
     return(
       <div style={this.viewStyle()}>
-        {this.tabBar([course.title,course.title])}
+        {this.tabBar([course.title,course.title,course.title])}
         {this.courseSubNav()}
         {this.sep()}
         {this.subView()}

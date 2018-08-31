@@ -30,7 +30,7 @@ class ProjectFeatured extends SubView {
       }
       return null;
     })
-    this.actions.cards.viewCards(cardsToView);
+    this.cardsToView = cardsToView;
   }
 
   render() {
@@ -42,7 +42,7 @@ class ProjectFeatured extends SubView {
       <div style={this.subViewStyle()}>
         <Filter app={this.app} options={this.filterOptions()} defaultValue={this.store.content.filterOption} onChange={()=>{this.onFilterChange()}}/>
         {this.sep()}
-        <Cards app={this.app} cardsId={this.store.cards.viewingCards} onAdd={(outDated || !isTeacher)? null:this.onAdd.bind(this)}/>
+        <Cards app={this.app} cardsId={this.cardsToView} onAdd={(outDated || !isTeacher)? null:this.onAdd.bind(this)}/>
       </div>
     )
   }
@@ -68,7 +68,8 @@ class ProjectFeatured extends SubView {
   onFilterChange(){
     const selected = document.getElementById('filter').value;
     this.setCardsToView(selected);
-    this.actions.content.setFilter(selected)
+    this.actions.content.setFilter(selected);
+    this.actions.cards.viewCards([]);
   }
 
 }

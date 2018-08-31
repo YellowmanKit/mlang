@@ -21,13 +21,13 @@ export function leaveCourse(_data){
 
 
     if(res.data.result === 'success'){
-      dispatch({type: "message", payload: ['Leave course succeed!', '成功退出班別!']});
+      dispatch({type: "message", payload: ['Leave course succeed!', '成功退出班別!', '成功退出班别!']});
       dispatch({type: "updateCourses", payload: [res.data.leavedCourse]});
       dispatch({type: "leaveCourse", payload: res.data.leavedCourse._id});
       dispatch({type: "setProfile", payload: res.data.updatedProfile});
       dispatch({type: "backToHome"});
     } else {
-      dispatch({type: "message", payload: ['Leave course failed! Please Try again!',  '退出失敗! 請再試一次!']});
+      dispatch({type: "message", payload: ['Leave course failed! Please Try again!',  '退出失敗! 請再試一次!',  '退出失败! 请再试一次!']});
     }
   }
 }
@@ -43,13 +43,13 @@ export function joinCourse(_data){
 
 
     if(res.data.result === 'success'){
-      dispatch({type: "message", payload: ['Join course succeed!', '成功加入班別!']});
+      dispatch({type: "message", payload: ['Join course succeed!', '成功加入班別!', '成功加入班别!']});
       dispatch({type: "updateCourses", payload: [res.data.joinedCourse]});
       dispatch({type: "updateJoinedCourses", payload: [res.data.joinedCourse._id]});
       dispatch({type: "setProfile", payload: res.data.updatedProfile});
       dispatch({type: "backToHome"});
     } else {
-      dispatch({type: "message", payload: ['Join course failed! Please make sure to enter a correct code!',  '加入失敗! 請確定代碼輸入正確!']});
+      dispatch({type: "message", payload: ['Join course failed! Please make sure to enter a correct code!', '加入失敗! 請確定代碼輸入正確!', '加入失败! 请确定代码输入正确!']});
     }
   }
 }
@@ -79,7 +79,7 @@ export function editCourse(editedCourse){
       dispatch({type: "viewCourse", payload: updateRes.data.editedCourse});
       dispatch({type: "pullView"});
     }else{
-      dispatch({type: "message", payload: ['Edit course failed! Please try again!',  '修改失敗! 請再試一次!']});
+      dispatch({type: "message", payload: ['Edit course failed! Please try again!', '修改失敗! 請再試一次!', '修改失败! 请再试一次!']});
     }
   }
 }
@@ -109,13 +109,13 @@ export function addCourse(newCourse){
 
 
     if(addRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Add course succeed!', '成功創建班別!']});
+      dispatch({type: "message", payload: ['Add course succeed!', '成功創建班別!', '成功创建班别!']});
       dispatch({type: "updateCourses", payload: [addRes.data.newCourse]});
       dispatch({type: "updateTeachingCourses", payload: [addRes.data.newCourse._id]});
       dispatch({type: "backToHome"});
       //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
     }else{
-      dispatch({type: "message", payload: ['Add course failed! Please try again!', '創建失敗! 請再試一次!']});
+      dispatch({type: "message", payload: ['Add course failed! Please try again!', '創建失敗! 請再試一次!', '创建失败! 请再试一次!']});
     }
 
   }

@@ -11,6 +11,7 @@ import * as modal from './redux/actions/control/modal';
 import * as user from './redux/actions/data/user';
 import * as profile from './redux/actions/data/profile';
 import * as courses from './redux/actions/data/courses';
+import * as subjects from './redux/actions/data/subjects';
 import * as profiles from './redux/actions/data/profiles';
 import * as projects from './redux/actions/data/projects';
 import * as studentProjects from './redux/actions/data/studentProjects';
@@ -90,6 +91,11 @@ class App extends Component {
     return this.getItemById(projectsData, projectId);
   }
 
+  getSubjectById(subjectId){
+    const subjectsData = this.props.store.subjects.subjects;
+    return this.getItemById(subjectsData, subjectId);
+  }
+
   getCourseById(courseId){
     const coursesData = this.props.store.courses.courses;
     return this.getItemById(coursesData, courseId);
@@ -119,7 +125,7 @@ class App extends Component {
   langNameToLangKey(langName){
     const langKeys = this.props.store.langs.langKeys;
     for(var i=0;i<langKeys.length;i++){
-      if(langName === langKeys[i].name[0] || langName === langKeys[i].name[1]){
+      if(langName === langKeys[i].name[0] || langName === langKeys[i].name[1] || langName === langKeys[i].name[2]){
         return langKeys[i].key;
       }
     }
@@ -130,7 +136,7 @@ class App extends Component {
     const langKeys = this.props.store.langs.langKeys;
     for(var i=0;i<langKeys.length;i++){
       if(langKey === langKeys[i].key){
-        return this.multiLang(langKeys[i].name[0], langKeys[i].name[1]);
+        return this.multiLang(langKeys[i].name[0], langKeys[i].name[1], langKeys[i].name[2]);
       }
     }
     return '';
@@ -140,21 +146,25 @@ class App extends Component {
     const actions = this.props.actions.content;
     if(!filename){ return ''};
     const cachedUrl = this.props.store.content.cachedUrl[filename];
-    if(cachedUrl){ /*console.log('use cached url');*/ return cachedUrl; }
+    if(cachedUrl){ /*console.log(type + ' use cached url');*/ return cachedUrl; }
     //console.log('create url');
     actions.cacheUrl(filename, 'processing...');
     const localFile = await this.props.db.get(filename);
     if(localFile){
+      //console.log(type + ' use localFile');
       const url = URL.createObjectURL(localFile);
-      return actions.cacheUrl(filename, url);
+      actions.cacheUrl(filename, url);
+      return url;
     }else{
+      //console.log(type + ' downloading...');
       const downloadUrl = process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
       let err, res;
       [err, res] = await to(axios.get(downloadUrl, {responseType: 'blob'}));
       if(err || !res.data){ console.log('file download error!'); return '';}
       this.props.db.set(filename, res.data);
       const url = URL.createObjectURL(res.data);
-      return actions.cacheUrl(filename, url);
+      actions.cacheUrl(filename, url);
+      return url;
     }
   }
 
@@ -185,12 +195,14 @@ class App extends Component {
     return dateStr;
   }
 
-  multiLang(english, chinese){
+  multiLang(english, chinese, simplified_chinese){
     switch (this.props.store.main.language) {
       case 'english':
         return english;
       case 'chinese':
         return chinese;
+      case 'simplified_chinese':
+        return simplified_chinese;
       default:
         return english;
     }
@@ -209,6 +221,7 @@ class App extends Component {
 
         getProfileByUserId: this.getProfileByUserId.bind(this),
         getCourseById: this.getCourseById.bind(this),
+        getSubjectById: this.getSubjectById.bind(this),
         getProjectById: this.getProjectById.bind(this),
         getStudentProject: this.getStudentProject.bind(this),
         getCardById: this.getCardById.bind(this),
@@ -255,6 +268,7 @@ function mapDispatchToProps(dispatch){
 
       profile: Action(profile, dispatch),
       courses: Action(courses, dispatch),
+      subjects: Action(subjects, dispatch),
       profiles: Action(profiles, dispatch),
       projects: Action(projects, dispatch),
       studentProjects: Action(studentProjects, dispatch),

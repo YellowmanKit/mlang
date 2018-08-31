@@ -74,7 +74,8 @@ class SlideShow extends View {
       width: '100%',
       height: '',
       fontSize: '300%',
-      textAlign: 'center'
+      textAlign: 'center',
+      cursor: 'pointer'
     }
     return(
       <div onClick={()=>{ this.setState({ audioPlaying: true })}} style={{width: this.bs.width, height: this.bs.height * 0.5, overflow: 'auto'}}>
@@ -87,7 +88,7 @@ class SlideShow extends View {
     this.init(this.props);
 
     return (
-      <div style={{...this.viewStyle(), ...{ backgroundColor: 'black', cursor: 'pointer' }}}>
+      <div style={{...this.viewStyle(), ...{ backgroundColor: 'black' }}}>
         {this.slideImage()}
         {this.slideLangText()}
         {this.state.audioPlaying &&

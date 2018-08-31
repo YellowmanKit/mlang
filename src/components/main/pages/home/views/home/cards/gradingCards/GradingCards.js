@@ -21,7 +21,7 @@ class GradingCards extends View {
     }
   }
 
-  async getAudioCommentsBlob(newProps){
+  /*async getAudioCommentsBlob(newProps){
     if(this.state.blobFetched){ return; }
     this.setState({
       blobFetched: true
@@ -34,14 +34,13 @@ class GradingCards extends View {
       const url = await this.func.url(gradingCards[i].audioComment, 'audioComment');
       const res = await fetch(url);
       const blob = await res.blob();
-      //console.log(blob);
       var newAudioCommentsBlob = {...this.state.audioCommentsBlob};
       newAudioCommentsBlob[gradingCards[i].audioComment] = blob;
       this.setState({
         audioCommentsBlob: newAudioCommentsBlob
       })
     }
-  }
+  }*/
 
   componentDidMount(){
     this.init(this.props);
@@ -50,7 +49,7 @@ class GradingCards extends View {
 
   componentWillReceiveProps(newProps){
     this.checkInit(newProps);
-    this.getAudioCommentsBlob(newProps);
+    //this.getAudioCommentsBlob(newProps);
   }
 
   checkInit(props){
@@ -90,8 +89,8 @@ class GradingCards extends View {
     const cardsId = studentProject.cards;
     for(var i=0;i<cardsId.length;i++){
       const card = this.func.getCardById(cardsId[i]);
-      if(card === null){ return; }
-      cards.splice(0,0, card);
+      if(!card){ return; }
+      cards.push(card);
     }
     if(cards.length === studentProject.cards.length){
       this.setState({
@@ -202,14 +201,21 @@ class GradingCards extends View {
       position: 'absolute',
       bottom: this.bs.width * 0.2
     }}
-    const audioBlob =
+    /*const audioBlob =
     gradingCard.audioCommentBlob? gradingCard.audioCommentBlob:
     gradingCard.audioComment? this.state.audioCommentsBlob[gradingCard.audioComment]:
-    null;
+    null;*/
+    const audioBlob = gradingCard.audioCommentBlob;
 
     return(
       <div style={style}>
-        <RecorderBar app={this.app} scale={['75%','100%']} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
+        <RecorderBar
+        app={this.app}
+        scale={['75%','100%']}
+        audioBlob={audioBlob}
+        defaultAudio={gradingCard.audioComment}
+        type={'audioComment'}
+        onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
       </div>
     )
   }

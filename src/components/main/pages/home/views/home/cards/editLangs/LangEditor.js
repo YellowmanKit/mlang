@@ -63,7 +63,7 @@ class LangEditor extends UI {
     return(
       <div style={editorStyle}>
         {this.langEditRows()}
-        {this.editLangs.length < this.store.langs.langKeys.length && this.buttons.listAdd([this.bs.width * 0.9, this.bs.height * 0.075], ['ADD LANG ROW','增加語言欄'], '200%', ()=>{this.pushNewRow()})}
+        {this.editLangs.length < this.store.langs.langKeys.length && this.buttons.listAdd([this.bs.width * 0.9, this.bs.height * 0.075], ['ADD LANG ROW','增加語言欄','增加语言栏'], '200%', ()=>{this.pushNewRow()})}
       </div>
     )
   }

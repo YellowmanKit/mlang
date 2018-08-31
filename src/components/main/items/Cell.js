@@ -30,6 +30,7 @@ class Cell extends UI {
     cellType === 'course'? 'courseIcon':
     cellType === 'project'? 'projectIcon':
     cellType === 'card'? 'cardIcon':
+    cellType === 'subject'? 'subjectIcon':
     '';
     return fileType;
   }
@@ -45,7 +46,7 @@ class Cell extends UI {
 
   cellTitle(type){
     var text = '';
-    if(type === 'course' || type === 'project'){
+    if(type === 'course' || type === 'project' || type === 'subject'){
       text = this.props.data.title;
     }
     if(type === 'card'){
@@ -105,6 +106,7 @@ class Cell extends UI {
     this.props.type === 'course'? [this.bs.width * 0.24,this.bs.width * 0.24]:
     this.props.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
     this.props.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
+    this.props.type === 'subject'? [this.bs.width * 0.22, this.bs.width * 0.24]:
     '';
 
     this.outDated =

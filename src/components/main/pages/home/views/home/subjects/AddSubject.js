@@ -7,11 +7,11 @@ class AddProject extends View {
   constructor(props){
     super(props);
     this.init(props);
-    this.project = this.store.projects.viewingProject;
+    this.subject = this.store.subjects.viewingSubject;
     this.state = {
       modified: false,
-      filename: this.project.icon,
-      type: 'projectIcon',
+      filename: this.subject.icon,
+      type: 'subjectIcon',
     }
     this.checkUrl();
   }
@@ -27,7 +27,7 @@ class AddProject extends View {
 
         {this.subTitle(['Icon','照片','照片'])}
         {this.sep()}
-        <ImagePicker defaultUrl={this.url.url} app={this.app} />
+        <ImagePicker defaultUrl={this.state.url} app={this.app} />
         {this.sep()}
         {this.gap('2%')}
 
@@ -42,50 +42,37 @@ class AddProject extends View {
         {this.inputs.textArea('desc', '', this.props.editMode? this.project.description:'', ()=>{ this.setState({modified: true})})}
         {this.gap('4%')}
 
-        {this.subTitle(['End date','結束日期','结束日期'])}
-        {this.sep()}
-        {this.inputs.inputField('endDate','date', ['',''], this.func.getDateString(this.props.editMode? new Date(this.project.endDate):defaultDate) , ()=>{ this.setState({modified: true})})}
-        {this.gap('2%')}
-
-        {this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addProject()})}
+        {this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addSubject()})}
         {this.gap('2%')}
       </div>
     )
   }
 
-  addProject(){
+  addSubject(){
     const editMode = this.props.editMode;
     const newIconBlob = this.store.main.photoBlob;
     const title = document.getElementById('title').value;
     const description = document.getElementById('desc').value;
-    const endDate = document.getElementById('endDate').value;
 
-    const today = new Date();
-    const selectedEndDate = new Date(endDate)
     if(!editMode && newIconBlob === null){
       return this.failedMessage(['Failed to add! Icon is missing!', '創建失敗! 未有照片!','创建失败! 未有照片!'])
     }
     if(title.length === 0){
-      return this.failedMessage(['Failed to add! Title is missing!', '創建失敗! 未填班名!','创建失败! 未填班名!'])
-    }
-    if(selectedEndDate < today){
-      return this.failedMessage(['Failed to add! End date is in the past!', '創建失敗! 結束日期早於現在!','创建失败! 结束日期早于现在!'])
+      return this.failedMessage(['Failed to add! Title is missing!', '創建失敗! 未填標題!','创建失败! 未填标题!'])
     }
 
     if(!editMode){
-      this.actions.projects.addProject({
-        subject: this.store.subjects.viewingSubject._id,
+      this.actions.subjects.addSubject({
+        course: this.store.courses.viewingCourse._id,
         icon: newIconBlob,
         title: title,
-        description: description,
-        endDate: endDate
+        description: description
       });
     }else if(newIconBlob || this.state.modified){
-      this.actions.projects.editProject({...this.project, ...{
+      this.actions.subjects.editSubject({...this.subject, ...{
         newIcon: newIconBlob,
         title: title,
-        description: description,
-        endDate: endDate
+        description: description
       }})
     }else{
       return this.failedMessage(['Failed to add! Nothing is modified!', '提交失敗!未作出更改!', '提交失败!未作出更改!'])

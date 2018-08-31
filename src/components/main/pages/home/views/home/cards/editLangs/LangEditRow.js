@@ -6,7 +6,7 @@ import icon_cross from 'resources/images/buttons/buttonIcons/cross_grey.png';
 
 class LangEditRow extends UI {
 
-  constructor(props){
+  /*constructor(props){
     super(props);
     this.init(props);
     this.state = {
@@ -16,7 +16,7 @@ class LangEditRow extends UI {
     }
     this.url.useBlob = true;
     this.checkUrl();
-  }
+  }*/
 
   langRow(){
     const i = this.props.index;
@@ -45,16 +45,17 @@ class LangEditRow extends UI {
       alignItems: 'center'
     }}
 
-    const audioBlob =
+    /*const audioBlob =
     this.props.editLang.audioBlob? this.props.editLang.audioBlob:
-    this.url.blob;
+    this.url.blob;*/
+    const audioBlob = this.props.editLang.audioBlob;
 
     //console.log(audioBlob)
     return(
       <div style={barStyle}>
         {this.verGap('1%')}
         {this.inputs.optionBar('langKey' + i, ['30%','75%'], this.langKeyOptions(), this.langKeyDefault(i), this.onOptionChange.bind(this))}
-        <RecorderBar app={this.app} scale={['65%','100%']} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={false}/>
+        <RecorderBar app={this.app} scale={['65%','100%']} defaultAudio={this.props.editLang.defaultAudio} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={false}/>
         {i > 0 && this.buttons.langBar(icon_cross, 0.1, [this.bs.width * 0.05,this.bs.width * 0.05],()=>{this.actions.langs.removeEditLangsItem(i)})}
         {this.verGap('1%')}
       </div>

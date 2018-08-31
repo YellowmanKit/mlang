@@ -16,7 +16,6 @@ class SubmittedCards extends SubView {
       this.actions.studentProjects.getStudentProject(this.store.user._id, viewingProject._id, this.store.studentProjects.studentProjects.length)
     }else {
       this.actions.studentProjects.viewStudentProject(studentProject);
-      this.actions.cards.viewCards(studentProject.cards);
     }
   }
 

@@ -21,7 +21,7 @@ export function getProjects(projects){
     if(res.data.result === 'success'){
       dispatch({type: "updateProjects", payload: res.data.projects});
     }else{
-      dispatch({type: "message", payload: ['Failed to get projects data!', '無法查閱專題研習資料!']});
+      dispatch({type: "message", payload: ['Failed to get projects data!', '無法查閱專題研習資料!', '无法查阅专题研习资料!']});
     }
 
   }
@@ -46,12 +46,12 @@ export function editProject(editedProject){
     if(err){actions.connectionError(dispatch); return;}
 
     if(updateRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Edit project succeed!', '成功修改專題研習!']});
+      dispatch({type: "message", payload: ['Edit project succeed!', '成功修改專題研習!', '成功修改专题研习!']});
       dispatch({type: "updateProjects", payload: [updateRes.data.editedProject]});
       dispatch({type: "viewProject", payload: updateRes.data.editedProject});
       dispatch({type: "pullView"});
     } else {
-      dispatch({type: "message", payload: ['Edit project failed! Please try again!', '修改失敗! 請再試一次!']});
+      actions.updateFailed(dispatch);
     }
   }
 }
@@ -81,15 +81,15 @@ export function addProject(newProject){
 
     //console.log(res.data);
     if(addRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Add project succeed!', '成功創建專題研習!']});
+      dispatch({type: "message", payload: ['Add project succeed!', '成功創建專題研習!', '成功创建专题研习!']});
       dispatch({type: "updateProjects", payload: [addRes.data.newProject]});
       dispatch({type: "updateTeachingProjects", payload: [addRes.data.newProject._id]});
-      dispatch({type: "updateCourses", payload: [addRes.data.updatedCourse]});
+      dispatch({type: "updateSubjects", payload: [addRes.data.updatedSubject]});
       dispatch({type: "viewCourse", payload: addRes.data.updatedCourse});
       dispatch({type: "pullView"});
       //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
     }else{
-      dispatch({type: "message", payload: ['Add project failed! Please try again!', '創建失敗! 請再試一次!']});
+      dispatch({type: "message", payload: ['Add project failed! Please try again!', '創建失敗! 請再試一次!', '创建失败! 请再试一次!']});
     }
 
   }

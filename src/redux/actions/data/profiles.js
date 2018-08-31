@@ -21,7 +21,7 @@ export function getProfiles(usersId){
     if(res.data.result === 'success'){
       dispatch({type: "updateProfiles", payload: res.data.profiles});
     }else{
-      dispatch({type: "message", payload: ['Failed to get profiles data!', '無法查閱學生資料!']});
+      dispatch({type: "message", payload: ['Failed to get profiles data!', '無法查閱學生資料!', '无法查阅学生资料!']});
     }
   }
 }

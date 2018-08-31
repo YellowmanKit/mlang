@@ -1,5 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
+import Sound from 'react-sound';
 import WAVEInterface from 'components/audio/waveInterface';
 
 import icon_recorder from 'resources/images/buttons/buttonIcons/recorder_black.png';
@@ -16,7 +17,20 @@ class RecorderBar extends UI {
   constructor(props){
     super(props);
     this.state = {
-      audioPlaying: false
+      filename: props.defaultAudio,
+      type: props.type,
+      audioPlaying: false,
+      defaultAudioPlaying: false
+    }
+    this.checkUrl();
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    const newFilename = newProps.defaultAudio;
+    if(this.state.filename !== newFilename){
+      this.setState({ filename: newFilename })
+      this.checkUrl();
     }
   }
 
@@ -28,7 +42,7 @@ class RecorderBar extends UI {
       this.actions.main.setAudioRecorder({recording: true, onRecordStop: ()=>{this.stopRecord()}});
     })
     .catch((err) => {
-      this.actions.modal.errorMessage([err.message, err.message]);
+      this.actions.modal.message([err.message, err.message]);
       throw err;
     })
   }
@@ -42,18 +56,21 @@ class RecorderBar extends UI {
   }
 
   playback(){
-    if(this.state.audioPlaying || !this.props.audioBlob){ return; }
+    if(this.state.audioPlaying || (!this.props.audioBlob && !this.props.defaultAudio)){ return; }
     //console.log(this.props.audioBlob)
-
-    this.waveInterface.startPlayback(false, this.props.audioBlob, ()=>{this.onPlaybackEnd()})
-    .then(()=>{
-      this.setState({ audioPlaying: true })
-    })
+    if(this.props.audioBlob){
+      this.waveInterface.startPlayback(false, this.props.audioBlob, ()=>{this.onPlaybackEnd()})
+      .then(()=>{
+        this.setState({ audioPlaying: true })
+      })
+    }else if(this.props.defaultAudio && this.url.url){
+      this.setState({ defaultAudioPlaying: true })
+    }
 
   }
 
   onPlaybackEnd(){
-    this.setState({ audioPlaying: false })
+    this.setState({ audioPlaying: false, defaultAudioPlaying: false })
   }
 
   stopPlayback(){
@@ -73,18 +90,24 @@ class RecorderBar extends UI {
     const sizeBig = [this.bs.width * 0.06,this.bs.width * 0.06];
 
     const audioBlob = this.props.audioBlob;
-    const isPlaying = this.state.audioPlaying
+    const hvAudio = (audioBlob || this.props.defaultAudio);
+    const isPlaying = this.state.audioPlaying || this.state.defaultAudioPlaying;
 
     return(
       <div style={barStyle}>
         {this.verGap('15%')}
-        {this.buttons.langBar(icon_recorder, audioBlob? 0.7: 0.15, sizeBig, ()=>{this.record(i)})}
+        {this.buttons.langBar(icon_recorder, hvAudio? 0.7: 0.15, sizeBig, ()=>{this.record(i)})}
         {this.verGap('15%')}
-        {this.buttons.langBar(icon_play , (audioBlob && !isPlaying)? 0.7:0.15, sizeSmall,()=>{this.playback(i)})}
+        {this.buttons.langBar(icon_play , (hvAudio && !isPlaying)? 0.7:0.15, sizeSmall,()=>{this.playback(i)})}
         {this.verGap('15%')}
-        {this.buttons.langBar(icon_stop, (audioBlob && isPlaying)? 0.7:0.15, sizeBig,()=>{this.stopPlayback(i)})}
+        {this.buttons.langBar(icon_stop, (hvAudio && isPlaying)? 0.7:0.15, sizeBig,()=>{this.stopPlayback(i)})}
         {this.verGap('15%')}
-        {this.props.canRemove && this.buttons.langBar(icon_cross, audioBlob? 0.7:0.15, sizeBig,()=>{this.props.onStopRecording(null)})}
+        {this.props.canRemove && this.buttons.langBar(icon_cross, hvAudio? 0.7:0.15, sizeBig,()=>{this.props.onStopRecording(null)})}
+        {this.state.defaultAudioPlaying && this.props.defaultAudio && this.url.url &&
+          <Sound
+          url={this.url.url}
+          playStatus={Sound.status.PLAYING}
+          onFinishedPlaying={this.onPlaybackEnd.bind(this)}/>}
       </div>
     )
   }

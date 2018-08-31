@@ -48,7 +48,7 @@ class Input {
       height: scale? scale[1]: this.bs.height * 0.15,
       fontSize: '150%'
     }
-    return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1]):''}/>
+    return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1],placeholder[2]):''}/>
   }
 
   inputField(id, type, placeholder, value, onChange){
@@ -58,7 +58,7 @@ class Input {
       fontSize: '125%',
       margin: '2%'
     }
-    return <input id={id} type={type} placeholder={this.func.multiLang(placeholder[0], placeholder[1])} defaultValue={value} style={inputStyle} onChange={onChange}/>
+    return <input id={id} type={type} placeholder={this.func.multiLang(placeholder[0], placeholder[1], placeholder[2])} defaultValue={value} style={inputStyle} onChange={onChange}/>
   }
 
 }

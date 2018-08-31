@@ -36,18 +36,18 @@ class AddCard extends View {
       <div style={this.viewStyle()}>
         {this.gap('4%')}
 
-        {this.subTitle(['Icon','照片'])}
+        {this.subTitle(['Icon','照片','照片'])}
         {this.sep()}
         <ImagePicker defaultUrl={this.state.url} app={this.app}/>
         {this.sep()}
         {this.gap('2%')}
 
-        {this.subTitle(['Lang rows','語言欄'])}
+        {this.subTitle(['Lang rows','語言欄','语言栏'])}
         {this.sep()}
         <LangEditor defaultLangs={this.props.editMode? this.card.langs:null} app={this.app}/>
         {this.sep()}
 
-        {this.buttons.rectGreen(['Submit','提交'], ()=>{this.addCard()})}
+        {this.buttons.rectGreen(['Submit','提交','提交'], ()=>{this.addCard()})}
         {this.gap('2%')}
       </div>
     )
@@ -57,19 +57,19 @@ class AddCard extends View {
     const editMode = this.props.editMode;
     const icon = this.store.main.photoBlob;
     if(!editMode && icon === null){
-      return this.failedMessage(['Failed to submit! Icon is missing!', '提交失敗! 未有照片!'])
+      return this.failedMessage(['Failed to submit! Icon is missing!', '提交失敗! 未有照片!','提交失败! 未有照片!'])
     }
     const editLangs = this.store.langs.editLangs;
     var usedKeys = [];
     for(var i=0;i<editLangs.length;i++){
       if(usedKeys.includes(editLangs[i].key)){
-        return this.failedMessage(['Failed to submit! Lang key duplicated!', '提交失敗! 語言列不能重複!'])
+        return this.failedMessage(['Failed to submit! Lang key duplicated!', '提交失敗! 語言列不能重複!','提交失败! 语言列不能重复!'])
       }
       if(editLangs[i].text === ''){
-        return this.failedMessage(['Failed to submit! Lang text missing!', '提交失敗! 語言列缺少文字!'])
+        return this.failedMessage(['Failed to submit! Lang text missing!', '提交失敗! 語言列缺少文字!','提交失败! 语言列缺少文字!'])
       }
       if(!editLangs[i].defaultAudio && !editLangs[i].audioBlob){
-        return this.failedMessage(['Failed to submit! Lang audio missing!', '提交失敗! 語言列缺少錄音!'])
+        return this.failedMessage(['Failed to submit! Lang audio missing!', '提交失敗! 語言列缺少錄音!','提交失败! 语言列缺少录音!'])
       }
       usedKeys.splice(0,0,editLangs[i].key)
     }

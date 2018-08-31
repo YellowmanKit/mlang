@@ -17,8 +17,8 @@ class Menu extends UI {
       flexGrow: 6
     }}
     const type =
-    this.store.user.type === 'student'? this.func.multiLang('Student','學生'):
-    this.store.user.type === 'teacher'? this.func.multiLang('Teacher','老師'):
+    this.store.user.type === 'student'? this.func.multiLang('Student','學生','学生'):
+    this.store.user.type === 'teacher'? this.func.multiLang('Teacher','老師','老师'):
     '';
 
     return(
@@ -44,16 +44,16 @@ class Menu extends UI {
     }}
     const buttons =
     [
-      ['account','Account','帳號資訊'],
-      ['profile','Profile','個人檔案'],
+      ['account','Account','帳號資訊','帐号资讯'],
+      ['profile','Profile','個人檔案','个人档案'],
       //['setting','Setting','設定'],
-      ['credit','Credit','鳴謝']
+      ['credit','Credit','鳴謝','鸣谢']
     ]
     return(
       <div style={areaStyle}>
         {this.gap(this.bs.width * 0.05)}
           {buttons.map((item,i)=>{
-            return <button key={i} onClick={()=>{this.actions.main.setPhoto({url: null, blob: null}); this.switchView(item[0]);}} style={buttonStyle}> {this.func.multiLang(item[1],item[2])} </button>
+            return <button key={i} onClick={()=>{this.actions.main.setPhoto({url: null, blob: null}); this.switchView(item[0]);}} style={buttonStyle}> {this.func.multiLang(item[1],item[2],item[3])} </button>
           })}
       </div>
     )
@@ -73,7 +73,7 @@ class Menu extends UI {
     }}
     return(
       <div style={areaStyle}>
-        <button onClick={()=>this.logout()} style={buttonStyle}> {this.func.multiLang('Logout','登出')} </button>
+        <button onClick={()=>this.logout()} style={buttonStyle}> {this.func.multiLang('Logout','登出','登出')} </button>
       </div>
     )
   }

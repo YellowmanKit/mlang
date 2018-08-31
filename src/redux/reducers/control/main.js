@@ -13,8 +13,8 @@ const mainReducer = (
     enlargeImage: null,
     enlargeText: '',
 
-    language: 'chinese',
-    version: 'v1.0.0'
+    language: 'simplified_chinese',
+    version: 'v1.0.1'
   }, action)=>{
   switch (action.type) {
     case 'enlargeText':

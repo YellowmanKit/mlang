@@ -4,6 +4,30 @@ import Cell from 'components/main/items/Cell';
 
 class Cards extends UI {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      viewCardIsSet: false
+    }
+  }
+
+  setViewCards(props){
+    const cardsId = this.props.cardsId;
+    var cardsToView = [];
+    cardsId.map(cardId=>{
+      const card = this.func.getCardById(cardId);
+      if(!card){ return null; }
+      if(this.props.featuredOnly && card.grade !== 'featured'){ return null; }
+      cardsToView.push(cardId);
+      return null;
+    })
+    this.actions.cards.viewCards(cardsToView);
+    this.setState({
+      viewCardIsSet: true
+    })
+  }
+
   componentDidMount(){
     this.init(this.props);
     this.getCards(this.props);
@@ -25,6 +49,8 @@ class Cards extends UI {
     }
     if(cardsToGet.length > 0){
       this.actions.cards.getCards(cardsToGet);
+    }else if(!this.state.viewCardIsSet || (!this.props.featuredOnly && cardsToShow.length !== 0 && this.store.cards.viewingCards.length === 0)){
+      this.setViewCards(props);
     }
   }
 
@@ -59,6 +85,7 @@ class Cards extends UI {
           }
           const card = this.func.getCardById(cardId);
           if(!card){ return null;}
+          if(this.props.featuredOnly && card.grade !== 'featured'){ return null; }
           //console.log(card);
           return(
             <div key={i} style={cardContainerStyle}>

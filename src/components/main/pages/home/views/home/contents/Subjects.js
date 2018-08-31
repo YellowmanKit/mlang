@@ -2,9 +2,9 @@ import React from 'react';
 import UI from 'components/UI';
 import Cell from 'components/main/items/Cell';
 
-class Projects extends UI {
+class Subjects extends UI {
 
-  projects(){
+  subjects(){
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
       height: this.bs.height * 0.57,
@@ -14,32 +14,32 @@ class Projects extends UI {
     }}
     return(
       <div style={areaStyle}>
-        {this.projectsCells()}
+        {this.subjectsCells()}
       </div>
     )
   }
 
-  projectsCells(){
-    const projects =
-    this.store.user.type === 'teacher'? this.store.projects.teachingProjects:
-    this.store.user.type === 'student'? this.store.projects.joinedProjects:
+  subjectsCells(){
+    const subjects =
+    this.store.user.type === 'teacher'? this.store.subjects.teachingSubjects:
+    this.store.user.type === 'student'? this.store.subjects.joinedSubjects:
     [];
 
-    var projectsData = [];
-    projects.map(id=>{
-      return projectsData.push(this.func.getProjectById(id));
+    var subjectsData = [];
+    subjects.map(id=>{
+      return subjectsData.push(this.func.getSubjectById(id));
     })
     const containerStyle = {...this.ui.styles.container, ...{
       width: this.bs.width * 0.275,
       height: this.bs.width * 0.3
     }}
-    return projectsData.map((project, i)=>{
+    return subjectsData.map((subject, i)=>{
       return(
         <div key={i} style={containerStyle}>
           <Cell app={this.app}
-          type={'project'}
-          data={project}
-          onClick={()=>{ this.clearAlert(project); this.actions.projects.viewProject(project._id); this.actions.content.pushView('project'); }}/>
+          type={'subject'}
+          data={subject}
+          onClick={()=>{ this.actions.subjects.viewSubject(subject); this.actions.content.pushView('subject'); }}/>
         </div>
       )
     });
@@ -48,7 +48,7 @@ class Projects extends UI {
   render() {
     this.init(this.props);
 
-    const title = ['Projects','專題研習','专题研习'];
+    const title = ['Subjects','議題','议题'];
 
     const containerStyle = {
       width: '100%',
@@ -59,10 +59,10 @@ class Projects extends UI {
     return(
       <div style={containerStyle}>
         {this.tabBar(title)}
-        {this.projects()}
+        {this.subjects()}
       </div>
     )
   }
 }
 
-export default Projects;
+export default Subjects;

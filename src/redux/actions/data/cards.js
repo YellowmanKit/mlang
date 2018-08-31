@@ -65,13 +65,13 @@ export function saveGradingCards(projectId, studentProjectId, gradingCards){
     if(err){actions.connectionError(dispatch); return;}
 
     if(cardRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Grading card succeed!', '成功評核卡片!']});
+      dispatch({type: "message", payload: ['Grading card succeed!', '成功評核卡片!', '成功评核卡片!']});
       dispatch({type: "pullView"});
       dispatch({type: "updateCards", payload: cardRes.data.updatedCards});
       dispatch({type: "updateProfiles", payload: [cardRes.data.updatedProfile]});
       dispatch({type: "updateProjects", payload: [cardRes.data.updatedProject]});
     }else{
-      dispatch({type: "message", payload: ['Grading card failed! Please try again!', '評核失敗! 請再試一次!']});
+      dispatch({type: "message", payload: ['Grading card failed! Please try again!', '評核失敗! 請再試一次!', '评核失败! 请再试一次!']});
     }
 
   }
@@ -148,7 +148,7 @@ export function editCard(data){
 
 
     if(updateRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Edit card succeed!', '成功修改卡片!']});
+      dispatch({type: "message", payload: ['Edit card succeed!', '成功修改卡片!', '成功修改卡片!']});
       dispatch({type: "updateCards", payload: [updateRes.data.updatedCard]});
       dispatch({type: "updateLangs", payload: updateRes.data.updatedLangs});
 
@@ -156,7 +156,7 @@ export function editCard(data){
       dispatch({type: "pullView"});
       dispatch({type: "pullView"});
     }else{
-      dispatch({type: "message", payload: ['Edit card failed! Please try again!', '修改失敗! 請再試一次!']});
+      dispatch({type: "message", payload: ['Edit card failed! Please try again!', '修改失敗! 請再試一次!', '修改失败! 请再试一次!']});
     }
 
   }
@@ -213,7 +213,7 @@ export function addCard(data){
     if(err){actions.connectionError(dispatch); return;}
 
     if(cardRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Submit card succeed!', '成功提交卡片!']});
+      dispatch({type: "message", payload: ['Submit card succeed!', '成功提交卡片!', '成功提交卡片!']});
       //console.log(cardRes.data);
       dispatch({type: "updateCards", payload: [cardRes.data.card]});
       dispatch({type: "updateLangs", payload: cardRes.data.langs});
@@ -231,7 +231,7 @@ export function addCard(data){
       dispatch({type: "pullView"});
     }else{
       console.log(cardRes.data.result);
-      dispatch({type: "message", payload: ['Submit card failed! Please try again!', '提交失敗! 請再試一次!']});
+      dispatch({type: "message", payload: ['Submit card failed! Please try again!', '提交失敗! 請再試一次!', '提交失败! 请再试一次!']});
     }
 
   }

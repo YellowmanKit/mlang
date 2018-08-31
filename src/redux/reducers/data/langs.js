@@ -7,67 +7,67 @@ const langsReducer = (
     langKeys: [
       {
         key: 'chinese_written',
-        name: ['Chinese(Written)','中文(書面語)'],
+        name: ['Chinese(Written)','中文(書面語)','中文(书面语)'],
         use: true
       },
       {
         key: 'english',
-        name: ['English','英文'],
+        name: ['English','英文','英文'],
         use: true
       },
       {
         key: 'chinese_spoken',
-        name: ['Chinese(Spoken)','中文(口語)'],
+        name: ['Chinese(Spoken)','中文(口語)','中文(口语)'],
         use: true
       },
       {
         key: 'pth_written',
-        name: ['PTH(Written)','普通話(書面語)'],
+        name: ['PTH(Written)','普通話(書面語)','普通话(书面语)'],
         use: true
       },
       {
         key: 'pth_spoken',
-        name: ['PTH(Spoken)','普通話(口語)'],
+        name: ['PTH(Spoken)','普通話(口語)','普通话(口语)'],
         use: true
       },
       {
         key: 'hindi',
-        name: ['Hindi','印度語'],
+        name: ['Hindi','印度語','印度语'],
         use: true
       },
       {
         key: 'urdu',
-        name: ['Urdu','烏都語'],
+        name: ['Urdu','烏都語','乌都语'],
         use: true
       },
       {
         key: 'nepalese',
-        name: ['Nepalese','尼泊爾語'],
+        name: ['Nepalese','尼泊爾語','尼泊尔语'],
         use: true
       },
       {
         key: 'tagalog',
-        name: ['Tagalog','他加祿語'],
+        name: ['Tagalog','他加祿語','他加禄语'],
         use: true
       },
       {
         key: 'japanese',
-        name: ['Japanese','日文'],
+        name: ['Japanese','日語','日语'],
         use: true
       },
       {
         key: 'spanish',
-        name: ['Spanish','西班牙文'],
+        name: ['Spanish','西班牙語','西班牙语'],
         use: true
       },
       {
         key: 'german',
-        name: ['German','德文'],
+        name: ['German','德語','德语'],
         use: true
       },
       {
         key: 'french',
-        name: ['French','法文'],
+        name: ['French','法語','法语'],
         use: true
       }
     ]

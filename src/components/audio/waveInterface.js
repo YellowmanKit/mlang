@@ -3,14 +3,19 @@ import encodeWAV from './waveEncoder';
 export default class WAVEInterface {
   static audioContext = null;
   constructor(app){
-    this.message = app.actions.modal.errorMessage;
+    this.message = app.actions.modal.message;
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     if (window.AudioContext) {
       WAVEInterface.audioContext = new window.AudioContext();
     }else{
-      this.message(['Audio context is not available!', '無法使用錄音功能!']);
+      this.audioContextMissingMessage();
     }
   }
+
+  audioContextMissingMessage(){
+    this.message(['Audio context is not available!', '無法使用錄音功能!']);
+  }
+
   //static audioContext = new AudioContext();
   static bufferSize = 2048;
 
@@ -95,7 +100,7 @@ export default class WAVEInterface {
         const reader = new FileReader();
         reader.readAsArrayBuffer(audioData);
         reader.onloadend = () => {
-          resolve(this.decodeAudioData(reader.result, loop, onended, audioData))
+          resolve(this.decodeAudioData(reader.result, loop, onended))
         };
       }else{
         this.decodeAudioData(audioData.slice(0), loop, onended)
@@ -106,6 +111,20 @@ export default class WAVEInterface {
   }
 
   decodeAudioData(arrayBuffer, loop, onended){
+    //console.log(arrayBuffer);
+    if(!WAVEInterface.audioContext){
+      this.audioContextMissingMessage();
+      return null;
+    }
+    if(typeof WAVEInterface.audioContext.decodeAudioData !== "function"){
+      this.message(['decodeAudioData missing','decodeAudioData missing']);
+      return null;
+    }
+    if(!arrayBuffer){
+      this.message(['arraybuffer missing','arraybuffer missing']);
+      return null;
+    }
+
     WAVEInterface.audioContext.decodeAudioData(arrayBuffer, (buffer) => {
       const source = WAVEInterface.audioContext.createBufferSource();
       source.buffer = buffer;
@@ -115,8 +134,8 @@ export default class WAVEInterface {
       source.onended = onended;
       this.playbackNode = source;
       return source;
-    }).catch(err=>{
-      console.log(err);
+    }).catch(error=>{
+      console.log(error);
     });
   }
 

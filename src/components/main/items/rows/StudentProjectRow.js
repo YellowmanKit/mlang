@@ -12,9 +12,10 @@ class StudentProjectRow extends Row {
     super(props);
     this.init(props);
 
-    const profile = this.func.getProfileByUserId(this.props.studentProject.student);
+    const profile = this.func.getProfileByUserId(props.studentProject.student);
+    const project = this.func.getProjectById(props.studentProject.project);
     this.state = {
-      filename: profile? profile.icon: null,
+      filename: (props.byStudent && profile)? profile.icon:(props.byProject && project)? project.icon: null,
       type: 'profileIcon'
     }
     this.checkUrl();
@@ -32,9 +33,8 @@ class StudentProjectRow extends Row {
     }
   }
 
-  rowInfo(){
+  rowInfoStudent(){
     const studentProject = this.props.studentProject;
-
     const rowStyle = {...this.ui.styles.area, ...{
       width: '100%',
       height: this.bs.height * 0.06,
@@ -56,10 +56,33 @@ class StudentProjectRow extends Row {
     )
   }
 
+  rowInfoProject(){
+    const studentProject = this.props.studentProject;
+    const project = this.func.getProjectById(studentProject.project);
+
+    const rowStyle = {...this.ui.styles.area, ...{
+      width: '100%',
+      height: this.bs.height * 0.06,
+      alignItems: 'center'
+    }}
+    const textScale = ['100%',this.bs.height * 0.06];
+    return(
+      <div style={rowStyle}>
+        {this.textDisplay(project.description, textScale, '125%', 'left')}
+      </div>
+    )
+  }
+
   render(){
     this.init(this.props);
     const studentProject = this.props.studentProject;
-    if(studentProject === null || studentProject.student === this.store.user._id){
+    const profile = this.func.getProfileByUserId(studentProject.student);
+    const project = this.func.getProjectById(studentProject.project);
+    if(!studentProject || !profile){
+      return null;
+    }
+    
+    if(this.store.content.view !== 'student' && studentProject.student === this.store.user._id){
       return null;
     }
 
@@ -69,12 +92,22 @@ class StudentProjectRow extends Row {
       borderBottom: '1px solid ' + this.ui.colors.darkGrey,
       alignItems: 'center'
     }}
-    const profile = this.func.getProfileByUserId(studentProject.student);
+
+    const title =
+    this.props.byStudent? profile.name:
+    this.props.byProject? project.title:
+    '';
+
+    const info =
+    this.props.byStudent? this.rowInfoStudent.bind(this):
+    this.props.byProject? this.rowInfoProject.bind(this):
+    '';
+
     return(
-      <button style={rowStyle} onClick={()=>{this.actions.studentProjects.viewStudentProject(studentProject); this.actions.content.pushView('gradingCards');}}>
+      <button style={rowStyle} onClick={this.props.onClick}>
         {this.verGap('3%')}
         {this.rowIcon()}
-        {profile && this.rowContent(profile.name, this.rowInfo.bind(this) )}
+        {profile && this.rowContent(title, info )}
       </button>
     )
   }

@@ -56,7 +56,7 @@ class Modal extends UI {
     }
     return(
       <div style={areaStyle}>
-        {this.buttons.modal(['Confirm','確定'], ()=>{this.actions.modal.hideModal()})}
+        {this.buttons.modal(['Confirm','確定','确定'], ()=>{this.actions.modal.hideModal()})}
       </div>
     )
   }

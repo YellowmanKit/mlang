@@ -40,6 +40,15 @@ class UI extends Component {
     this.checkUrl();
   }
 
+  clearAlert(projectId){
+    if(this.store.user.type === 'student'){
+      const studentProject = this.func.getStudentProject(this.store.user._id, projectId);
+      if(studentProject && studentProject.studentAlert){
+        this.actions.studentProjects.clearAlert(studentProject._id);
+      }
+    }
+  }
+
   cardTags(commented, audioCommented){
     const width = this.bs.width * 0.05;
     const style = {...this.bs, ...{
@@ -76,7 +85,8 @@ class UI extends Component {
       width: '100%',
       height: this.bs.height * 0.05,
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
+      flexShrink: 0
     }
     const textStyle = {
       width: '100%',
@@ -87,7 +97,7 @@ class UI extends Component {
     return(
       <div style={barStyle}>
        <div style={textStyle}>
-        {this.func.multiLang(title[0], title[1])}
+        {this.func.multiLang(title[0], title[1], title[2])}
        </div>
       </div>
     )
@@ -117,7 +127,7 @@ class UI extends Component {
       fontWeight: 'bold',
       textAlign: 'center'
     }
-    return <div style={subTitleStyle}>{this.func.multiLang(title[0], title[1])}</div>
+    return <div style={subTitleStyle}>{this.func.multiLang(title[0], title[1], title[2])}</div>
   }
 
   gap(height){
@@ -137,7 +147,7 @@ class UI extends Component {
   }
 
   failedMessage(message){
-    this.actions.modal.message([message[0], message[1]]);
+    this.actions.modal.message([message[0], message[1], message[2]]);
     this.actions.modal.showModalButton();
   }
 

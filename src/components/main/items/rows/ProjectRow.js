@@ -2,6 +2,7 @@ import React from 'react';
 import Row from './Row';
 
 import icon_event from 'resources/images/icons/event_grey.png';
+import icon_alert2 from 'resources/images/icons/alert2.png';
 
 class ProjectRow extends Row {
 
@@ -12,6 +13,17 @@ class ProjectRow extends Row {
       filename: this.props.project? this.props.project.icon: null,
       type: 'projectIcon'
     }
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    if(newProps.project && !this.state.filename){
+      this.setState({
+        filename: newProps.project.icon,
+        type: 'projectIcon'
+      })
+    }
+    this.checkUrl();
   }
 
   rowInfo(){
@@ -32,6 +44,29 @@ class ProjectRow extends Row {
     )
   }
 
+  checkAlertTag(){
+    if(this.props.project.teacherAlert && this.store.user.type === 'teacher'){
+      return this.alertTag();
+    }else if(this.store.user.type === 'student'){
+      const studentProject = this.func.getStudentProject(this.store.user._id, this.props.project._id);
+      if(studentProject && studentProject.studentAlert){
+        return this.alertTag();
+      }
+    }
+    return null;
+  }
+
+  alertTag(){
+    const style = {
+      position: 'absolute',
+      top: this.bs.width * 0.005,
+      right: this.bs.width * 0.005,
+      width: this.bs.width * 0.05,
+      height: this.bs.width * 0.05
+    }
+    return <img style={style} src={icon_alert2} alt=''/>
+  }
+
   render(){
     this.init(this.props);
     if(this.props.project === null){
@@ -42,7 +77,8 @@ class ProjectRow extends Row {
       flexShrink: 0,
       height: this.bs.height * 0.15,
       borderBottom: '1px solid ' + this.ui.colors.darkGrey,
-      alignItems: 'center'
+      alignItems: 'center',
+      position: 'relative'
     }}
 
     return(
@@ -50,6 +86,7 @@ class ProjectRow extends Row {
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
+        {this.checkAlertTag()}
       </button>
     )
   }

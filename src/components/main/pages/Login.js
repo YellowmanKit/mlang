@@ -53,13 +53,16 @@ class Login extends UI {
       cursor: 'pointer',
       fontWeight: 'normal'
     }
+
+    const simplifiedchineseStyle = {...buttonStyle, ...{color: lang === 'simplified_chinese'? 'white': 'grey'}};
     const chineseStyle = {...buttonStyle, ...{color: lang === 'chinese'? 'white': 'grey'}};
     const englishStyle = {...buttonStyle, ...{color: lang === 'english'? 'white': 'grey'}};
 
     return(
       <div style={barStyle}>
-        {this.buttons.button(chineseStyle, ['中文','中文'], '', ()=>this.actions.main.setLanguage('chinese'))}
-        {this.buttons.button(englishStyle, ['English','English'], '', ()=>this.actions.main.setLanguage('english'))}
+        {this.buttons.button(simplifiedchineseStyle, ['简体中文','简体中文','简体中文'], '', ()=>this.actions.main.setLanguage('simplified_chinese'))}
+        {this.buttons.button(chineseStyle, ['繁體中文','繁體中文','繁體中文'], '', ()=>this.actions.main.setLanguage('chinese'))}
+        {this.buttons.button(englishStyle, ['English','English','English'], '', ()=>this.actions.main.setLanguage('english'))}
       </div>
     )
   }
@@ -94,11 +97,11 @@ class Login extends UI {
       return(
         <div style={pageStyle}>
           {this.icon()}
-          {this.inputs.inputField('id','text', ['Enter your identity','登入名稱'], loginInfo? loginInfo.id:'')}
-          {this.inputs.inputField('pw','password', ['Enter your password','密碼'], loginInfo? loginInfo.pw:'')}
-          {this.buttons.rectGreen(['Login','登入'], ()=>this.login())}
-          {this.buttons.rectYellow(['Get new account','申請帳號'], ()=>this.actions.main.setStatus('getNewAccount'))}
-          {this.buttons.rectRed(['Forget password','忘記密碼'], ()=>this.actions.main.setStatus('forgotPassword'))}
+          {this.inputs.inputField('id','text', ['Enter your identity','登入名稱','登入名称'], loginInfo? loginInfo.id:'')}
+          {this.inputs.inputField('pw','password', ['Enter your password','密碼','密码'], loginInfo? loginInfo.pw:'')}
+          {this.buttons.rectGreen(['Login','登入','登入'], ()=>this.login())}
+          {this.buttons.rectYellow(['Get new account','申請帳號','申请帐号'], ()=>this.actions.main.setStatus('getNewAccount'))}
+          {this.buttons.rectRed(['Forget password','忘記密碼','忘记密码'], ()=>this.actions.main.setStatus('forgotPassword'))}
           {this.languageBar()}
           {this.versionCode()}
         </div>
@@ -106,17 +109,17 @@ class Login extends UI {
     }else if(status === 'getNewAccount'){
       return(
         <div style={pageStyle}>
-          {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.buttons.rectGreen(['Acquire new account','獲得新帳號'], ()=>this.actions.user.getNewAccount(document.getElementById('email').value))}
-          {this.buttons.rectRed(['Cancel','取消'], ()=>this.actions.main.setStatus('waitForLogin'))}
+          {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址','输入你的电邮地址'], '')}
+          {this.buttons.rectGreen(['Acquire new account','獲得新帳號','获得新帐号'], ()=>this.actions.user.getNewAccount(document.getElementById('email').value))}
+          {this.buttons.rectRed(['Cancel','取消','取消'], ()=>this.actions.main.setStatus('waitForLogin'))}
         </div>
       )
     }else if(status === 'forgotPassword'){
       return(
         <div style={pageStyle}>
-          {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址'], '')}
-          {this.buttons.rectGreen(['Reset password','重設密碼'], ()=>this.actions.user.resetPassword(document.getElementById('email').value))}
-          {this.buttons.rectRed(['Cancel','取消'], ()=>this.actions.main.setStatus('waitForLogin') )}
+          {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址','输入你的电邮地址'], '')}
+          {this.buttons.rectGreen(['Reset password','重設密碼','重设密码'], ()=>this.actions.user.resetPassword(document.getElementById('email').value))}
+          {this.buttons.rectRed(['Cancel','取消','取消'], ()=>this.actions.main.setStatus('waitForLogin') )}
         </div>
       )
     }else{

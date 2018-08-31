@@ -51,7 +51,7 @@ class Button {
       position: 'absolute',
       top: 0,
       right: 0,
-      width: this.bs.width * 0.2,
+      width: this.bs.width * 0.15,
       height: this.bs.height * 0.5,
       opacity: 0.15
     }
@@ -63,7 +63,7 @@ class Button {
       position: 'absolute',
       top: 0,
       left: 0,
-      width: this.bs.width * 0.2,
+      width: this.bs.width * 0.15,
       height: this.bs.height * 0.5,
       opacity: 0.15
     }
@@ -273,7 +273,7 @@ class Button {
     if(imageUrl && imageUrl !== ''){
       style = {...style, ...{ backgroundImage: 'url(' + imageUrl + ')' }}
     }
-    return <button style={style}  onClick={onClick}>{this.func.multiLang(text[0],text[1])}</button>
+    return <button style={style}  onClick={onClick}>{this.func.multiLang(text[0],text[1], text[2])}</button>
   }
 
   dynamicStyles(name){
