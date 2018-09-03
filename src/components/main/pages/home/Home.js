@@ -27,6 +27,7 @@ import SlideShow from './views/home/cards/SlideShow';
 import GradingCards from './views/home/cards/gradingCards/GradingCards';
 
 import Student from './views/home/student/Student';
+import StudentSubject from './views/home/student/StudentSubject';
 import StudentProject from './views/home/student/StudentProject';
 
 import StudentHome from './views/home/StudentHome';
@@ -87,6 +88,8 @@ class Home extends Component {
         return <SlideShow app={app}/>;
       case 'student':
         return <Student app={app}/>;
+      case 'studentSubject':
+        return <StudentSubject app={app}/>;
       case 'studentProject':
         return <StudentProject app={app}/>;
       default:

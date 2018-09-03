@@ -85,7 +85,7 @@ export function addProject(newProject){
       dispatch({type: "updateProjects", payload: [addRes.data.newProject]});
       dispatch({type: "updateTeachingProjects", payload: [addRes.data.newProject._id]});
       dispatch({type: "updateSubjects", payload: [addRes.data.updatedSubject]});
-      dispatch({type: "viewCourse", payload: addRes.data.updatedCourse});
+      dispatch({type: "viewSubject", payload: addRes.data.updatedSubject});
       dispatch({type: "pullView"});
       //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
     }else{

@@ -10,6 +10,7 @@ import * as modal from './redux/actions/control/modal';
 
 import * as user from './redux/actions/data/user';
 import * as profile from './redux/actions/data/profile';
+import * as schools from './redux/actions/data/schools';
 import * as courses from './redux/actions/data/courses';
 import * as subjects from './redux/actions/data/subjects';
 import * as profiles from './redux/actions/data/profiles';
@@ -267,6 +268,7 @@ function mapDispatchToProps(dispatch){
       modal: Action(modal, dispatch),
 
       profile: Action(profile, dispatch),
+      schools: Action(schools, dispatch),
       courses: Action(courses, dispatch),
       subjects: Action(subjects, dispatch),
       profiles: Action(profiles, dispatch),

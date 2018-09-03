@@ -93,7 +93,7 @@ class LangRow extends UI {
     return(
       <div style={barStyle}>
         {this.verGap('1%')}
-        {this.textDisplay(this.func.langKeyToLangName(lang.key), ['75%',''], '75%', 'left', this.ui.colors.deepDarkGrey)}
+        {this.textDisplay(this.func.langKeyToLangName(lang.key), ['70%',''], '75%', 'left', this.ui.colors.deepDarkGrey)}
         {this.verGap('12%')}
         {!this.state.isPlaying && this.buttons.langBar(icon_play , 0.25, sizeSmall,()=>{this.playback()})}
         {this.state.isPlaying && this.buttons.langBar(icon_stop, 0.25, sizeSmall,()=>{this.stopPlayback()})}

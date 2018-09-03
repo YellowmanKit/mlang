@@ -15,7 +15,7 @@ class Course extends View {
     }else if(this.store.content.subView.includes('subject')){
       this.actions.content.setSubView('courseSubjects');
     }else if(!this.store.content.subView.includes('course')){
-      this.actions.content.setSubView('courseDetail');
+      this.actions.content.setSubView('courseSubjects');
     }
   }
 
@@ -36,16 +36,16 @@ class Course extends View {
   courseSubNav(){
     const _options = [
       {
-        tag:['Detail','詳細資訊','详细资讯'],
-        subView: 'courseDetail'
+        tag:['Subjects','議題','议题'],
+        subView: 'courseSubjects'
       },
       {
         tag:['Students','學生','学生'],
         subView: 'courseStudents'
       },
       {
-        tag:['Subjects','議題','议题'],
-        subView: 'courseSubjects'
+        tag:['Detail','詳細資訊','详细资讯'],
+        subView: 'courseDetail'
       }
     ]
     return <SubNav app={this.app} options={_options} />

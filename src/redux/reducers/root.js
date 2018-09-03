@@ -6,6 +6,7 @@ import modal from './control/modal';
 
 import user from './data/user';
 import profile from './data/profile';
+import schools from './data/schools';
 import courses from './data/courses';
 import subjects from './data/subjects';
 import profiles from './data/profiles';
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   ui: ui,
   modal: modal,
   profile: profile,
+  schools: schools,
   courses: courses,
   subjects: subjects,
   profiles: profiles,

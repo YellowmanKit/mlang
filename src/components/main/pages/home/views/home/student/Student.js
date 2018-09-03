@@ -3,7 +3,7 @@ import View from 'components/main/pages/home/views/View';
 
 import SubNav from 'components/main/items/SubNav';
 import StudentProfile from './subviews/StudentProfile';
-import StudentFeatured from './subviews/StudentFeatured';
+import StudentSubjects from './subviews/StudentSubjects';
 
 class Student extends View {
 
@@ -31,8 +31,8 @@ class Student extends View {
     switch (subView) {
       case 'studentProfile':
         return <StudentProfile app={this.app} profile={this.profile}/>
-      case 'studentFeatured':
-        return <StudentFeatured app={this.app} profile={this.profile}/>
+      case 'studentSubjects':
+        return <StudentSubjects app={this.app} profile={this.profile}/>
       default:
         return null;
     }
@@ -45,8 +45,8 @@ class Student extends View {
         subView: 'studentProfile'
       },
       {
-        tag:['Projects','專題研習','专题研习'],
-        subView: 'studentFeatured'
+        tag:['Subjects','議題','议题'],
+        subView: 'studentSubjects'
       }
     ]
     return <SubNav app={this.app} options={_options} />

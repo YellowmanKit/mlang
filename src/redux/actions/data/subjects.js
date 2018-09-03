@@ -11,6 +11,24 @@ export const viewSubject = (subject) =>{
   }
 }
 
+export function getAllSubjectsOfUser(profile){
+  return async function (dispatch){
+    let err, res;
+    [err, res] = await to(axios.post(api + '/subject/getAllOfUser', { data: profile }));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateSubjects", payload: res.data.subjects});
+      dispatch({type: "updateProjects", payload: res.data.projects});
+      dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
+      dispatch({type: "updateProfiles", payload: [res.data.profile]});
+      dispatch({type: "viewProfile", payload: res.data.profile});
+    }else{
+      dispatch({type: "message", payload: ['Failed to get subjects data!', '無法查閱議題資料!', '无法查阅议题资料!']});
+    }
+  }
+}
+
 export function getSubjects(subjects){
   //console.log(subjects)
   return async function (dispatch) {

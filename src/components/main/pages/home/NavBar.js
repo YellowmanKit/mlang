@@ -172,8 +172,11 @@ class NavBar extends UI {
         case 'student':
           title = ['STUDENT', '學生','学生'];
           break;
+        case 'studentSubject':
+          title = ['STUDENT(SUBJECT)', '學生(議題)','学生(议题)'];
+          break;
         case 'studentProject':
-          title = ['STUDENT', '學生','学生'];
+          title = ['STUDENT(PROJECT)', '學生(專題研習)','学生(专题研习)'];
           break;
         default:
           title = ['','']
