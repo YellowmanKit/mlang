@@ -112,7 +112,7 @@ export function addSchool(newSchool){
     if(addRes.data.result === 'success'){
       dispatch({type: "message", payload: ['Add school succeed!', '成功創建學校!', '成功创建学校!']});
       dispatch({type: "updateSchools", payload: [addRes.data.newSchool]});
-      dispatch({type: "updateTeachingSchools", payload: [addRes.data.newSchool._id]});
+      dispatch({type: "updateSupervisingSchools", payload: [addRes.data.newSchool._id]});
       dispatch({type: "backToHome"});
       //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
     }else{

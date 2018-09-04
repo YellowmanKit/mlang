@@ -121,7 +121,7 @@ class UI extends Component {
 
   subTitle(title, fontSize){
     const subTitleStyle = {
-      width: this.bs.width,
+      width: '100%',
       color: this.ui.colors.mlangGreen,
       fontSize: fontSize? fontSize:'110%',
       fontWeight: 'bold',

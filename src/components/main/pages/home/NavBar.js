@@ -43,7 +43,7 @@ class NavBar extends UI {
 
     leftIcon = back_arrow;
 
-    if(view === 'studentHome' ||  view === 'teacherHome'){
+    if(view === 'studentHome' ||  view === 'teacherHome' ||  view === 'adminHome'){
       leftOnClick = this.actions.content.toggleMenu;
       leftIcon = menu;
       rightOnClick = ()=>{ this.actions.user.login(user.id, user.pw); }
@@ -177,6 +177,28 @@ class NavBar extends UI {
           break;
         case 'studentProject':
           title = ['STUDENT(PROJECT)', '學生(專題研習)','学生(专题研习)'];
+          break;
+        case 'addSchool':
+          title = ['ADD SCHOOL', '創建學校','创建学校'];
+          break;
+        case 'editSchool':
+          title = ['EDIT SCHOOL', '修改學校','修改学校'];
+          break;
+        case 'joinSchool':
+          title = ['JOIN SCHOOL', '加入學校','加入学校'];
+          break;
+        case 'school':
+          title = ['SCHOOL', '學校','学校'];
+          if(user.type === 'admin' && this.store.content.subView === 'schoolDetail' && this.store.schools.viewingSchool.admin === this.store.user._id){
+            rightIcon = edit;
+            rightOnClick = ()=>{
+              this.actions.main.setPhoto({url: null, blob: null});
+              this.actions.content.pushView('editSchool');
+            }
+          }
+          break;
+        case 'teacher':
+          title = ['TEACHER', '老師','老师'];
           break;
         default:
           title = ['','']

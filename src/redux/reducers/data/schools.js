@@ -4,9 +4,14 @@ const schoolsReducer = (
   state = {
     schools: [],
     viewingSchool: {},
-    joinedSchools: []
+    joinedSchools: [],
+    supervisingSchools: []
   }, action)=>{
   switch (action.type) {
+    case 'updateJoinedSchools':
+        return {...state, joinedSchools: reducer.updateElements(state.joinedSchools, action.payload, true)};
+    case 'updateSupervisingSchools':
+        return {...state, supervisingSchools: reducer.updateElements(state.supervisingSchools, action.payload, true)};
     case 'leaveSchool':
       var joinedSchools = state.joinedSchools.slice(0);
       var index = joinedSchools.indexOf(action.payload);

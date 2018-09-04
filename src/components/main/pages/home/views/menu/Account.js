@@ -62,8 +62,8 @@ class Account extends View {
     const pw = document.getElementById('pw').value;
 
     //console.log(newId)
-    if(newId.length < 6){
-      return this.failedMessage(['Failed to change! Identity must be atlease 6 characters long!', '變更失敗! 登入名稱至少須由六個字元組成!', '变更失败! 登入名称至少须由六个字元组成!'])
+    if(newId.length < 5){
+      return this.failedMessage(['Failed to change! Identity must be atlease 5 characters long!', '變更失敗! 登入名稱至少須由五個字元組成!', '变更失败! 登入名称至少须由五个字元组成!'])
     }
     if(!newEmail.includes('@')){
       return this.failedMessage(['Failed to change! Invalid email address!', '變更失敗! 電郵地址不正確!', '变更失败! 电邮地址不正确!'])
@@ -78,6 +78,9 @@ class Account extends View {
     }
     if(pw !== user.pw){
       return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!', '变更失败! 请输入正确的密码!'])
+    }
+    if(newType === 'teacher' && (!this.store.profile.joinedSchools || this.store.profile.joinedSchools.length === 0)){
+      return this.failedMessage(['Failed to change! You must join a school before switching to teacher!', '變更失敗! 必須先加入學校才能使用老師帳號!', '变更失败! 必须先加入学校才能使用老师帐号!'])
     }
 
     this.actions.user.changeUserInfo({

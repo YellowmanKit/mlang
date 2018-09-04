@@ -41,7 +41,6 @@ export function update(studentProject){
     let err, res;
     [err, res] = await to(axios.post(api + '/studentProject/update', { data: studentProject }));
     if(err){ actions.connectionError(dispatch); return; }
-    console.log(res.data.studentProjects.cards);
     if(res.data.result === 'success'){
       dispatch({type: "updateStudentProjects", payload: [res.data.updatedStudentProject]});
       dispatch({type: "viewStudentProject", payload: res.data.updatedStudentProject});

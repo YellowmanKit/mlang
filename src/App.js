@@ -72,14 +72,19 @@ class App extends Component {
     return null;
   }
 
-  getLangById(langId){
-    const langsData = this.props.store.langs.langs;
-    return this.getItemById(langsData, langId);
+  getSchoolById(id){
+    const data = this.props.store.schools.schools;
+    return this.getItemById(data, id);
   }
 
-  getCardById(cardId){
-    const cardsData = this.props.store.cards.cards;
-    return this.getItemById(cardsData, cardId);
+  getLangById(id){
+    const data = this.props.store.langs.langs;
+    return this.getItemById(data, id);
+  }
+
+  getCardById(id){
+    const data = this.props.store.cards.cards;
+    return this.getItemById(data, id);
   }
 
   getStudentProjectById(id){
@@ -87,19 +92,19 @@ class App extends Component {
     return this.getItemById(data, id);
   }
 
-  getProjectById(projectId){
-    const projectsData = this.props.store.projects.projects;
-    return this.getItemById(projectsData, projectId);
+  getProjectById(id){
+    const data = this.props.store.projects.projects;
+    return this.getItemById(data, id);
   }
 
-  getSubjectById(subjectId){
+  getSubjectById(id){
     const subjectsData = this.props.store.subjects.subjects;
-    return this.getItemById(subjectsData, subjectId);
+    return this.getItemById(subjectsData, id);
   }
 
-  getCourseById(courseId){
-    const coursesData = this.props.store.courses.courses;
-    return this.getItemById(coursesData, courseId);
+  getCourseById(id){
+    const data = this.props.store.courses.courses;
+    return this.getItemById(data, id);
   }
 
   getStudentProject(studentId, projectId){
@@ -221,6 +226,7 @@ class App extends Component {
         outDated: this.outDated.bind(this),
 
         getProfileByUserId: this.getProfileByUserId.bind(this),
+        getSchoolById: this.getSchoolById.bind(this),
         getCourseById: this.getCourseById.bind(this),
         getSubjectById: this.getSubjectById.bind(this),
         getProjectById: this.getProjectById.bind(this),

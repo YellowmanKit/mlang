@@ -2,10 +2,10 @@ import React from 'react';
 import View from 'components/main/pages/home/views/View';
 
 import SubNav from 'components/main/items/SubNav';
-import Profile from './subviews/Profile';
-import StudentSubjects from './subviews/StudentSubjects';
+import Profile from '../student/subviews/Profile';
+import TeacherCourses from './subviews/TeacherCourses';
 
-class Student extends View {
+class Teacher extends View {
 
   constructor(props){
     super(props);
@@ -20,8 +20,8 @@ class Student extends View {
 
   componentDidMount(){
     this.init(this.props);
-    if(!this.store.content.subView.includes('student')){
-      this.actions.content.setSubView('studentProfile');
+    if(!this.store.content.subView.includes('teacher')){
+      this.actions.content.setSubView('teacherCourses');
     }
   }
 
@@ -29,27 +29,27 @@ class Student extends View {
     const subView = this.store.content.subView;
 
     switch (subView) {
-      case 'studentProfile':
+      case 'teacherProfile':
         return <Profile app={this.app} profile={this.profile}/>
-      case 'studentSubjects':
-        return <StudentSubjects app={this.app} profile={this.profile}/>
+      case 'teacherCourses':
+        return <TeacherCourses app={this.app} profile={this.profile}/>;
       default:
         return null;
     }
   }
 
-  studentSubNav(){
-    const _options = [
+  teacherSubNav(){
+    const options = [
       {
-        tag:['Profile','個人檔案','个人档案'],
-        subView: 'studentProfile'
+        tag:['Courses','班別','班别'],
+        subView: 'teacherCourses'
       },
       {
-        tag:['Subjects','議題','议题'],
-        subView: 'studentSubjects'
+        tag:['Profile','個人檔案','个人档案'],
+        subView: 'teacherProfile'
       }
     ]
-    return <SubNav app={this.app} options={_options} />
+    return <SubNav app={this.app} options={options} />
   }
 
   render(){
@@ -57,7 +57,7 @@ class Student extends View {
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([this.profile.name, this.profile.name, this.profile.name])}
-        {this.studentSubNav()}
+        {this.teacherSubNav()}
         {this.sep()}
         {this.subView()}
       </div>
@@ -66,4 +66,4 @@ class Student extends View {
 
 }
 
-export default Student;
+export default Teacher;

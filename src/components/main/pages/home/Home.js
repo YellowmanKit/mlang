@@ -11,6 +11,9 @@ import Profile from './views/menu/Profile';
 import Credit from './views/menu/Credit';
 
 import TeacherHome from './views/home/TeacherHome';
+import StudentHome from './views/home/StudentHome';
+import AdminHome from './views/home/AdminHome';
+
 import AddCourse from './views/home/courses/AddCourse';
 import JoinCourse from './views/home/courses/JoinCourse';
 import Course from './views/home/courses/Course';
@@ -30,7 +33,11 @@ import Student from './views/home/student/Student';
 import StudentSubject from './views/home/student/StudentSubject';
 import StudentProject from './views/home/student/StudentProject';
 
-import StudentHome from './views/home/StudentHome';
+import AddSchool from './views/home/schools/AddSchool';
+import JoinSchool from './views/home/schools/JoinSchool';
+import School from './views/home/schools/School';
+
+import Teacher from './views/home/teacher/Teacher';
 
 
 class Home extends Component {
@@ -56,6 +63,8 @@ class Home extends Component {
         return <TeacherHome app={app}/>;
       case 'studentHome':
         return <StudentHome app={app}/>;
+      case 'adminHome':
+        return <AdminHome app={app}/>;
       case 'addCourse':
         return <AddCourse app={app}/>;
       case 'editCourse':
@@ -92,6 +101,16 @@ class Home extends Component {
         return <StudentSubject app={app}/>;
       case 'studentProject':
         return <StudentProject app={app}/>;
+      case 'addSchool':
+        return <AddSchool app={app}/>;
+      case 'editSchool':
+        return <AddSchool editMode={true} app={app}/>;
+      case 'joinSchool':
+        return <JoinSchool app={app}/>;
+      case 'school':
+        return <School app={app}/>;
+      case 'teacher':
+       return <Teacher app={app}/>;
       default:
         return null;
     }

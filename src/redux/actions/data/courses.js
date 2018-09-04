@@ -10,6 +10,25 @@ export const viewCourse = (course) =>{
   }
 }
 
+export function getAllTeachingCoursesOfUser(profile){
+  return async function (dispatch){
+    let err, res;
+    [err, res] = await to(axios.post(api + '/course/getAllOfTeacher', { data: profile }));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateCourses", payload: res.data.courses});
+      dispatch({type: "updateSubjects", payload: res.data.subjects});
+      dispatch({type: "updateProjects", payload: res.data.projects});
+      dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
+      dispatch({type: "updateProfiles", payload: [res.data.profile]});
+      dispatch({type: "viewProfile", payload: res.data.profile});
+    }else{
+      dispatch({type: "message", payload: ['Failed to get teacher data!', '無法查閱老師資料!', '无法查阅老师资料!']});
+    }
+  }
+}
+
 export function leaveCourse(_data){
 
   return async function (dispatch) {

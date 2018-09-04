@@ -27,6 +27,7 @@ class Cell extends UI {
 
   getFileType(cellType){
     const fileType =
+    cellType === 'school'? 'schoolIcon':
     cellType === 'course'? 'courseIcon':
     cellType === 'project'? 'projectIcon':
     cellType === 'card'? 'cardIcon':
@@ -38,7 +39,7 @@ class Cell extends UI {
   cellImage(){
     const imageStyle = {...this.ui.styles.container, ...this.ui.styles.border, ...{
       maxWidth: this.scale[0] * 0.8,
-      maxHeight: this.scale[0] * 0.8,
+      maxHeight: this.scale[1] * 0.8,
       marginTop: '4%'
     }};
     return <img style={imageStyle} src={this.url.url? this.url.url: null} alt=''/>
@@ -46,6 +47,9 @@ class Cell extends UI {
 
   cellTitle(type){
     var text = '';
+    if(type === 'school'){
+      text = this.props.data.name;
+    }
     if(type === 'course' || type === 'project' || type === 'subject'){
       text = this.props.data.title;
     }
@@ -103,6 +107,7 @@ class Cell extends UI {
     }
 
     this.scale =
+    this.props.type === 'school'? [this.bs.width * 0.4,this.bs.width * 0.24]:
     this.props.type === 'course'? [this.bs.width * 0.24,this.bs.width * 0.24]:
     this.props.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
     this.props.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:

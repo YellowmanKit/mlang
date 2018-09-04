@@ -91,7 +91,8 @@ class Login extends UI {
 
     const pageStyle = {...this.bs, ...{ justifyContent: 'center' }};
     //const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
-    const loginInfo = this.state.loginInfo;
+    //const loginInfo = this.state.loginInfo;
+    const loginInfo = null;
 
     if(status === 'waitForLogin'){
       return(
@@ -104,6 +105,7 @@ class Login extends UI {
           {this.buttons.rectRed(['Forget password','忘記密碼','忘记密码'], ()=>this.actions.main.setStatus('forgotPassword'))}
           {this.languageBar()}
           {this.versionCode()}
+          {this.gap('5%')}
         </div>
       )
     }else if(status === 'getNewAccount'){

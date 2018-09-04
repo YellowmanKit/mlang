@@ -3,7 +3,7 @@ import SubView from 'components/main/pages/home/views/SubView';
 import Image from 'components/main/items/ui/Image';
 
 
-class StudentProfile extends SubView {
+class Profile extends SubView {
 
     render() {
       this.init(this.props);
@@ -45,4 +45,4 @@ class StudentProfile extends SubView {
 
 }
 
-export default StudentProfile;
+export default Profile;

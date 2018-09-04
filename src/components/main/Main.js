@@ -48,6 +48,7 @@ class Main extends UI {
     const initView =
     type === 'student'? 'studentHome':
     type === 'teacher'? 'teacherHome':
+    type === 'admin'? 'adminHome':
     '';
     this.actions.content.pushView(initView);
 
