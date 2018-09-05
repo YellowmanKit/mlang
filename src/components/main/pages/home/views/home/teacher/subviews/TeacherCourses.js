@@ -13,7 +13,7 @@ class TeacherCourses extends SubView {
   }
 
   getAllCoursesOfUser(){
-    this.actions.courses.getAllTeachingCoursesOfUser(this.store.profiles.viewingProfile);
+    this.actions.courses.getAllTeachingCoursesOfUser(this.store.profiles.viewingTeacherProfile);
   }
 
   teacherCoursesList(){

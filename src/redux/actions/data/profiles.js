@@ -1,7 +1,14 @@
 import axios from 'axios';
 import * as actions from '../actions';
 import to from '../to';
-var api = process.env.REACT_APP_API;
+var api = actions.api();
+
+export const viewTeacherProfile = (profile) =>{
+  return {
+    type: 'viewTeacherProfile',
+    payload: profile
+  }
+}
 
 export const viewProfile = (profile) =>{
   return {

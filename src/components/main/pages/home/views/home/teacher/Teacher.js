@@ -10,12 +10,12 @@ class Teacher extends View {
   constructor(props){
     super(props);
     this.init(this.props);
-    this.profile = this.store.profiles.viewingProfile;
+    this.profile = this.store.profiles.viewingTeacherProfile;
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    this.profile = this.store.profiles.viewingProfile;
+    this.profile = this.store.profiles.viewingTeacherProfile;
   }
 
   componentDidMount(){

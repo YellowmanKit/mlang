@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from '../actions';
 import to from '../to';
-var api = process.env.REACT_APP_API;
+var api = actions.api();
 
 export const viewCourse = (course) =>{
   return {
@@ -22,7 +22,7 @@ export function getAllTeachingCoursesOfUser(profile){
       dispatch({type: "updateProjects", payload: res.data.projects});
       dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
       dispatch({type: "updateProfiles", payload: [res.data.profile]});
-      dispatch({type: "viewProfile", payload: res.data.profile});
+      dispatch({type: "viewTeacherProfile", payload: res.data.profile});
     }else{
       dispatch({type: "message", payload: ['Failed to get teacher data!', '無法查閱老師資料!', '无法查阅老师资料!']});
     }

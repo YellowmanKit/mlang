@@ -16,6 +16,9 @@ class Database {
     return this.dbPromise.then(db => {
       return db.transaction('store')
         .objectStore('store').get(key);
+    }).catch(err=>{
+      console.log('db error, clearing db...');
+      this.clear();
     })
   }
 

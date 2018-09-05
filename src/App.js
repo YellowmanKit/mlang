@@ -24,6 +24,10 @@ import Main from './components/main/Main';
 
 class App extends Component {
 
+  api(){ return this.isDev()? process.env.REACT_APP_API_DEV: process.env.REACT_APP_API; }
+
+  isDev(){ console.log(process.env.REACT_APP_DEV); return process.env.REACT_APP_DEV; }
+
   outDated(date){
     const today = new Date();
     const dateToCheck = new Date(date);
@@ -163,7 +167,7 @@ class App extends Component {
       return url;
     }else{
       //console.log(type + ' downloading...');
-      const downloadUrl = process.env.REACT_APP_API + '/download/'+ type + '/' + filename;
+      const downloadUrl = this.api() + '/download/'+ type + '/' + filename;
       let err, res;
       [err, res] = await to(axios.get(downloadUrl, {responseType: 'blob'}));
       if(err || !res.data){ console.log('file download error!'); return '';}
@@ -220,6 +224,7 @@ class App extends Component {
       actions: this.props.actions,
       database: this.props.db,
       functions: {
+        isDev: this.isDev.bind(this),
         url: this.url.bind(this),
         multiLang: this.multiLang.bind(this),
         getDateString: this.getDateString.bind(this),

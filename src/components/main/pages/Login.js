@@ -91,8 +91,7 @@ class Login extends UI {
 
     const pageStyle = {...this.bs, ...{ justifyContent: 'center' }};
     //const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
-    //const loginInfo = this.state.loginInfo;
-    const loginInfo = null;
+    const loginInfo = this.func.isDev()? this.state.loginInfo: null;
 
     if(status === 'waitForLogin'){
       return(

@@ -3,9 +3,12 @@ import * as reducer from '../reducer';
 const profilesReducer = (
   state = {
     profiles: [],
-    viewingProfile: {}
+    viewingProfile: {},
+    viewingTeacherProfile: {}
   }, action)=>{
   switch (action.type) {
+    case 'viewTeacherProfile':
+      return {...state, viewingTeacherProfile: action.payload};
     case 'viewProfile':
       return {...state, viewingProfile: action.payload};
     case 'updateProfiles':

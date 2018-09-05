@@ -35,7 +35,7 @@ class CourseStudents extends SubView {
       app={this.app}
       profile={profile}
       key={i}
-      onClick={()=>{ this.actions.profiles.viewProfile(profile); this.actions.content.pushView('teacher');}}/>)
+      onClick={()=>{ this.actions.profiles.viewTeacherProfile(profile); this.actions.content.pushView('teacher');}}/>)
     })
   }
 
