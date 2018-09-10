@@ -4,10 +4,29 @@ import Cell from 'components/main/items/Cell';
 
 class Subjects extends UI {
 
-  subjects(){
+  componentDidMount(){
+    this.setData();
+    if(this.subjectsData.length === 0 && !this.store.content.hide.subjects){
+      this.actions.content.setHide('subjects', true)
+    }
+  }
+
+  setData(){
+    this.subjects =
+    this.store.user.type === 'teacher'? this.store.subjects.teachingSubjects:
+    this.store.user.type === 'student'? this.store.subjects.joinedSubjects:
+    [];
+
+    this.subjectsData = [];
+    this.subjects.map(id=>{
+      return this.subjectsData.push(this.func.getSubjectById(id));
+    })
+  }
+
+  subjectsContent(){
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: this.bs.height * 0.57,
+      height: this.bs.height * 0.77,
       flexFlow: 'row wrap',
       alignItems: 'flex-start',
       overflow: 'auto'
@@ -20,20 +39,12 @@ class Subjects extends UI {
   }
 
   subjectsCells(){
-    const subjects =
-    this.store.user.type === 'teacher'? this.store.subjects.teachingSubjects:
-    this.store.user.type === 'student'? this.store.subjects.joinedSubjects:
-    [];
-
-    var subjectsData = [];
-    subjects.map(id=>{
-      return subjectsData.push(this.func.getSubjectById(id));
-    })
+    this.setData();
     const containerStyle = {...this.ui.styles.container, ...{
       width: this.bs.width * 0.275,
       height: this.bs.width * 0.3
     }}
-    return subjectsData.map((subject, i)=>{
+    return this.subjectsData.map((subject, i)=>{
       return(
         <div key={i} style={containerStyle}>
           <Cell app={this.app}
@@ -52,14 +63,15 @@ class Subjects extends UI {
 
     const containerStyle = {
       width: '100%',
-      height: this.bs.height * 0.62,
+      height: '',
       background: this.ui.colors.gradientBasic
     }
 
+    const hide = this.store.content.hide.subjects;
     return(
       <div style={containerStyle}>
-        {this.tabBar(title)}
-        {this.subjects()}
+        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('subjects')})}
+        {!hide && this.subjectsContent()}
       </div>
     )
   }

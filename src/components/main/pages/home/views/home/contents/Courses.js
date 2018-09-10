@@ -4,16 +4,30 @@ import Cell from 'components/main/items/Cell';
 
 class Courses extends UI {
 
-  courses(){
+  componentDidMount(){
+    this.setData();
+    if(this.coursesData.length === 0 && !this.store.content.hide.courses){
+      this.actions.content.setHide('courses', true)
+    }
+  }
+
+  setData(){
+    this.courses =
+    this.store.user.type === 'teacher'? this.store.courses.teachingCourses:
+    this.store.user.type === 'student'? this.store.courses.joinedCourses:
+    [];
+
+    this.coursesData = [];
+    this.courses.map(id=>{
+      return this.coursesData.push(this.func.getCourseById(id));
+    })
+  }
+
+  coursesContent(){
     const onAdd =
     this.store.user.type === 'teacher'? ()=>{this.actions.content.pushView('addCourse')}:
     this.store.user.type === 'student'? ()=>{this.actions.content.pushView('joinCourse')}:
     [];
-
-    /*const addBtnText =
-    this.store.user.type === 'teacher'? ['ADD','創建']:
-    this.store.user.type === 'student'?  ['JOIN','加入']:
-    '';*/
 
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
@@ -33,16 +47,8 @@ class Courses extends UI {
   }
 
   coursesCells(){
-    const courses =
-    this.store.user.type === 'teacher'? this.store.courses.teachingCourses:
-    this.store.user.type === 'student'? this.store.courses.joinedCourses:
-    [];
-
-    var coursesData = [];
-    courses.map(id=>{
-      return coursesData.push(this.func.getCourseById(id));
-    })
-    return coursesData.map((course, i)=>{
+    this.setData();
+    return this.coursesData.map((course, i)=>{
       return(
         <Cell key={i} app={this.app}
         type={'course'}
@@ -63,14 +69,15 @@ class Courses extends UI {
 
     const containerStyle = {
       width: '100%',
-      height: this.bs.height * 0.3,
+      height:'',
       background: this.ui.colors.gradientBasic
     }
 
+    const hide = this.store.content.hide.courses;
     return(
       <div style={containerStyle}>
-        {this.tabBar(title)}
-        {this.courses()}
+        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('courses')})}
+        {!hide && this.coursesContent()}
       </div>
     )
   }

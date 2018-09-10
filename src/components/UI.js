@@ -4,6 +4,8 @@ import Button from 'components/main/items/ui/Button';
 import Input from 'components/main/items/ui/Input';
 
 import tab_bar from 'resources/images/general/tab_bar.png';
+import triangle from 'resources/images/general/triangle.png';
+import triangle_down from 'resources/images/general/triangle_down.png';
 import icon_comment from 'resources/images/buttons/buttonIcons/edit_black.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment_black.png';
 
@@ -78,7 +80,7 @@ class UI extends Component {
     return <div style={iconStyle}/>
   }
 
-  tabBar(title){
+  tabBar(title, hide, onClick){
     const barStyle = {
       backgroundImage: 'url(' + tab_bar + ')',
       backgroundSize: '100% 100%',
@@ -86,34 +88,37 @@ class UI extends Component {
       height: this.bs.height * 0.05,
       display: 'flex',
       alignItems: 'center',
-      flexShrink: 0
+      flexShrink: 0,
+      cursor: onClick? 'pointer':''
     }
     const textStyle = {
-      width: '100%',
+      width: '90%',
       fontSize: this.bs.width * 0.03,
       fontWeight: 'bold',
       margin: '3%'
     }
+    const tagSize = this.bs.height * 0.03;
     return(
-      <div style={barStyle}>
+      <div style={barStyle} onClick={onClick}>
        <div style={textStyle}>
         {this.func.multiLang(title[0], title[1], title[2])}
        </div>
+       {onClick && <img src={hide? triangle:triangle_down} style={{opacity: 0.15, height: tagSize, width: tagSize}} alt=''/>}
       </div>
     )
   }
 
   textDisplay(text, scale, fontSize, textAlign, color){
     const style = {
-      width: scale[0],
-      height: scale[1],
+      width: scale? scale[0]: '100%',
+      height: scale? scale[1]: '15%',
       margin: '1%',
-      fontSize: fontSize,
+      fontSize: fontSize? fontSize: '100%',
       fontWeight: 'bold',
-      textAlign: textAlign,
+      textAlign: textAlign? textAlign: 'center',
       overflow: 'hidden',
       overflowWrap: 'break-word',
-      color: color !== undefined? color: 'black',
+      color: color? color: 'black',
       flexShrink: 0
     }
     return <div style={style}>{text}</div>

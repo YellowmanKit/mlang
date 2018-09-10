@@ -1,3 +1,17 @@
+export const setHide = (type, state) =>{
+  return {
+    type: 'setHide',
+    payload: { type: type, state: state}
+  }
+}
+
+export const toggleHide = (type) =>{
+  return {
+    type: 'toggleHide',
+    payload: type
+  }
+}
+
 export const setFilter = (filterOption) =>{
   return {
     type: 'setFilter',

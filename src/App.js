@@ -26,7 +26,7 @@ class App extends Component {
 
   api(){ return this.isDev()? process.env.REACT_APP_API_DEV: process.env.REACT_APP_API; }
 
-  isDev(){ console.log(process.env.REACT_APP_DEV); return process.env.REACT_APP_DEV; }
+  isDev(){ return process.env.REACT_APP_DEV === 'true'; }
 
   outDated(date){
     const today = new Date();

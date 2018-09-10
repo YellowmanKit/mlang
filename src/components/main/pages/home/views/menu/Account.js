@@ -15,7 +15,8 @@ class Account extends View {
         {this.subTitle(['User type','用戶類型','用户类型'])}
         {this.sep()}
         {this.gap('2%')}
-        {this.inputs.optionBar('type', ['25%', this.bs.height * 0.04], [student, teacher], user.type === 'student'? student: teacher)}
+        {user.type !== 'admin' && this.inputs.optionBar('type', ['25%', this.bs.height * 0.04], [student, teacher], user.type === 'student'? student: teacher)}
+        {user.type === 'admin' && this.textDisplay(this.func.multiLang('Admin','管理者','管理者'), ['100%',  this.bs.height * 0.03])}
         {this.gap('2%')}
 
         {this.subTitle(['Identity','登入名稱','登入名称'])}

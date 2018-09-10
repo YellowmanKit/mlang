@@ -9,7 +9,7 @@ class School extends View {
 
   componentDidMount(){
     if(!this.store.content.subView.includes('school')){
-      this.actions.content.setSubView('schoolTeachers');
+      this.actions.content.setSubView(this.store.user.type === 'admin'?'schoolTeachers':'schoolDetail');
     }
   }
 
@@ -26,17 +26,19 @@ class School extends View {
   }
 
   schoolSubNav(){
-    const _options = [
-      {
-        tag:['Teachers','老師','老师'],
-        subView: 'schoolTeachers'
-      },
+    var options = [
       {
         tag:['Detail','詳細資訊','详细资讯'],
         subView: 'schoolDetail'
       }
-    ]
-    return <SubNav app={this.app} options={_options} />
+    ];
+    if(this.store.user.type === 'admin'){
+      options = [
+        { tag:['Teachers','老師','老师'],
+          subView: 'schoolTeachers' }, ...options]
+    }
+
+    return <SubNav app={this.app} options={options} />
   }
 
   render(){

@@ -5,9 +5,22 @@ const contentReducer = (
     traces: [],
     filterOption: 'All',
     subView: '',
-    cachedUrl: {}
+    cachedUrl: {},
+    hide: {
+      schools: false,
+      courses: false,
+      subjects: false
+    }
   }, action)=>{
+  var hide = state.hide;
   switch (action.type) {
+    case 'setHide':
+      hide[ action.payload.type] = action.payload.state;
+      return {...state, hide: hide}
+    case 'toggleHide':
+      const type = action.payload;
+      hide[type] = !hide[type]
+      return {...state, hide: hide}
     case 'setFilter':
       return {...state, filterOption: action.payload}
     case 'cacheUrl':
