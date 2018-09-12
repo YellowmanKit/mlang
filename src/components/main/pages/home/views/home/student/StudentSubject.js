@@ -17,13 +17,15 @@ class StudentSubject extends View {
   studentProjectsList(){
     return this.store.subjects.viewingSubject.projects.map((projectId, i)=>{
       var project = this.func.getProjectById(projectId);
-      var studentProject = '';
+      if(!project){ console.log('project is missing'); return null; };
+      var studentProject = null;
       project.studentProjects.map(studentProjectId=>{
         if(this.store.profiles.viewingProfile.studentProjects.indexOf(''+studentProjectId) > -1){
           studentProject = this.func.getStudentProjectById(studentProjectId);
         }
         return null;
       });
+      if(!studentProject){ console.log('studentProject is missing'); return null; };
       return(
         <StudentProjectRow
         app={this.app}

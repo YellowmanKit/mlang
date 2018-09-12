@@ -43,6 +43,7 @@ class Account extends View {
         {this.sep()}
         {this.inputs.inputField('pw','password','','')}
         {this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}
+        {this.gap('4%')}
       </div>
     )
   }

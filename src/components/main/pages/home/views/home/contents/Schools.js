@@ -1,5 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
+
 import Cell from 'components/main/items/Cell';
 
 class Schools extends UI {
@@ -33,18 +35,26 @@ class Schools extends UI {
 
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: this.bs.height * 0.25,
       alignItems: 'center',
       overflow: 'auto'
     }}
+    //const isInit = this.isInit;
+    const isOpen = !this.hide;
+    const height = this.bs.height * 0.27;
     return(
-      <div style={areaStyle}>
-        {this.verGap('2%')}
-        {this.schoolCells()}
-        {this.verGap('5%')}
-        {this.buttons.cellAdd(onAdd)}
-        {this.verGap('5%')}
-      </div>
+      <Motion defaultStyle={{height: !this.ani? (isOpen? height: 0): isOpen? 0: height, opacity: isOpen?0:1.1}}
+      style={{height: isOpen? spring(height): spring(0), opacity: isOpen?spring(1.1):spring(0)}}
+      onRest={()=>{this.actions.content.setAnimation(false)}}>
+        {style=>(
+          <div style={{...areaStyle, ...{ height: style.height, opacity: style.opacity}}}>
+            {this.verGap('2%')}
+            {this.schoolCells()}
+            {this.verGap('5%')}
+            {this.buttons.cellAdd(onAdd)}
+            {this.verGap('5%')}
+          </div>
+        )}
+      </Motion>
     )
   }
 
@@ -62,7 +72,8 @@ class Schools extends UI {
 
   render() {
     this.init(this.props);
-
+    //this.isInit = this.store.content.hide.schools === 'init';
+    this.hide = this.store.content.hide.schools;
     //const type = this.store.user.type;
     const title =
     this.store.user.type === 'admin'? ['Schools - created','學校 - 已創建','学校 - 已创建']:
@@ -74,11 +85,10 @@ class Schools extends UI {
       background: this.ui.colors.gradientBasic
     }
 
-    const hide = this.store.content.hide.schools;
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('schools')})}
-        {!hide && this.schoolsContent()}
+        {this.tabBar(title, this.hide, ()=>{this.actions.content.toggleHide('schools')})}
+        {this.schoolsContent()}
       </div>
     )
   }

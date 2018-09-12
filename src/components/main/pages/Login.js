@@ -25,7 +25,7 @@ class Login extends UI {
 
   icon(){
     const iconStyle = {
-      width: this.bs.width * 0.5,
+      width: this.bs.height * 0.4,
       height: this.bs.height * 0.15,
       backgroundImage: 'url(' + icon + ')',
       backgroundSize: '100% 100%',
@@ -96,6 +96,7 @@ class Login extends UI {
     if(status === 'waitForLogin'){
       return(
         <div style={pageStyle}>
+          {this.gap('5%')}
           {this.icon()}
           {this.inputs.inputField('id','text', ['Enter your identity','登入名稱','登入名称'], loginInfo? loginInfo.id:'')}
           {this.inputs.inputField('pw','password', ['Enter your password','密碼','密码'], loginInfo? loginInfo.pw:'')}

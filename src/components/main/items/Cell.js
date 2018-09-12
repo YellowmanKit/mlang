@@ -1,5 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
+
 import Badge from 'components/main/items/Badge';
 
 import icon_alert2 from 'resources/images/icons/alert2.png';
@@ -12,7 +14,8 @@ class Cell extends UI {
     this.init(props);
     this.state = {
       filename: props.data.icon,
-      type: this.getFileType(props.type)
+      type: this.getFileType(props.type),
+      status: 'init'
     }
   }
 
@@ -36,16 +39,16 @@ class Cell extends UI {
     return fileType;
   }
 
-  cellImage(){
+  cellImage(scale){
     const imageStyle = {...this.ui.styles.container, ...this.ui.styles.border, ...{
-      maxWidth: this.scale[0] * 0.8,
-      maxHeight: this.scale[1] * 0.8,
+      maxWidth: this.scale[0] * 0.9 * scale,
+      maxHeight: this.scale[1] * 0.8 * scale,
       marginTop: '4%'
     }};
     return <img style={imageStyle} src={this.url.url? this.url.url: null} alt=''/>
   }
 
-  cellTitle(type){
+  cellTitle(type, scale){
     var text = '';
     if(type === 'school'){
       text = this.props.data.name;
@@ -57,12 +60,12 @@ class Cell extends UI {
       const firstLang = this.func.getLangById(this.props.data.langs[0]);
       text = firstLang !== null? firstLang.text: '';
     }
-
-    const scale =['100%','100%'];
+    var size = 100 * scale;
+    const textScale =[size + '%',size + '%'];
 
     return(
       <div style={{flexGrow: 1, overflow: 'hidden'}}>
-        {this.textDisplay(text, scale, this.bs.width * 0.03)}
+        {this.textDisplay(text, textScale, this.bs.height * 0.025)}
       </div>
     )
   }
@@ -106,12 +109,20 @@ class Cell extends UI {
       return null;
     }
 
+    /*this.scale =
+    this.props.type === 'school'? [this.bs.width * 0.33,this.bs.width * 0.2]:
+    this.props.type === 'course'? [this.bs.width * 0.2,this.bs.width * 0.2]:
+    this.props.type === 'project'? [this.bs.width * 0.2,this.bs.width * 0.2]:
+    this.props.type === 'card'? [this.bs.width * 0.22, this.bs.width * 0.3]:
+    this.props.type === 'subject'? [this.bs.width * 0.2, this.bs.width * 0.2]:
+    '';*/
+
     this.scale =
-    this.props.type === 'school'? [this.bs.width * 0.4,this.bs.width * 0.24]:
-    this.props.type === 'course'? [this.bs.width * 0.24,this.bs.width * 0.24]:
-    this.props.type === 'project'? [this.bs.width * 0.22,this.bs.width * 0.24]:
-    this.props.type === 'card'? [this.bs.width * 0.25, this.bs.width * 0.35]:
-    this.props.type === 'subject'? [this.bs.width * 0.22, this.bs.width * 0.24]:
+    this.props.type === 'school'? [this.bs.height * 0.325,this.bs.height * 0.2]:
+    this.props.type === 'course'? [this.bs.height * 0.225,this.bs.height * 0.225]:
+    this.props.type === 'project'? [this.bs.height * 0.2,this.bs.height * 0.2]:
+    this.props.type === 'card'? [this.bs.height * 0.25, this.bs.height * 0.35]:
+    this.props.type === 'subject'? [this.bs.height * 0.2, this.bs.height * 0.2]:
     '';
 
     this.outDated =
@@ -120,8 +131,6 @@ class Cell extends UI {
     '';
 
     const cellStyle = {...this.ui.styles.button, ...this.ui.styles.border, ...{
-      width: this.scale[0],
-      height: this.scale[1],
       margin: '1.5%',
       backgroundColor: 'white',
       flexShrink: 0,
@@ -130,16 +139,27 @@ class Cell extends UI {
       alignItems: 'center',
       position: 'relative'
     }}
-    const badgeScale = [this.bs.width * 0.125, this.bs.width * 0.125]
+    const badgeScale = [this.bs.width * 0.125, this.bs.width * 0.125];
+
+    const isInit = this.state.status === 'init';
+    const isOpen = this.state.status === 'pointed';
 
     return(
-      <button style={cellStyle} onClick={this.props.onClick}>
-        {this.props.type === 'card' && <Badge app={this.app} grade={this.props.data.grade} scale={badgeScale} />}
-        {this.cellImage()}
-        {this.cellTitle(this.props.type)}
-        {this.checkAlertTag()}
-        {this.outDated && this.passedMark()}
-      </button>
+      <Motion defaultStyle={{scale: isInit? 1:isOpen? 1: 1.05}}
+      style={{scale: isInit? 1:isOpen? spring(1.05): spring(1)}}>
+        {style=>(
+          <button style={{...cellStyle,...{  width: this.scale[0] * style.scale,height: this.scale[1] * style.scale}}}
+          onClick={()=>{this.props.onClick();}}
+          onPointerEnter={()=>{ this.setState({status: 'pointed' })}}
+          onPointerLeave={()=>{ this.setState({status: 'not-pointed' })}}>
+            {this.props.type === 'card' && <Badge app={this.app} grade={this.props.data.grade} scale={badgeScale} />}
+            {this.cellImage(style.scale)}
+            {this.cellTitle(this.props.type, style.scale)}
+            {this.checkAlertTag()}
+            {this.outDated && this.passedMark()}
+          </button>
+        )}
+      </Motion>
     )
   }
 

@@ -1,3 +1,10 @@
+export const setAnimation = (state) =>{
+  return {
+    type: 'setAnimation',
+    payload: state
+  }
+}
+
 export const setHide = (type, state) =>{
   return {
     type: 'setHide',

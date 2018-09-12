@@ -41,25 +41,21 @@ class SubjectRow extends Row {
 
   render(){
     this.init(this.props);
-    if(this.props.subject === null){
-      return null;
-    }
+    if(this.props.subject === null){ return null; }
+    return this.animatedRow(this.content.bind(this), this.bs.height * 0.15)
+  }
 
-    const rowStyle = {...this.ui.styles.button, ...this.ui.styles.area, ...{
-      flexShrink: 0,
-      height: this.bs.height * 0.15,
-      borderBottom: '1px solid ' + this.ui.colors.darkGrey,
-      alignItems: 'center'
-    }}
-
-    return(
-      <button onClick={this.props.onClick} style={rowStyle}>
+  content = (style)=>(
+      <button onClick={this.props.onClick} style={{...this.rowStyle(), ...{
+        height: style.height,
+        opacity: style.opacity
+      }}}>
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.subject.title, this.rowInfo.bind(this))}
       </button>
-    )
-  }
+  )
+
 }
 
 export default SubjectRow;

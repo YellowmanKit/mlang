@@ -38,8 +38,35 @@ class UI extends Component {
     this.buttons.init(props.app);
     this.inputs.init(props.app);
 
+    this.ani = this.store.content.animation;
+
     this.url.init(props.app);
     this.checkUrl();
+  }
+
+  translateUserType(type){
+    const language = this.store.main.language;
+    switch (type) {
+      case 'student':
+        return(
+        language === 'english'? 'student':
+        language === 'chinese'? '學生':
+        language === 'simplified_chinese'? '学生':
+        '')
+      case 'teacher':
+        return(
+        language === 'english'? 'teacher':
+        language === 'chinese'? '老師':
+        language === 'simplified_chinese'? '老师':
+        '')
+      case 'admin':
+        return(
+        language === 'english'? 'admin':
+        language === 'chinese'? '監管者':
+        language === 'simplified_chinese'? '监管者':
+        '')
+      default:
+    }
   }
 
   clearAlert(projectId){

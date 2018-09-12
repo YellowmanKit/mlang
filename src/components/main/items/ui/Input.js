@@ -20,7 +20,8 @@ class Input {
       display: 'flex',
       flexFlow: 'row nowrap',
       justifyContent: 'center',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      flexShrink: 0
     }
 
     return(

@@ -1,5 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
 
 import menu_bg from 'resources/images/slideMenu/menu_bg.png';
 
@@ -67,7 +68,7 @@ class Menu extends UI {
     }}
     const buttonStyle = {...this.ui.styles.button, ...{
       fontWeight: 'bold',
-      fontSize: this.bs.width * 0.05,
+      fontSize: this.bs.height * 0.035,
       textAlign: 'left',
       color: this.ui.colors.mlangGreen
     }}
@@ -90,6 +91,10 @@ class Menu extends UI {
 
   render() {
     this.init(this.props);
+    const status = this.app.store.content.menu;
+    if(status === 'init'){ return null; }
+
+    const isOpen = status !== 'off';
     const menuStyle = {...this.bs, ...{
       position: 'absolute',
       alignItems: 'left',
@@ -97,14 +102,20 @@ class Menu extends UI {
       backgroundImage: 'url(' + menu_bg + ')',
       backgroundSize: '100% 100%'
     }}
+
     return(
-      <div style={menuStyle}>
-        {this.backArea()}
-        {this.info()}
-        <div style={{ flexGrow: 12 }}/>
-        {this.optionsList()}
-        {this.logoutButton()}
-      </div>
+      <Motion defaultStyle={{left: isOpen?-window.innerWidth:0, opacity: isOpen?0:1.1}}
+      style={{left: isOpen? spring(0):spring(-window.innerWidth), opacity: isOpen?spring(1.1):spring(0)}}>
+        {style=>(
+          <div style={{...menuStyle, ...{left: style.left, opacity: style.opacity}}}>
+            {this.backArea()}
+            {this.info()}
+            <div style={{ flexGrow: 12 }}/>
+            {this.optionsList()}
+            {this.logoutButton()}
+          </div>
+        )}
+      </Motion>
     )
   }
 

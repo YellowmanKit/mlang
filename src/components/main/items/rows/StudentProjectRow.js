@@ -51,7 +51,7 @@ class StudentProjectRow extends Row {
         {this.textDisplay(studentProject.featured, textScale, '150%', 'center')}
         {this.verGap('5%')}
         {this.icon(alert, [iconSize, iconSize], 0.2)}
-        {this.textDisplay(studentProject.alert, textScale, '150%', 'center')}
+        {this.textDisplay(studentProject.alert, textScale, '150%', 'center', studentProject.alert === 0? 'black':'red')}
       </div>
     )
   }
@@ -76,41 +76,40 @@ class StudentProjectRow extends Row {
   render(){
     this.init(this.props);
     const studentProject = this.props.studentProject;
-    const profile = this.func.getProfileByUserId(studentProject.student);
-    const project = this.func.getProjectById(studentProject.project);
-    if(!studentProject || !profile){
-      return null;
-    }
-    
-    if(this.store.content.view !== 'student' && studentProject.student === this.store.user._id){
+    this.profile = this.func.getProfileByUserId(studentProject.student);
+    this.project = this.func.getProjectById(studentProject.project);
+    if(!studentProject || !this.profile){
+      //console.log('studentProject or profile missing')
       return null;
     }
 
-    const rowStyle = {...this.ui.styles.area, ...this.ui.styles.button, ...{
-      flexShrink: 0,
-      height: this.bs.height * 0.15,
-      borderBottom: '1px solid ' + this.ui.colors.darkGrey,
-      alignItems: 'center'
-    }}
+    if(this.store.content.view === 'project' && this.store.content.subView === 'projectSubmitted' && studentProject.student === this.store.user._id){
+      return null;
+    }
 
-    const title =
-    this.props.byStudent? profile.name:
-    this.props.byProject? project.title:
+    this.title =
+    this.props.byStudent? this.profile.name:
+    this.props.byProject? this.project.title:
     '';
 
-    const info =
+    this.info =
     this.props.byStudent? this.rowInfoStudent.bind(this):
     this.props.byProject? this.rowInfoProject.bind(this):
     '';
 
-    return(
-      <button style={rowStyle} onClick={this.props.onClick}>
+    return this.animatedRow(this.content.bind(this), this.bs.height * 0.15)
+  }
+
+  content = (style)=>(
+      <button onClick={this.props.onClick} style={{...this.rowStyle(), ...{
+        height: style.height,
+        opacity: style.opacity
+      }}}>
         {this.verGap('3%')}
         {this.rowIcon()}
-        {profile && this.rowContent(title, info )}
+        {this.profile && this.rowContent(this.title, this.info )}
       </button>
-    )
-  }
+  )
 }
 
 export default StudentProjectRow;

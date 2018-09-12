@@ -2,7 +2,7 @@ import React from 'react';
 import View from 'components/main/pages/home/views/View';
 import ImagePicker from 'components/main/items/ImagePicker';
 
-class AddProject extends View {
+class Addsubject extends View {
 
   constructor(props){
     super(props);
@@ -27,19 +27,19 @@ class AddProject extends View {
 
         {this.subTitle(['Icon','照片','照片'])}
         {this.sep()}
-        <ImagePicker defaultUrl={this.state.url} app={this.app} />
+        <ImagePicker defaultUrl={this.url.url} app={this.app} />
         {this.sep()}
         {this.gap('2%')}
 
         {this.subTitle(['Title','標題','标题'])}
         {this.sep()}
-        {this.inputs.inputField('title','text', '', this.props.editMode? this.project.title:'' , ()=>{ this.setState({modified: true})})}
+        {this.inputs.inputField('title','text', '', this.props.editMode? this.subject.title:'' , ()=>{ this.setState({modified: true})})}
         {this.gap('2%')}
 
         {this.subTitle(['Description','描述','描述'])}
         {this.sep()}
         {this.gap('2%')}
-        {this.inputs.textArea('desc', '', this.props.editMode? this.project.description:'', ()=>{ this.setState({modified: true})})}
+        {this.inputs.textArea('desc', '', this.props.editMode? this.subject.description:'', ()=>{ this.setState({modified: true})})}
         {this.gap('4%')}
 
         {this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addSubject()})}
@@ -81,4 +81,4 @@ class AddProject extends View {
 
 }
 
-export default AddProject;
+export default Addsubject;

@@ -1,5 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
+
 import Cell from 'components/main/items/Cell';
 
 class Subjects extends UI {
@@ -26,23 +28,30 @@ class Subjects extends UI {
   subjectsContent(){
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: this.bs.height * 0.77,
       flexFlow: 'row wrap',
       alignItems: 'flex-start',
-      overflow: 'auto'
+      overflow: 'auto',
+      alignContent: 'flex-start'
     }}
+    const isOpen = ! this.hide;
+    const height = this.bs.height * 0.77;
     return(
-      <div style={areaStyle}>
-        {this.subjectsCells()}
-      </div>
+      <Motion defaultStyle={{height: !this.ani? (isOpen? height: 0): isOpen? 0: height, opacity: isOpen?0:1.1}}
+      style={{height:isOpen? spring(height): spring(0), opacity: isOpen?spring(1.1):spring(0)}}>
+        {style=>(
+        <div style={{...areaStyle, ...{ height: style.height, opacity: style.opacity}}}>
+          {this.subjectsCells()}
+        </div>
+        )}
+      </Motion>
     )
   }
 
   subjectsCells(){
     this.setData();
     const containerStyle = {...this.ui.styles.container, ...{
-      width: this.bs.width * 0.275,
-      height: this.bs.width * 0.3
+      width: this.bs.height * 0.25,
+      height: this.bs.height * 0.25
     }}
     return this.subjectsData.map((subject, i)=>{
       return(
@@ -58,6 +67,7 @@ class Subjects extends UI {
 
   render() {
     this.init(this.props);
+    this.hide = this.store.content.hide.subjects;
 
     const title = ['Subjects','議題','议题'];
 
@@ -67,11 +77,10 @@ class Subjects extends UI {
       background: this.ui.colors.gradientBasic
     }
 
-    const hide = this.store.content.hide.subjects;
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('subjects')})}
-        {!hide && this.subjectsContent()}
+        {this.tabBar(title, this.hide, ()=>{this.actions.content.toggleHide('subjects')})}
+        {this.subjectsContent()}
       </div>
     )
   }

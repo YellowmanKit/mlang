@@ -68,8 +68,8 @@ class Cards extends UI {
       alignContent: 'flex-start'
     }
     const cardContainerStyle = {...this.ui.styles.container, ...{
-      width: this.bs.width * 0.32,
-      height: this.bs.width * 0.4
+      width: this.bs.height * 0.32,
+      height: this.bs.height * 0.4
     }}
     cardsToShow.push('add');
     return(

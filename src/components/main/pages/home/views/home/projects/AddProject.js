@@ -60,17 +60,17 @@ class AddProject extends View {
     const description = document.getElementById('desc').value;
     const endDate = document.getElementById('endDate').value;
 
-    const today = new Date();
-    const selectedEndDate = new Date(endDate)
+    //const today = new Date();
+    //const selectedEndDate = new Date(endDate)
     if(!editMode && newIconBlob === null){
       return this.failedMessage(['Failed to add! Icon is missing!', '創建失敗! 未有照片!','创建失败! 未有照片!'])
     }
     if(title.length === 0){
       return this.failedMessage(['Failed to add! Title is missing!', '創建失敗! 未填班名!','创建失败! 未填班名!'])
     }
-    if(selectedEndDate < today){
+    /*if(selectedEndDate < today){
       return this.failedMessage(['Failed to add! End date is in the past!', '創建失敗! 結束日期早於現在!','创建失败! 结束日期早于现在!'])
-    }
+    }*/
 
     if(!editMode){
       this.actions.projects.addProject({

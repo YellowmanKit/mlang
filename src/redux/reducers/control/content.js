@@ -1,6 +1,6 @@
 const contentReducer = (
   state = {
-    menu: 'off',
+    menu: 'init',
     view: '',
     traces: [],
     filterOption: 'All',
@@ -10,17 +10,20 @@ const contentReducer = (
       schools: false,
       courses: false,
       subjects: false
-    }
+    },
+    animation: true
   }, action)=>{
   var hide = state.hide;
   switch (action.type) {
+    case 'setAnimation':
+      return {...state, animation: action.payload}
     case 'setHide':
       hide[ action.payload.type] = action.payload.state;
       return {...state, hide: hide}
     case 'toggleHide':
       const type = action.payload;
-      hide[type] = !hide[type]
-      return {...state, hide: hide}
+      hide[type] = hide[type] === 'init'? true: !hide[type]
+      return {...state, hide: hide, animation: true}
     case 'setFilter':
       return {...state, filterOption: action.payload}
     case 'cacheUrl':
@@ -38,7 +41,7 @@ const contentReducer = (
     case 'pushView':
       return {...state, traces: [...state.traces, action.payload], view: action.payload};
     case 'toggleMenu':
-      return {...state, menu: state.menu === 'off'? 'on': 'off'};
+      return {...state, menu: state.menu === 'init'?'on':state.menu === 'off'? 'on': 'off'};
     default:
       return state;
   }

@@ -38,10 +38,14 @@ class NavBar extends UI {
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
     leftOnClick = ()=>{ this.actions.content.pullView(); }
-    rightOnClick = this.none;
+    rightOnClick = ()=>{};
     //rightOnClick = ()=>{ this.actions.modal.message(['No effect!', '沒有效果!', '没有效果!']); }
 
     leftIcon = back_arrow;
+
+    /*if(view === 'account' ||  view === 'profile' ||  view === 'credit'){
+      leftOnClick = ()=>{ this.actions.content.pullView(); this.actions.content.toggleMenu(); }
+    }*/
 
     if(view === 'studentHome' ||  view === 'teacherHome' ||  view === 'adminHome'){
       leftOnClick = this.actions.content.toggleMenu;
@@ -59,7 +63,7 @@ class NavBar extends UI {
           break;
         case 'forceProfile':
           title = ['WELCOME!','歡迎!','欢迎!'];
-          leftOnClick = this.none;
+          leftOnClick = ()=>{};
           leftIcon = null;
           break;
         case 'setting':
@@ -110,6 +114,13 @@ class NavBar extends UI {
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addProject')}
           }
+          if(user.type === 'teacher' && this.store.content.subView === 'subjectDetail'){
+            rightIcon = edit;
+            rightOnClick = ()=>{
+              this.actions.main.setPhoto({url: null, blob: null});
+              this.actions.content.pushView('editSubject');
+            }
+          }
           break;
         case 'addProject':
           title = ['ADD PROJECT', '創建專題研習','创建专题研习'];
@@ -156,6 +167,9 @@ class NavBar extends UI {
           break;
         case 'editCourse':
           title = ['EDIT COURSE', '修改班別','修改班别'];
+          break;
+        case 'editSubject':
+          title = ['EDIT SUBJECT', '修改議題','修改议题'];
           break;
         case 'editProject':
           title = ['EDIT PROJECT', '修改專題研習','修改专题研习'];
@@ -248,8 +262,6 @@ class NavBar extends UI {
       </div>
     )
   }
-
-  none(){}
 
   saveGradeCard(){
     const project = this.store.projects.viewingProject;

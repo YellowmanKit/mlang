@@ -38,8 +38,8 @@ class Button {
 
   cellAdd(onClick){
     const style = {...this.ui.styles.border, ...{
-      width: this.bs.width * 0.12,
-      height: this.bs.width * 0.12,
+      width: this.bs.height * 0.12,
+      height: this.bs.height * 0.12,
       backgroundColor: 'white',
       opacity: 0.5
     }}

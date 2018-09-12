@@ -60,7 +60,7 @@ class Profile extends View {
   lowerPart(){
     const profile = this.store.profile;
     return(
-      <div style={{...this.viewStyle(), height: this.bs.height * 0.375, flexShrink: 0}}>
+      <div style={{...this.viewStyle(), height: this.bs.height * 0.4, flexShrink: 0}}>
         {this.subTitle(['Total submitted cards','卡片總數','卡片总数'])}
         {this.sep()}
         {this.textDisplay(profile.cardCount, ['50%', this.bs.height * 0.06], '150%', 'center')}

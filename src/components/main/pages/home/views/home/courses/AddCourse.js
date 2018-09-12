@@ -54,17 +54,17 @@ class AddCourse extends View {
     const _title = document.getElementById('title').value;
     const _endDate = document.getElementById('endDate').value;
 
-    const today = new Date();
-    const selectedEndDate = new Date(_endDate)
+    //const today = new Date();
+    //const selectedEndDate = new Date(_endDate)
     if(!editMode && _icon === null){
       return this.failedMessage(['Failed to add! Icon is missing!', '提交失敗! 未有照片!','提交失败! 未有照片!'])
     }
     if(_title.length === 0){
       return this.failedMessage(['Failed to add! Title is missing!', '提交失敗! 未填班名!','提交失败! 未填班名!'])
     }
-    if(selectedEndDate < today){
+    /*if(selectedEndDate < today){
       return this.failedMessage(['Failed to add! End date is in the past!', '提交失敗! 結束日期早於現在!','提交失败! 结束日期早于现在!'])
-    }
+    }*/
     if(!editMode){
       this.actions.courses.addCourse({
         teacher: this.store.user._id,

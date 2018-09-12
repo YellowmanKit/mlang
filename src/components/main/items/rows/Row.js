@@ -1,12 +1,14 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
+
 import no_image from 'resources/images/general/no_image.png';
 
 class Row extends UI {
 
   rowContent(title, rowInfo){
     const infoStyle = {...this.bs, ...{
-      width: '72%',
+      width: '80%',
       height: this.bs.height * 0.12,
       marginLeft: this.bs.height * 0.02
     }}
@@ -50,7 +52,26 @@ class Row extends UI {
         <img style={iconStyle} src={this.url.url? this.url.url: no_image} alt=''/>
       </div>
     )
+  }
 
+  animatedRow(content, height){
+    return(
+      <Motion defaultStyle={{height: 0, opacity: 0}}
+      style={{height: spring(height), opacity: spring(1.1)}}>
+        {style=>content(style)}
+      </Motion>
+    )
+  }
+
+  rowStyle(){
+    return(
+      {...this.ui.styles.button, ...this.ui.styles.area, ...{
+        flexShrink: 0,
+        height: this.bs.height * 0.15,
+        borderBottom: '1px solid ' + this.ui.colors.darkGrey,
+        alignItems: 'center'
+      }}
+    )
   }
 
 }

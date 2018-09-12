@@ -1,5 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
+
 import Cell from 'components/main/items/Cell';
 
 class Courses extends UI {
@@ -31,18 +33,24 @@ class Courses extends UI {
 
     const areaStyle = {...this.ui.styles.area, ...{
       width: '100%',
-      height: this.bs.height * 0.25,
       alignItems: 'center',
       overflow: 'auto'
     }}
+    const isOpen = ! this.hide;
+    const height = this.bs.height * 0.27;
     return(
-      <div style={areaStyle}>
-        {this.verGap('2%')}
-        {this.coursesCells()}
-        {this.verGap('5%')}
-        {this.buttons.cellAdd(onAdd)}
-        {this.verGap('5%')}
-      </div>
+      <Motion defaultStyle={{height: !this.ani? (isOpen? height: 0): isOpen? 0: height, opacity: isOpen?0:1.1}}
+      style={{height:isOpen? spring(height): spring(0), opacity: isOpen?spring(1.1):spring(0)}}>
+        {style=>(
+        <div style={{...areaStyle, ...{ height: style.height, opacity: style.opacity}}}>
+          {this.verGap('2%')}
+          {this.coursesCells()}
+          {this.verGap('5%')}
+          {this.buttons.cellAdd(onAdd)}
+          {this.verGap('5%')}
+        </div>
+        )}
+      </Motion>
     )
   }
 
@@ -60,6 +68,7 @@ class Courses extends UI {
 
   render() {
     this.init(this.props);
+    this.hide = this.store.content.hide.courses;
 
     const type = this.store.user.type;
     const title =
@@ -73,11 +82,10 @@ class Courses extends UI {
       background: this.ui.colors.gradientBasic
     }
 
-    const hide = this.store.content.hide.courses;
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('courses')})}
-        {!hide && this.coursesContent()}
+        {this.tabBar(title, this.hide, ()=>{this.actions.content.toggleHide('courses')})}
+        {this.coursesContent()}
       </div>
     )
   }

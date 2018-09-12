@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import UI from 'components/UI';
 
 import background2 from 'resources/images/general/background2.png';
 
@@ -39,12 +40,13 @@ import School from './views/home/schools/School';
 
 import Teacher from './views/home/teacher/Teacher';
 
+import Footer from './Footer';
 
-class Home extends Component {
+class Home extends UI {
 
   views(){
-    const app = this.props.app;
-    const view = app.store.content.view;
+    const app = this.app;
+    const view = this.app.store.content.view;
     if(view === ''){
       return null;
     }
@@ -77,6 +79,8 @@ class Home extends Component {
         return <Subject app={app}/>;
       case 'addSubject':
         return <AddSubject app={app}/>;
+      case 'editSubject':
+        return <AddSubject editMode={true} app={app}/>;
       case 'addProject':
         return <AddProject app={app}/>;
       case 'editProject':
@@ -116,28 +120,22 @@ class Home extends Component {
     }
   }
 
-  menu(){
-    const app = this.props.app;
-    if(app.store.content.menu === 'off'){
-      return null;
-    }
-    return <Menu app={app}/>
-  }
-
   render() {
-    const app = this.props.app;
-    const ui = app.store.ui;
-    const pageStyle = {...ui.basicStyle, ...{
+    this.init(this.props);
+    const pageStyle = {...this.ui.basicStyle, ...{
       justifyContent: 'flex-start',
       backgroundImage: 'url(' + background2 + ')',
       backgroundSize: '100% 100%',
+      position: 'relative'
     }}
+
     return(
       <div style={pageStyle}>
-        <NavBar app={app}/>
+        <NavBar app={this.app}/>
         {this.views()}
-        {this.menu()}
-        <Enlarger app={app}/>
+        <Footer app={this.app}/>
+        <Menu app={this.app}/>
+        <Enlarger app={this.app}/>
       </div>
     )
   }

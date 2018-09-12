@@ -10,7 +10,7 @@ class TeacherHome extends View {
   render() {
     this.init(this.props);
     return(
-      <div style={this.viewStyle()}>
+      <div id='home' style={this.viewStyle()} onScroll={()=>{this.actions.main.setStatus('ready')}}>
         <Schools app={this.app}/>
         <Courses app={this.app}/>
         <Subjects app={this.app}/>

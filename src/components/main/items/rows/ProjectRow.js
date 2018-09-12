@@ -58,38 +58,29 @@ class ProjectRow extends Row {
 
   alertTag(){
     const style = {
-      position: 'absolute',
-      top: this.bs.width * 0.005,
-      right: this.bs.width * 0.005,
-      width: this.bs.width * 0.05,
-      height: this.bs.width * 0.05
+      width: this.bs.height * 0.04,
+      height: this.bs.height * 0.04
     }
     return <img style={style} src={icon_alert2} alt=''/>
   }
 
   render(){
     this.init(this.props);
-    if(this.props.project === null){
-      return null;
-    }
+    if(this.props.project === null){ return null; }
+    return this.animatedRow(this.content.bind(this), this.bs.height * 0.15)
+  }
 
-    const rowStyle = {...this.ui.styles.button, ...this.ui.styles.area, ...{
-      flexShrink: 0,
-      height: this.bs.height * 0.15,
-      borderBottom: '1px solid ' + this.ui.colors.darkGrey,
-      alignItems: 'center',
-      position: 'relative'
-    }}
-
-    return(
-      <button onClick={this.props.onClick} style={rowStyle}>
+  content = (style)=>(
+      <button onClick={this.props.onClick} style={{...this.rowStyle(), ...{
+        height: style.height,
+        opacity: style.opacity
+      }}}>
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
         {this.checkAlertTag()}
       </button>
-    )
-  }
+  )
 }
 
 export default ProjectRow;

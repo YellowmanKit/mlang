@@ -51,7 +51,8 @@ const uiReducer = (
       darkGrey: '#dbdbdb',
       deepDarkGrey: '#777777',
       selectedGrey: '#444444',
-      gradientBasic: 'linear-gradient(to right, white 0%, #ededed 100%)'
+      gradientBasic: 'linear-gradient(to right, white 0%, #ededed 100%)',
+      gradientReverse: 'linear-gradient(to left, white 0%, #ededed 100%)'
     }
   }, action)=>{
   switch (action.type) {
