@@ -40,7 +40,7 @@ class Login extends UI {
     const barStyle = {
       width: '67%',
       height: '5%',
-      marginTop: '15%',
+      marginTop: '10%',
       display: 'flex',
       flexFlow: 'row nowrap',
       justifyContent: 'center'

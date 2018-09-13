@@ -10,7 +10,11 @@ class School extends View {
   componentDidMount(){
     if(!this.store.content.subView.includes('school')){
       //this.actions.content.setSubView(this.store.user.type === 'admin'?'schoolTeachers':'schoolDetail');
-      this.actions.content.setSubView('schoolTeachers');
+      if(this.store.user.type === 'admin' || this.store.user.type === 'teacher'){
+        this.actions.content.setSubView('schoolTeachers');
+      }else{
+        this.actions.content.setSubView('schoolDetail');
+      }
     }
   }
 

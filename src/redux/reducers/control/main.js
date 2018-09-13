@@ -14,7 +14,7 @@ const mainReducer = (
     enlargeText: '',
 
     language: 'simplified_chinese',
-    version: 'v1.0.1'
+    version: 'v1.0.2'
   }, action)=>{
   switch (action.type) {
     case 'enlargeText':

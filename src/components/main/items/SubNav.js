@@ -21,10 +21,11 @@ class SubNav extends UI {
 
     const length = this.props.options.length;
     return this.props.options.map((option,i)=>{
+      const selected = option.subView === this.store.content.subView;
       return(
-        <div key={i} style={areaStyle}>
+        <div key={i} style={{...areaStyle, ...{backgroundColor: selected? 'white': 'transparent'}}}>
           <button style={optionStyle} onClick={()=>{this.actions.content.setSubView(option.subView)}}>
-            <div style={Object.assign({},tagStyle,{color: option.subView === this.store.content.subView? this.ui.colors.selectedGrey: this.ui.colors.lightGrey})}>{this.func.multiLang(option.tag[0],option.tag[1],option.tag[2])}</div>
+            <div style={Object.assign({},tagStyle,{color: selected? this.ui.colors.selectedGrey: this.ui.colors.grey})}>{this.func.multiLang(option.tag[0],option.tag[1],option.tag[2])}</div>
           </button>
           {i < length && this.verSep(this.ui.colors.darkGrey, '70%')}
         </div>
@@ -35,7 +36,8 @@ class SubNav extends UI {
   render(){
     this.init(this.props);
     const style = {...this.ui.styles.area, ...{
-      height: this.bs.height * 0.05
+      height: this.bs.height * 0.05,
+      backgroundColor: this.ui.colors.ultraLightGrey
     }};
     return (
       <div style={style}>

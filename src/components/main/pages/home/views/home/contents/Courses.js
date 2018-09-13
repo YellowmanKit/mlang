@@ -1,10 +1,9 @@
 import React from 'react';
-import UI from 'components/UI';
-import {Motion, spring}  from 'react-motion';
+import Content from './Content';
 
 import Cell from 'components/main/items/Cell';
 
-class Courses extends UI {
+class Courses extends Content {
 
   componentDidMount(){
     this.setData();
@@ -25,34 +24,15 @@ class Courses extends UI {
     })
   }
 
-  coursesContent(){
-    const onAdd =
-    this.store.user.type === 'teacher'? ()=>{this.actions.content.pushView('addCourse')}:
-    this.store.user.type === 'student'? ()=>{this.actions.content.pushView('joinCourse')}:
-    [];
-
-    const areaStyle = {...this.ui.styles.area, ...{
-      width: '100%',
-      alignItems: 'center',
-      overflow: 'auto'
-    }}
-    const isOpen = ! this.hide;
-    const height = this.bs.height * 0.27;
-    return(
-      <Motion defaultStyle={{height: !this.ani? (isOpen? height: 0): isOpen? 0: height, opacity: isOpen?0:1.1}}
-      style={{height:isOpen? spring(height): spring(0), opacity: isOpen?spring(1.1):spring(0)}}>
-        {style=>(
-        <div style={{...areaStyle, ...{ height: style.height, opacity: style.opacity}}}>
-          {this.verGap('2%')}
-          {this.coursesCells()}
-          {this.verGap('5%')}
-          {this.buttons.cellAdd(onAdd)}
-          {this.verGap('5%')}
-        </div>
-        )}
-      </Motion>
-    )
-  }
+  content = style =>(
+    <div style={{...this.areaStyle(), ...{ height: style.height, opacity: style.opacity}}}>
+      {this.verGap('2%')}
+      {this.coursesCells()}
+      {this.verGap('5%')}
+      {this.buttons.cellAdd(this.onAdd)}
+      {this.verGap('5%')}
+    </div>
+  )
 
   coursesCells(){
     this.setData();
@@ -68,7 +48,7 @@ class Courses extends UI {
 
   render() {
     this.init(this.props);
-    this.hide = this.store.content.hide.courses;
+    const hide = this.store.content.hide.courses;
 
     const type = this.store.user.type;
     const title =
@@ -82,10 +62,15 @@ class Courses extends UI {
       background: this.ui.colors.gradientBasic
     }
 
+    this.onAdd =
+    this.store.user.type === 'teacher'? ()=>{this.actions.content.pushView('addCourse')}:
+    this.store.user.type === 'student'? ()=>{this.actions.content.pushView('joinCourse')}:
+    ()=>{};
+
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, this.hide, ()=>{this.actions.content.toggleHide('courses')})}
-        {this.coursesContent()}
+        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('courses')})}
+        {this.animatedContent('courses', this.content.bind(this), !hide, this.bs.height * 0.27)}
       </div>
     )
   }

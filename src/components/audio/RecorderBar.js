@@ -86,8 +86,8 @@ class RecorderBar extends UI {
       alignItems: 'center'
     }}
 
-    const sizeSmall = [this.bs.width * 0.05,this.bs.width * 0.05];
-    const sizeBig = [this.bs.width * 0.06,this.bs.width * 0.06];
+    const sizeSmall = [this.bs.height * 0.04,this.bs.height * 0.04];
+    const sizeBig = [this.bs.height * 0.05,this.bs.height * 0.05];
 
     const audioBlob = this.props.audioBlob;
     const hvAudio = (audioBlob || this.props.defaultAudio);

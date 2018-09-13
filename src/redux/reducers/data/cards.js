@@ -3,12 +3,15 @@ import * as reducer from '../reducer';
 const cardsReducer = (
   state = {
     cards: [],
+    viewAction: 'init',
     viewingCard: {},
     viewingCards: [],
     gradingCards: {}
   }, action)=>{
   var _gradingCards = {...state.gradingCards};
   switch (action.type) {
+    case 'setAction':
+      return {...state, viewAction: action.payload};
     case 'viewCards':
       return {...state, viewingCards: action.payload};
     case 'updateCards':

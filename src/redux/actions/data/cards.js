@@ -3,6 +3,13 @@ import * as actions from '../actions';
 import to from '../to';
 var api = actions.api();
 
+export const setAction = (action) =>{
+  return {
+    type: 'setAction',
+    payload: action
+  }
+}
+
 export const gradeCard = (id, index, gradeCard) =>{
   return {
     type: 'gradeCard',

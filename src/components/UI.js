@@ -38,8 +38,6 @@ class UI extends Component {
     this.buttons.init(props.app);
     this.inputs.init(props.app);
 
-    this.ani = this.store.content.animation;
-
     this.url.init(props.app);
     this.checkUrl();
   }

@@ -24,8 +24,8 @@ class Menu extends UI {
 
     return(
       <div style={areaStyle}>
-        <div style={{flexGrow: 1,fontSize: '125%', color: 'white'}}>{this.store.profile.name + ' ( ' + this.store.user.id + ' )'}</div>
-        <div style={{flexGrow: 1,fontSize: '100%', color: 'grey'}}>{type}</div>
+        <div style={{flexGrow: 1,fontSize: '125%', color: 'white'}}>{this.store.profile.name}</div>
+        <div style={{flexGrow: 1,fontSize: '100%', color: 'grey'}}>{this.store.user.id + ' (' + type + ')'}</div>
       </div>
     )
   }
@@ -104,8 +104,8 @@ class Menu extends UI {
     }}
 
     return(
-      <Motion defaultStyle={{left: isOpen?-window.innerWidth:0, opacity: isOpen?0:1.1}}
-      style={{left: isOpen? spring(0):spring(-window.innerWidth), opacity: isOpen?spring(1.1):spring(0)}}>
+      <Motion defaultStyle={{left: isOpen?-this.bs.width: 0, opacity: isOpen?0:1.1}}
+      style={{left: isOpen? spring(0):spring(-this.bs.width), opacity: isOpen?spring(1.1):spring(0)}}>
         {style=>(
           <div style={{...menuStyle, ...{left: style.left, opacity: style.opacity}}}>
             {this.backArea()}

@@ -1,7 +1,13 @@
-export const setAnimation = (state) =>{
+export const toggleCardBar = () =>{
+  return {
+    type: 'toggleCardBar'
+  }
+}
+
+export const setAnimation = (type, state) =>{
   return {
     type: 'setAnimation',
-    payload: state
+    payload: {type: type, state: state}
   }
 }
 

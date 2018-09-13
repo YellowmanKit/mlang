@@ -36,7 +36,9 @@ class ProjectFeatured extends SubView {
   render() {
     this.init(this.props);
     const outDated = this.func.outDated(this.store.projects.viewingProject.endDate);
-    const isTeacher = this.store.user.type === 'teacher';
+    const isTeacher =
+    this.store.user.type === 'teacher' &&
+    this.store.content.traces[1] !== 'school';
 
     return(
       <div style={this.subViewStyle()}>

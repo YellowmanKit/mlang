@@ -87,6 +87,9 @@ const langsReducer = (
       return {...state, editLangs: newEditLangs};
     case 'setEditLangs':
       return {...state, editLangs: action.payload};
+    case 'killEditLangsItem':
+      newEditLangs[action.payload].killed = true;
+      return {...state, editLangs: newEditLangs};
     case 'removeEditLangsItem':
       newEditLangs.splice(action.payload,1);
       return {...state, editLangs: newEditLangs};

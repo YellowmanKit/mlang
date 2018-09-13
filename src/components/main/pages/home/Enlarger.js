@@ -1,5 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
 
 class Enlarger extends UI {
 
@@ -8,15 +9,14 @@ class Enlarger extends UI {
     const main = this.store.main;
     const status = main.enlarger;
     //console.log(this.buttons.bs)
-    if(status === 'off'){
-      return null;
-    }
+    const isOpen = status !== 'off';
 
-    const style = {...this.bs, ...{
+    const enlargerStyle = {...this.bs, ...{
       position: 'absolute',
       minHeight: this.bs.minHeight,
-      backgroundColor: 'rgba(1,1,1,0.95)',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0,0,0,0.95)',
+      pointerEvents: isOpen? 'auto': 'none'
     }}
 
     const textStyle = {
@@ -31,13 +31,18 @@ class Enlarger extends UI {
     }
 
     return(
-      <div style={style}>
-        {this.buttons.absoluteClose(()=>{this.actions.main.closeEnlarger()})}
-        {status === 'image' &&
-        <img src={main.enlargeImage} style={{maxWidth: this.bs.width}} alt=''/>}
-        {status === 'text' &&
-        <div style={textStyle}>{main.enlargeText}</div>}
-      </div>
+      <Motion defaultStyle={{opacity: isOpen?0:1.5}}
+      style={{opacity: isOpen?spring(1.5):spring(0)}}>
+        {style=>(
+          <div style={{...enlargerStyle, ...{opacity: style.opacity}}}>
+            {this.buttons.absoluteClose(()=>{this.actions.main.closeEnlarger()})}
+            {status === 'image' &&
+            <img src={main.enlargeImage} style={{maxWidth: this.bs.width}} alt=''/>}
+            {status === 'text' &&
+            <div style={textStyle}>{main.enlargeText}</div>}
+          </div>
+        )}
+      </Motion>
     )
   }
 

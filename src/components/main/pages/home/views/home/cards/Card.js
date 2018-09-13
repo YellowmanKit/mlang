@@ -1,5 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring, presets}  from 'react-motion';
+
 import Image from 'components/main/items/ui/Image';
 import Badge from 'components/main/items/Badge';
 import Langs from './langs/Langs';
@@ -51,7 +53,8 @@ class Card extends UI {
     const containerStyle = {...this.ui.styles.container, ...{
       width: '100%',
       height: '100%',
-      flexShrink: 0
+      flexShrink: 0,
+      position: 'absolute'
     }}
     const cardStyle = {...this.ui.styles.border, ...this.bs, ...{
       width: this.bs.height * 0.55,
@@ -60,18 +63,40 @@ class Card extends UI {
       position: 'relative',
       flexShrink: 0
     }}
-    const badgeScale = [this.bs.width * 0.25, this.bs.width * 0.25]
+    const badgeScale = [this.bs.width * 0.25, this.bs.width * 0.25];
+
+    const state = this.props.state;
+    const startLeft =
+    state === 'inLeft'? -this.bs.width:
+    state === 'inRight'? this.bs.width:
+    state === 'farToLeft'? this.bs.width:
+    state === 'farToRight'? -this.bs.width:
+    0;
+    const endLeft =
+    state === 'outLeft'? -this.bs.width:
+    state === 'outRight'? this.bs.width:
+    state === 'farToLeft'? -this.bs.width:
+    state === 'farToRight'? this.bs.width:
+    0;
+
+    const incoming = state.includes('in') || state === '';
+    const far = state.includes('far');
 
     return(
-      <div style={containerStyle}>
-        <div style={cardStyle}>
-          <Badge app={this.app} grade={card.grade} scale={badgeScale} />
-          {this.cardUpper(card)}
-          {this.cardLower(card)}
-          {this.footer(card)}
-          {this.cardTags(card.comment && card.comment.length > 0, card.audioComment)}
-        </div>
-      </div>
+      <Motion key={this.props.card._id + state} defaultStyle={{left: startLeft, opacity: far? 1: incoming? 0:1.1}}
+      style={{left: spring(endLeft, {...presets.noWobby, ...{stiffness: far? 50:170}}), opacity: far? 1: incoming? spring(1.1):spring(0)}}>
+        {style=>(
+          <div style={{...containerStyle, ...{left: style.left, opacity: style.opacity}}}>
+            <div style={cardStyle}>
+              <Badge app={this.app} grade={card.grade} scale={badgeScale} />
+              {this.cardUpper(card)}
+              {this.cardLower(card)}
+              {this.footer(card)}
+              {this.cardTags(card.comment && card.comment.length > 0, card.audioComment)}
+            </div>
+          </div>
+        )}
+      </Motion>
     )
   }
 }

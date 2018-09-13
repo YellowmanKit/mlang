@@ -62,8 +62,8 @@ class Main extends UI {
     this.init(this.props);
 
     const mainStyle = {
-      width: this.ui.windowWidth,
-      height: this.ui.windowHeight,
+      width: this.ui.windowWidth * 0.9999,
+      height: this.ui.windowHeight * 0.9999,
       minHeight: this.bs.height,
       backgroundImage: 'url(' + background + ')',
       backgroundSize: '10% 10%',

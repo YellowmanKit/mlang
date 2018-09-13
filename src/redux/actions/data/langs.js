@@ -20,6 +20,13 @@ export const setEditLangs = (editLangs) =>{
   }
 }
 
+export const killEditLangsItem = (index) =>{
+  return {
+    type: 'killEditLangsItem',
+    payload: index
+  }
+}
+
 export const removeEditLangsItem = (index) =>{
   return {
     type: 'removeEditLangsItem',

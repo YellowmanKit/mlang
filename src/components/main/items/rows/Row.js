@@ -8,7 +8,7 @@ class Row extends UI {
 
   rowContent(title, rowInfo){
     const infoStyle = {...this.bs, ...{
-      width: '80%',
+      width: '75%',
       height: this.bs.height * 0.12,
       marginLeft: this.bs.height * 0.02
     }}
@@ -54,10 +54,13 @@ class Row extends UI {
     )
   }
 
-  animatedRow(content, height){
+  animatedRow(content, height, onDead){
+    const ani = this.store.content.animation.row;
+    const option = {stiffness: onDead? 150: 300, damping: 26, precision: 0.01}
     return(
-      <Motion defaultStyle={{height: 0, opacity: 0}}
-      style={{height: spring(height), opacity: spring(1.1)}}>
+      <Motion defaultStyle={{height: (!ani || onDead)? height: 0, opacity: (!ani || onDead)? 1.1:0}}
+      style={{height: spring(onDead? 0:height, option), opacity: spring(onDead?0: 1.1, option)}}
+      onRest={onDead? onDead: ()=>{this.actions.content.setAnimation('row',false)}}>
         {style=>content(style)}
       </Motion>
     )

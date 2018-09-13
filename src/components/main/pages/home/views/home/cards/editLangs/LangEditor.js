@@ -1,7 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
 
-import LangEditRow from './LangEditRow';
+import LangEditRow from 'components/main/items/rows/LangEditRow';
 
 class LangEditor extends UI {
 
@@ -42,6 +42,7 @@ class LangEditor extends UI {
       audioBlob: null
     }
     this.actions.langs.pushEditLangs(newLangRow);
+    this.actions.content.setAnimation('row', true);
   }
 
   langEditRows(){

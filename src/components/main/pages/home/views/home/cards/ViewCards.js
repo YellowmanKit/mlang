@@ -48,18 +48,32 @@ class ViewCards extends View {
         break;
       }
     }
+    const action = this.store.cards.viewAction;
+    const lastViewingCard =
+    action === 'previous'? next:
+    action === 'next'? previous:
+    action === 'swapLeft'? next:
+    action === 'swapRight'? previous:
+    null;
+
+    //console.log(lastViewingCard);
 
     return(
       <div style={{...this.viewStyle(), overflow: 'hidden'}}>
-        {previous && this.buttons.previous(()=>{this.actions.cards.viewCard(previous)})}
         <div style={style}>
-          <Card app={this.app} card={viewingCard}/>
+          {this.renderCard(viewingCard, action === 'previous'? 'inLeft': action === 'next'? 'inRight': 'far')}
+          {lastViewingCard && this.renderCard(lastViewingCard, action === 'swapLeft'? 'farToRight': action === 'swapRight'? 'farToLeft': action === 'previous'? 'outRight': action === 'next'? 'outLeft': '')}
         </div>
-        {next && this.buttons.next(()=>{this.actions.cards.viewCard(next)})}
+        {previous && this.buttons.previous(()=>{ this.actions.cards.viewCard(previous); this.actions.cards.setAction('previous');})}
+        {next && this.buttons.next(()=>{ this.actions.cards.viewCard(next); this.actions.cards.setAction('next'); })}
         <CardBar app={this.app} card={viewingCard}/>
         {this.indexTag(currentIndex)}
       </div>
     )
+  }
+
+  renderCard(card, state){
+    return <Card app={this.app} card={card} state={state}/>
   }
 
 }

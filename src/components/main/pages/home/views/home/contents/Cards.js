@@ -89,7 +89,7 @@ class Cards extends UI {
           //console.log(card);
           return(
             <div key={i} style={cardContainerStyle}>
-              <Cell app={this.app} data={card} type='card' onClick={()=>{this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
+              <Cell app={this.app} data={card} type='card' onClick={()=>{this.actions.cards.setAction('init'); this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
             </div>
           )
         })}
