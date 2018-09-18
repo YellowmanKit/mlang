@@ -20,6 +20,7 @@ class Menu extends UI {
     const type =
     this.store.user.type === 'student'? this.func.multiLang('Student','學生','学生'):
     this.store.user.type === 'teacher'? this.func.multiLang('Teacher','老師','老师'):
+    this.store.user.type === 'admin'? this.func.multiLang('Admin','管理員','管理员'):
     '';
 
     return(
@@ -120,6 +121,7 @@ class Menu extends UI {
   }
 
   logout(){
+    this.db.set('autoLogin', false);
     this.actions.content.toggleMenu();
     this.actions.user.logout();
   }

@@ -3,6 +3,7 @@ const contentReducer = (
     menu: 'init',
     view: '',
     traces: [],
+    previousViews: [],
     filterOption: 'All',
     subView: '',
     cachedUrl: {},
@@ -10,7 +11,8 @@ const contentReducer = (
       schools: false,
       courses: false,
       subjects: false,
-      cardBar: true
+      cardBar: true,
+      tree: false
     },
     cardBar: false,
     animation: {
@@ -18,7 +20,9 @@ const contentReducer = (
       courses: true,
       subjects: true,
       cardBar: false,
-      row: true
+      row: true,
+      panel: false,
+      badge: false
     }
   }, action)=>{
   var hide = state.hide;
@@ -47,11 +51,14 @@ const contentReducer = (
       return {...state, traces: state.traces.slice(0, 1), view: state.traces[0]};
     case 'clearView':
       return {...state, traces: [], view: ''};
+    case 'pullPreviewsView':
+      return {...state, previousViews: state.previousViews.slice(0, state.traces.length - 1)}
     case 'pullView':
-      return {...state, traces: state.traces.slice(0, state.traces.length - 1), view: state.traces[state.traces.length - 2]};
+      animation['row'] = false;
+      return {...state, traces: state.traces.slice(0, state.traces.length - 1), previousViews: [...state.previousViews, state.view], view: state.traces[state.traces.length - 2], animation: animation};
     case 'pushView':
       animation['row'] = true;
-      return {...state, traces: [...state.traces, action.payload], view: action.payload, animation: animation};
+      return {...state, traces: [...state.traces, action.payload], previousViews: [], view: action.payload, animation: animation};
     case 'toggleMenu':
       return {...state, menu: state.menu === 'init'?'on':state.menu === 'off'? 'on': 'off'};
     default:

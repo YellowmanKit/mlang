@@ -14,6 +14,7 @@ class Database {
 
   get(key) {
     return this.dbPromise.then(db => {
+      //console.log(key);
       return db.transaction('store')
         .objectStore('store').get(key);
     }).catch(err=>{
@@ -26,6 +27,7 @@ class Database {
     return this.dbPromise.then(db => {
       const tx = db.transaction('store', 'readwrite');
       tx.objectStore('store').put(val, key);
+      //console.log(key, val);
       return tx.complete;
     })
   }

@@ -96,7 +96,6 @@ export function login (_id, _pw) {
       dispatch({type: "hideModal"});
     }else{
       dispatch({type: "message", payload: ['Login failed! Invalid id or password!', '登入失敗! 名稱或密碼不正確!', '登入失败! 名称或密码不正确!']});
-
     }
 
   }

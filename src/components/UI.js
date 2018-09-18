@@ -60,8 +60,8 @@ class UI extends Component {
       case 'admin':
         return(
         language === 'english'? 'admin':
-        language === 'chinese'? '監管者':
-        language === 'simplified_chinese'? '监管者':
+        language === 'chinese'? '管理員':
+        language === 'simplified_chinese'? '管理员':
         '')
       default:
     }

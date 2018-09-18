@@ -64,11 +64,11 @@ const uiReducer = (
         width:
         _windowWidth < state.minWidth? state.minWidth:
         _windowWidth > state.maxWidth? state.maxWidth:
-        _windowWidth ,
+        _windowWidth * 0.9999 ,
         height:
         _windowHeight < state.minHeight? state.minHeight:
         _windowHeight > state.maxHeight? state.maxHeight:
-        _windowHeight};
+        _windowHeight * 0.9999};
       return {...state,
               windowWidth: _windowWidth,
               windowHeight: _windowHeight,

@@ -118,8 +118,8 @@ class Cell extends UI {
     '';*/
 
     this.scale =
-    this.props.type === 'school'? [this.bs.height * 0.325,this.bs.height * 0.2]:
-    this.props.type === 'course'? [this.bs.height * 0.225,this.bs.height * 0.225]:
+    this.props.type === 'school'? [this.bs.height * 0.325,this.bs.height * 0.215]:
+    this.props.type === 'course'? [this.bs.height * 0.215,this.bs.height * 0.215]:
     this.props.type === 'project'? [this.bs.height * 0.2,this.bs.height * 0.2]:
     this.props.type === 'card'? [this.bs.height * 0.25, this.bs.height * 0.35]:
     this.props.type === 'subject'? [this.bs.height * 0.2, this.bs.height * 0.2]:
@@ -148,8 +148,8 @@ class Cell extends UI {
       <Motion defaultStyle={{scale: isInit? 1:isOpen? 1: 1.05}}
       style={{scale: isInit? 1:isOpen? spring(1.05): spring(1)}}>
         {style=>(
-          <button style={{...cellStyle,...{  width: this.scale[0] * style.scale,height: this.scale[1] * style.scale}}}
-          onClick={()=>{this.props.onClick();}}
+          <button style={{...cellStyle,...{ width: this.scale[0] * style.scale,height: this.scale[1] * style.scale}}}
+          onClick={()=>{ this.props.onClick(); }}
           onPointerEnter={()=>{ this.setState({status: 'pointed' })}}
           onPointerLeave={()=>{ this.setState({status: 'not-pointed' })}}>
             {this.props.type === 'card' && <Badge app={this.app} grade={this.props.data.grade} scale={badgeScale} />}

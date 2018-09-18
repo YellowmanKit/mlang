@@ -273,7 +273,11 @@ class Button {
     if(imageUrl && imageUrl !== ''){
       style = {...style, ...{ backgroundImage: 'url(' + imageUrl + ')' }}
     }
-    return <button style={style}  onClick={onClick}>{this.func.multiLang(text[0],text[1], text[2])}</button>
+    if(!style.animated){
+      return <button style={style}  onClick={onClick}>{this.func.multiLang(text[0],text[1], text[2])}</button>
+    }else{
+      return { style: style, onClick: onClick, text: text }
+    }
   }
 
   dynamicStyles(name){
@@ -282,7 +286,8 @@ class Button {
         return {
             width: this.bs.width * 0.67,
             height: this.bs.width * 0.065,
-            marginTop: '5%'
+            marginTop: '5%',
+            animated: 'standard'
         }
       case 'nav':
         return {
@@ -333,7 +338,8 @@ const styles = {
     fontWeight: 'bold',
     fontSize: '100%',
     color: 'white',
-    flexShrink: 0
+    flexShrink: 0,
+    position: 'relative'
   },
   fileInput: {
     boxSizing: 'border-box',

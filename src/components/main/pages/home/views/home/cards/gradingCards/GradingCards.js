@@ -1,4 +1,6 @@
 import React from 'react';
+import {Motion, spring}  from 'react-motion';
+
 import View from 'components/main/pages/home/views/View';
 import GradingCardRow from 'components/main/items/rows/GradingCardRow';
 import RecorderBar from 'components/audio/RecorderBar';
@@ -21,35 +23,20 @@ class GradingCards extends View {
     }
   }
 
-  /*async getAudioCommentsBlob(newProps){
-    if(this.state.blobFetched){ return; }
-    this.setState({
-      blobFetched: true
-    })
-    this.init(newProps);
-    const gradingCards = this.getGradingCards();
-    if(!gradingCards){ console.log('no gradingCards!'); return; }
-    for(var i=0;i<gradingCards.length;i++){
-      if(!gradingCards[i].audioComment){ continue; }
-      const url = await this.func.url(gradingCards[i].audioComment, 'audioComment');
-      const res = await fetch(url);
-      const blob = await res.blob();
-      var newAudioCommentsBlob = {...this.state.audioCommentsBlob};
-      newAudioCommentsBlob[gradingCards[i].audioComment] = blob;
-      this.setState({
-        audioCommentsBlob: newAudioCommentsBlob
-      })
-    }
-  }*/
-
   componentDidMount(){
     this.init(this.props);
     this.getCards(this.props);
+    this.actions.content.setAnimation('badge', true);
   }
 
   componentWillReceiveProps(newProps){
     this.checkInit(newProps);
     //this.getAudioCommentsBlob(newProps);
+  }
+
+  componentWillUnmount(){
+    this.actions.content.setAnimation('panel', false);
+    this.actions.content.setAnimation('badge', false);
   }
 
   checkInit(props){
@@ -107,7 +94,7 @@ class GradingCards extends View {
       backgroundColor: this.ui.colors.ultraLightGrey
     }}
     const containerStyle = {...this.ui.styles.container, ...{
-      width: '100%',
+      width: '98%',
       margin: this.bs.width * 0.02,
       flexShrink: 0
     }}
@@ -146,6 +133,8 @@ class GradingCards extends View {
       alignItems: 'center',
       backgroundColor: this.ui.colors.lightGrey,
       borderTop: '2px solid ' + this.ui.colors.darkGrey,
+      position: 'absolute',
+      bottom: 0
     }}
     const container = {...this.ui.styles.container, ...{
       width: '20%',
@@ -167,6 +156,7 @@ class GradingCards extends View {
       commenting: !this.state.commenting,
       audioCommenting: false
     })
+    this.actions.content.setAnimation('panel', true);
   }
 
   toggleAudioCommentPanel(){
@@ -174,49 +164,59 @@ class GradingCards extends View {
       commenting: false,
       audioCommenting: !this.state.audioCommenting
     })
+    this.actions.content.setAnimation('panel', true);
   }
 
   commentPanel(gradingCard){
-    const style = {...this.ui.styles.area, ...this.ui.styles.container, ...{
+    const isOpen = this.state.commenting;
+    const panelStyle = {...this.ui.styles.area, ...this.ui.styles.container, ...{
       height: this.bs.width * 0.2,
       backgroundColor: this.ui.colors.lightGrey,
       borderTop: '2px solid ' + this.ui.colors.darkGrey,
       borderBottom: '2px solid ' + this.ui.colors.darkGrey,
       position: 'absolute',
-      bottom: this.bs.width * 0.2
+      pointerEvents: isOpen? 'auto': 'none'
     }}
     return(
-      <div style={style}>
-        {this.inputs.textArea('comment', ['This card has no comment!','此卡片未有評論!'], gradingCard.comment, (e)=>{this.commenting(e)}, ['95%', '90%'])}
-      </div>
+      <Motion defaultStyle={{bottom: !this.ani()? 0:isOpen?0: this.bs.width * 0.2, opacity: isOpen?0:1.1}}
+      style={{bottom: isOpen? spring(this.bs.width * 0.2):spring(0), opacity: isOpen?spring(1.1):spring(0)}}>
+        {style=>(
+          <div style={{...panelStyle,...{ bottom: style.bottom, opacity: style.opacity }}}>
+            {this.inputs.textArea('comment', ['This card has no comment!','此卡片未有評論!'], gradingCard.comment, (e)=>{this.commenting(e)}, ['95%', '90%'])}
+          </div>
+        )}
+      </Motion>
     )
   }
 
   audioCommentPanel(gradingCard){
-    const style = {...this.ui.styles.area, ...this.ui.styles.container, ...{
+    const isOpen = this.state.audioCommenting;
+    const panelStyle = {...this.ui.styles.area, ...this.ui.styles.container, ...{
       height: this.bs.width * 0.2,
       backgroundColor: this.ui.colors.lightGrey,
       borderTop: '2px solid ' + this.ui.colors.darkGrey,
       borderBottom: '2px solid ' + this.ui.colors.darkGrey,
       position: 'absolute',
-      bottom: this.bs.width * 0.2
+      pointerEvents: isOpen? 'auto': 'none'
     }}
-    /*const audioBlob =
-    gradingCard.audioCommentBlob? gradingCard.audioCommentBlob:
-    gradingCard.audioComment? this.state.audioCommentsBlob[gradingCard.audioComment]:
-    null;*/
+
     const audioBlob = gradingCard.audioCommentBlob;
 
     return(
-      <div style={style}>
-        <RecorderBar
-        app={this.app}
-        scale={['75%','100%']}
-        audioBlob={audioBlob}
-        defaultAudio={gradingCard.audioComment}
-        type={'audioComment'}
-        onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
-      </div>
+      <Motion defaultStyle={{bottom: !this.ani()? 0: isOpen?0: this.bs.width * 0.2, opacity: isOpen?0:1.1}}
+      style={{bottom: isOpen? spring(this.bs.width * 0.2):spring(0), opacity: isOpen?spring(1.1):spring(0)}}>
+        {style=>(
+          <div style={{...panelStyle,...{ bottom: style.bottom, opacity: style.opacity }}}>
+            <RecorderBar
+            app={this.app}
+            scale={['75%','100%']}
+            audioBlob={audioBlob}
+            defaultAudio={gradingCard.audioComment}
+            type={'audioComment'}
+            onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
+          </div>
+        )}
+      </Motion>
     )
   }
 
@@ -230,8 +230,8 @@ class GradingCards extends View {
     return(
       <div style={this.viewStyle()}>
         {this.gradingCardsList(gradingCards)}
-        {this.state.commenting && this.commentPanel(gradingCard)}
-        {this.state.audioCommenting && this.audioCommentPanel(gradingCard)}
+        {this.commentPanel(gradingCard)}
+        {this.audioCommentPanel(gradingCard)}
         {this.gradingPanel()}
       </div>
     )
@@ -286,6 +286,8 @@ class GradingCards extends View {
     var comment = e.target.value;
     this.onCardChange(null, comment? comment:'');
   }
+
+  ani(){ return this.store.content.animation.panel; }
 
 }
 

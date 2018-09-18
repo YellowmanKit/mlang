@@ -3,6 +3,14 @@ import UI from 'components/UI';
 
 class Modal extends UI {
 
+  componentDidMount(){
+    this.count = 0;
+  }
+
+  componentWillReceiveProps(newProps){
+    this.count = this.count + 1;
+  }
+
   board(){
     const boardStyle = {
       width: this.bs.width * 0.6,
@@ -79,8 +87,9 @@ class Modal extends UI {
       justifyContent: 'center',
       alignItems: 'center'
     }
+    //console.log(this.count);
     return(
-      <div style={modalStyle}>
+      <div key={status + this.count} style={modalStyle}>
         {this.board()}
       </div>
     )

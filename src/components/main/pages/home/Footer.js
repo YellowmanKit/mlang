@@ -18,7 +18,8 @@ class Footer extends UI {
     }}
     const profile = this.store.profile;
     const user = this.store.user;
-    const eng = 'Welcome back ' + profile.name + ', you are now logged in as a ' + user.type + '.';
+    const a = user.type === 'admin'? 'an ': 'a ';
+    const eng = 'Welcome back ' + profile.name + ', you are now logged in as ' + a + user.type + '.';
     const chi = profile.name + ' 歡迎回來， 你現在登入為 ' + this.translateUserType(user.type) + '身份。';
     const sim_chi = profile.name + ' 欢迎回来， 你现在登入为 ' + this.translateUserType(user.type) + '身份。';
     const text = this.func.multiLang(eng, chi, sim_chi);

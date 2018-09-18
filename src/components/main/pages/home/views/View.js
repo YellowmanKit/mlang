@@ -9,7 +9,9 @@ class View extends UI {
       justifyContent: 'flex-start',
       alignItems: 'center',
       overflowY: 'auto',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      opacity: this.app.animatedStyle.opacity,
+      pointerEvents: this.app.animatedStyle.opacity === 1? '':'none'
     }}
   }
 

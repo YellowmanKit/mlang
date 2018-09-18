@@ -45,17 +45,18 @@ class Main extends UI {
   }
 
   initView(type){
+    if(this.store.content.traces.length > 0){
+      const name = this.store.profile.name;
+      if(!name || name === ''){ this.actions.content.pushView('forceProfile'); }
+      return;
+    }
+
     const initView =
     type === 'student'? 'studentHome':
     type === 'teacher'? 'teacherHome':
     type === 'admin'? 'adminHome':
     '';
     this.actions.content.pushView(initView);
-
-    const name = this.store.profile.name;
-    if(!name || name === ''){
-      this.actions.content.pushView('forceProfile');
-    }
   }
 
   render() {

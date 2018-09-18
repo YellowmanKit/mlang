@@ -1,5 +1,6 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
+import CustomButton from 'components/main/items/ui/CustomButton';
 
 class Account extends View {
 
@@ -16,7 +17,7 @@ class Account extends View {
         {this.sep()}
         {this.gap('2%')}
         {user.type !== 'admin' && this.inputs.optionBar('type', ['25%', this.bs.height * 0.04], [student, teacher], user.type === 'student'? student: teacher)}
-        {user.type === 'admin' && this.textDisplay(this.func.multiLang('Admin','管理者','管理者'), ['100%',  this.bs.height * 0.03])}
+        {user.type === 'admin' && this.textDisplay(this.func.multiLang('Admin','管理員','管理员'), ['100%',  this.bs.height * 0.03])}
         {this.gap('2%')}
 
         {this.subTitle(['Identity','登入名稱','登入名称'])}
@@ -42,8 +43,8 @@ class Account extends View {
         {this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊','输入密码以变更资讯'])}
         {this.sep()}
         {this.inputs.inputField('pw','password','','')}
-        {this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}
-        {this.gap('4%')}
+        <CustomButton app={this.app} button={this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}/>
+        {this.gap('8%')}
       </div>
     )
   }
@@ -51,11 +52,12 @@ class Account extends View {
   changing(){
     const user = this.store.user;
 
-    const selected = document.getElementById('type').selectedIndex;
+    const selecter =  document.getElementById('type')
+    const selected = selecter? selecter.selectedIndex: -1;
     const newType =
     selected === 0? 'student':
     selected === 1? 'teacher':
-    'student';
+    null;
 
     const newId = document.getElementById('id').value;
     const newEmail = document.getElementById('email').value;
@@ -87,7 +89,7 @@ class Account extends View {
 
     this.actions.user.changeUserInfo({
       _id: user._id,
-      type: newType,
+      type: newType? newType: user.type,
       id: newId,
       pw: newPw.length >= 6? newPw: user.pw,
       email: newEmail

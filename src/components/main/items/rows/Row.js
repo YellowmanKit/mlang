@@ -56,7 +56,7 @@ class Row extends UI {
 
   animatedRow(content, height, onDead){
     const ani = this.store.content.animation.row;
-    const option = {stiffness: onDead? 150: 300, damping: 26, precision: 0.01}
+    const option = {stiffness: onDead? 200: 300, damping: 26, precision: 1.2}
     return(
       <Motion defaultStyle={{height: (!ani || onDead)? height: 0, opacity: (!ani || onDead)? 1.1:0}}
       style={{height: spring(onDead? 0:height, option), opacity: spring(onDead?0: 1.1, option)}}

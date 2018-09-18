@@ -1,7 +1,8 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
 
-import background2 from 'resources/images/general/background2.png';
+//import background2 from 'resources/images/general/background2.png';
 
 import NavBar from './NavBar';
 import Menu from './Menu';
@@ -40,13 +41,30 @@ import School from './views/home/schools/School';
 
 import Teacher from './views/home/teacher/Teacher';
 
+import Tree from './Tree';
 import Footer from './Footer';
 
 class Home extends UI {
 
-  views(){
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      view: props.app.store.content.view,
+      deadView: null
+    }
+  }
+
+  componentWillReceiveProps(newProps){
+    this.setState({
+      view: newProps.app.store.content.view,
+      deadView: this.state.view !== newProps.app.store.content.view? this.state.view: this.state.deadView
+    });
+  }
+
+  views(view, animatedStyle){
     const app = this.app;
-    const view = this.app.store.content.view;
+    app.animatedStyle = animatedStyle;
     if(view === ''){
       return null;
     }
@@ -120,19 +138,38 @@ class Home extends UI {
     }
   }
 
+  animatedView(view, isOpen){
+    //console.log(view);
+    const option = {stiffness: 100, damping: 50, precision: 3}
+    return(
+      <Motion key={view + isOpen} defaultStyle={{opacity: isOpen? 0:1}}
+      style={{opacity: isOpen?spring(1, option):spring(0, option)}}
+      onRest={!isOpen? ()=>{ this.setState({deadView: null}); }: null }>
+        {style=>(
+          this.views(view, style)
+        )}
+      </Motion>
+    )
+  }
+
   render() {
     this.init(this.props);
     const pageStyle = {...this.ui.basicStyle, ...{
       justifyContent: 'flex-start',
-      backgroundImage: 'url(' + background2 + ')',
+      //backgroundImage: 'url(' + background2 + ')',
+      background: this.ui.colors.ultraLightGrey,
       backgroundSize: '100% 100%',
       position: 'relative'
     }}
-
+    const deadView = this.state.deadView;
+    const view = this.state.view;
+    //console.log(deadView);
+    //console.log(view);
     return(
       <div style={pageStyle}>
         <NavBar app={this.app}/>
-        {this.views()}
+        {this.animatedView(deadView? deadView: view, deadView? false: true)}
+        <Tree app={this.app}/>
         <Footer app={this.app}/>
         <Menu app={this.app}/>
         <Enlarger app={this.app}/>

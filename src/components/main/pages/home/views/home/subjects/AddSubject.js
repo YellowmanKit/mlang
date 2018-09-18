@@ -1,6 +1,7 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
 import ImagePicker from 'components/main/items/ImagePicker';
+import CustomButton from 'components/main/items/ui/CustomButton';
 
 class Addsubject extends View {
 
@@ -42,8 +43,8 @@ class Addsubject extends View {
         {this.inputs.textArea('desc', '', this.props.editMode? this.subject.description:'', ()=>{ this.setState({modified: true})})}
         {this.gap('4%')}
 
-        {this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addSubject()})}
-        {this.gap('2%')}
+        <CustomButton app={this.app} button={this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addSubject()})}/>
+        {this.gap('8%')}
       </div>
     )
   }
