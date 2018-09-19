@@ -41,6 +41,7 @@ import School from './views/home/schools/School';
 
 import Teacher from './views/home/teacher/Teacher';
 
+import Hints from './Hints';
 import Tree from './Tree';
 import Footer from './Footer';
 
@@ -173,6 +174,7 @@ class Home extends UI {
         <Footer app={this.app}/>
         <Menu app={this.app}/>
         <Enlarger app={this.app}/>
+        <Hints app={this.app}/>
       </div>
     )
   }

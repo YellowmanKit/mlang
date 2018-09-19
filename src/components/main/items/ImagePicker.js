@@ -15,7 +15,8 @@ class ImagePicker extends UI {
       backgroundColor: this.ui.colors.lightGrey,
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      flexShrink: 0
     }
     const toolBarStyle = {
       width: '25%',

@@ -58,7 +58,7 @@ class Subjects extends Content {
     this.init(this.props);
     const hide = this.store.content.hide.subjects;
 
-    const title = ['Subjects','議題','议题'];
+    const title = ['Units','單元','单元'];
 
     const containerStyle = {
       width: '100%',

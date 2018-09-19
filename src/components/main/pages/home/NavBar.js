@@ -34,6 +34,7 @@ class NavBar extends UI {
     const viewingCard = this.store.cards.viewingCard;
     //const viewingProject = this.store.projects.viewingProject;
     const viewingCourse = this.store.courses.viewingCourse;
+    const inSchool = this.store.content.traces[1] === 'school';
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
@@ -80,7 +81,7 @@ class NavBar extends UI {
           break;
         case 'course':
           title = ['COURSE', '班別','班别'];
-          if(user.type === 'teacher' && this.store.content.subView === 'courseDetail'){
+          if(user.type === 'teacher' && this.store.content.subView === 'courseDetail' && !inSchool){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
@@ -106,15 +107,15 @@ class NavBar extends UI {
           }
           break;
         case 'addSubject':
-          title = ['ADD SUBJECT', '創建議題','创建议题'];
+          title = ['ADD UNIT', '創建單元','创建单元'];
           break;
         case 'subject':
-          title = ['SUBJECT', '議題','议题'];
-          if(user.type === 'teacher' && this.store.content.subView === 'subjectProjects' && !this.func.outDated(viewingCourse.endDate)){
+          title = ['UNIT', '單元','单元'];
+          if(!inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectProjects' && !this.func.outDated(viewingCourse.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addProject')}
           }
-          if(user.type === 'teacher' && this.store.content.subView === 'subjectDetail'){
+          if(!inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
@@ -127,7 +128,7 @@ class NavBar extends UI {
           break;
         case 'project':
           title = ['PROJECT', '專題研習','专题研习'];
-          if(user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
+          if(!inSchool && user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
@@ -169,7 +170,7 @@ class NavBar extends UI {
           title = ['EDIT COURSE', '修改班別','修改班别'];
           break;
         case 'editSubject':
-          title = ['EDIT SUBJECT', '修改議題','修改议题'];
+          title = ['EDIT UNIT', '修改單元','修改单元'];
           break;
         case 'editProject':
           title = ['EDIT PROJECT', '修改專題研習','修改专题研习'];
@@ -187,7 +188,7 @@ class NavBar extends UI {
           title = ['STUDENT', '學生','学生'];
           break;
         case 'studentSubject':
-          title = ['STUDENT(SUBJECT)', '學生(議題)','学生(议题)'];
+          title = ['STUDENT(UNIT)', '學生(單元)','学生(单元)'];
           break;
         case 'studentProject':
           title = ['STUDENT(PROJECT)', '學生(專題研習)','学生(专题研习)'];

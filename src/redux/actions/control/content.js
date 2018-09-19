@@ -1,3 +1,22 @@
+export const killHint = () =>{
+  return {
+    type: 'killHint'
+  }
+}
+
+export const pullHint = () =>{
+  return {
+    type: 'pullHint'
+  }
+}
+
+export const pushHint = (hint) =>{
+  return {
+    type: 'pushHint',
+    payload: hint
+  }
+}
+
 export const toggleCardBar = () =>{
   return {
     type: 'toggleCardBar'

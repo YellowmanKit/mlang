@@ -8,7 +8,15 @@ class Courses extends Content {
   componentDidMount(){
     this.setData();
     if(this.coursesData.length === 0 && !this.store.content.hide.courses){
-      this.actions.content.setHide('courses', true)
+      this.actions.content.setHide('courses', true);
+      this.setHint();
+    }
+  }
+
+  setHint(){
+    const toShow = true;
+    if(toShow){
+      this.actions.content.pushHint({type:'courses'});
     }
   }
 

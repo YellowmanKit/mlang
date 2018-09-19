@@ -9,7 +9,7 @@ class Tree extends UI {
 
     const view = this.store.content.view;
 
-    if(view.includes('Home')){ return null; }
+    if(view && view.includes('Home')){ return null; }
 
     const toShow = ['school', 'teacher','student','course','subject','studentSubject','project','studentProject'];
     if(!toShow.includes(view)){ return null; }

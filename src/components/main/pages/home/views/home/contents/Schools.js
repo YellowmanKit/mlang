@@ -6,9 +6,18 @@ import Cell from 'components/main/items/Cell';
 class Schools extends Content {
 
   componentDidMount(){
+    this.init(this.props);
     this.setData();
     if(this.schoolsData.length === 0 && !this.store.content.hide.schools){
-      this.actions.content.setHide('schools', true)
+      this.actions.content.setHide('schools', true);
+      this.setHint();
+    }
+  }
+
+  setHint(){
+    const toShow = this.store.profile.joinedCourses.length === 0;
+    if(toShow){
+      this.actions.content.pushHint({type:'schools'});
     }
   }
 

@@ -45,10 +45,9 @@ class Main extends UI {
   }
 
   initView(type){
-    if(this.store.content.traces.length > 0){
-      const name = this.store.profile.name;
-      if(!name || name === ''){ this.actions.content.pushView('forceProfile'); }
-      return;
+    const length = this.store.content.traces.length;
+    for(var i=0;i<length;i++){
+      this.actions.content.pullView();
     }
 
     const initView =
@@ -57,6 +56,9 @@ class Main extends UI {
     type === 'admin'? 'adminHome':
     '';
     this.actions.content.pushView(initView);
+
+    const name = this.store.profile.name;
+    if(!name || name === ''){ this.actions.content.pushView('forceProfile'); }
   }
 
   render() {

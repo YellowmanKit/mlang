@@ -23,11 +23,26 @@ const contentReducer = (
       row: true,
       panel: false,
       badge: false
-    }
+    },
+    hints: [],
+    closedHints: []
   }, action)=>{
   var hide = state.hide;
   var animation = state.animation;
+  var hints = state.hints;
+  var closedHints = state.closedHints;
   switch (action.type) {
+    case 'pullHint':
+      closedHints.push(hints[hints.length - 1].type);
+      return {...state, hints: hints.slice(0, state.hints.length - 1), closedHints: closedHints};
+    case 'killHint':
+      var hint = hints[hints.length - 1];
+      hint.dead = true;
+      hints[hints.length - 1] = hint;
+      return {...state, hints: hints};
+    case 'pushHint':
+      if(closedHints.includes(action.payload.type)){ return state; }
+      return {...state, hints: [...hints, action.payload]};
     case 'setAnimation':
       animation[action.payload.type] = action.payload.state;
       return {...state, animation: animation}
@@ -55,6 +70,7 @@ const contentReducer = (
       return {...state, previousViews: state.previousViews.slice(0, state.traces.length - 1)}
     case 'pullView':
       animation['row'] = false;
+      if(state.traces.length === 0){ return state; }
       return {...state, traces: state.traces.slice(0, state.traces.length - 1), previousViews: [...state.previousViews, state.view], view: state.traces[state.traces.length - 2], animation: animation};
     case 'pushView':
       animation['row'] = true;

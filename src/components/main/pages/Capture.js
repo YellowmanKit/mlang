@@ -3,7 +3,7 @@ import UI from 'components/UI';
 
 import Camera from 'react-camera';
 
-import background2 from 'resources/images/general/background2.png';
+//import background2 from 'resources/images/general/background2.png';
 
 class Capture extends UI {
 
@@ -35,13 +35,14 @@ class Capture extends UI {
     this.init(this.props);
     const pageStyle = {...this.bs, ...{
       justifyContent: 'center',
-      backgroundImage: 'url(' + background2 + ')',
+      background: 'black',
       backgroundSize: '100% 100%',
     }}
     return(
       <div style={pageStyle}>
         <Camera style={{}} ref={_camera=>{this.camera = _camera}} />
         {this.state.ready && this.buttons.absolute(['Capture','拍照'], ()=>{ this.takePicture(); })}
+        {this.state.ready && this.buttons.absoluteClose(()=>{this.actions.main.setStatus('ready');})}
       </div>
     )
   }

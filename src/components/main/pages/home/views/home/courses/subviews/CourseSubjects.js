@@ -15,6 +15,9 @@ class CourseSubjects extends SubView {
 
     const subjectsToGet = [];
     const subjectsToShow = course.subjects;
+    if(subjectsToShow.length === 0 && this.store.user.type === 'teacher'){
+      this.actions.content.pushHint({type:'noSubject'});
+    }
 
     for(var i=0;i<subjectsToShow.length;i++){
       if(this.func.getSubjectById(subjectsToShow[i]) === null){

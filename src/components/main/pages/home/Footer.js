@@ -6,6 +6,8 @@ class Footer extends UI {
   render(){
     this.init(this.props);
     const home = document.getElementById('home');
+    const view = this.store.content.view;
+    if(!view){ return null; }
     if(!home || !this.store.content.view.includes('Home')){ return null; }
     const isOpen = home && home.scrollTop === 0;
 
