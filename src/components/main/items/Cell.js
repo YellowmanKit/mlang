@@ -145,10 +145,10 @@ class Cell extends UI {
     const isOpen = this.state.status === 'pointed';
 
     return(
-      <Motion defaultStyle={{scale: isInit? 1:isOpen? 1: 1.05}}
-      style={{scale: isInit? 1:isOpen? spring(1.05): spring(1)}}>
+      <Motion defaultStyle={{scale: isInit? 1:isOpen? 1: 1.05, opacity: this.outDated? (isOpen? 0.25:1) : 1}}
+      style={{scale: isInit? 1:isOpen? spring(1.05): spring(1), opacity: this.outDated? (isOpen? spring(1):spring(0.25)) : spring(1)}}>
         {style=>(
-          <button style={{...cellStyle,...{ width: this.scale[0] * style.scale,height: this.scale[1] * style.scale}}}
+          <button style={{...cellStyle,...{opacity: style.opacity, width: this.scale[0] * style.scale,height: this.scale[1] * style.scale}}}
           onClick={()=>{ this.props.onClick(); }}
           onPointerEnter={()=>{ this.setState({status: 'pointed' })}}
           onPointerLeave={()=>{ this.setState({status: 'not-pointed' })}}>

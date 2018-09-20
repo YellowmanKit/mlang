@@ -34,7 +34,6 @@ class NavBar extends UI {
     const viewingCard = this.store.cards.viewingCard;
     //const viewingProject = this.store.projects.viewingProject;
     const viewingCourse = this.store.courses.viewingCourse;
-    const inSchool = this.store.content.traces[1] === 'school';
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
@@ -81,7 +80,7 @@ class NavBar extends UI {
           break;
         case 'course':
           title = ['COURSE', '班別','班别'];
-          if(user.type === 'teacher' && this.store.content.subView === 'courseDetail' && !inSchool){
+          if(user.type === 'teacher' && this.store.content.subView === 'courseDetail' && !this.inSchool){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
@@ -111,11 +110,11 @@ class NavBar extends UI {
           break;
         case 'subject':
           title = ['UNIT', '單元','单元'];
-          if(!inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectProjects' && !this.func.outDated(viewingCourse.endDate)){
+          if(!this.inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectProjects' && !this.func.outDated(viewingCourse.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addProject')}
           }
-          if(!inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectDetail'){
+          if(!this.inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
@@ -128,7 +127,7 @@ class NavBar extends UI {
           break;
         case 'project':
           title = ['PROJECT', '專題研習','专题研习'];
-          if(!inSchool && user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
+          if(!this.inSchool && user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});

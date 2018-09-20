@@ -6,7 +6,6 @@ import {Motion, spring}  from 'react-motion';
 
 import NavBar from './NavBar';
 import Menu from './Menu';
-import Enlarger from './Enlarger';
 
 import Account from './views/menu/Account';
 import Profile from './views/menu/Profile';
@@ -41,6 +40,8 @@ import School from './views/home/schools/School';
 
 import Teacher from './views/home/teacher/Teacher';
 
+import Enlarger from './Enlarger';
+import DefaultImagePicker from './DefaultImagePicker';
 import Hints from './Hints';
 import Tree from './Tree';
 import Footer from './Footer';
@@ -175,6 +176,7 @@ class Home extends UI {
         <Menu app={this.app}/>
         <Enlarger app={this.app}/>
         <Hints app={this.app}/>
+        <DefaultImagePicker app={this.app}/>
       </div>
     )
   }

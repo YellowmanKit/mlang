@@ -5,6 +5,7 @@ import btn_green from 'resources/images/buttons/btn_green.png';
 import btn_red from 'resources/images/buttons/btn_red.png';
 import btn_yellow from 'resources/images/buttons/btn_yellow.png';
 
+import icon_image from 'resources/images/buttons/buttonIcons/image.png';
 import icon_file from 'resources/images/buttons/buttonIcons/file.png';
 import icon_camera from 'resources/images/buttons/buttonIcons/camera.png';
 import icon_cross from 'resources/images/buttons/buttonIcons/cross.png';
@@ -207,6 +208,16 @@ class Button {
       opacity: opacity
     }
     return this.button(style, ['', ''], icon, onClick)
+  }
+
+  selectDefaultImage(size){
+    const buttonStyle = {...styles.button, ...{
+      width: size,
+      height: size,
+      margin: '5%',
+      backgroundImage: 'url(' + icon_image + ')'
+    }}
+    return <button style={buttonStyle} onClick={()=>{this.actions.main.setDefaultImagePicker('on')}}/>
   }
 
   takePicture(size){

@@ -38,6 +38,9 @@ class UI extends Component {
     this.buttons.init(props.app);
     this.inputs.init(props.app);
 
+    this.atHome = this.store.content.traces.length === 1;
+    this.inSchool = this.store.content.traces[1] === 'school';
+
     this.url.init(props.app);
     this.checkUrl();
   }

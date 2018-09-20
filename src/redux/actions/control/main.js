@@ -1,3 +1,10 @@
+export const setDefaultImagePicker = (state) =>{
+  return {
+    type: 'setDefaultImagePicker',
+    payload: state
+  }
+}
+
 export const enlargeText = (text) =>{
   return {
     type: 'enlargeText',

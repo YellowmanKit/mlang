@@ -4,8 +4,11 @@ const contentReducer = (
     view: '',
     traces: [],
     previousViews: [],
-    filterOption: 'All',
     subView: '',
+
+    cardBar: false,
+    filterOption: 'All',
+
     cachedUrl: {},
     hide: {
       schools: false,
@@ -14,7 +17,6 @@ const contentReducer = (
       cardBar: true,
       tree: false
     },
-    cardBar: false,
     animation: {
       schools: true,
       courses: true,
@@ -24,6 +26,7 @@ const contentReducer = (
       panel: false,
       badge: false
     },
+    
     hints: [],
     closedHints: []
   }, action)=>{

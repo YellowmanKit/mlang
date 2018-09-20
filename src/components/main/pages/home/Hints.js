@@ -103,14 +103,14 @@ class Hints extends UI {
         if(this.userType === 'student'){
           return this.func.multiLang(
             'You haven\'t joined any course yet!\n You need to ask your teacher for the course code in order to join a course!',
-            '你尚未加入任何班別！你需要從你的老師獲取班別代碼才能加入班別！',
-            '你尚未加入任何班别！你需要从你的老师获取班别代码才能加入班别！'
+            '你尚未加入任何班別！你需要向你的老師索取班別代碼才能加入班別！',
+            '你尚未加入任何班别！你需要向你的老师索取班别代码才能加入班别！'
           )
         }else if(this.userType === 'teacher'){
           return this.func.multiLang(
             'You haven\'t created any course yet!\n You can create courses by pressing the + button! You shall invite your students to join your course by telling them your course code which can be found in the course detail page!',
             '你尚未創建任何班別！你可以用 + 按鈕創建班別，然後把班別代碼告訴你的學生好讓他們加入！班別代碼可以在詳細資訊頁面找到！',
-            '你尚未创建任何班别！你可以用+按钮创建班别，然后把班别代码告诉你的学生好让他们加入！班别代码可以在详细资讯页面找到！'
+            '你尚未创建任何班别！你可以用 + 按钮创建班别，然后把班别代码告诉你的学生好让他们加入！班别代码可以在详细资讯页面找到！'
           )
         }else{
           return '';
@@ -119,13 +119,13 @@ class Hints extends UI {
         return this.func.multiLang(
           'You haven\'t created any subject yet!\n You can create subject by pressing the + button on the top right corner!',
           '你尚未創建任何單元！你可以用右上方的 + 按鈕創建單元！',
-          '你尚未创建任何单元！你可以用右上方的+按钮创建单元！'
+          '你尚未创建任何单元！你可以用右上方的 + 按钮创建单元！'
         )
       case 'noProject':
         return this.func.multiLang(
           'You haven\'t created any project yet!\n You can create project by pressing the + button on the top right corner!',
           '你尚未創建任何專題研習！你可以用右上方的 + 按鈕創建專題研習！',
-          '你尚未创建任何专题研习！你可以用右上方的+按钮创建专题研习！'
+          '你尚未创建任何专题研习！你可以用右上方的 + 按钮创建专题研习！'
         )
       default:
         return '';

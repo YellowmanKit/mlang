@@ -12,7 +12,7 @@ class Project extends View {
   componentDidMount(){
     this.init(this.props);
     if(!this.store.content.subView.includes('project')){
-      this.actions.content.setSubView('projectSubmitted');
+      this.actions.content.setSubView(this.inSchool? 'projectFeatured':'projectSubmitted');
     }
     this.getStudentProjects(this.props);
   }
@@ -54,11 +54,7 @@ class Project extends View {
   }
 
   projectSubNav(){
-    const _options = [
-      {
-        tag:['Submitted','已提交','已提交'],
-        subView: 'projectSubmitted'
-      },
+    const options = [
       {
         tag:['Featured','精選卡片','精选卡片'],
         subView: 'projectFeatured'
@@ -67,8 +63,15 @@ class Project extends View {
         tag:['Detail','詳細資訊','详细资讯'],
         subView: 'projectDetail'
       }
-    ]
-    return <SubNav app={this.app} options={_options} />
+    ];
+    if(!this.inSchool){
+      options.splice(0,0,
+      {
+        tag:['Submitted','已提交','已提交'],
+        subView: 'projectSubmitted'
+      });
+    }
+    return <SubNav app={this.app} options={options} />
   }
 
   render(){

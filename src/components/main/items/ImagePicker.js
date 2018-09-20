@@ -19,10 +19,11 @@ class ImagePicker extends UI {
       flexShrink: 0
     }
     const toolBarStyle = {
-      width: '25%',
+      width: this.bs.height * 0.13,
       height: '100%',
       display: 'flex',
       flexFlow: 'column nowrap',
+      justifyContent: 'center',
       marginLeft: '2%'
     }
     const imgUrl =
@@ -32,7 +33,11 @@ class ImagePicker extends UI {
 
     return(
       <div style={pickerStyle}>
-        <div style={toolBarStyle}/>
+        <div style={toolBarStyle}>
+          {this.buttons.selectDefaultImage(this.bs.height * 0.1)}
+        </div>
+        {this.verSep('white', '90%')}
+        {this.verGap('2%')}
         <Image app={this.app} photoUrl={imgUrl} size={this.bs.height * 0.22}/>
         {this.verGap('2%')}
         {this.verSep('white', '90%')}
