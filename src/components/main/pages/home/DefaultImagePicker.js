@@ -36,7 +36,7 @@ class DefaultImagePicker extends UI {
       backgroundColor: 'rgba(0,0,0,0.95)',
       pointerEvents: isOpen? 'auto': 'none'
     }}
-    console.log(this.atHome);
+  
     return(
       <Motion defaultStyle={{opacity: this.atHome? 0: isOpen?0:1.5}}
       style={{opacity: this.atHome? 0: isOpen?spring(1.5):spring(0)}}>

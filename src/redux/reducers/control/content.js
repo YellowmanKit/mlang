@@ -15,7 +15,8 @@ const contentReducer = (
       courses: false,
       subjects: false,
       cardBar: true,
-      tree: false
+      tree: false,
+      passedCourses: true
     },
     animation: {
       schools: true,
@@ -26,15 +27,21 @@ const contentReducer = (
       panel: false,
       badge: false
     },
-    
+
     hints: [],
-    closedHints: []
+    closedHints: [],
+
+    rankings:{}
   }, action)=>{
   var hide = state.hide;
   var animation = state.animation;
   var hints = state.hints;
   var closedHints = state.closedHints;
+  var rankings = state.rankings;
   switch (action.type) {
+    case 'setRanking':
+      rankings[action.payload.projectId] = action.payload.ranking;
+      return {...state, rankings: rankings}
     case 'pullHint':
       closedHints.push(hints[hints.length - 1].type);
       return {...state, hints: hints.slice(0, state.hints.length - 1), closedHints: closedHints};

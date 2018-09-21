@@ -21,6 +21,8 @@ class Courses extends Content {
   }
 
   setData(){
+    this.hidePassed = this.store.content.hide.passedCourses;
+
     this.courses =
     this.store.user.type === 'teacher'? this.store.courses.teachingCourses:
     this.store.user.type === 'student'? this.store.courses.joinedCourses:
@@ -36,19 +38,23 @@ class Courses extends Content {
     <div style={{...this.areaStyle(), ...{ height: style.height, opacity: style.opacity}}}>
       {this.verGap('2%')}
       {this.coursesCells()}
-      {this.verGap('5%')}
+      {this.verGap('2%')}
+      {this.hidePassed && this.hasHided && this.buttons.showHidden(()=>{this.actions.content.setHide('passedCourses', false)})}
+      {this.verGap('4%')}
       {this.buttons.cellAdd(this.onAdd)}
-      {this.verGap('5%')}
+      {this.verGap('6%')}
     </div>
   )
 
   coursesCells(){
     this.setData();
     return this.coursesData.map((course, i)=>{
+      if(this.hidePassed && this.func.outDated(course.endDate)){ this.hasHided = true; return null; }
       return(
         <Cell key={i} app={this.app}
         type={'course'}
         data={course}
+        wasHide={this.func.outDated(course.endDate)}
         onClick={()=>{ this.actions.courses.viewCourse(course); this.actions.content.pushView('course'); }}/>
       )
     });

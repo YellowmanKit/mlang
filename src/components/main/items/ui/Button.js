@@ -11,6 +11,8 @@ import icon_camera from 'resources/images/buttons/buttonIcons/camera.png';
 import icon_cross from 'resources/images/buttons/buttonIcons/cross.png';
 import icon_arrow from 'resources/images/buttons/buttonIcons/arrow.png';
 import icon_arrow_reverse from 'resources/images/buttons/buttonIcons/arrow_reverse.png';
+import icon_arrow_up from 'resources/images/buttons/buttonIcons/arrow_up.png';
+import icon_arrow_down from 'resources/images/buttons/buttonIcons/arrow_down.png';
 import icon_arrow2 from 'resources/images/buttons/buttonIcons/arrow2.png';
 import icon_arrow2_reverse from 'resources/images/buttons/buttonIcons/arrow2_reverse.png';
 
@@ -22,6 +24,7 @@ import icon_swipeLeft from 'resources/images/buttons/buttonIcons/swipeLeft.png';
 import icon_swipeRight from 'resources/images/buttons/buttonIcons/swipeRight.png';
 import icon_slideshow from 'resources/images/buttons/buttonIcons/slideshow.png';
 import icon_add_grey from 'resources/images/buttons/buttonIcons/add_grey.png';
+import icon_dotdotdot from 'resources/images/buttons/buttonIcons/dotdotdot.png';
 
 class Button {
 
@@ -35,6 +38,26 @@ class Button {
     this.bs = this.ui.basicStyle;
     this.func = app.functions;
     this.actions = app.actions;
+  }
+
+  hideTreeButton(hided, onClick){
+    const style = {...this.ui.styles.button, ...{
+      width: this.bs.height * 0.02,
+      height: this.bs.height * 0.02,
+      borderRadius: '50%',
+      textAlign: 'center',
+      color: 'grey'
+    }}
+    return this.button(style, ['', ''], hided? icon_arrow_up: icon_arrow_down, onClick)
+  }
+
+  showHidden(onClick){
+    const style = {
+      width: this.bs.height * 0.06,
+      height: this.bs.height * 0.06,
+      opacity: 0.5
+    }
+    return this.button(style, ['', ''], icon_dotdotdot, onClick)
   }
 
   cellAdd(onClick){

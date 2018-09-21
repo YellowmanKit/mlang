@@ -15,6 +15,7 @@ class ProjectFeatured extends SubView {
   componentWillReceiveProps(newProps){
     this.init(newProps);
     this.cards = this.func.getAllFeaturedCardsIdInViewingProject();
+    this.setCardsToView(this.store.content.filterOption);
   }
 
   setCardsToView(filterOption){
@@ -41,7 +42,7 @@ class ProjectFeatured extends SubView {
     this.store.content.traces[1] !== 'school';
 
     return(
-      <div style={this.subViewStyle()}>
+      <div key={this.cardsToView.length} style={this.subViewStyle()}>
         <Filter app={this.app} options={this.filterOptions()} defaultValue={this.store.content.filterOption} onChange={()=>{this.onFilterChange()}}/>
         {this.sep()}
         <Cards app={this.app} cardsId={this.cardsToView} onAdd={(outDated || !isTeacher)? null:this.onAdd.bind(this)}/>

@@ -67,6 +67,8 @@ export function joinCourse(_data){
       dispatch({type: "updateJoinedCourses", payload: [res.data.joinedCourse._id]});
       dispatch({type: "setProfile", payload: res.data.updatedProfile});
       dispatch({type: "backToHome"});
+    } else if(res.data.result === 'failed - course already joined'){
+      dispatch({type: "message", payload: ['You already joined this course!', '你已經加入此班別！', '你已经加入此班别！']});
     } else {
       dispatch({type: "message", payload: ['Join course failed! Please make sure to enter a correct code!', '加入失敗! 請確定代碼輸入正確!', '加入失败! 请确定代码输入正确!']});
     }

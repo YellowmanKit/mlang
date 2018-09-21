@@ -10,6 +10,22 @@ export const viewProject = (project) =>{
   }
 }
 
+export function getRanking(projectId){
+  return async function (dispatch) {
+    let err, res;
+    [err, res] = await to(axios.post(api + '/project/getRanking', { data: projectId }));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(res.data.result === 'success'){
+      console.log(res.data);
+      dispatch({type: "updatePRofiles", payload: res.data.profiles});
+      dispatch({type: "setRanking", payload: {projectId: projectId, ranking: res.data.ranking}});
+    }else{
+      dispatch({type: "message", payload: ['Failed to get project ranking!', '無法查閱專題研習排行榜!', '无法查阅专题研习排行榜!']});
+    }
+  }
+}
+
 export function getProjects(projects){
   //console.log(projects)
   return async function (dispatch) {

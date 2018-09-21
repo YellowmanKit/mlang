@@ -2,7 +2,7 @@ import React from 'react';
 import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
-class Cell extends UI {
+class ImageCell extends UI {
 
   constructor(props){
     super(props);
@@ -35,7 +35,7 @@ class Cell extends UI {
           onClick={()=>{ this.onCellSelect(); }}
           onPointerEnter={()=>{ this.setState({status: 'pointed' }); this.props.onPointed(); }}
           onPointerLeave={()=>{ this.setState({status: 'not-pointed' }); this.props.onUnPointed();}}>
-            <img style={{width: '100%', height: '100%'}} src={this.props.url} alt=''/>
+            <div style={{background: 'url(' + this.props.url + ')', backgroundSize: '100% 100%', width: '100%', height: '100%'}} alt=''/>
           </div>
         )}
       </Motion>
@@ -44,4 +44,4 @@ class Cell extends UI {
 
 }
 
-export default Cell;
+export default ImageCell;

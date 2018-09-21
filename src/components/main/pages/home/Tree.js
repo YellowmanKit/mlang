@@ -24,6 +24,7 @@ class Tree extends UI {
     const previousViews = this.store.content.previousViews;
     return(
       <div style={treeStyle}>
+        {this.buttons.hideTreeButton(this.store.content.hide.tree, ()=>{this.actions.content.toggleHide('tree')})}
         {this.store.content.traces.map((view, i)=>{
           return this.treeCell(view, i);
         })}
@@ -43,7 +44,8 @@ class Tree extends UI {
       backgroundColor: 'white',
       borderRadius: this.bs.height * 0.01,
       overflow: 'hidden',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      pointerEvents: hide? 'none':''
     }}
     const text =
     isTitle? this.func.multiLang('Home','主頁','主页'):
@@ -68,7 +70,7 @@ class Tree extends UI {
     const marginTop =  this.bs.height * 0.0075;
     return(
       <Motion key={view} defaultStyle={{opacity: dead? 1:0, height: dead? cellHeight: 0, marginTop: dead? marginTop:0}}
-      style={{opacity: dead? spring(0):(hide && !isTitle)?spring(0.05): spring(1.1), height: dead? spring(0):(hide && !isTitle)?spring(0):spring(cellHeight), marginTop: dead? spring(0):(hide && !isTitle)?spring(0): spring(marginTop)}}>
+      style={{opacity: dead? spring(0): hide?spring(0): spring(1.1), height: dead? spring(0): hide? spring(0):spring(cellHeight), marginTop: dead? spring(0):(hide && !isTitle)?spring(0): spring(marginTop)}}>
         {style=>(
           <div style={{...cellStyle, ...{opacity: style.opacity, height: style.height, marginTop: style.marginTop}}} onClick={onClick}>
             {text}

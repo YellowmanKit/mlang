@@ -40,7 +40,8 @@ class Row extends UI {
     const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
       width: size,
       height: size,
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      position: 'relative'
     }}
     const iconStyle = {...this.ui.styles.border, ...{
       maxWidth: iconSize,

@@ -20,7 +20,9 @@ class Student extends View {
 
   componentDidMount(){
     this.init(this.props);
-    if(!this.store.content.subView.includes('student')){
+    if(this.store.content.subView.includes('subject')){
+      this.actions.content.setSubView('studentSubjects');
+    }else if(!this.store.content.subView.includes('student')){
       this.actions.content.setSubView('studentProfile');
     }
   }

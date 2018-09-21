@@ -15,7 +15,7 @@ class SubjectProjects extends SubView {
 
     const projectsToGet = [];
     const projectsToShow = subject.projects;
-    if(projectsToShow.length === 0 && this.store.user.type === 'teacher'){
+    if(projectsToShow.length === 0 && this.store.user.type === 'teacher' && !this.inSchool){
       this.actions.content.pushHint({type:'noProject'});
     }
 

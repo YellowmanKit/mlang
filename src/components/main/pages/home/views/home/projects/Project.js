@@ -6,6 +6,7 @@ import ProjectDetail from './subviews/ProjectDetail';
 import SubmittedCards from './subviews/SubmittedCards';
 import StudentProjects from './subviews/StudentProjects';
 import ProjectFeatured from './subviews/ProjectFeatured';
+import ProjectRanking from './subviews/ProjectRanking';
 
 class Project extends View {
 
@@ -46,6 +47,8 @@ class Project extends View {
           type === 'teacher'? <StudentProjects app={this.app}/>:
           null
         )
+      case 'projectRanking':
+        return <ProjectRanking app={this.app}/>
       case 'projectFeatured':
         return <ProjectFeatured app={this.app}/>
       default:
@@ -58,6 +61,10 @@ class Project extends View {
       {
         tag:['Featured','精選卡片','精选卡片'],
         subView: 'projectFeatured'
+      },
+      {
+        tag:['Ranking','排行榜','排行榜'],
+        subView: 'projectRanking'
       },
       {
         tag:['Detail','詳細資訊','详细资讯'],
