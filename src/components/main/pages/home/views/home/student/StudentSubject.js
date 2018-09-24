@@ -26,6 +26,7 @@ class StudentSubject extends View {
         return null;
       });
       if(!studentProject){ console.log('studentProject is missing'); return null; };
+      if(studentProject.cards.length === 0){ return null; };
       return(
         <StudentProjectRow
         app={this.app}

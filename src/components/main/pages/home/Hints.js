@@ -17,6 +17,7 @@ class Hints extends UI {
       height: this.bs.height,
       pointerEvents: isOpen? 'auto': 'none'
     }}
+    if(this.store.content.view === 'forceProfile'){ return null; }
     return(
       <Motion defaultStyle={{opacity: isOpen? 0: 1}}
       style={{opacity: isOpen? spring(1):spring(0)}}>

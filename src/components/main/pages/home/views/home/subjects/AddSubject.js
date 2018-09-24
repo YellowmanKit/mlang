@@ -28,7 +28,7 @@ class Addsubject extends View {
 
         {this.subTitle(['Icon','照片','照片'])}
         {this.sep()}
-        <ImagePicker defaultUrl={this.url.url} app={this.app} />
+        <ImagePicker type={'subject'} defaultUrl={this.url.url} app={this.app} />
         {this.sep()}
         {this.gap('2%')}
 

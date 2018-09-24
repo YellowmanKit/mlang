@@ -10,7 +10,6 @@ export const viewSchool = (school) =>{
   }
 }
 
-
 export function leaveSchool(_data){
 
   return async function (dispatch) {
@@ -23,6 +22,9 @@ export function leaveSchool(_data){
 
     if(res.data.result === 'success'){
       dispatch({type: "message", payload: ['Leave school succeed!', '成功退出學校!', '成功退出学校!']});
+      if(res.data.updatedUser){
+        dispatch({type: "setUser", payload: res.data.updatedUser});
+      }
       dispatch({type: "updateSchools", payload: [res.data.leavedSchool]});
       dispatch({type: "leaveSchool", payload: res.data.leavedSchool._id});
       dispatch({type: "setProfile", payload: res.data.updatedProfile});

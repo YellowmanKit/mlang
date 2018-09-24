@@ -73,13 +73,13 @@ class NavBar extends UI {
           title = ['CREDIT','鳴謝','鸣谢'];
           break;
         case 'addCourse':
-          title = ['ADD COURSE','創建班別','创建班别'];
+          title = ['ADD CLASS','創建班別','创建班别'];
           break;
         case 'joinCourse':
-          title = ['JOIN COURSE', '加入班別','加入班别'];
+          title = ['JOIN CLASS', '加入班別','加入班别'];
           break;
         case 'course':
-          title = ['COURSE', '班別','班别'];
+          title = ['CLASS', '班別','班别'];
           if(user.type === 'teacher' && this.store.content.subView === 'courseDetail' && !this.inSchool){
             rightIcon = edit;
             rightOnClick = ()=>{
@@ -166,7 +166,7 @@ class NavBar extends UI {
           rightOnClick = this.saveGradeCard.bind(this)
           break;
         case 'editCourse':
-          title = ['EDIT COURSE', '修改班別','修改班别'];
+          title = ['EDIT CLASS', '修改班別','修改班别'];
           break;
         case 'editSubject':
           title = ['EDIT UNIT', '修改單元','修改单元'];
@@ -208,6 +208,15 @@ class NavBar extends UI {
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
               this.actions.content.pushView('editSchool');
+            }
+          }
+          if(user.type !== 'admin' && this.store.content.subView === 'schoolDetail'){
+            rightIcon = exit;
+            rightOnClick = ()=>{
+              this.actions.schools.leaveSchool({
+                userId: this.store.user._id,
+                code: this.store.schools.viewingSchool.code
+              });
             }
           }
           break;

@@ -5,9 +5,9 @@ import cards from 'resources/images/icons/cards_lightgrey.png';
 import star2 from 'resources/images/icons/star2_lightgrey.png';
 import trophy from 'resources/images/icons/trophy.png';
 
-import crown_gold from 'resources/images/icons/crown_gold.png';
-import crown_silver from 'resources/images/icons/crown_silver.png';
-import crown_bronze from 'resources/images/icons/crown_bronze.png';
+//import crown_gold from 'resources/images/icons/crown_gold.png';
+//import crown_silver from 'resources/images/icons/crown_silver.png';
+//import crown_bronze from 'resources/images/icons/crown_bronze.png';
 
 class RankingRow extends Row {
 

@@ -13,7 +13,7 @@ class Footer extends UI {
 
     const footerStyle = {...this.ui.styles.container, ...{
       width: '100%',
-      height: this.bs.height * 0.08,
+      height: this.bs.height * 0.06,
       background: this.ui.colors.gradientReverse,
       position: 'absolute',
       bottom: 0
@@ -31,7 +31,7 @@ class Footer extends UI {
       style={{opacity: isOpen?spring(1.1):spring(0)}}>
         {style=>(
           <div style={{...footerStyle, ...{opacity: style.opacity}}}>
-            {this.textDisplay(text, ['100%',''], '110%')}
+            {this.textDisplay(text, ['100%',''], '90%')}
           </div>
         )}
       </Motion>

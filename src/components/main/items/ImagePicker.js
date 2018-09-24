@@ -34,7 +34,7 @@ class ImagePicker extends UI {
     return(
       <div style={pickerStyle}>
         <div style={toolBarStyle}>
-          {this.buttons.selectDefaultImage(this.bs.height * 0.1)}
+          {this.buttons.selectDefaultImage(this.bs.height * 0.1, this.props.type)}
         </div>
         {this.verSep('white', '90%')}
         {this.verGap('2%')}

@@ -118,6 +118,7 @@ class GradingCards extends View {
   }
 
   onRowSelect(index){
+    clearTimeout(this.autoScroll);
     this.setState({ selected: index});
     const gradingCards = this.getGradingCards();
     const comment = document.getElementById('comment');
@@ -223,10 +224,10 @@ class GradingCards extends View {
   render() {
     this.init(this.props);
     const gradingCards = this.getGradingCards();
-    if(!gradingCards){
-      return null;
-    }
+    if(!gradingCards){ return null; }
     const gradingCard = gradingCards[this.state.selected];
+    if(!gradingCard){ return null; }
+
     return(
       <div style={this.viewStyle()}>
         {this.gradingCardsList(gradingCards)}

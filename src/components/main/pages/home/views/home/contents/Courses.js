@@ -66,8 +66,8 @@ class Courses extends Content {
 
     const type = this.store.user.type;
     const title =
-    type === 'teacher'? ['Courses - created','班別 - 已創建','班别 - 已创建']:
-    type === 'student'? ['Courses - joined','班別 - 已加入','班别 - 已加入']:
+    type === 'teacher'? ['Class - created','班別 - 已創建','班别 - 已创建']:
+    type === 'student'? ['Class - joined','班別 - 已加入','班别 - 已加入']:
     ['','']
 
     const containerStyle = {

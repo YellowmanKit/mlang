@@ -41,7 +41,7 @@ class Teacher extends View {
   teacherSubNav(){
     const options = [
       {
-        tag:['Courses','班別','班别'],
+        tag:['Class','班別','班别'],
         subView: 'teacherCourses'
       },
       {

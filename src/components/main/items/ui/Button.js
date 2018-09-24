@@ -233,14 +233,14 @@ class Button {
     return this.button(style, ['', ''], icon, onClick)
   }
 
-  selectDefaultImage(size){
+  selectDefaultImage(size, type){
     const buttonStyle = {...styles.button, ...{
       width: size,
       height: size,
       margin: '5%',
       backgroundImage: 'url(' + icon_image + ')'
     }}
-    return <button style={buttonStyle} onClick={()=>{this.actions.main.setDefaultImagePicker('on')}}/>
+    return <button style={buttonStyle} onClick={()=>{this.actions.main.setDefaultImagePicker(type)}}/>
   }
 
   takePicture(size){

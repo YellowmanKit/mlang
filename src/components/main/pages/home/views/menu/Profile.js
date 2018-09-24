@@ -32,7 +32,7 @@ class Profile extends View {
 
           {this.subTitle(['Your avatar','你的照片','你的照片'])}
           {this.sep()}
-          <ImagePicker defaultUrl={this.url.url} app={this.app} />
+          <ImagePicker type={'profile'} defaultUrl={this.url.url} app={this.app} />
           {this.sep()}
           {this.gap(this.bs.height * 0.02)}
 

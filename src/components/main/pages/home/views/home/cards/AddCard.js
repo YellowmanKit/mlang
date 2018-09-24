@@ -38,7 +38,7 @@ class AddCard extends View {
 
         {this.subTitle(['Icon','照片','照片'])}
         {this.sep()}
-        <ImagePicker defaultUrl={this.state.url} app={this.app}/>
+        <ImagePicker type={'card'} defaultUrl={this.state.url} app={this.app}/>
         {this.sep()}
         {this.gap('2%')}
 
