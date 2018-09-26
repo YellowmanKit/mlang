@@ -85,12 +85,16 @@ export function login (_id, _pw) {
       dispatch({type: "updateSchools", payload: res.data.schools});
       dispatch({type: "updateCourses", payload: res.data.courses});
       dispatch({type: "updateSubjects", payload: res.data.subjects});
+      dispatch({type: "updateProjects", payload: res.data.projects});
 
       dispatch({type: "updateTeachingCourses", payload: res.data.teachingCourses});
       dispatch({type: "updateJoinedCourses", payload: res.data.joinedCourses});
 
       dispatch({type: "updateTeachingSubjects", payload: res.data.teachingSubjects});
       dispatch({type: "updateJoinedSubjects", payload: res.data.joinedSubjects});
+
+      dispatch({type: "updateTeachingProjects", payload: res.data.teachingProjects});
+      dispatch({type: "updateJoinedProjects", payload: res.data.joinedProjects});
 
       dispatch({type: "setStatus", payload: "ready"});
       dispatch({type: "hideModal"});

@@ -4,6 +4,7 @@ import View from 'components/main/pages/home/views/View';
 import SubNav from 'components/main/items/SubNav';
 import SchoolDetail from './subviews/SchoolDetail';
 import SchoolTeachers from './subviews/SchoolTeachers';
+import SchoolStatistics from './subviews/SchoolStatistics';
 
 class School extends View {
 
@@ -25,6 +26,8 @@ class School extends View {
         return <SchoolTeachers app={this.app}/>
       case 'schoolDetail':
         return <SchoolDetail app={this.app}/>
+      case 'schoolStatistics':
+        return <SchoolStatistics app={this.app}/>
       default:
         return null;
     }
@@ -37,11 +40,17 @@ class School extends View {
         subView: 'schoolDetail'
       }
     ];
+    if(this.store.user.type === 'admin'){
+      options = [
+        { tag:['Statistics','統計','统计'],
+          subView: 'schoolStatistics' }, ...options]
+    }
     if(this.store.user.type === 'admin' || this.store.user.type === 'teacher'){
       options = [
         { tag:['Teachers','老師','老师'],
           subView: 'schoolTeachers' }, ...options]
     }
+
 
     return <SubNav app={this.app} options={options} />
   }
