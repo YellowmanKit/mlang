@@ -3,6 +3,13 @@ import * as actions from '../actions';
 import to from '../to';
 var api = actions.api();
 
+export const viewAdminProfile = (profile) =>{
+  return {
+    type: 'viewAdminProfile',
+    payload: profile
+  }
+}
+
 export const viewTeacherProfile = (profile) =>{
   return {
     type: 'viewTeacherProfile',

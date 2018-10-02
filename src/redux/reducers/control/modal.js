@@ -4,9 +4,13 @@ const modalReducer = (
     english: '',
     chinese: '',
     simplified_chinese: '',
-    button: 'off'
+    button: 'off',
+    onConfirm: null
   }, action)=>{
   switch (action.type) {
+    case 'confirm':
+      const payload = action.payload;
+      return {...state, status: 'on', button: 'confirm', onConfirm: payload.onConfirm, english: payload.message[0], chinese: payload.message[1], simplified_chinese: payload.message[2]};
     case 'message':
       return {...state, status: 'on', button: 'on', english: action.payload[0], chinese: action.payload[1], simplified_chinese: action.payload[2]};
     case 'loadingMessage':

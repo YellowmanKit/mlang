@@ -45,31 +45,6 @@ class UI extends Component {
     this.checkUrl();
   }
 
-  translateUserType(type){
-    const language = this.store.main.language;
-    switch (type) {
-      case 'student':
-        return(
-        language === 'english'? 'student':
-        language === 'chinese'? '學生':
-        language === 'simplified_chinese'? '学生':
-        '')
-      case 'teacher':
-        return(
-        language === 'english'? 'teacher':
-        language === 'chinese'? '老師':
-        language === 'simplified_chinese'? '老师':
-        '')
-      case 'admin':
-        return(
-        language === 'english'? 'admin':
-        language === 'chinese'? '管理員':
-        language === 'simplified_chinese'? '管理员':
-        '')
-      default:
-    }
-  }
-
   clearAlert(projectId){
     if(this.store.user.type === 'student'){
       const studentProject = this.func.getStudentProject(this.store.user._id, projectId);

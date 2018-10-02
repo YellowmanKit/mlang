@@ -11,7 +11,7 @@ class Tree extends UI {
 
     if(view && view.includes('Home')){ return null; }
 
-    const toShow = ['school', 'teacher','student','course','subject','studentSubject','project','studentProject'];
+    const toShow = ['admin','school', 'teacher','student','course','subject','studentSubject','project','studentProject'];
     if(!toShow.includes(view)){ return null; }
     const treeStyle = {...this.ui.styles.container, ...{
       display: 'flex',
@@ -36,20 +36,28 @@ class Tree extends UI {
   treeCell(view, index, dead){
     const hide = this.store.content.hide.tree;
     const isTitle = index === 0;
+    const cellHeight = this.bs.height * 0.0275;
+    const marginTop =  this.bs.height * 0.0075;
 
-    const cellStyle = {...this.ui.styles.border, ...this.ui.styles.container,...{
+    const cellStyle = {...this.ui.styles.border, ...this.ui.styles.container, ...{
       width: this.bs.height * 0.2,
-      fontSize: this.bs.height * 0.02,
-      textAlign: 'center',
       backgroundColor: 'white',
       borderRadius: this.bs.height * 0.01,
       overflow: 'hidden',
       cursor: 'pointer',
       pointerEvents: hide? 'none':''
     }}
+    const textStyle = {
+      width: this.bs.height * 0.2,
+      height: cellHeight,
+      fontSize: '100%',
+      textAlign: 'center',
+      overflow: 'hidden'
+    }
     const text =
     isTitle? this.func.multiLang('Home','主頁','主页'):
     view === 'school'? this.store.schools.viewingSchool.name:
+    view === 'admin'? this.store.profiles.viewingAdminProfile.name:
     view === 'teacher'? this.store.profiles.viewingTeacherProfile.name:
     view === 'student'? this.store.profiles.viewingProfile.name:
     view === 'course'? this.store.courses.viewingCourse.title:
@@ -66,14 +74,14 @@ class Tree extends UI {
       }
     };
 
-    const cellHeight = this.bs.height * 0.025;
-    const marginTop =  this.bs.height * 0.0075;
     return(
       <Motion key={view} defaultStyle={{opacity: dead? 1:0, height: dead? cellHeight: 0, marginTop: dead? marginTop:0}}
       style={{opacity: dead? spring(0): hide?spring(0): spring(1.1), height: dead? spring(0): hide? spring(0):spring(cellHeight), marginTop: dead? spring(0):(hide && !isTitle)?spring(0): spring(marginTop)}}>
         {style=>(
           <div style={{...cellStyle, ...{opacity: style.opacity, height: style.height, marginTop: style.marginTop}}} onClick={onClick}>
-            {text}
+            <div style={textStyle}>
+              {text}
+            </div>
           </div>
         )}
       </Motion>

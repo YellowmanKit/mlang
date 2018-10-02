@@ -54,6 +54,7 @@ class Main extends UI {
     type === 'student'? 'studentHome':
     type === 'teacher'? 'teacherHome':
     type === 'admin'? 'adminHome':
+    type === 'developer'? 'devHome':
     '';
     this.actions.content.pushView(initView);
 

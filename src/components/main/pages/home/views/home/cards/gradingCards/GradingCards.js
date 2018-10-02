@@ -280,7 +280,15 @@ class GradingCards extends View {
   scrollToNext(index){
     const row = document.getElementById('row' + index);
     const scrollValue = row.offsetHeight + this.bs.width * 0.04;
-    document.getElementById("list").scrollBy(0, scrollValue);
+    //document.getElementById("list").scrollBy(0, scrollValue);
+    const time = 400;
+    const split = 30;
+    for(var i=0;i<split;i++){
+      const step = (scrollValue / split) * (2 - i * 2 / split);
+      setTimeout(()=>{
+        document.getElementById("list").scrollBy(0, step);
+      }, time * i / split);
+    }
   }
 
   commenting(e){

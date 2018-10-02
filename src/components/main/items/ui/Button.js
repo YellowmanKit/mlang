@@ -197,7 +197,7 @@ class Button {
 
   modal(text, onClick){
     const style = {
-      width: '50%',
+      width: '35%',
       height: '75%',
       backgroundColor: 'rgba(100, 100, 100, 0.5)',
       color: 'white',

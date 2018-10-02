@@ -10,6 +10,39 @@ export const viewSchool = (school) =>{
   }
 }
 
+export function getStatistics(schoolId){
+  return async function (dispatch) {
+      let err, res;
+      [err, res] = await to(axios.post(api + '/school/getStatistics', { data: schoolId }));
+      if(err){actions.connectionError(dispatch); return;}
+
+      if(res.data.result === 'success'){
+        dispatch({type: "setStatistics", payload: {schoolId: schoolId, statistics: res.data.statistics}});
+      } else {
+        dispatch({type: "message", payload: ['Failed to load school statistics!',  '無法查閱學校統計數據！',  '无法查阅学校统计数据！']});
+      }
+  }
+}
+
+
+export function getSchools(schools){
+  //console.log(projects)
+  return async function (dispatch) {
+    //actions.connecting(dispatch);
+    let err, res;
+    [err, res] = await to(axios.post(api + '/school/getMultiple', { data: schools }));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(res.data.result === 'success'){
+      dispatch({type: "updateSchools", payload: res.data.schools});
+    }else{
+      dispatch({type: "message", payload: ['Failed to get schools data!', '無法查閱學校資料!', '无法查阅学校资料!']});
+    }
+
+  }
+}
+
+
 export function leaveSchool(_data){
 
   return async function (dispatch) {

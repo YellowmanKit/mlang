@@ -52,6 +52,7 @@ class Modal extends UI {
     if(status === 'off'){
       return null;
     }
+    const onConfirm = status === 'confirm'? this.store.modal.onConfirm: ()=>{};
 
     const areaStyle = {
       width: '85%',
@@ -59,12 +60,13 @@ class Modal extends UI {
       backgroundColor: 'transparent',
       display: 'flex',
       flexFlow: 'row nowrap',
-      justifyContent: 'center',
+      justifyContent: 'space-around',
       alignItems: 'center'
     }
     return(
       <div style={areaStyle}>
-        {this.buttons.modal(['Confirm','確定','确定'], ()=>{this.actions.modal.hideModal()})}
+        {this.buttons.modal(['Confirm','確定','确定'], ()=>{ onConfirm(); this.actions.modal.hideModal(); })}
+        {status === 'confirm' && this.buttons.modal(['Cancel','取消','取消'], ()=>{ this.actions.modal.hideModal(); })}
       </div>
     )
   }

@@ -4,9 +4,15 @@ const profilesReducer = (
   state = {
     profiles: [],
     viewingProfile: {},
-    viewingTeacherProfile: {}
+    viewingTeacherProfile: {},
+    viewingAdminProfile: {},
+    admins: []
   }, action)=>{
   switch (action.type) {
+    case 'updateAdmins':
+      return {...state, admins: reducer.updateElements(state.admins, action.payload, true)};
+    case 'viewAdminProfile':
+      return {...state, viewingAdminProfile: action.payload};
     case 'viewTeacherProfile':
       return {...state, viewingTeacherProfile: action.payload};
     case 'viewProfile':

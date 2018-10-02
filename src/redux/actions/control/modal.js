@@ -1,3 +1,9 @@
+export const confirm = (message, onConfirm) =>{
+  return {
+    type: 'confirm',
+    payload: { message: message, onConfirm: onConfirm }
+  }
+}
 
 export const message = (message) =>{
   return {

@@ -11,7 +11,7 @@ class School extends View {
   componentDidMount(){
     if(!this.store.content.subView.includes('school')){
       //this.actions.content.setSubView(this.store.user.type === 'admin'?'schoolTeachers':'schoolDetail');
-      if(this.store.user.type === 'admin' || this.store.user.type === 'teacher'){
+      if(this.store.user.type !== 'student'){
         this.actions.content.setSubView('schoolTeachers');
       }else{
         this.actions.content.setSubView('schoolDetail');
@@ -34,18 +34,19 @@ class School extends View {
   }
 
   schoolSubNav(){
+    const type = this.store.user.type;
     var options = [
       {
         tag:['Detail','詳細資訊','详细资讯'],
         subView: 'schoolDetail'
       }
     ];
-    if(this.store.user.type === 'admin'){
+    if(type === 'developer' || type === 'admin'){
       options = [
         { tag:['Statistics','統計','统计'],
           subView: 'schoolStatistics' }, ...options]
     }
-    if(this.store.user.type === 'admin' || this.store.user.type === 'teacher'){
+    if(type === 'developer' || type === 'admin' || type === 'teacher'){
       options = [
         { tag:['Teachers','老師','老师'],
           subView: 'schoolTeachers' }, ...options]

@@ -47,7 +47,7 @@ class NavBar extends UI {
       leftOnClick = ()=>{ this.actions.content.pullView(); this.actions.content.toggleMenu(); }
     }*/
 
-    if(view === 'studentHome' ||  view === 'teacherHome' ||  view === 'adminHome'){
+    if(view.includes('Home')){
       leftOnClick = this.actions.content.toggleMenu;
       leftIcon = menu;
       rightOnClick = ()=>{ this.actions.user.login(user.id, user.pw); }
@@ -98,10 +98,11 @@ class NavBar extends UI {
           if(user.type === 'student' && this.store.content.subView === 'courseDetail'){
             rightIcon = exit;
             rightOnClick = ()=>{
+              this.actions.modal.confirm(['Confirm to lease class?','確定退出班別?','确定退出班别?'], ()=>{
               this.actions.courses.leaveCourse({
                 userId: this.store.user._id,
                 code: this.store.courses.viewingCourse.code
-              });
+              }); })
             }
           }
           break;
@@ -210,18 +211,22 @@ class NavBar extends UI {
               this.actions.content.pushView('editSchool');
             }
           }
-          if(user.type !== 'admin' && this.store.content.subView === 'schoolDetail'){
+          if(user.type !== 'developer' && user.type !== 'admin' && this.store.content.subView === 'schoolDetail'){
             rightIcon = exit;
             rightOnClick = ()=>{
+              this.actions.modal.confirm(['Confirm to lease school?','確定退出學校?','确定退出学校?'], ()=>{
               this.actions.schools.leaveSchool({
                 userId: this.store.user._id,
                 code: this.store.schools.viewingSchool.code
-              });
+              }); })
             }
           }
           break;
         case 'teacher':
           title = ['TEACHER', '老師','老师'];
+          break;
+        case 'admin':
+          title = ['ADMIN', '管理員','管理员'];
           break;
         default:
           title = ['','']

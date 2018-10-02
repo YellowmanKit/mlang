@@ -60,6 +60,9 @@ class Cell extends UI {
       const firstLang = this.func.getLangById(this.props.data.langs[0]);
       text = firstLang !== null? firstLang.text: '';
     }
+    if(type === 'profile'){
+      text = this.props.data.name;
+    }
     var size = 100 * scale;
     const textScale =[size + '%',size + '%'];
 
@@ -123,6 +126,7 @@ class Cell extends UI {
     this.props.type === 'project'? [this.bs.height * 0.2,this.bs.height * 0.2]:
     this.props.type === 'card'? [this.bs.height * 0.25, this.bs.height * 0.35]:
     this.props.type === 'subject'? [this.bs.height * 0.2, this.bs.height * 0.2]:
+    this.props.type === 'profile'? [this.bs.height * 0.2, this.bs.height * 0.2]:
     '';
 
     this.outDated =

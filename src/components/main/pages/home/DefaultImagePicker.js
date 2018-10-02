@@ -10,6 +10,7 @@ import avatar3 from 'resources/images/default/profile/avatar3.png';
 import avatar4 from 'resources/images/default/profile/avatar4.png';
 
 import ycis from 'resources/images/default/school/ycis.jpg';
+import nsm from 'resources/images/default/school/nsm.jpg';
 
 class DefaultImagePicker extends UI {
 
@@ -19,7 +20,7 @@ class DefaultImagePicker extends UI {
     this.state = {
       defaultImages: {
         profile: [[avatar1, avatar2, avatar3, avatar4]],
-        school: [[ycis]],
+        school: [[ycis, nsm]],
         course: [[avatar1, avatar2, avatar3, avatar4]],
         subject: [[avatar1, avatar2, avatar3, avatar4]],
         project: [[avatar1, avatar2, avatar3, avatar4]],

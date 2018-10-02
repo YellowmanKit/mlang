@@ -14,6 +14,7 @@ import Credit from './views/menu/Credit';
 import TeacherHome from './views/home/TeacherHome';
 import StudentHome from './views/home/StudentHome';
 import AdminHome from './views/home/AdminHome';
+import DevHome from './views/home/DevHome';
 
 import AddCourse from './views/home/courses/AddCourse';
 import JoinCourse from './views/home/courses/JoinCourse';
@@ -39,6 +40,7 @@ import JoinSchool from './views/home/schools/JoinSchool';
 import School from './views/home/schools/School';
 
 import Teacher from './views/home/teacher/Teacher';
+import Admin from './views/home/admin/Admin';
 
 import Enlarger from './Enlarger';
 import DefaultImagePicker from './DefaultImagePicker';
@@ -87,6 +89,8 @@ class Home extends UI {
         return <StudentHome app={app}/>;
       case 'adminHome':
         return <AdminHome app={app}/>;
+      case 'devHome':
+        return <DevHome app={app}/>;
       case 'addCourse':
         return <AddCourse app={app}/>;
       case 'editCourse':
@@ -135,6 +139,8 @@ class Home extends UI {
         return <School app={app}/>;
       case 'teacher':
        return <Teacher app={app}/>;
+     case 'admin':
+        return <Admin app={app}/>;
       default:
         return null;
     }

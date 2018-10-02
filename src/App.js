@@ -34,6 +34,37 @@ class App extends Component {
     return dateToCheck < today;
   }
 
+  translateUserType(type){
+    const language = this.props.store.main.language;
+    switch (type) {
+      case 'student':
+        return(
+        language === 'english'? 'student':
+        language === 'chinese'? '學生':
+        language === 'simplified_chinese'? '学生':
+        '')
+      case 'teacher':
+        return(
+        language === 'english'? 'teacher':
+        language === 'chinese'? '老師':
+        language === 'simplified_chinese'? '老师':
+        '')
+      case 'admin':
+        return(
+        language === 'english'? 'admin':
+        language === 'chinese'? '管理員':
+        language === 'simplified_chinese'? '管理员':
+        '')
+      case 'developer':
+        return(
+        language === 'english'? 'developer':
+        language === 'chinese'? '開發者':
+        language === 'simplified_chinese'? '开发者':
+        '')
+      default:
+    }
+  }
+
   getAllFeaturedCardsIdInViewingProject(){
     var featuredCardsId = [];
     const project = this.props.store.projects.viewingProject;
@@ -130,6 +161,11 @@ class App extends Component {
       }
     }
     return null;
+  }
+
+  getProfileById(id){
+    const data = this.props.store.profiles.profiles;
+    return this.getItemById(data, id);
   }
 
   langNameToLangKey(langName){
@@ -229,8 +265,10 @@ class App extends Component {
         multiLang: this.multiLang.bind(this),
         getDateString: this.getDateString.bind(this),
         outDated: this.outDated.bind(this),
+        translateUserType: this.translateUserType.bind(this),
 
         getProfileByUserId: this.getProfileByUserId.bind(this),
+        getProfileById: this.getProfileById.bind(this),
         getSchoolById: this.getSchoolById.bind(this),
         getCourseById: this.getCourseById.bind(this),
         getSubjectById: this.getSubjectById.bind(this),

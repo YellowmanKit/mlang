@@ -31,14 +31,19 @@ const contentReducer = (
     hints: [],
     closedHints: [],
 
-    rankings:{}
+    rankings:{},
+    statistics: {}
   }, action)=>{
   var hide = state.hide;
   var animation = state.animation;
   var hints = state.hints;
   var closedHints = state.closedHints;
   var rankings = state.rankings;
+  var statistics = state.statistics;
   switch (action.type) {
+    case 'setStatistics':
+      statistics[action.payload.schoolId] = action.payload.statistics;
+      return {...state, statistics: statistics}
     case 'setRanking':
       rankings[action.payload.projectId] = action.payload.ranking;
       return {...state, rankings: rankings}
