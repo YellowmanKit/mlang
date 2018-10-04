@@ -5,14 +5,6 @@ import Cell from 'components/main/items/Cell';
 
 class Admins extends Content {
 
-  componentDidMount(){
-    this.setData();
-    if(this.profilesData.length === 0 && !this.store.content.hide.profiles){
-      this.actions.content.setHide('profiles', true);
-      this.setHint();
-    }
-  }
-
   setData(){
     this.admins = this.store.profiles.admins
 
@@ -23,18 +15,26 @@ class Admins extends Content {
   }
 
   content = style =>(
-    <div style={{...this.areaStyle(), ...{ height: style.height, opacity: style.opacity}}}>
-      {this.verGap('2%')}
-      {this.coursesCells()}
-      {this.verGap('2%')}
-      {this.hidePassed && this.hasHided && this.buttons.showHidden(()=>{this.actions.content.setHide('passedCourses', false)})}
-      {this.verGap('4%')}
-      {this.buttons.cellAdd(this.onAdd)}
-      {this.verGap('6%')}
+    <div style={{...this.ui.styles.areaY,
+      ...{ height: style.height, opacity: style.opacity}}}>
+      {this.adminsCells()}
+      {this.cellAdd(this.onAdd)}
     </div>
   )
 
-  coursesCells(){
+  cellAdd(onAdd){
+    const container = {...this.ui.styles.container, ...{
+      width: this.bs.height * 0.2,
+      height: this.bs.height * 0.225
+    }}
+    return (
+      <div style={container}>
+        {this.buttons.cellAdd(onAdd)}
+      </div>
+    )
+  }
+
+  adminsCells(){
     this.setData();
     return this.profilesData.map((profile, i)=>{
       return(
@@ -58,12 +58,12 @@ class Admins extends Content {
       background: this.ui.colors.gradientBasic
     }
 
-    this.onAdd = ()=>{};
+    this.onAdd = ()=>{ this.actions.content.pushView('addAdmin'); };
 
     return(
       <div style={containerStyle}>
         {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('courses')})}
-        {this.animatedContent('profiles', this.content.bind(this), !hide, this.bs.height * 0.27)}
+        {this.animatedContent('profiles', this.content.bind(this), !hide, this.bs.height * 0.87)}
       </div>
     )
   }

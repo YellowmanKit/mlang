@@ -41,6 +41,7 @@ import School from './views/home/schools/School';
 
 import Teacher from './views/home/teacher/Teacher';
 import Admin from './views/home/admin/Admin';
+import AddAdmin from './views/home/admin/AddAdmin';
 
 import Enlarger from './Enlarger';
 import DefaultImagePicker from './DefaultImagePicker';
@@ -139,8 +140,10 @@ class Home extends UI {
         return <School app={app}/>;
       case 'teacher':
        return <Teacher app={app}/>;
-     case 'admin':
+      case 'admin':
         return <Admin app={app}/>;
+      case 'addAdmin':
+         return <AddAdmin app={app}/>;
       default:
         return null;
     }

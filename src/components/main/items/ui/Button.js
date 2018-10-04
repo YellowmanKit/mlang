@@ -196,17 +196,7 @@ class Button {
   }
 
   modal(text, onClick){
-    const style = {
-      width: '35%',
-      height: '75%',
-      backgroundColor: 'rgba(100, 100, 100, 0.5)',
-      color: 'white',
-      fontSize: '100%',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      borderRadius: '5px',
-    }
-    return this.button(style, text, '', onClick)
+    return this.button(this.ui.styles.modal, text, '', onClick)
   }
 
   absolute(text, onClick){

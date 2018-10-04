@@ -38,7 +38,8 @@ class Input {
       width: '50%',
       height: '4%',
       fontSize: '100%',
-      margin: '2%'
+      margin: '2%',
+      flexShrink: 0
     }
     return <input id={id} type={type} defaultValue={value} style={inputStyle} />
   }
@@ -47,7 +48,8 @@ class Input {
     const textAreaStyle = {
       width: scale? scale[0]: this.bs.width * 0.67,
       height: scale? scale[1]: this.bs.height * 0.15,
-      fontSize: '150%'
+      fontSize: '150%',
+      flexShrink: 0
     }
     return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1],placeholder[2]):''}/>
   }
@@ -57,7 +59,8 @@ class Input {
       width: this.bs.width * 0.67,
       height: this.bs.height * 0.04,
       fontSize: '125%',
-      margin: '2%'
+      margin: '2%',
+      flexShrink: 0
     }
     return <input id={id} type={type} placeholder={this.func.multiLang(placeholder[0], placeholder[1], placeholder[2])} defaultValue={value} style={inputStyle} onChange={onChange}/>
   }

@@ -1,5 +1,9 @@
 import React from 'react';
 import UI from 'components/UI';
+import {Motion, spring}  from 'react-motion';
+import Nyan from './Nyan';
+
+import paperBox from 'resources/images/general/paperBox.png';
 
 class Modal extends UI {
 
@@ -13,18 +17,25 @@ class Modal extends UI {
 
   board(){
     const boardStyle = {
-      width: this.bs.width * 0.6,
-      height:  this.bs.height * 0.3,
-      backgroundColor: 'rgba(0, 0, 0, 0.95)',
+      width: this.bs.height * 0.4,
+      height:  this.bs.height * 0.4,
       borderRadius: '20px',
+      backgroundImage: 'url(' + paperBox + ')',
+      backgroundSize: '100% 100%',
       display: 'flex',
       flexFlow: 'column nowrap',
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'flex-end'
     }
+    const nyanStatus =
+    this.store.modal.status === 'off'? 'sit':
+    this.store.modal.button === 'off'? 'runningLeft':'sit';
+
     return(
       <div style={boardStyle}>
         <div style={{height: '10%'}} />
         {this.message()}
+        <Nyan status={nyanStatus} app={this.app}/>
         {this.buttonsArea()}
       </div>
     )
@@ -35,37 +46,27 @@ class Modal extends UI {
     const lang = this.store.main.language;
     const text = modal[lang];
 
-    const messageStyle = {
-      width: '85%',
-      height: '55%',
-      color: 'white',
-      fontSize: '100%',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      justifyContent: 'center'
-    }
-    return <div style={messageStyle}>{text}</div>
+    return <div style={this.ui.styles.modal}>{text}</div>
   }
 
   buttonsArea(){
     const status = this.store.modal.button;
-    if(status === 'off'){
-      return null;
-    }
+    const showBtn = status !== 'off';
     const onConfirm = status === 'confirm'? this.store.modal.onConfirm: ()=>{};
 
     const areaStyle = {
       width: '85%',
-      height: '25%',
+      height: '65%',
       backgroundColor: 'transparent',
       display: 'flex',
       flexFlow: 'row nowrap',
       justifyContent: 'space-around',
-      alignItems: 'center'
+      alignItems: 'center',
+      flexShrink: 0
     }
     return(
       <div style={areaStyle}>
-        {this.buttons.modal(['Confirm','確定','确定'], ()=>{ onConfirm(); this.actions.modal.hideModal(); })}
+        {showBtn && this.buttons.modal(['Confirm','確定','确定'], ()=>{ onConfirm(); this.actions.modal.hideModal(); })}
         {status === 'confirm' && this.buttons.modal(['Cancel','取消','取消'], ()=>{ this.actions.modal.hideModal(); })}
       </div>
     )
@@ -74,26 +75,30 @@ class Modal extends UI {
   render() {
     this.init(this.props);
     const status = this.store.modal.status;
-    if(status === 'off'){
-      return null;
-    }
+    const isOpen = status !== 'off';
 
     const modalStyle = {
       position: 'absolute',
       width: this.bs.width,
       height: this.bs.height,
       minHeight: this.bs.minHeight,
-      backgroundColor: 'transparent',
+      backgroundColor: 'rgba(0,0,0,0.5)',
       opacity: 1,
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      pointerEvents: isOpen? 'auto': 'none'
     }
-    //console.log(this.count);
     return(
-      <div key={status + this.count} style={modalStyle}>
-        {this.board()}
-      </div>
+      <Motion defaultStyle={{opacity: 0}}
+      style={{opacity: isOpen? spring(1.5):spring(0)}}>
+        {style=>(
+          <div key={status + this.count} style={{...modalStyle,
+            ...{opacity: style.opacity}}}>
+            {this.board()}
+          </div>
+        )}
+      </Motion>
     )
   }
 

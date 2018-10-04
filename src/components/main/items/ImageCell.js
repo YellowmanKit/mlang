@@ -35,7 +35,7 @@ class ImageCell extends UI {
           onClick={()=>{ this.onCellSelect(); }}
           onPointerEnter={()=>{ this.setState({status: 'pointed' }); this.props.onPointed(); }}
           onPointerLeave={()=>{ this.setState({status: 'not-pointed' }); this.props.onUnPointed();}}>
-            <div style={{background: 'url(' + this.props.url + ')', backgroundSize: '100% 100%', width: '100%', height: '100%'}} alt=''/>
+            <img src={this.props.url} style={{width: '100%', height: '100%'}} alt=''/>
           </div>
         )}
       </Motion>

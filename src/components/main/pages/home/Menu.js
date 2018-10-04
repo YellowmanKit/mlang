@@ -21,6 +21,7 @@ class Menu extends UI {
     this.store.user.type === 'student'? this.func.multiLang('Student','學生','学生'):
     this.store.user.type === 'teacher'? this.func.multiLang('Teacher','老師','老师'):
     this.store.user.type === 'admin'? this.func.multiLang('Admin','管理員','管理员'):
+    this.store.user.type === 'developer'? this.func.multiLang('Developer','開發者','开发者'):
     '';
 
     return(

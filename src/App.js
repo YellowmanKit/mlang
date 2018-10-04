@@ -36,30 +36,34 @@ class App extends Component {
 
   translateUserType(type){
     const language = this.props.store.main.language;
+    const eng = language === 'english';
+    const chi = language === 'chinese';
+    const sim_chi = language === 'simplified_chinese';
+    
     switch (type) {
       case 'student':
         return(
-        language === 'english'? 'student':
-        language === 'chinese'? '學生':
-        language === 'simplified_chinese'? '学生':
+        eng? 'student':
+        chi? '學生':
+        sim_chi? '学生':
         '')
       case 'teacher':
         return(
-        language === 'english'? 'teacher':
-        language === 'chinese'? '老師':
-        language === 'simplified_chinese'? '老师':
+        eng? 'teacher':
+        chi? '老師':
+        sim_chi? '老师':
         '')
       case 'admin':
         return(
-        language === 'english'? 'admin':
-        language === 'chinese'? '管理員':
-        language === 'simplified_chinese'? '管理员':
+        eng? 'admin':
+        chi? '管理員':
+        sim_chi? '管理员':
         '')
       case 'developer':
         return(
-        language === 'english'? 'developer':
-        language === 'chinese'? '開發者':
-        language === 'simplified_chinese'? '开发者':
+        eng? 'developer':
+        chi? '開發者':
+        sim_chi? '开发者':
         '')
       default:
     }

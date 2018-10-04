@@ -51,7 +51,7 @@ class SchoolRow extends Row {
       }}}>
         {this.verGap('3%')}
         {this.rowIcon()}
-        {this.rowContent(this.props.school.title, this.rowInfo.bind(this))}
+        {this.rowContent(this.props.school.name, this.rowInfo.bind(this))}
       </button>
   )
 }

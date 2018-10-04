@@ -26,6 +26,15 @@ const uiReducer = (
         display: 'flex',
         flexFlow: 'row warp'
       },
+      areaY: {
+        width: '100%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        alignItems: 'flex-start',
+        overflow: 'auto',
+        justifyContent: 'flex-start',
+        alignContent: 'flex-start'
+      },
       button: {
         backgroundColor: 'transparent',
         border: 'none',
@@ -41,6 +50,15 @@ const uiReducer = (
         width: '100%',
         height: '100%',
         overflow: 'auto'
+      },
+      modal: {
+        borderRadius: '20px',
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        color: 'black',
+        fontSize: '100%',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        padding: '5%'
       }
     },
     colors: {

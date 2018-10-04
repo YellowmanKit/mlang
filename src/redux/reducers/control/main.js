@@ -1,7 +1,6 @@
 const mainReducer = (
   state = {
     status: 'init',
-    modal: 'off',
 
     photoUrl: null,
     photoBlob: null,

@@ -23,7 +23,7 @@ class JoinCourse extends View {
   joinCourse(){
     const _code = document.getElementById('code').value;
     if(_code === ''){
-      return this.failedMessage(['Failed to join! School is missing!', '操作失敗! 未填入學校代碼!', '操操作失败! 未填入学校代码!'])
+      return this.failedMessage(['Failed to join! School is missing!', '操作失敗! 未填入學校代碼!', '操作失败! 未填入学校代码!'])
     }
     const joinedCourses = this.store.courses.joinedCourses;
     for(var i=0;i<joinedCourses.length;i++){

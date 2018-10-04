@@ -3,6 +3,27 @@ import * as actions from '../actions';
 import to from '../to';
 var api = actions.api();
 
+export function addAdmin(userId){
+  //console.log(newUser)
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+
+    let err, res;
+    [err, res] = await to(axios.post(api + '/user/addAdmin',{ data: userId }));
+    if(err){ actions.connectionError(dispatch); return; }
+
+    if(res.data.result === 'success'){
+      dispatch({type: "message", payload: ['Update succeed!', '更改成功!', '更改成功!']});
+      dispatch({type: "updateAdmins", payload: res.data.admins});
+      dispatch({type: "updateProfiles", payload: res.data.profiles});
+      dispatch({type: "pullView"});
+
+    }else{
+      dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!', '更改失败! 请再试一次']});
+    }
+  }
+}
+
 export function changeUserInfo(newUser){
   //console.log(newUser)
   return async function (dispatch) {

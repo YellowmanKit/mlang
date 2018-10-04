@@ -228,6 +228,9 @@ class NavBar extends UI {
         case 'admin':
           title = ['ADMIN', '管理員','管理员'];
           break;
+        case 'addAdmin':
+          title = ['ADD ADMIN', '增加管理員','增加管理员'];
+          break;
         default:
           title = ['','']
           break;

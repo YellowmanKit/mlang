@@ -39,7 +39,7 @@ class Schools extends Content {
       {this.verGap('2%')}
       {this.schoolCells()}
       {this.verGap('5%')}
-      {this.buttons.cellAdd(this.onAdd)}
+      {this.schoolsData.length === 0 && this.buttons.cellAdd(this.onAdd)}
       {this.verGap('5%')}
     </div>
   )

@@ -25,13 +25,8 @@ class Subjects extends Content {
   }
 
   content = style =>(
-    <div style={{...this.ui.styles.area, ...{
-      width: '100%',
-      flexFlow: 'row wrap',
-      alignItems: 'flex-start',
-      overflow: 'auto',
-      alignContent: 'flex-start'
-    }, ...{ height: style.height, opacity: style.opacity}}}>
+    <div style={{...this.ui.styles.areaY,
+      ...{ height: style.height, opacity: style.opacity}}}>
       {this.subjectsCells()}
     </div>
   )
