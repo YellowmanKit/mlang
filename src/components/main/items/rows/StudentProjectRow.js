@@ -42,16 +42,17 @@ class StudentProjectRow extends Row {
     }}
     const iconSize = this.bs.height * 0.05;
     const textScale = [this.bs.height * 0.05,''];
+    const fontSize = this.bs.height * 0.035;
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
-        {this.textDisplay(studentProject.total, textScale, '150%', 'center')}
+        {this.textDisplay(studentProject.total, textScale, fontSize, 'center')}
         {this.verGap('5%')}
         {this.icon(star2, [iconSize, iconSize])}
-        {this.textDisplay(studentProject.featured, textScale, '150%', 'center')}
+        {this.textDisplay(studentProject.featured, textScale, fontSize, 'center')}
         {this.verGap('5%')}
         {this.icon(alert, [iconSize, iconSize], 0.2)}
-        {this.textDisplay(studentProject.alert, textScale, '150%', 'center', studentProject.alert === 0? 'black':'red')}
+        {this.textDisplay(studentProject.alert, textScale, fontSize, 'center', studentProject.alert === 0? 'black':'red')}
       </div>
     )
   }

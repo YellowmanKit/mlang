@@ -58,7 +58,8 @@ const uiReducer = (
         fontSize: '100%',
         fontWeight: 'bold',
         textAlign: 'center',
-        padding: '5%'
+        padding: '5%',
+        writingMode: 'horizontal-lr'
       }
     },
     colors: {

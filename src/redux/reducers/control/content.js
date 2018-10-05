@@ -15,8 +15,10 @@ const contentReducer = (
       courses: false,
       subjects: false,
       cardBar: true,
-      tree: false,
-      passedCourses: true
+      trace: false,
+      passedCoursesCells: true,
+      passedCoursesRows: true,
+      passedProjectsRows: true
     },
     animation: {
       schools: true,

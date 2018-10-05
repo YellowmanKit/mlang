@@ -42,16 +42,17 @@ class RankingRow extends Row {
     }}
     const iconSize = this.bs.height * 0.05;
     const textScale = [this.bs.height * 0.05,''];
+    const fontSize = this.bs.height * 0.035;
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
-        {this.textDisplay(data.total, textScale, '150%', 'center')}
+        {this.textDisplay(data.total, textScale, fontSize, 'center')}
         {this.verGap('5%')}
         {this.icon(star2, [iconSize, iconSize])}
-        {this.textDisplay(data.featured, textScale, '150%', 'center')}
+        {this.textDisplay(data.featured, textScale, fontSize, 'center')}
         {this.verGap('5%')}
         {this.icon(trophy, [iconSize, iconSize], 0.2)}
-        {this.textDisplay(data.score, textScale, '150%', 'center')}
+        {this.textDisplay(data.score, textScale, fontSize, 'center')}
       </div>
     )
   }

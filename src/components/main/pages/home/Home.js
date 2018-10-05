@@ -46,7 +46,7 @@ import AddAdmin from './views/home/admin/AddAdmin';
 import Enlarger from './Enlarger';
 import DefaultImagePicker from './DefaultImagePicker';
 import Hints from './Hints';
-import Tree from './Tree';
+import Trace from './Trace';
 import Footer from './Footer';
 
 class Home extends UI {
@@ -180,7 +180,7 @@ class Home extends UI {
       <div style={pageStyle}>
         <NavBar app={this.app}/>
         {this.animatedView(deadView? deadView: view, deadView? false: true)}
-        <Tree app={this.app}/>
+        <Trace app={this.app}/>
         <Footer app={this.app}/>
         <Menu app={this.app}/>
         <Enlarger app={this.app}/>

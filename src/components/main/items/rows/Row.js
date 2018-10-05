@@ -3,12 +3,13 @@ import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
 import no_image from 'resources/images/general/no_image.png';
+import passed from 'resources/images/general/passed.png';
 
 class Row extends UI {
 
   rowContent(title, rowInfo){
     const infoStyle = {...this.bs, ...{
-      width: '75%',
+      width: '65%',
       height: this.bs.height * 0.12,
       marginLeft: this.bs.height * 0.02
     }}
@@ -76,6 +77,14 @@ class Row extends UI {
         alignItems: 'center'
       }}
     )
+  }
+
+  passedTag(){
+    const style = {
+      width: this.bs.height * 0.145,
+      height: this.bs.height * 0.145
+    }
+    return <img src={passed} style={style} alt=''/>
   }
 
 }

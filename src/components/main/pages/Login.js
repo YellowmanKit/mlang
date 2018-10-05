@@ -25,7 +25,7 @@ class Login extends UI {
       autoLogin: autoLogin
     });
     this.actions.main.setLanguage(language? language: 'chinese');
-    if(autoLogin){
+    if(autoLogin && loginInfo){
       this.login(loginInfo.id,loginInfo.pw);
     }
   }

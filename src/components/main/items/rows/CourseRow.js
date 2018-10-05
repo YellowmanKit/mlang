@@ -10,6 +10,7 @@ class CourseRow extends Row {
       filename: this.props.course? this.props.course.icon: null,
       type: 'courseIcon'
     }
+    this.outDated = this.func.outDated(this.props.course.endDate);
     this.checkUrl();
   }
 
@@ -48,11 +49,13 @@ class CourseRow extends Row {
   content = (style)=>(
       <button onClick={this.props.onClick} style={{...this.rowStyle(), ...{
         height: style.height,
-        opacity: style.opacity
+        opacity: style.opacity * this.outDated? 0.5:1
       }}}>
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.course.title, this.rowInfo.bind(this))}
+        {this.outDated && this.passedTag()}
+        {this.verGap('3%')}
       </button>
   )
 }

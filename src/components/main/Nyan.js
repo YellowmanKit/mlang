@@ -9,6 +9,16 @@ import running_left2 from 'resources/images/nyan/running/running_left2.png';
 import running_left3 from 'resources/images/nyan/running/running_left3.png';
 import running_left4 from 'resources/images/nyan/running/running_left4.png';
 
+import running_up1 from 'resources/images/nyan/running/running_up1.png';
+import running_up2 from 'resources/images/nyan/running/running_up2.png';
+import running_up3 from 'resources/images/nyan/running/running_up3.png';
+import running_up4 from 'resources/images/nyan/running/running_up4.png';
+
+import running_down1 from 'resources/images/nyan/running/running_down1.png';
+import running_down2 from 'resources/images/nyan/running/running_down2.png';
+import running_down3 from 'resources/images/nyan/running/running_down3.png';
+import running_down4 from 'resources/images/nyan/running/running_down4.png';
+
 class Nyan extends UI {
 
   constructor(props){
@@ -23,7 +33,15 @@ class Nyan extends UI {
         runningLeft: {
           frames: [running_left1, running_left2, running_left3, running_left4],
           time: 125
-        }
+        },
+        runningUp: {
+          frames: [running_up1, running_up2, running_up3, running_up4],
+          time: 125
+        },
+        runningDown: {
+          frames: [running_down1, running_down2, running_down3, running_down4],
+          time: 125
+        },
       },
       count: 0
     }
@@ -36,13 +54,14 @@ class Nyan extends UI {
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    if(this.store.modal.status === 'off'){ clearTimeout(this.animation); }
-    else if(!this.animation){ this.playAnimation(); }
+    //if(this.store.modal.status === 'off'){ clearTimeout(this.animation); }
+    if(!this.animation){ this.playAnimation(); }
   }
 
   componentWillUnmount(){ clearTimeout(this.animation); }
 
   playAnimation(){
+    if(this.props.status === 'off'){ return null; }
     clearTimeout(this.animation);
     this.animation = setTimeout(()=>{
       this.nextFrame();
@@ -62,15 +81,23 @@ class Nyan extends UI {
   }
 
   render(){
-    this.init(this.props)
+    this.init(this.props);
+    const size = this.props.size;
     const nyanStyle = {
-      width: this.bs.height * 0.1,
-      height: this.bs.height * 0.1,
-      flexShrink: 0
+      width: size[0],
+      height: size[1],
+      flexShrink: 0,
+      cursor: this.props.onClick? 'pointer':''
     }
+    if(this.props.status === 'off'){ return <img src={this.state.animations['sit'].frames[0]} style={nyanStyle} alt=''/> }
+
+    var count = this.state.count;
+    const length = this.state.animations[this.props.status].frames.length;
+    if(count >= length){ count = 0; }
+    const url = this.state.animations[this.props.status].frames[count];
 
     return (
-      <img src={this.state.animations[this.props.status].frames[this.state.count]} style={nyanStyle} alt=''/>
+      <img onClick={this.props.onClick} src={url} style={nyanStyle} alt=''/>
     )
   }
 }

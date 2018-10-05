@@ -40,7 +40,7 @@ class Button {
     this.actions = app.actions;
   }
 
-  hideTreeButton(hided, onClick){
+  hideTraceButton(hided, onClick){
     const style = {...this.ui.styles.button, ...{
       width: this.bs.height * 0.02,
       height: this.bs.height * 0.02,

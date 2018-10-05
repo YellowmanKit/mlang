@@ -21,7 +21,7 @@ class Courses extends Content {
   }
 
   setData(){
-    this.hidePassed = this.store.content.hide.passedCourses;
+    this.hidePassed = this.store.content.hide.passedCoursesCells;
 
     this.courses =
     this.store.user.type === 'teacher'? this.store.courses.teachingCourses:
@@ -39,7 +39,7 @@ class Courses extends Content {
       {this.verGap('2%')}
       {this.coursesCells()}
       {this.verGap('2%')}
-      {this.hidePassed && this.hasHided && this.buttons.showHidden(()=>{this.actions.content.setHide('passedCourses', false)})}
+      {this.hidePassed && this.hasHided && this.buttons.showHidden(()=>{this.actions.content.setHide('passedCoursesCells', false)})}
       {this.verGap('4%')}
       {this.buttons.cellAdd(this.onAdd)}
       {this.verGap('6%')}

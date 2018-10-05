@@ -15,7 +15,7 @@ const mainReducer = (
     defaultImagePicker: 'off',
 
     language: 'simplified_chinese',
-    version: 'v1.0.2'
+    version: 'v1.0.3'
   }, action)=>{
   switch (action.type) {
     case 'setDefaultImagePicker':

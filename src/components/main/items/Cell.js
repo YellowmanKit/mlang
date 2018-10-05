@@ -30,6 +30,7 @@ class Cell extends UI {
 
   getFileType(cellType){
     const fileType =
+    cellType === 'profile'? 'profileIcon':
     cellType === 'school'? 'schoolIcon':
     cellType === 'course'? 'courseIcon':
     cellType === 'project'? 'projectIcon':

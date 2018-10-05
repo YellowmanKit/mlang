@@ -41,10 +41,10 @@ class ProfileRow extends Row {
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
-        {this.textDisplay(profile.cardCount, textScale, '150%', 'center')}
+        {this.textDisplay(profile.cardCount, textScale, '175%', 'center')}
         {this.verGap('5%')}
         {this.icon(star2, [iconSize, iconSize])}
-        {this.textDisplay(profile.featuredCount, textScale, '150%', 'center')}
+        {this.textDisplay(profile.featuredCount, textScale, '175%', 'center')}
       </div>
     )
   }

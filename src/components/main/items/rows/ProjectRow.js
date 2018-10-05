@@ -13,6 +13,7 @@ class ProjectRow extends Row {
       filename: this.props.project? this.props.project.icon: null,
       type: 'projectIcon'
     }
+    this.outDated = this.func.outDated(this.props.project.endDate);
   }
 
   componentWillReceiveProps(newProps){
@@ -73,11 +74,12 @@ class ProjectRow extends Row {
   content = (style)=>(
       <button onClick={this.props.onClick} style={{...this.rowStyle(), ...{
         height: style.height,
-        opacity: style.opacity
+        opacity: style.opacity * this.outDated? 0.5:1
       }}}>
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
+        {this.outDated && this.passedTag()}
         {this.checkAlertTag()}
       </button>
   )

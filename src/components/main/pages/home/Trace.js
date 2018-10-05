@@ -2,7 +2,30 @@ import React from 'react';
 import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
-class Tree extends UI {
+import Nyan from 'components/main/Nyan';
+
+class Trace extends UI {
+
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      nyan: 'sit',
+      tracesLength: 0
+    }
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    const tracesLength = this.store.content.traces.length;
+    var action = 'sit';
+    if(tracesLength < this.state.tracesLength){ action = 'runningDown'; }
+    if(tracesLength > this.state.tracesLength){ action = 'runningUp'; }
+    if(tracesLength !== this.state.tracesLength && this.state.nyan !== action){
+      this.setState({nyan: action, tracesLength: tracesLength});
+      setTimeout(()=>{this.setState({nyan:'sit'})},500);
+    }
+  }
 
   render(){
     this.init(this.props);
@@ -13,7 +36,7 @@ class Tree extends UI {
 
     const toShow = ['admin','school', 'teacher','student','course','subject','studentSubject','project','studentProject'];
     if(!toShow.includes(view)){ return null; }
-    const treeStyle = {...this.ui.styles.container, ...{
+    const traceStyle = {...this.ui.styles.container, ...{
       display: 'flex',
       justifyContent: 'flex-start',
       flexFlow: 'column nowrap',
@@ -22,19 +45,23 @@ class Tree extends UI {
       bottom: this.bs.height * 0.01
     }}
     const previousViews = this.store.content.previousViews;
+    //{this.buttons.hideTraceButton(this.store.content.hide.trace, ()=>{this.actions.content.toggleHide('trace')})}
+    const nyanSize = [this.bs.height * 0.05, this.bs.height * 0.05];
+    const hided = this.store.content.hide.trace;
+
     return(
-      <div style={treeStyle}>
-        {this.buttons.hideTreeButton(this.store.content.hide.tree, ()=>{this.actions.content.toggleHide('tree')})}
+      <div style={traceStyle}>
+        <Nyan app={this.app} status={this.state.nyan} size={nyanSize} onClick={()=>{ setTimeout(()=>{this.setState({nyan:'sit'})},500); this.setState({nyan: hided?'runningUp':'runningDown'}); this.actions.content.toggleHide('trace')}} />
         {this.store.content.traces.map((view, i)=>{
-          return this.treeCell(view, i);
+          return this.traceCell(view, i);
         })}
-        {previousViews.length > 0 && previousViews.slice().reverse().map(view =>{return this.treeCell(view, -1, true)}) }
+        {previousViews.length > 0 && previousViews.slice().reverse().map(view =>{return this.traceCell(view, -1, true)}) }
       </div>
     )
   }
 
-  treeCell(view, index, dead){
-    const hide = this.store.content.hide.tree;
+  traceCell(view, index, dead){
+    const hide = this.store.content.hide.trace;
     const isTitle = index === 0;
     const cellHeight = this.bs.height * 0.0275;
     const marginTop =  this.bs.height * 0.0075;
@@ -89,4 +116,4 @@ class Tree extends UI {
   }
 }
 
-export default Tree;
+export default Trace;

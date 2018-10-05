@@ -28,14 +28,15 @@ class Modal extends UI {
       justifyContent: 'flex-end'
     }
     const nyanStatus =
-    this.store.modal.status === 'off'? 'sit':
+    this.store.modal.status === 'off'? 'off':
     this.store.modal.button === 'off'? 'runningLeft':'sit';
+    const nyanSize = [this.bs.height * 0.1, this.bs.height * 0.1];
 
     return(
       <div style={boardStyle}>
         <div style={{height: '10%'}} />
         {this.message()}
-        <Nyan status={nyanStatus} app={this.app}/>
+        <Nyan status={nyanStatus} size={nyanSize} app={this.app}/>
         {this.buttonsArea()}
       </div>
     )
