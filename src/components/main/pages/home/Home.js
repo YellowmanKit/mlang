@@ -45,6 +45,8 @@ import AddAdmin from './views/home/admin/AddAdmin';
 
 import Enlarger from './Enlarger';
 import DefaultImagePicker from './DefaultImagePicker';
+import PrefabPicker from './PrefabPicker';
+
 import Hints from './Hints';
 import Trace from './Trace';
 import Footer from './Footer';
@@ -185,6 +187,7 @@ class Home extends UI {
         <Menu app={this.app}/>
         <Enlarger app={this.app}/>
         <Hints app={this.app}/>
+        <PrefabPicker app={this.app}/>
         <DefaultImagePicker app={this.app}/>
       </div>
     )

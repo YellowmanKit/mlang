@@ -37,7 +37,21 @@ class Subjects extends Content {
       width: this.bs.height * 0.25,
       height: this.bs.height * 0.25
     }}
-    return this.subjectsData.map((subject, i)=>{
+
+    var subjectsData = this.subjectsData;
+    var lastCourse = '';
+    for(var i=0;i<subjectsData.length;i++){
+      if(subjectsData[i].course !== lastCourse){
+        lastCourse = subjectsData[i].course;
+        const course = this.func.getCourseById(lastCourse);
+        subjectsData.splice(i,0,{isTitle: true, title: course.title});
+      }
+    }
+
+    return subjectsData.map((subject, i)=>{
+      if(subject.isTitle){
+        return this.courseTitle(subject.title)
+      }
       return(
         <div key={i} style={containerStyle}>
           <Cell app={this.app}
@@ -47,6 +61,28 @@ class Subjects extends Content {
         </div>
       )
     });
+  }
+
+  courseTitle(title){
+    const titleStyle = {...this.ui.styles.containerY, ...{
+      width: this.bs.height * 0.035,
+      height: this.bs.height * 0.25,
+      overflow: 'hidden'
+    }}
+    const textStyle = {
+      color: 'rgba(0,0,0,0.25)',
+      fontSzie: this.bs.height * 0.1,
+      textAlign: 'center'
+    }
+    return(
+      <div style={titleStyle}>
+        {this.verSep('rgba(0,0,0,0.25)','32.5%')}
+          <div style={textStyle}>
+            {title}
+          </div>
+        {this.verSep('rgba(0,0,0,0.25)','32.5%')}
+      </div>
+    )
   }
 
   render() {

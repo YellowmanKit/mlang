@@ -13,11 +13,14 @@ const mainReducer = (
     enlargeText: '',
 
     defaultImagePicker: 'off',
+    prefabPicker: 'off',
 
     language: 'simplified_chinese',
     version: 'v1.0.3'
   }, action)=>{
   switch (action.type) {
+    case 'setPrefabPicker':
+      return {...state, prefabPicker: action.payload};
     case 'setDefaultImagePicker':
       return {...state, defaultImagePicker: action.payload};
     case 'enlargeText':

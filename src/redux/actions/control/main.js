@@ -1,3 +1,11 @@
+export const setPrefabPicker = (state) =>{
+  return {
+    type: 'setPrefabPicker',
+    payload: state
+  }
+}
+
+
 export const setDefaultImagePicker = (state) =>{
   return {
     type: 'setDefaultImagePicker',

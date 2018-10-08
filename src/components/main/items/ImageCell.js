@@ -7,13 +7,41 @@ class ImageCell extends UI {
   constructor(props){
     super(props);
     this.init(props);
-    this.state = { status: ''}
+    if(this.props.data){
+      this.state = {
+        filename: props.data.icon,
+        type: props.type
+      }
+    }else{
+      this.state = {
+        status: ''
+      }
+    }
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    if(!this.props.data){ return; }
+    const newFilename = newProps.data.icon;
+    if(this.state.filename !== newFilename){
+      this.setState({ filename: newFilename })
+      this.checkUrl();
+    }
   }
 
   async onCellSelect(){
-    const blob = await this.url.urlToBlob(this.props.url);
-    this.actions.main.setPhoto({url: this.props.url, blob: blob});
+    const url = this.props.url? this.props.url: this.url.url;
+    const blob = await this.url.urlToBlob(url);
+    this.actions.main.setPhoto({url: url, blob: blob});
     this.actions.main.setDefaultImagePicker('off');
+    this.actions.main.setPrefabPicker('off');
+    if(this.props.onClick){
+      this.props.onClick();
+    }
+    if(this.props.data){
+      document.getElementById('title').value = this.props.data.title;
+      document.getElementById('desc').value = this.props.data.description;
+    }
   }
 
   render(){
@@ -35,7 +63,7 @@ class ImageCell extends UI {
           onClick={()=>{ this.onCellSelect(); }}
           onPointerEnter={()=>{ this.setState({status: 'pointed' }); this.props.onPointed(); }}
           onPointerLeave={()=>{ this.setState({status: 'not-pointed' }); this.props.onUnPointed();}}>
-            <img src={this.props.url} style={{width: '100%', height: '100%'}} alt=''/>
+            <img src={this.props.url? this.props.url: this.url.url} style={{width: '100%', height: '100%'}} alt=''/>
           </div>
         )}
       </Motion>

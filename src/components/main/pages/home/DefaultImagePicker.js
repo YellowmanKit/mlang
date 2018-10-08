@@ -96,7 +96,6 @@ class DefaultImagePicker extends UI {
 
   defaultImages(){
     const containerStyle = {...this.ui.styles.area, ...this.ui.styles.container, ...{
-      //width: this.state.cellPointed? this.bs.width: this.bs.width * 0.75,
       flexFlow: 'row nowrap'
     }}
     const width = this.bs.width;
@@ -111,7 +110,7 @@ class DefaultImagePicker extends UI {
           {style=>(
             <div style={{...containerStyle, ...{width: style.width}}}>
               {images.map((img, i)=>{
-                return <ImageCell key={i} index={i} app={this.app} url={img} onPointed={()=>{this.setState({cellPointed: true})}} onUnPointed={()=>{this.setState({cellPointed: false})}}/>
+                return <ImageCell key={i} url={img} index={i} app={this.app} onPointed={()=>{this.setState({cellPointed: true})}} onUnPointed={()=>{this.setState({cellPointed: false})}}/>
               })}
             </div>
           )}

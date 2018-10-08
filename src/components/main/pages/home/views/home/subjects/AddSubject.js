@@ -44,7 +44,7 @@ class Addsubject extends View {
         {this.gap('4%')}
 
         <CustomButton app={this.app} button={this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addSubject()})}/>
-        {this.gap('8%')}
+        {this.gap('4%')}
       </div>
     )
   }

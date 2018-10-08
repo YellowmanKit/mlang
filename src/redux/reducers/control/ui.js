@@ -21,6 +21,12 @@ const uiReducer = (
         backgroundSize: '100% 100%',
         flexShrink: 0
       },
+      containerY: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
       area: {
         width: '100%',
         display: 'flex',

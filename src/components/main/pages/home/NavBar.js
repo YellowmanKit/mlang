@@ -10,6 +10,7 @@ import edit from 'resources/images/buttons/buttonIcons/edit.png';
 import add from 'resources/images/buttons/buttonIcons/add.png';
 import exit from 'resources/images/buttons/buttonIcons/exit.png';
 import rotate from 'resources/images/buttons/buttonIcons/rotate.png';
+import copy from 'resources/images/buttons/buttonIcons/copy.png';
 
 class NavBar extends UI {
 
@@ -87,10 +88,6 @@ class NavBar extends UI {
               this.actions.content.pushView('editCourse');
             }
           }
-          /*if(user.type === 'teacher' && this.store.content.subView === 'courseProjects' && !this.func.outDated(viewingCourse.endDate)){
-            rightIcon = add;
-            rightOnClick = ()=>{this.actions.content.pushView('addProject')}
-          }*/
           if(user.type === 'teacher' && this.store.content.subView === 'courseSubjects' && !this.func.outDated(viewingCourse.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addSubject')}
@@ -108,6 +105,8 @@ class NavBar extends UI {
           break;
         case 'addSubject':
           title = ['ADD UNIT', '創建單元','创建单元'];
+          rightIcon = copy;
+          rightOnClick = ()=>{this.actions.main.setPrefabPicker('subjects');}
           break;
         case 'subject':
           title = ['UNIT', '單元','单元'];
@@ -125,6 +124,8 @@ class NavBar extends UI {
           break;
         case 'addProject':
           title = ['ADD PROJECT', '創建專題研習','创建专题研习'];
+          rightIcon = copy;
+          rightOnClick = ()=>{this.actions.main.setPrefabPicker('projects');}
           break;
         case 'project':
           title = ['PROJECT', '專題研習','专题研习'];

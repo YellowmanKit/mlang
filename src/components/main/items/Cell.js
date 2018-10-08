@@ -69,7 +69,7 @@ class Cell extends UI {
 
     return(
       <div style={{flexGrow: 1, overflow: 'hidden'}}>
-        {this.textDisplay(text, textScale, this.bs.height * 0.025)}
+        {this.textDisplay(text, textScale, this.bs.height * 0.0225)}
       </div>
     )
   }
