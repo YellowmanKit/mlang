@@ -10,6 +10,7 @@ var reducer = {
     }
 
     for(var i=0;i<newElements.length;i++){
+      if(!newElements[i]){ continue; }
       for(var j=0;j<updatedArray.length;j++){
         if(!idOnly && (updatedArray[j]._id === newElements[i]._id)){
           updatedArray[j] = {...updatedArray[j], ...newElements[i]};

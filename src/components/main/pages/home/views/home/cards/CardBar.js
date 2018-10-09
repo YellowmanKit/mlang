@@ -29,7 +29,7 @@ class CardBar extends UI {
   render(){
     this.init(this.props);
     const card = this.store.cards.viewingCard;
-    const isOpen = !this.store.content.hide.cardBar;
+    const isOpen = !this.store.switches.hide.cardBar;
 
     const barStyle = {...this.ui.styles.area, ...this.ui.styles.container, ...{
       position: 'absolute',
@@ -42,14 +42,14 @@ class CardBar extends UI {
     }}
 
     const canSwap = (card.author === this.store.user._id) && (card.grade === 'notGraded' || card.grade === 'failed');
-    const ani = this.store.content.animation.content;
+    const ani = this.store.switches.animation.content;
     const expendedRight = -this.bs.width * 0.075;
     const collapsedRight = -this.bs.width * 0.85;
 
     return(
       <Motion defaultStyle={{right: !ani? (isOpen? expendedRight: collapsedRight): isOpen? collapsedRight: expendedRight, opacity: !ani? (isOpen? 1: 0.25): isOpen? 0.25: 1}}
       style={{right: isOpen? spring(expendedRight): spring(collapsedRight), opacity: isOpen? spring(1): spring(0.25)}}
-      onRest={()=>{this.actions.content.setAnimation('cardBar',false)}}>
+      onRest={()=>{this.actions.switches.setAnimation('cardBar',false)}}>
         {style=>(
           <div style={{...barStyle, ...{
             right: style.right,
@@ -107,9 +107,9 @@ class CardBar extends UI {
     this.setState({ playAudioComment: !this.state.playAudioComment })
   }
 
-  toggleExpend(){ this.actions.content.toggleHide('cardBar'); }
+  toggleExpend(){ this.actions.switches.toggleHide('cardBar'); }
 
-  ani(){ return this.store.content.animation.cardBar}
+  ani(){ return this.store.switches.animation.cardBar}
 }
 
 export default CardBar;

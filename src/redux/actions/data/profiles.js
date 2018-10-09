@@ -24,7 +24,6 @@ export const viewProfile = (profile) =>{
   }
 }
 
-
 export function getProfiles(usersId){
   //console.log(students)
   return async function (dispatch) {

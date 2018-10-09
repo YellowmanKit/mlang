@@ -51,7 +51,7 @@ class StudentProjects extends SubView {
     }
     this.setState({
       studentProjects: studentProjects
-    })
+    });
   }
 
   studentProjectsList(){

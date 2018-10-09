@@ -10,12 +10,12 @@ class TeacherCourses extends SubView {
     if(!props.profile.teachingCourses){
       this.getAllCoursesOfUser();
     }
-    this.hidePassed = this.store.content.hide.passedCoursesRows;
+    this.hidePassed = this.store.switches.hide.passedCoursesRows;
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    this.hidePassed = this.store.content.hide.passedCoursesRows;
+    this.hidePassed = this.store.switches.hide.passedCoursesRows;
   }
 
   getAllCoursesOfUser(){
@@ -46,7 +46,7 @@ class TeacherCourses extends SubView {
     return(
       <div style={this.subViewStyle()}>
         {this.teacherCoursesList()}
-        {this.hidePassed && this.hasHided && this.buttons.showHidden(()=>{ this.actions.content.setAnimation('row', true); this.actions.content.setHide('passedCoursesRows', false)})}
+        {this.hidePassed && this.hasHided && this.buttons.showHidden(()=>{ this.actions.switches.setAnimation('row', true); this.actions.switches.setHide('passedCoursesRows', false)})}
       </div>
     )
   }

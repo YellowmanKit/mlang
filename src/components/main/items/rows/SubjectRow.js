@@ -40,7 +40,6 @@ class SubjectRow extends Row {
   }
 
   render(){
-    this.init(this.props);
     if(this.props.subject === null){ return null; }
     return this.animatedRow(this.content.bind(this), this.bs.height * 0.15)
   }

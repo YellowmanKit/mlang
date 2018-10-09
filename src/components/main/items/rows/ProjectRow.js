@@ -2,7 +2,6 @@ import React from 'react';
 import Row from './Row';
 
 import icon_event from 'resources/images/icons/event_grey.png';
-import icon_alert2 from 'resources/images/icons/alert2.png';
 
 class ProjectRow extends Row {
 
@@ -45,28 +44,7 @@ class ProjectRow extends Row {
     )
   }
 
-  checkAlertTag(){
-    if(this.props.project.teacherAlert && this.store.user.type === 'teacher'){
-      return this.alertTag();
-    }else if(this.store.user.type === 'student'){
-      const studentProject = this.func.getStudentProject(this.store.user._id, this.props.project._id);
-      if(studentProject && studentProject.studentAlert){
-        return this.alertTag();
-      }
-    }
-    return null;
-  }
-
-  alertTag(){
-    const style = {
-      width: this.bs.height * 0.04,
-      height: this.bs.height * 0.04
-    }
-    return <img style={style} src={icon_alert2} alt=''/>
-  }
-
   render(){
-    this.init(this.props);
     if(this.props.project === null){ return null; }
     return this.animatedRow(this.content.bind(this), this.bs.height * 0.15)
   }
@@ -80,7 +58,7 @@ class ProjectRow extends Row {
         {this.rowIcon()}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
         {this.outDated && this.passedTag()}
-        {this.checkAlertTag()}
+        {this.props.project.alert && this.alertTag()}
       </button>
   )
 }

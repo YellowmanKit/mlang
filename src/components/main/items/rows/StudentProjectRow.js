@@ -80,7 +80,9 @@ class StudentProjectRow extends Row {
     this.profile = this.func.getProfileByUserId(studentProject.student);
     this.project = this.func.getProjectById(studentProject.project);
     if(!studentProject || !this.profile){
-      //console.log('studentProject or profile missing')
+      console.log(studentProject);
+      console.log(this.profile);
+      console.log('studentProject or profile missing')
       return null;
     }
 

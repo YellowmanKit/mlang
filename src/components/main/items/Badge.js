@@ -39,7 +39,7 @@ class Badge extends UI {
   }
 
   badge(index, grade, dead){
-    const ani = this.store.content.animation.badge;
+    const ani = this.store.switches.animation.badge;
     const scale = this.props.scale;
     const badgeStyle = {
       width: scale[0],

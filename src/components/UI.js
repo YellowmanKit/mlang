@@ -46,15 +46,6 @@ class UI extends Component {
     this.checkUrl();
   }
 
-  clearAlert(projectId){
-    if(this.store.user.type === 'student'){
-      const studentProject = this.func.getStudentProject(this.store.user._id, projectId);
-      if(studentProject && studentProject.studentAlert){
-        this.actions.studentProjects.clearAlert(studentProject._id);
-      }
-    }
-  }
-
   cardTags(commented, audioCommented){
     const width = this.bs.width * 0.05;
     const style = {...this.bs, ...{

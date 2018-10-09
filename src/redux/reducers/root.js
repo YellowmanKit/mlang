@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import main from './control/main';
+import switches from './control/switches';
 import content from './control/content';
 import ui from './control/ui';
 import modal from './control/modal';
@@ -18,10 +19,12 @@ import langs from './data/langs';
 
 const rootReducer = combineReducers({
   main: main,
-  user: user,
+  switches: switches,
   content: content,
   ui: ui,
   modal: modal,
+
+  user: user,
   profile: profile,
   schools: schools,
   courses: courses,

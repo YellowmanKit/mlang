@@ -50,18 +50,6 @@ export function update(studentProject){
   }
 }
 
-export function clearAlert(studentProjectId){
-  return async function (dispatch) {
-    let err, res;
-    [err, res] = await to(axios.post(api + '/studentProject/clearAlert', { data: {studentProjectId: studentProjectId} }));
-    if(err){ actions.connectionError(dispatch); return; }
-
-    if(res.data.result === 'success'){
-      dispatch({type: "updateStudentProjects", payload: [res.data.updatedStudentProject]});
-    }
-  }
-}
-
 export function getStudentProjects(studentProjects){
   //console.log(studentProjects);
   return async function (dispatch) {

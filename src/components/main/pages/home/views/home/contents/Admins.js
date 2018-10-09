@@ -1,7 +1,7 @@
 import React from 'react';
 import Content from './Content';
 
-import Cell from 'components/main/items/Cell';
+import ProfileCell from 'components/main/items/cells/ProfileCell';
 
 class Admins extends Content {
 
@@ -38,8 +38,8 @@ class Admins extends Content {
     this.setData();
     return this.profilesData.map((profile, i)=>{
       return(
-        <Cell key={i} app={this.app}
-        type={'profile'}
+        <ProfileCell
+        key={i} app={this.app}
         data={profile}
         onClick={()=>{ this.actions.profiles.viewAdminProfile(profile); this.actions.content.pushView('admin'); }}/>
       )
@@ -48,7 +48,7 @@ class Admins extends Content {
 
   render() {
     this.init(this.props);
-    const hide = this.store.content.hide.courses;
+    const hide = this.store.switches.hide.courses;
 
     const title = ['Admins','管理員','管理员']
 
@@ -62,7 +62,7 @@ class Admins extends Content {
 
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('courses')})}
+        {this.tabBar(title, hide, ()=>{this.actions.switches.toggleHide('courses')})}
         {this.animatedContent('profiles', this.content.bind(this), !hide, this.bs.height * 0.87)}
       </div>
     )

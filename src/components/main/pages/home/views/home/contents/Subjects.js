@@ -1,14 +1,15 @@
 import React from 'react';
 import Content from './Content';
 
-import Cell from 'components/main/items/Cell';
+import SubjectCell from 'components/main/items/cells/SubjectCell';
 
 class Subjects extends Content {
 
   componentDidMount(){
+    this.init(this.props);
     this.setData();
-    if(this.subjectsData.length === 0 && !this.store.content.hide.subjects){
-      this.actions.content.setHide('subjects', true)
+    if(this.subjectsData.length === 0 && !this.store.switches.hide.subjects){
+      this.actions.switches.setHide('subjects', true)
     }
   }
 
@@ -19,9 +20,9 @@ class Subjects extends Content {
     [];
 
     this.subjectsData = [];
-    this.subjects.map(id=>{
-      return this.subjectsData.push(this.func.getSubjectById(id));
-    })
+    for(var i=0;i<this.subjects.length;i++){
+      this.subjectsData.push(this.func.getSubjectById(this.subjects[i]));
+    }
   }
 
   content = style =>(
@@ -54,8 +55,7 @@ class Subjects extends Content {
       }
       return(
         <div key={i} style={containerStyle}>
-          <Cell app={this.app}
-          type={'subject'}
+          <SubjectCell app={this.app}
           data={subject}
           onClick={()=>{ this.actions.subjects.viewSubject(subject); this.actions.content.pushView('subject'); }}/>
         </div>
@@ -75,7 +75,7 @@ class Subjects extends Content {
       textAlign: 'center'
     }
     return(
-      <div style={titleStyle}>
+      <div key={title} style={titleStyle}>
         {this.verSep('rgba(0,0,0,0.25)','32.5%')}
           <div style={textStyle}>
             {title}
@@ -87,7 +87,7 @@ class Subjects extends Content {
 
   render() {
     this.init(this.props);
-    const hide = this.store.content.hide.subjects;
+    const hide = this.store.switches.hide.subjects;
 
     const title = ['Units','單元','单元'];
 
@@ -99,7 +99,7 @@ class Subjects extends Content {
 
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('subjects')})}
+        {this.tabBar(title, hide, ()=>{this.actions.switches.toggleHide('subjects')})}
         {this.animatedContent('subjects', this.content.bind(this), !hide, this.bs.height * 0.77)}
       </div>
     )

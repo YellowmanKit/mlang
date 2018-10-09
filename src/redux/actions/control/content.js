@@ -23,27 +23,6 @@ export const toggleCardBar = () =>{
   }
 }
 
-export const setAnimation = (type, state) =>{
-  return {
-    type: 'setAnimation',
-    payload: {type: type, state: state}
-  }
-}
-
-export const setHide = (type, state) =>{
-  return {
-    type: 'setHide',
-    payload: { type: type, state: state}
-  }
-}
-
-export const toggleHide = (type) =>{
-  return {
-    type: 'toggleHide',
-    payload: type
-  }
-}
-
 export const setFilter = (filterOption) =>{
   return {
     type: 'setFilter',
@@ -77,16 +56,17 @@ export const clearView = () =>{
   }
 }
 
-export const pullView = () =>{
-  return {
-    type: 'pullView'
+export function pushView(view){
+  //console.log(newUser)
+  return async function (dispatch) {
+    dispatch({type: "setAnimation", payload: {type: 'row', state: true}});
+    dispatch({type: "pushView", payload: view});
   }
 }
 
-export const pushView = (view) =>{
+export const pullView = () =>{
   return {
-    type: 'pushView',
-    payload: view
+    type: 'pullView'
   }
 }
 

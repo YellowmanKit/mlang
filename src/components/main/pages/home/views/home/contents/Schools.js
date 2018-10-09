@@ -1,15 +1,20 @@
 import React from 'react';
 import Content from './Content';
 
-import Cell from 'components/main/items/Cell';
+import SchoolCell from 'components/main/items/cells/SchoolCell';
 
 class Schools extends Content {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.setData();
+  }
+
   componentDidMount(){
     this.init(this.props);
-    this.setData();
-    if(this.schoolsData.length === 0 && !this.store.content.hide.schools){
-      this.actions.content.setHide('schools', true);
+    if(this.schoolsData.length === 0 && !this.store.switches.hide.schools){
+      this.actions.switches.setHide('schools', true);
       this.setHint();
     }
   }
@@ -45,11 +50,9 @@ class Schools extends Content {
   )
 
   schoolCells(){
-    this.setData();
     return this.schoolsData.map((school, i)=>{
       return(
-        <Cell key={i} app={this.app}
-        type={'school'}
+        <SchoolCell key={i} app={this.app}
         data={school}
         onClick={()=>{ this.actions.schools.viewSchool(school); this.actions.content.pushView('school'); }}/>
       )
@@ -58,8 +61,8 @@ class Schools extends Content {
 
   render() {
     this.init(this.props);
-    //this.isInit = this.store.content.hide.schools === 'init';
-    const hide = this.store.content.hide.schools;
+    //this.isInit = this.store.switches.hide.schools === 'init';
+    const hide = this.store.switches.hide.schools;
     //const type = this.store.user.type;
     const title =
     this.store.user.type === 'admin'? ['Schools - created','學校 - 已創建','学校 - 已创建']:
@@ -79,7 +82,7 @@ class Schools extends Content {
 
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, hide, ()=>{this.actions.content.toggleHide('schools')})}
+        {this.tabBar(title, hide, ()=>{this.actions.switches.toggleHide('schools')})}
         {this.animatedContent('schools', this.content.bind(this), !hide, this.bs.height * 0.27)}
       </div>
     )

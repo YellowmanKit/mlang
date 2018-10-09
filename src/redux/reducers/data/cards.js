@@ -6,10 +6,16 @@ const cardsReducer = (
     viewAction: 'init',
     viewingCard: {},
     viewingCards: [],
-    gradingCards: {}
+    gradingCards: {},
+    teachingCards: [],
+    joinedCards: []
   }, action)=>{
   var _gradingCards = {...state.gradingCards};
   switch (action.type) {
+    case 'updateJoinedCards':
+        return {...state, joinedCards: reducer.updateElements(state.joinedCards, action.payload, true)};
+    case 'updateTeachingCards':
+        return {...state, teachingCards: reducer.updateElements(state.teachingCards, action.payload, true)};
     case 'setAction':
       return {...state, viewAction: action.payload};
     case 'viewCards':

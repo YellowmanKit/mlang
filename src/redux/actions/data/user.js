@@ -100,6 +100,8 @@ export function login (_id, _pw) {
       dispatch({type: "setProfile", payload: res.data.profile});
       dispatch({type: "updateProfiles", payload: res.data.profiles});
       dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
+      dispatch({type: "updateCards", payload: res.data.cards});
+      dispatch({type: "updateLangs", payload: res.data.langs});
 
       dispatch({type: "updateAdmins", payload: res.data.admins});
       dispatch({type: "updateSupervisingSchools", payload: res.data.supervisingSchools});
@@ -108,6 +110,7 @@ export function login (_id, _pw) {
       dispatch({type: "updateCourses", payload: res.data.courses});
       dispatch({type: "updateSubjects", payload: res.data.subjects});
       dispatch({type: "updateProjects", payload: res.data.projects});
+      dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
 
       dispatch({type: "updateTeachingCourses", payload: res.data.teachingCourses});
       dispatch({type: "updateJoinedCourses", payload: res.data.joinedCourses});
@@ -117,6 +120,12 @@ export function login (_id, _pw) {
 
       dispatch({type: "updateTeachingProjects", payload: res.data.teachingProjects});
       dispatch({type: "updateJoinedProjects", payload: res.data.joinedProjects});
+
+      dispatch({type: "updateTeachingStudentProjects", payload: res.data.teachingStudentProjects});
+      dispatch({type: "updateJoinedStudentProjects", payload: res.data.joinedStudentProjects});
+
+      dispatch({type: "updateTeachingCards", payload: res.data.teachingCards});
+      dispatch({type: "updateJoinedStudentCards", payload: res.data.joinedCards});
 
       dispatch({type: "setStatus", payload: "ready"});
       dispatch({type: "hideModal"});

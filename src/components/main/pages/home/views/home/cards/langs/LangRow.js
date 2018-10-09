@@ -22,7 +22,7 @@ class LangRow extends UI {
     this.init(newProps);
     const newFilename = newProps.lang.audio;
     if(this.state.filename !== newFilename){
-      this.setState({ filename: newFilename })
+      this.setState({ filename: newFilename, type: 'langAudio' })
       this.checkUrl();
     }
   }

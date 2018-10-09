@@ -47,7 +47,7 @@ class Trace extends UI {
     const previousViews = this.store.content.previousViews;
     //{this.buttons.hideTraceButton(this.store.content.hide.trace, ()=>{this.actions.content.toggleHide('trace')})}
     const nyanSize = [this.bs.height * 0.05, this.bs.height * 0.05];
-    const hided = this.store.content.hide.trace;
+    const hided = this.store.switches.hide.trace;
 
     return(
       <div style={traceStyle}>
@@ -61,7 +61,7 @@ class Trace extends UI {
   }
 
   traceCell(view, index, dead){
-    const hide = this.store.content.hide.trace;
+    const hide = this.store.switches.hide.trace;
     const isTitle = index === 0;
     const cellHeight = this.bs.height * 0.0275;
     const marginTop =  this.bs.height * 0.0075;

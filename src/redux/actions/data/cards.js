@@ -75,7 +75,6 @@ export function saveGradingCards(projectId, studentProjectId, gradingCards){
       dispatch({type: "pullView"});
       dispatch({type: "updateCards", payload: cardRes.data.updatedCards});
       dispatch({type: "updateProfiles", payload: [cardRes.data.updatedProfile]});
-      dispatch({type: "updateProjects", payload: [cardRes.data.updatedProject]});
     }else{
       dispatch({type: "message", payload: ['Grading card failed! Please try again!', '評核失敗! 請再試一次!', '评核失败! 请再试一次!']});
     }
@@ -169,6 +168,7 @@ export function editCard(data){
 }
 
 export function addCard(data){
+  console.log(data.resubmitCard);
   return async function (dispatch) {
     actions.connecting(dispatch);
 
@@ -215,13 +215,14 @@ export function addCard(data){
       }
       langs.splice(0,0,lang);
     }
-    [err, cardRes] = await to(axios.post(api + '/card/add', { data: { project: data.project, card: card, langs: langs, isTeacher: data.isTeacher}}))
+    [err, cardRes] = await to(axios.post(api + '/card/add', { data: { project: data.project, card: card, langs: langs, isTeacher: data.isTeacher, resubmitCard: data.resubmitCard}}))
     if(err){actions.connectionError(dispatch); return;}
 
     if(cardRes.data.result === 'success'){
       dispatch({type: "message", payload: ['Submit card succeed!', '成功提交卡片!', '成功提交卡片!']});
       //console.log(cardRes.data);
       dispatch({type: "updateCards", payload: [cardRes.data.card]});
+      dispatch({type: "updateCards", payload: [cardRes.data.updatedCard]});
       dispatch({type: "updateLangs", payload: cardRes.data.langs});
 
       dispatch({type: "updateProjects", payload: [cardRes.data.updatedProject]});

@@ -82,7 +82,7 @@ class DefaultImagePicker extends UI {
     }}
 
     return(
-      <Motion defaultStyle={{opacity: this.atHome? 0: isOpen?0:1.5}}
+      <Motion defaultStyle={{opacity: 0}}
       style={{opacity: this.atHome? 0: isOpen?spring(1.5):spring(0)}}>
         {style=>(
           <div style={{...pickerStyle, ...{opacity: style.opacity}}}>

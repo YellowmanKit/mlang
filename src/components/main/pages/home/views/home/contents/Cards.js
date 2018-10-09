@@ -1,6 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
-import Cell from 'components/main/items/Cell';
+import CardCell from 'components/main/items/cells/CardCell';
 
 class Cards extends UI {
 
@@ -89,7 +89,9 @@ class Cards extends UI {
           //console.log(card);
           return(
             <div key={i} style={cardContainerStyle}>
-              <Cell app={this.app} data={card} type='card' onClick={()=>{this.actions.cards.setAction('init'); this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
+              <CardCell
+              app={this.app} data={card}
+              onClick={()=>{this.actions.cards.setAction('init'); this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
             </div>
           )
         })}

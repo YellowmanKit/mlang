@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import * as main from './redux/actions/control/main';
 import * as ui from './redux/actions/control/ui';
+import * as switches from './redux/actions/control/switches';
 import * as content from './redux/actions/control/content';
 import * as modal from './redux/actions/control/modal';
 
@@ -39,7 +40,7 @@ class App extends Component {
     const eng = language === 'english';
     const chi = language === 'chinese';
     const sim_chi = language === 'simplified_chinese';
-    
+
     switch (type) {
       case 'student':
         return(
@@ -317,6 +318,7 @@ function mapDispatchToProps(dispatch){
       main: Action(main, dispatch),
       user: Action(user, dispatch),
       ui: Action(ui, dispatch),
+      switches: Action(switches, dispatch),
       content: Action(content, dispatch),
       modal: Action(modal, dispatch),
 

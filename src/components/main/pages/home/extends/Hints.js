@@ -118,15 +118,15 @@ class Hints extends UI {
         }
       case 'noSubject':
         return this.func.multiLang(
-          'You haven\'t created any subject yet!\n You can create subject by pressing the + button on the top right corner!',
-          '你尚未創建任何單元！你可以用右上方的 + 按鈕創建單元！',
-          '你尚未创建任何单元！你可以用右上方的 + 按钮创建单元！'
+          'You haven\'t created any subject for this class yet!\n You can create subject by pressing the + button on the top right corner!',
+          '你尚未為這個班別創建任何單元！你可以用右上方的 + 按鈕創建單元！',
+          '你尚未为这个班别创建任何单元！你可以用右上方的 + 按钮创建单元！'
         )
       case 'noProject':
         return this.func.multiLang(
-          'You haven\'t created any project yet!\n You can create project by pressing the + button on the top right corner!',
-          '你尚未創建任何專題研習！你可以用右上方的 + 按鈕創建專題研習！',
-          '你尚未创建任何专题研习！你可以用右上方的 + 按钮创建专题研习！'
+          'You haven\'t created any project for this subject yet!\n You can create project by pressing the + button on the top right corner!',
+          '你尚未為這個單元創建任何專題研習！你可以用右上方的 + 按鈕創建專題研習！',
+          '你尚未为这个单元创建任何专题研习！你可以用右上方的 + 按钮创建专题研习！'
         )
       default:
         return '';

@@ -42,7 +42,7 @@ class LangEditor extends UI {
       audioBlob: null
     }
     this.actions.langs.pushEditLangs(newLangRow);
-    this.actions.content.setAnimation('row', true);
+    this.actions.switches.setAnimation('row', true);
   }
 
   langEditRows(){

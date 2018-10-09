@@ -4,12 +4,21 @@ import {Motion, spring}  from 'react-motion';
 
 import no_image from 'resources/images/general/no_image.png';
 import passed from 'resources/images/general/passed.png';
+import icon_alert2 from 'resources/images/icons/alert2.png';
 
 class Row extends UI {
 
+  alertTag(){
+    const style = {
+      width: this.bs.height * 0.04,
+      height: this.bs.height * 0.04
+    }
+    return <img style={style} src={icon_alert2} alt=''/>
+  }
+
   rowContent(title, rowInfo){
     const infoStyle = {...this.bs, ...{
-      width: '65%',
+      width: '70%',
       height: this.bs.height * 0.12,
       marginLeft: this.bs.height * 0.02
     }}
@@ -57,12 +66,12 @@ class Row extends UI {
   }
 
   animatedRow(content, height, onDead){
-    const ani = this.store.content.animation.row;
+    const ani = this.store.switches.animation.row;
     const option = {stiffness: onDead? 200: 300, damping: 26, precision: 1.2}
     return(
       <Motion defaultStyle={{height: (!ani || onDead)? height: 0, opacity: (!ani || onDead)? 1.1:0}}
       style={{height: spring(onDead? 0:height, option), opacity: spring(onDead?0: 1.1, option)}}
-      onRest={onDead? onDead: ()=>{this.actions.content.setAnimation('row',false)}}>
+      onRest={onDead? onDead: ()=>{this.actions.switches.setAnimation('row',false)}}>
         {style=>content(style)}
       </Motion>
     )

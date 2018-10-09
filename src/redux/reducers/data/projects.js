@@ -15,6 +15,7 @@ const projectsReducer = (
     case 'updateTeachingProjects':
         return {...state, teachingProjects: reducer.updateElements(state.teachingProjects, action.payload, true)};
     case 'viewProject':
+      if(!action.payload){ return state; }
       return {...state, viewingProject: action.payload};
     default:
       return state;

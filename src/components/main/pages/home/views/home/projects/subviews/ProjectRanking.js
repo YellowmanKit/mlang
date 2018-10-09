@@ -26,7 +26,7 @@ class ProjectRanking extends SubView {
 
   rankingList(ranking){
     return ranking.map((student,i)=>{
-      return <RankingRow app={this.app} data={student} index={i}/>
+      return <RankingRow key={i} app={this.app} data={student} index={i}/>
     })
   }
 

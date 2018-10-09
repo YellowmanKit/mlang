@@ -19,8 +19,8 @@ class Capture extends UI {
       })}, 1500)
   }
 
-  onCapture(_blob){
-    this.actions.main.setPhoto({blob: _blob, url: URL.createObjectURL(_blob)});
+  onCapture(blob){
+    this.actions.main.setPhoto({blob: blob, url: URL.createObjectURL(blob)});
     this.actions.main.setStatus('ready');
   }
 

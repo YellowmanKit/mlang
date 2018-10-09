@@ -26,7 +26,7 @@ class GradingCards extends View {
   componentDidMount(){
     this.init(this.props);
     this.getCards(this.props);
-    this.actions.content.setAnimation('badge', true);
+    this.actions.switches.setAnimation('badge', true);
   }
 
   componentWillReceiveProps(newProps){
@@ -35,8 +35,8 @@ class GradingCards extends View {
   }
 
   componentWillUnmount(){
-    this.actions.content.setAnimation('panel', false);
-    this.actions.content.setAnimation('badge', false);
+    this.actions.switches.setAnimation('panel', false);
+    this.actions.switches.setAnimation('badge', false);
   }
 
   checkInit(props){
@@ -157,7 +157,7 @@ class GradingCards extends View {
       commenting: !this.state.commenting,
       audioCommenting: false
     })
-    this.actions.content.setAnimation('panel', true);
+    this.actions.switches.setAnimation('panel', true);
   }
 
   toggleAudioCommentPanel(){
@@ -165,7 +165,7 @@ class GradingCards extends View {
       commenting: false,
       audioCommenting: !this.state.audioCommenting
     })
-    this.actions.content.setAnimation('panel', true);
+    this.actions.switches.setAnimation('panel', true);
   }
 
   commentPanel(gradingCard){
@@ -296,7 +296,7 @@ class GradingCards extends View {
     this.onCardChange(null, comment? comment:'');
   }
 
-  ani(){ return this.store.content.animation.panel; }
+  ani(){ return this.store.switches.animation.panel; }
 
 }
 

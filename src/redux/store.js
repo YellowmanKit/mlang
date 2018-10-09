@@ -12,8 +12,12 @@ const error = (store) => (next) => (action) => {
   }
 }
 
-const middleware = applyMiddleware(error, reduxLogger, thunk);
-//const middleware = applyMiddleware(error, thunk);
+var middleware = null;
+if(process.env.REACT_APP_DEV === 'true'){
+  middleware = applyMiddleware(error, reduxLogger, thunk);
+}else{
+  middleware = applyMiddleware(error, thunk);
+}
 const store = createStore(rootReducer,{},middleware);
 
 export default store;

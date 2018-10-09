@@ -91,7 +91,7 @@ class AddCard extends View {
       });
     }else{
       this.actions.cards.addCard({
-        resubmit: true,
+        resubmitCard: this.card._id,
         icon: this.card.icon,
         newIcon: icon,
         editLangs: editLangs,
