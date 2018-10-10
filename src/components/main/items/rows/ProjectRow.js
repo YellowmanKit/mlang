@@ -55,10 +55,9 @@ class ProjectRow extends Row {
         opacity: style.opacity * this.outDated? 0.5:1
       }}}>
         {this.verGap('3%')}
-        {this.rowIcon()}
+        {this.rowIcon(this.outDated)}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
-        {this.outDated && this.passedTag()}
-        {this.props.project.alert && this.alertTag()}
+        {this.func.projectCheckAlert(this.props.project) && this.alertTag()}
       </button>
   )
 }

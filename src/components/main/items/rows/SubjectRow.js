@@ -52,6 +52,7 @@ class SubjectRow extends Row {
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.subject.title, this.rowInfo.bind(this))}
+        {this.func.subjectCheckAlert(this.props.subject) && this.alertTag()}
       </button>
   )
 

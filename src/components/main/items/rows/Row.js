@@ -4,7 +4,6 @@ import {Motion, spring}  from 'react-motion';
 
 import no_image from 'resources/images/general/no_image.png';
 import passed from 'resources/images/general/passed.png';
-import icon_alert2 from 'resources/images/icons/alert2.png';
 
 class Row extends UI {
 
@@ -13,12 +12,12 @@ class Row extends UI {
       width: this.bs.height * 0.04,
       height: this.bs.height * 0.04
     }
-    return <img style={style} src={icon_alert2} alt=''/>
+    return <div style={style}>{this.animatedAlert()}</div>
   }
 
   rowContent(title, rowInfo){
     const infoStyle = {...this.bs, ...{
-      width: '70%',
+      width: '75%',
       height: this.bs.height * 0.12,
       marginLeft: this.bs.height * 0.02
     }}
@@ -44,7 +43,7 @@ class Row extends UI {
     return <div style={nameStyle}>{title}</div>
   }
 
-  rowIcon(){
+  rowIcon(passed){
     const size = this.bs.height * 0.12;
     const iconSize = this.bs.height * 0.11;
     const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
@@ -60,6 +59,7 @@ class Row extends UI {
     }}
     return(
       <div style={containerStyle}>
+        {passed && this.passedTag()}
         <img style={iconStyle} src={this.url.url? this.url.url: no_image} alt=''/>
       </div>
     )
@@ -83,15 +83,19 @@ class Row extends UI {
         flexShrink: 0,
         height: this.bs.height * 0.15,
         borderBottom: '1px solid ' + this.ui.colors.darkGrey,
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative'
       }}
     )
   }
 
   passedTag(){
     const style = {
-      width: this.bs.height * 0.145,
-      height: this.bs.height * 0.145
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      top: 0,
+      left: 0
     }
     return <img src={passed} style={style} alt=''/>
   }

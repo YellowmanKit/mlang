@@ -45,13 +45,12 @@ class Trace extends UI {
       bottom: this.bs.height * 0.01
     }}
     const previousViews = this.store.content.previousViews;
-    //{this.buttons.hideTraceButton(this.store.content.hide.trace, ()=>{this.actions.content.toggleHide('trace')})}
     const nyanSize = [this.bs.height * 0.05, this.bs.height * 0.05];
     const hided = this.store.switches.hide.trace;
 
     return(
       <div style={traceStyle}>
-        <Nyan app={this.app} status={this.state.nyan} size={nyanSize} onClick={()=>{ setTimeout(()=>{this.setState({nyan:'sit'})},500); this.setState({nyan: hided?'runningUp':'runningDown'}); this.actions.content.toggleHide('trace')}} />
+        <Nyan app={this.app} status={this.state.nyan} size={nyanSize} onClick={()=>{ setTimeout(()=>{this.setState({nyan:'sit'})},500); this.setState({nyan: hided?'runningUp':'runningDown'}); this.actions.switches.toggleHide('trace')}} />
         {this.store.content.traces.map((view, i)=>{
           return this.traceCell(view, i);
         })}

@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import URL from './URL';
 import Button from 'components/main/items/ui/Button';
 import Input from 'components/main/items/ui/Input';
+import {Motion, spring}  from 'react-motion';
 
 import tab_bar from 'resources/images/general/tab_bar.png';
+import shadow from 'resources/images/general/shadow.png';
 import triangle from 'resources/images/general/triangle.png';
 import triangle_down from 'resources/images/general/triangle_down.png';
 import icon_comment from 'resources/images/buttons/buttonIcons/edit_black.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment_black.png';
+import icon_alert2 from 'resources/images/icons/alert2.png';
 
 class UI extends Component {
   url = new URL(this.props.app);
@@ -44,6 +47,20 @@ class UI extends Component {
 
     this.url.init(props.app);
     this.checkUrl();
+  }
+
+  animatedAlert(){
+    const alertStyle = {
+      width: '100%',
+      height: '100%'
+    }
+    const option = {stiffness: 1000, damping: 5, precision: 0.05}
+    return(
+      <Motion defaultStyle={{ rotate: -45 }}
+      style={{ rotate: spring(0, option) }}>
+        {style=> <img style={{...alertStyle, ...{ transform: 'rotate(' + style.rotate + 'deg)'}}} src={icon_alert2} alt=''/> }
+      </Motion>
+    )
   }
 
   cardTags(commented, audioCommented){
@@ -84,7 +101,8 @@ class UI extends Component {
       display: 'flex',
       alignItems: 'center',
       flexShrink: 0,
-      cursor: onClick? 'pointer':''
+      cursor: onClick? 'pointer':'',
+      position: 'relative'
     }
     const textStyle = {
       width: '90%',
@@ -99,8 +117,21 @@ class UI extends Component {
         {this.func.multiLang(title[0], title[1], title[2])}
        </div>
        {onClick && <img src={hide? triangle:triangle_down} style={{opacity: 0.15, height: tagSize, width: tagSize}} alt=''/>}
+       {this.shadow(this.bs.height * 0.05)}
       </div>
     )
+  }
+
+  shadow(top){
+    const style = {
+      width: '100%',
+      height: this.bs.height * 0.02,
+      position: 'absolute',
+      top: top,
+      pointerEvents: 'none',
+      opacity: 0.5
+    }
+    return <img src={shadow} style={style} alt=''/>
   }
 
   textDisplay(text, scale, fontSize, textAlign, color){

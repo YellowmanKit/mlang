@@ -4,7 +4,6 @@ import {Motion, spring}  from 'react-motion';
 
 import Badge from 'components/main/items/Badge';
 
-import icon_alert2 from 'resources/images/icons/alert2.png';
 import passed from 'resources/images/general/passed.png';
 
 class Cell extends UI {
@@ -42,12 +41,12 @@ class Cell extends UI {
   alertTag(){
     const style = {
       position: 'absolute',
-      top: this.bs.width * -0.015,
-      right: this.bs.width * -0.015,
-      width: this.bs.width * 0.05,
-      height: this.bs.width * 0.05
+      top: this.bs.width * -0.02,
+      right: this.bs.width * -0.02,
+      width: this.bs.width * 0.04,
+      height: this.bs.width * 0.04
     }
-    return <img style={style} src={icon_alert2} alt=''/>
+    return <div style={style}>{this.animatedAlert()}</div>
   }
 
   passedMark(){

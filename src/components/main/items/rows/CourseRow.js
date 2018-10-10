@@ -51,9 +51,8 @@ class CourseRow extends Row {
         opacity: style.opacity * this.outDated? 0.5:1
       }}}>
         {this.verGap('3%')}
-        {this.rowIcon()}
+        {this.rowIcon(this.outDated)}
         {this.rowContent(this.props.course.title, this.rowInfo.bind(this))}
-        {this.outDated && this.passedTag()}
         {this.verGap('3%')}
       </button>
   )

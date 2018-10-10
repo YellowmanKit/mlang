@@ -29,6 +29,44 @@ class App extends Component {
 
   isDev(){ return process.env.REACT_APP_DEV === 'true'; }
 
+  projectCheckAlert(project){
+    const userType = this.props.store.user.type;
+    const studentProjects = project.studentProjects;
+    for(var j=0;j<studentProjects.length;j++){
+      const studentProject = this.getStudentProjectById(studentProjects[j]);
+      if(!studentProject){ return false; }
+      const cards = studentProject.cards;
+      for(var l=0;l<cards.length;l++){
+        const card = this.getCardById(cards[l]);
+        if(!card){ return false; }
+        if(userType === 'teacher' && card.grade === 'notGraded'){ return true; }
+        if(userType === 'student' && card.grade === 'failed' && !card.resubmitted){ return true; }
+      }
+    }
+    return false;
+  }
+
+  subjectCheckAlert(subject){
+    const userType = this.props.store.user.type;
+    const projectsId = subject.projects;
+    for(var i=0;i<projectsId.length;i++){
+      const project = this.getProjectById(projectsId[i]);
+      if(!project){ return false; }
+      const studentProjects = project.studentProjects;
+      for(var j=0;j<studentProjects.length;j++){
+        const studentProject = this.getStudentProjectById(studentProjects[j]);
+        if(!studentProject){ return false; }
+        const cards = studentProject.cards;
+        for(var l=0;l<cards.length;l++){
+          const card = this.getCardById(cards[l]);
+          if(userType === 'teacher' && card.grade === 'notGraded'){ return true; }
+          if(userType === 'student' && card.grade === 'failed' && !card.resubmitted){ return true; }
+        }
+      }
+    }
+    return false;
+  }
+
   outDated(date){
     const today = new Date();
     const dateToCheck = new Date(date);
@@ -271,6 +309,9 @@ class App extends Component {
         getDateString: this.getDateString.bind(this),
         outDated: this.outDated.bind(this),
         translateUserType: this.translateUserType.bind(this),
+
+        subjectCheckAlert: this.subjectCheckAlert.bind(this),
+        projectCheckAlert: this.projectCheckAlert.bind(this),
 
         getProfileByUserId: this.getProfileByUserId.bind(this),
         getProfileById: this.getProfileById.bind(this),
