@@ -31,7 +31,6 @@ class Trace extends UI {
     this.init(this.props);
 
     const view = this.store.content.view;
-
     if(view && view.includes('Home')){ return null; }
 
     const toShow = ['admin','school', 'teacher','student','course','subject','studentSubject','project','studentProject'];

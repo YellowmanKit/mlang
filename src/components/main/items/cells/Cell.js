@@ -59,6 +59,7 @@ class Cell extends UI {
   }
 
   render(){
+    //this.init(this.props);
     //console.log(data)
     if(!this.props.data){ return null; }
     const outDated = this.state.outDated;

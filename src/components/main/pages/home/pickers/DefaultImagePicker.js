@@ -2,7 +2,7 @@ import React from 'react';
 import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
-import ImageCell from 'components/main/items/ImageCell';
+import PickerOption from './PickerOption';
 
 import avatar1 from 'resources/images/default/profile/avatar1.png';
 import avatar2 from 'resources/images/default/profile/avatar2.png';
@@ -110,7 +110,7 @@ class DefaultImagePicker extends UI {
           {style=>(
             <div style={{...containerStyle, ...{width: style.width}}}>
               {images.map((img, i)=>{
-                return <ImageCell key={i} url={img} index={i} app={this.app} onPointed={()=>{this.setState({cellPointed: true})}} onUnPointed={()=>{this.setState({cellPointed: false})}}/>
+                return <PickerOption key={i} url={img} index={i} app={this.app} onPointed={()=>{this.setState({cellPointed: true})}} onUnPointed={()=>{this.setState({cellPointed: false})}}/>
               })}
             </div>
           )}

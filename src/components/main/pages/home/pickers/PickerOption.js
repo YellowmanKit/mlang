@@ -2,7 +2,7 @@ import React from 'react';
 import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
-class ImageCell extends UI {
+class PickerOption extends UI {
 
   constructor(props){
     super(props);
@@ -57,7 +57,7 @@ class ImageCell extends UI {
     const isOpen = this.state.status === 'pointed';
     return(
       <Motion defaultStyle={{scale: isOpen? 1: 3}}
-      style={{scale: isOpen? spring(3): spring(1)}}>
+      style={{scale: isOpen? spring(2.75): spring(1)}}>
         {style=>(
           <div style={{...cellStyle,...{width: size[0] * style.scale, height: size[1] * style.scale}}}
           onClick={()=>{ this.onCellSelect(); }}
@@ -72,4 +72,4 @@ class ImageCell extends UI {
 
 }
 
-export default ImageCell;
+export default PickerOption;

@@ -29,7 +29,6 @@ class Credit extends View {
         {this.subTitle(['Developer','開發者','开发者'])}
         {this.sep()}
         {this.creditTextDisplay('Kit Wong')}
-        {this.creditTextDisplay('Phoneix Kwok')}
         {this.gap('4%')}
       </div>
     )

@@ -8,7 +8,7 @@ class Pages extends Component {
 
   page(){
     const app = this.props.app;
-    switch (this.props.app.store.main.status) {
+    switch (app.store.main.status) {
       case 'waitForLogin':
         return <Login app={app}/>
       case 'getNewAccount':

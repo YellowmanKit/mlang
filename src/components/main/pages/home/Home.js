@@ -49,6 +49,8 @@ import PrefabPicker from './pickers/PrefabPicker';
 import Enlarger from './extends/Enlarger';
 import Hints from './extends/Hints';
 import Trace from './extends/Trace';
+import Notice from './extends/notice/Notice';
+
 import Footer from './extends/Footer';
 
 class Home extends UI {
@@ -60,6 +62,7 @@ class Home extends UI {
       view: props.app.store.content.view,
       deadView: null
     }
+    this.actions.notice.init(this.store, this.actions);
   }
 
   componentWillReceiveProps(newProps){
@@ -185,6 +188,7 @@ class Home extends UI {
         <Trace app={this.app}/>
         <Footer app={this.app}/>
         <Menu app={this.app}/>
+        <Notice app={this.app}/>
 
         <Enlarger app={this.app}/>
         <Hints app={this.app}/>

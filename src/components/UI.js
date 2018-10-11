@@ -125,7 +125,7 @@ class UI extends Component {
   shadow(top){
     const style = {
       width: '100%',
-      height: this.bs.height * 0.02,
+      height: this.bs.height * 0.015,
       position: 'absolute',
       top: top,
       pointerEvents: 'none',

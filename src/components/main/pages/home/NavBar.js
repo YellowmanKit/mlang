@@ -29,6 +29,11 @@ class NavBar extends UI {
     this.initNavBar(newProp);
   }
 
+  navBack(){
+    this.actions.switches.setAnimation('row', false);
+    this.actions.content.pullView();
+  }
+
   initNavBar(newProp){
     const view = this.store.content.view;
     const user = this.store.user;
@@ -38,7 +43,7 @@ class NavBar extends UI {
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
-    leftOnClick = ()=>{ this.actions.switches.setAnimation('row', false); this.actions.content.pullView(); }
+    leftOnClick = ()=>{ this.navBack(); }
     rightOnClick = ()=>{};
     //rightOnClick = ()=>{ this.actions.modal.message(['No effect!', '沒有效果!', '没有效果!']); }
 

@@ -8,6 +8,7 @@ import * as ui from './redux/actions/control/ui';
 import * as switches from './redux/actions/control/switches';
 import * as content from './redux/actions/control/content';
 import * as modal from './redux/actions/control/modal';
+import * as notice from './redux/actions/control/notice';
 
 import * as user from './redux/actions/data/user';
 import * as profile from './redux/actions/data/profile';
@@ -59,6 +60,7 @@ class App extends Component {
         const cards = studentProject.cards;
         for(var l=0;l<cards.length;l++){
           const card = this.getCardById(cards[l]);
+          if(!card){ return false; }
           if(userType === 'teacher' && card.grade === 'notGraded'){ return true; }
           if(userType === 'student' && card.grade === 'failed' && !card.resubmitted){ return true; }
         }
@@ -362,6 +364,7 @@ function mapDispatchToProps(dispatch){
       switches: Action(switches, dispatch),
       content: Action(content, dispatch),
       modal: Action(modal, dispatch),
+      notice: Action(notice, dispatch),
 
       profile: Action(profile, dispatch),
       schools: Action(schools, dispatch),

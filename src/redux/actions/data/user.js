@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as actions from '../actions';
 import to from '../to';
+
 var api = actions.api();
 
 export function addAdmin(userId){

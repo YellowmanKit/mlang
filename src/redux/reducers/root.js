@@ -4,6 +4,7 @@ import switches from './control/switches';
 import content from './control/content';
 import ui from './control/ui';
 import modal from './control/modal';
+import notice from './control/notice';
 
 import user from './data/user';
 import profile from './data/profile';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   content: content,
   ui: ui,
   modal: modal,
+  notice: notice,
 
   user: user,
   profile: profile,

@@ -66,6 +66,13 @@ const uiReducer = (
         textAlign: 'center',
         padding: '5%',
         writingMode: 'horizontal-lr'
+      },
+      cloud: {
+        borderRadius: '50%',
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        textAlign: 'center',
+        color: 'grey',
+        cursor: 'pointer'
       }
     },
     colors: {

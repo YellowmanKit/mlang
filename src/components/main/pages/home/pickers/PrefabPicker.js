@@ -2,7 +2,7 @@ import React from 'react';
 import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
-import ImageCell from 'components/main/items/ImageCell';
+import PickerOption from './PickerOption';
 
 class PrefabPicker extends UI {
 
@@ -34,7 +34,7 @@ class PrefabPicker extends UI {
         {this.verGap('8%')}
         {data.map((item, i)=>{
           return(
-            <ImageCell
+            <PickerOption
             key={i} index={i} app={this.app}
             data={item} type={this.getTypeName(status)}
             onPointed={()=>{ this.setState({pointedCell: item}); }} onUnPointed={()=>{ this.setState({pointedCell: null}); }}/>
