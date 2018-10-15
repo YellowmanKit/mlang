@@ -25,7 +25,7 @@ class Project extends View {
     const studentProjectsToShow = viewingProject.studentProjects;
 
     for(var i=0;i<studentProjectsToShow.length;i++){
-      if(this.func.getStudentProjectById(studentProjectsToShow[i]) === null){
+      if(this.func.getById.studentProject(studentProjectsToShow[i], this.store) === null){
         studentProjectsToGet.splice(0,0, studentProjectsToShow[i]);
       }
     }

@@ -27,7 +27,7 @@ class Projects extends UI {
 
     var projectsData = [];
     projects.map(id=>{
-      return projectsData.push(this.func.getProjectById(id));
+      return projectsData.push(this.func.getById.project(id, this.store));
     })
     const containerStyle = {...this.ui.styles.container, ...{
       width: this.bs.width * 0.275,

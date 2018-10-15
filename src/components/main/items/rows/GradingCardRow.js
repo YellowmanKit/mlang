@@ -15,7 +15,7 @@ class GradingCardRow extends Row {
     //console.log(langsId)
     const langs = [];
     langsId.map(id=>{
-      return langs.splice(0,0,this.func.getLangById(id));
+      return langs.splice(0,0,this.func.getById.lang(id, this.store));
     })
     //console.log(langs)
     return(

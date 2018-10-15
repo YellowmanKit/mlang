@@ -55,7 +55,7 @@ class GradingCards extends View {
     const cardsToShow = studentProject.cards;
 
     for(var i=0;i<cardsToShow.length;i++){
-      if(this.func.getCardById(cardsToShow[i]) === null){
+      if(this.func.getById.card(cardsToShow[i], this.store) === null){
         cardsToGet.splice(0,0, cardsToShow[i]);
       }
     }
@@ -75,7 +75,7 @@ class GradingCards extends View {
     const cards = [];
     const cardsId = studentProject.cards;
     for(var i=0;i<cardsId.length;i++){
-      const card = this.func.getCardById(cardsId[i]);
+      const card = this.func.getById.card(cardsId[i], this.store);
       if(!card){ return; }
       cards.push(card);
     }
@@ -286,7 +286,8 @@ class GradingCards extends View {
     for(var i=0;i<split;i++){
       const step = (scrollValue / split) * (2 - i * 2 / split);
       setTimeout(()=>{
-        document.getElementById("list").scrollBy(0, step);
+        const list = document.getElementById("list");
+        if(list){ list.scrollBy(0, step); }
       }, time * i / split);
     }
   }

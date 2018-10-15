@@ -3,6 +3,7 @@ import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
 import menu_bg from 'resources/images/slideMenu/menu_bg.png';
+import power from 'resources/images/buttons/buttonIcons/power.png';
 
 class Menu extends UI {
 
@@ -64,19 +65,28 @@ class Menu extends UI {
 
   logoutButton(){
     const areaStyle = {...styles.areaBase, ...{
+      flexFlow: 'row nowrap',
       backgroundColor: 'transparent',
       flexGrow: 5,
-      justifyContent: 'center'
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      cursor: 'pointer'
     }}
-    const buttonStyle = {...this.ui.styles.button, ...{
+    const textStyle = {
       fontWeight: 'bold',
       fontSize: this.bs.height * 0.035,
       textAlign: 'left',
       color: this.ui.colors.mlangGreen
-    }}
+    }
+    const iconStyle = {
+      width: this.bs.height * 0.035,
+      height: this.bs.height * 0.035,
+    }
     return(
-      <div style={areaStyle}>
-        <button onClick={()=>this.logout()} style={buttonStyle}> {this.func.multiLang('Logout','登出','登出')} </button>
+      <div style={areaStyle} onClick={()=>this.logout()}>
+        <img style={iconStyle} src={power} alt=''/>
+        {this.verGap('2%')}
+        <div style={textStyle}> {this.func.multiLang('Logout','登出','登出')} </div>
       </div>
     )
   }

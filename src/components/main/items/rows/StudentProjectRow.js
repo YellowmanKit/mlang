@@ -12,8 +12,8 @@ class StudentProjectRow extends Row {
     super(props);
     this.init(props);
 
-    const profile = this.func.getProfileByUserId(props.studentProject.student);
-    const project = this.func.getProjectById(props.studentProject.project);
+    const profile = this.func.getById.profileByUser(props.studentProject.student, this.store);
+    const project = this.func.getById.project(props.studentProject.project, this.store);
     this.state = {
       filename: (props.byStudent && profile)? profile.icon:(props.byProject && project)? project.icon: null,
       type: 'profileIcon'
@@ -23,7 +23,7 @@ class StudentProjectRow extends Row {
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    const profile = this.func.getProfileByUserId(newProps.studentProject.student);
+    const profile = this.func.getById.profileByUser(newProps.studentProject.student, this.store);
     if(!this.state.filename){
       this.setState({
         filename: profile? profile.icon: null,
@@ -59,7 +59,7 @@ class StudentProjectRow extends Row {
 
   rowInfoProject(){
     const studentProject = this.props.studentProject;
-    const project = this.func.getProjectById(studentProject.project);
+    const project = this.func.getById.project(studentProject.project, this.store);
 
     const rowStyle = {...this.ui.styles.area, ...{
       width: '100%',
@@ -77,8 +77,8 @@ class StudentProjectRow extends Row {
   render(){
     this.init(this.props);
     const studentProject = this.props.studentProject;
-    this.profile = this.func.getProfileByUserId(studentProject.student);
-    this.project = this.func.getProjectById(studentProject.project);
+    this.profile = this.func.getById.profileByUser(studentProject.student, this.store);
+    this.project = this.func.getById.project(studentProject.project, this.store);
     if(!studentProject || !this.profile){
       console.log(studentProject);
       console.log(this.profile);

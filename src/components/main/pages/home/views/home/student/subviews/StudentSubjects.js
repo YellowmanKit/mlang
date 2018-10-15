@@ -18,7 +18,7 @@ class StudentSubjects extends SubView {
 
   studentSubjectsList(){
     return this.props.profile.subjects.map((subjectId, i)=>{
-      var subject = this.func.getSubjectById(subjectId);
+      var subject = this.func.getById.subject(subjectId, this.store);
       return(
         <SubjectRow
         app={this.app}

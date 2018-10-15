@@ -16,7 +16,7 @@ class Cards extends UI {
     const cardsId = this.props.cardsId;
     var cardsToView = [];
     cardsId.map(cardId=>{
-      const card = this.func.getCardById(cardId);
+      const card = this.func.getById.card(cardId, this.store);
       if(!card){ return null; }
       if(this.props.featuredOnly && card.grade !== 'featured'){ return null; }
       cardsToView.push(cardId);
@@ -43,7 +43,7 @@ class Cards extends UI {
     if(!cardsToShow){ console.log('no card to show!'); return;}
 
     for(var i=0;i<cardsToShow.length;i++){
-      if(this.func.getCardById(cardsToShow[i]) === null){
+      if(this.func.getById.card(cardsToShow[i], this.store) === null){
         cardsToGet.splice(0,0, cardsToShow[i]);
       }
     }
@@ -83,7 +83,7 @@ class Cards extends UI {
               </div>
             )
           }
-          const card = this.func.getCardById(cardId);
+          const card = this.func.getById.card(cardId, this.store);
           if(!card){ return null;}
           if(this.props.featuredOnly && card.grade !== 'featured'){ return null; }
           //console.log(card);

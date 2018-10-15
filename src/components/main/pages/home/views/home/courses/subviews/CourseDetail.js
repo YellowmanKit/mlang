@@ -7,7 +7,7 @@ class CourseDetail extends SubView {
   render() {
     this.init(this.props);
     const course = this.store.courses.viewingCourse;
-    const teacher = this.func.getProfileByUserId(course.teacher);
+    const teacher = this.func.getById.profileByUser(course.teacher, this.store);
 
     return(
       <div style={this.subViewStyle()}>
@@ -31,12 +31,12 @@ class CourseDetail extends SubView {
 
         {this.subTitle(['Start date','創建於','创建于'])}
         {this.sep()}
-        {this.textDisplay(this.func.getDateString(new Date(course.createdAt)), ['100%',''], '125%', 'center')}
+        {this.textDisplay(this.func.dateString(new Date(course.createdAt)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['End date','結束日期','结束日期'])}
         {this.sep()}
-        {this.textDisplay(this.func.getDateString(new Date(course.endDate)), ['100%',''], '125%', 'center')}
+        {this.textDisplay(this.func.dateString(new Date(course.endDate)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
         {this.subTitle(['Code','代碼','代码'])}

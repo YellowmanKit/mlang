@@ -1,3 +1,5 @@
+import * as reducer from '../reducer';
+
 const noticeReducer = (
   state = {
     notices: [
@@ -14,9 +16,8 @@ const noticeReducer = (
     case 'killNotice':
       notices[action.payload].killed = true;
       return {...state, notices: notices};
-    case 'pushNotice':
-      notices.push(action.payload)
-      return {...state, notices: notices};
+    case 'updateNotices':
+      return {...state, notices: reducer.updateElements(state.notices, action.payload)};
     case 'toggleNotice':
       const newStatus = state.status === 'off'? 'on': 'off';
       return {...state, status: newStatus};

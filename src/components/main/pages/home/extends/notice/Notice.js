@@ -13,17 +13,24 @@ class Notice extends UI {
     this.state = {
       nyan: 'ennui'
     }
+    this.actions.notices.init(this.store, this.actions);
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    this.setNyan(this.store.notice.status);
+    this.setNyan(this.store.notices.status);
   }
 
   setNyan(status){
-    this.setState({
-      nyan: status === 'on'? 'sniff': 'ennui'
-    })
+    if((this.isEmpty() ||  status === 'off') && this.state.nyan === 'sniff'){
+      this.setState({
+        nyan: this.func.randomNyan()
+      })
+    }else if((!this.isEmpty() &&  status !== 'off') && this.state.nyan !== 'sniff'){
+      this.setState({
+        nyan: 'sniff'
+      })
+    }
   }
 
   render(){
@@ -32,16 +39,17 @@ class Notice extends UI {
     const view = this.store.content.view;
     if(view && !view.includes('Home')){ return null; }
 
-    const status = this.store.notice.status;
+    const status = this.store.notices.status;
 
     const noticeStyle = {...this.ui.styles.container, ...{
-      width: this.bs.height * 0.15,
+      width: this.bs.height * 0.5,
       display: 'flex',
       justifyContent: 'flex-start',
       flexFlow: 'column nowrap',
       position: 'absolute',
-      right: this.bs.height * 0.065,
-      bottom: this.bs.height * 0.0225
+      right: this.bs.height * 0.025,
+      bottom: this.bs.height * 0.025,
+      alignItems: 'flex-end'
     }}
     const nyanSize = [this.bs.height * 0.075, this.bs.height * 0.075];
 
@@ -55,26 +63,22 @@ class Notice extends UI {
   }
 
   noticesCloud(){
-    return this.store.notice.notices.map((notice,i)=>{
+    return this.store.notices.notices.map((notice,i)=>{
       if(notice.dead){ return null; }
-      return <Cloud key={i} app={this.app} notice={notice} status={this.store.notice.status} index={i}/>
+      return <Cloud key={i} app={this.app} notice={notice} status={this.store.notices.status} index={i}/>
     })
   }
 
   amountCloud(isOpen){
-    const notices = this.store.notice.notices;
-    var count = 0;
-    for(var i=0;i<notices.length;i++){
-      if(!notices[i].dead){ count++; }
-    }
+    var count = this.getCount();
     if(count === 0){ return null; }
 
     const cloudStyle = {...this.ui.styles.container, ...this.ui.styles.cloud, ...this.ui.styles.border, ...{
       width: this.bs.height * 0.03,
       height: this.bs.height * 0.03,
       position: 'absolute',
-      right: this.bs.height * 0.04,
-      bottom: this.bs.height * 0.04,
+      right: this.bs.height * 0.025,
+      bottom: this.bs.height * 0.06,
       fontSize: this.bs.height * 0.025
     }}
     return(
@@ -89,8 +93,26 @@ class Notice extends UI {
     )
   }
 
+  getCount(){
+    const notices = this.store.notices.notices;
+    var count = 0;
+    for(var i=0;i<notices.length;i++){
+      if(!notices[i].dead){ count++; }
+    }
+    return count;
+  }
+
+  isEmpty(){
+    const count = this.getCount();
+    return count === 0;
+  }
+
   onNyanClicked(){
-    this.actions.notice.toggleNotice();
+    if(!this.isEmpty()){
+      this.actions.notices.toggleNotice();
+    }else{
+      this.setState({ nyan: this.func.randomNyan() })
+    }
   }
 }
 

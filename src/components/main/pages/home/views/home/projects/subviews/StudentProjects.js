@@ -29,7 +29,7 @@ class StudentProjects extends SubView {
     var studentProjects = this.store.projects.viewingProject.studentProjects.slice(0);
 
     for(var i=0;i<studentProjects.length;i++){
-      studentProjects[i] = this.func.getStudentProjectById(studentProjects[i])
+      studentProjects[i] = this.func.getById.studentProject(studentProjects[i], this.store);
       //console.log(studentProjects[i])
       if(studentProjects[i] === null){ console.log('no studentProjects'); return; }
       var total = 0;
@@ -38,7 +38,7 @@ class StudentProjects extends SubView {
       const cardsId = studentProjects[i].cards;
       total = cardsId.length;
       for(var j=0;j<cardsId.length;j++){
-        const card = this.func.getCardById(cardsId[j]);
+        const card = this.func.getById.card(cardsId[j], this.store);
         if(card === null){ console.log('no card data'); return; }
         if(!card.grade || card.grade === 'notGraded'){
           alert++;

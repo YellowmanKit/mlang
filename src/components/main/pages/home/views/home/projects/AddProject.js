@@ -45,7 +45,7 @@ class AddProject extends View {
 
         {this.subTitle(['End date','結束日期','结束日期'])}
         {this.sep()}
-        {this.inputs.inputField('endDate','date', ['',''], this.func.getDateString(this.props.editMode? new Date(this.project.endDate):defaultDate) , ()=>{ this.setState({modified: true})})}
+        {this.inputs.inputField('endDate','date', ['',''], this.func.dateString(this.props.editMode? new Date(this.project.endDate):defaultDate) , ()=>{ this.setState({modified: true})})}
         {this.gap('2%')}
 
         <CustomButton app={this.app} button={this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addProject()})}/>

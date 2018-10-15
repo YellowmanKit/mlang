@@ -17,7 +17,7 @@ class CourseProjects extends SubView {
     const projectsToShow = course.projects;
 
     for(var i=0;i<projectsToShow.length;i++){
-      if(this.func.getProjectById(projectsToShow[i]) === null){
+      if(this.func.getById.project(projectsToShow[i], this.store) === null){
         projectsToGet.splice(0,0, projectsToShow[i]);
       }
     }
@@ -29,7 +29,7 @@ class CourseProjects extends SubView {
   projectsList(){
     const projects = this.store.courses.viewingCourse.projects;
     return projects.slice(0).reverse().map((projectId, i)=>{
-      const _project = this.func.getProjectById(projectId)
+      const _project = this.func.getById.project(projectId, this.store);
       return <ProjectRow onClick={()=>{this.actions.projects.viewProject(_project); this.actions.content.pushView('project');}} app={this.app} project={_project} key={i}/>
     })
   }

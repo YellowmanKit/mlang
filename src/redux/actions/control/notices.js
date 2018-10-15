@@ -27,29 +27,20 @@ export const setNotice = (status) =>{
 
 export function init(store, actions){
   return function (dispatch) {
-    dispatch({type: "pushNotice", payload: welcome() });
-    dispatch({type: "pushNotice", payload: hello() });
-    dispatch({type: "pushNotice", payload: hey() });
-    dispatch({type: "pushNotice", payload: welcome() });
-    dispatch({type: "pushNotice", payload: hello() });
-    dispatch({type: "pushNotice", payload: hey() });
+    dispatch({type: "updateNotices", payload: [welcome()] });
   }
 }
 
-function welcome(){
+export function subject(){
   return {
+    _id: 'welcome',
     message: ['Welcome back!', '歡迎回來!', '欢迎回来!']
   }
 }
 
-function hello(){
+export function welcome(){
   return {
-    message: ['hello!', 'hello!', 'hello!']
-  }
-}
-
-function hey(){
-  return {
-    message: ['hey', 'hey!', 'hey!']
+    _id: 'welcome',
+    message: ['Welcome back!', '歡迎回來!', '欢迎回来!']
   }
 }

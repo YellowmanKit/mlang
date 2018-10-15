@@ -43,8 +43,8 @@ class ViewCards extends View {
     for(var i=0;i<viewingCardsId.length;i++){
       if(viewingCardsId[i] === viewingCard._id){
         currentIndex = i + 1;
-        previous = i===0? null: this.func.getCardById(viewingCardsId[i-1]);
-        next = i===viewingCardsId.length-1? null: this.func.getCardById(viewingCardsId[i+1]);
+        previous = i===0? null: this.func.getById.card(viewingCardsId[i-1], this.store);
+        next = i===viewingCardsId.length-1? null: this.func.getById.card(viewingCardsId[i+1], this.store);
         break;
       }
     }

@@ -39,7 +39,7 @@ class ProjectRow extends Row {
       <div style={rowStyle}>
         {this.icon(icon_event, [iconSize, iconSize])}
         {this.verGap('1%')}
-        {this.textDisplay(this.func.getDateString(new Date(project.endDate)), ['',''], '150%')}
+        {this.textDisplay(this.func.dateString(new Date(project.endDate)), ['',''], '150%')}
       </div>
     )
   }
@@ -57,7 +57,7 @@ class ProjectRow extends Row {
         {this.verGap('3%')}
         {this.rowIcon(this.outDated)}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
-        {this.func.projectCheckAlert(this.props.project) && this.alertTag()}
+        {this.func.checkAlert.project(this.props.project, this.store, this.func.getById) && this.alertTag()}
       </button>
   )
 }

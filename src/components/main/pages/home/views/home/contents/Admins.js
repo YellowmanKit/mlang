@@ -6,11 +6,12 @@ import ProfileCell from 'components/main/items/cells/ProfileCell';
 class Admins extends Content {
 
   setData(){
+    this.init(this.props);
     this.admins = this.store.profiles.admins
 
     this.profilesData = [];
     this.admins.map(id=>{
-      return this.profilesData.push(this.func.getProfileById(id));
+      return this.profilesData.push(this.func.getById.profile(id, this.store));
     })
   }
 

@@ -35,7 +35,7 @@ class Schools extends Content {
 
     this.schoolsData = [];
     this.schools.map(id=>{
-      return this.schoolsData.push(this.func.getSchoolById(id));
+      return this.schoolsData.push(this.func.getById.school(id, this.store));
     })
   }
 

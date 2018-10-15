@@ -7,7 +7,7 @@ class SubjectDetail extends SubView {
   render() {
     this.init(this.props);
     const subject = this.store.subjects.viewingSubject;
-    const course = this.func.getCourseById(subject.course);
+    const course = this.func.getById.course(subject.course, this.store);
     return(
       <div style={this.subViewStyle()}>
         {this.gap('4%')}
@@ -35,7 +35,7 @@ class SubjectDetail extends SubView {
 
         {this.subTitle(['Start date','創建於','创建于'])}
         {this.sep()}
-        {this.textDisplay(this.func.getDateString(new Date(subject.createdAt)), ['100%',''], '125%', 'center')}
+        {this.textDisplay(this.func.dateString(new Date(subject.createdAt)), ['100%',''], '125%', 'center')}
         {this.gap('2%')}
 
       </div>

@@ -31,7 +31,7 @@ class SubjectProjects extends SubView {
     }
 
     for(var i=0;i<projectsToShow.length;i++){
-      if(this.func.getProjectById(projectsToShow[i]) === null){
+      if(this.func.getById.project(projectsToShow[i], this.store) === null){
         projectsToGet.splice(0,0, projectsToShow[i]);
       }
     }
@@ -43,7 +43,7 @@ class SubjectProjects extends SubView {
   projectsList(){
     const projects = this.store.subjects.viewingSubject.projects;
     return projects.slice(0).reverse().map((projectId, i)=>{
-      const project = this.func.getProjectById(projectId);
+      const project = this.func.getById.project(projectId, this.store);
       if(!project){ return null; }
       if(this.hidePassed && this.func.outDated(project.endDate)){ this.hasHided = true; return null; }
       return <ProjectRow onClick={()=>{ this.actions.projects.viewProject(project); this.actions.content.pushView('project');}} app={this.app} project={project} key={i}/>

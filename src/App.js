@@ -8,7 +8,7 @@ import * as ui from './redux/actions/control/ui';
 import * as switches from './redux/actions/control/switches';
 import * as content from './redux/actions/control/content';
 import * as modal from './redux/actions/control/modal';
-import * as notice from './redux/actions/control/notice';
+import * as notices from './redux/actions/control/notices';
 
 import * as user from './redux/actions/data/user';
 import * as profile from './redux/actions/data/profile';
@@ -22,6 +22,9 @@ import * as studentProjects from './redux/actions/data/studentProjects';
 import * as cards from './redux/actions/data/cards';
 import * as langs from './redux/actions/data/langs';
 
+import getById from './functions/getById';
+import checkAlert from './functions/checkAlert';
+
 import Main from './components/main/Main';
 
 class App extends Component {
@@ -30,43 +33,30 @@ class App extends Component {
 
   isDev(){ return process.env.REACT_APP_DEV === 'true'; }
 
-  projectCheckAlert(project){
-    const userType = this.props.store.user.type;
-    const studentProjects = project.studentProjects;
-    for(var j=0;j<studentProjects.length;j++){
-      const studentProject = this.getStudentProjectById(studentProjects[j]);
-      if(!studentProject){ return false; }
-      const cards = studentProject.cards;
-      for(var l=0;l<cards.length;l++){
-        const card = this.getCardById(cards[l]);
-        if(!card){ return false; }
-        if(userType === 'teacher' && card.grade === 'notGraded'){ return true; }
-        if(userType === 'student' && card.grade === 'failed' && !card.resubmitted){ return true; }
-      }
+  randomNyan(){
+    var i = this.randomInt(0, 6);
+    switch (i) {
+      case 0:
+        return 'ennui';
+      case 1:
+        return 'fly';
+      case 2:
+        return 'tail';
+      case 3:
+        return 'lick';
+      case 4:
+        return 'relax';
+      case 5:
+        return 'sleep';
+      case 6:
+        return 'stretch';
+      default:
+        return 'sit'
     }
-    return false;
   }
 
-  subjectCheckAlert(subject){
-    const userType = this.props.store.user.type;
-    const projectsId = subject.projects;
-    for(var i=0;i<projectsId.length;i++){
-      const project = this.getProjectById(projectsId[i]);
-      if(!project){ return false; }
-      const studentProjects = project.studentProjects;
-      for(var j=0;j<studentProjects.length;j++){
-        const studentProject = this.getStudentProjectById(studentProjects[j]);
-        if(!studentProject){ return false; }
-        const cards = studentProject.cards;
-        for(var l=0;l<cards.length;l++){
-          const card = this.getCardById(cards[l]);
-          if(!card){ return false; }
-          if(userType === 'teacher' && card.grade === 'notGraded'){ return true; }
-          if(userType === 'student' && card.grade === 'failed' && !card.resubmitted){ return true; }
-        }
-      }
-    }
-    return false;
+  randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   outDated(date){
@@ -117,14 +107,14 @@ class App extends Component {
     var studentProjectsToGet = [];
     var cardsToGet = [];
     for(var i=0;i<studentProjectsData.length;i++){
-      const studentProject = this.getStudentProjectById(studentProjectsData[i]);
+      const studentProject = getById.studentProject(studentProjectsData[i], this.props.store);
       if(!studentProject){
         studentProjectsToGet = [...studentProjectsToGet, studentProjectsData[i]]
         continue;
       }
       const cardsId = studentProject.cards;
       for(var j=0;j<cardsId.length;j++){
-        const card = this.getCardById(cardsId[j]);
+        const card = getById.card(cardsId[j], this.props.store);
         if(!card){
           cardsToGet = [...cardsToGet, cardsId[j]]
           continue;
@@ -141,76 +131,6 @@ class App extends Component {
       this.props.actions.cards.getCards(cardsToGet)
     }
     return featuredCardsId;
-  }
-
-  getItemById(data, id){
-    for(var i=0;i<data.length;i++){
-      if(data[i]._id === id){
-        return data[i];
-      }
-    }
-    return null;
-  }
-
-  getSchoolById(id){
-    const data = this.props.store.schools.schools;
-    return this.getItemById(data, id);
-  }
-
-  getLangById(id){
-    const data = this.props.store.langs.langs;
-    return this.getItemById(data, id);
-  }
-
-  getCardById(id){
-    const data = this.props.store.cards.cards;
-    return this.getItemById(data, id);
-  }
-
-  getStudentProjectById(id){
-    const data = this.props.store.studentProjects.studentProjects;
-    return this.getItemById(data, id);
-  }
-
-  getProjectById(id){
-    const data = this.props.store.projects.projects;
-    return this.getItemById(data, id);
-  }
-
-  getSubjectById(id){
-    const subjectsData = this.props.store.subjects.subjects;
-    return this.getItemById(subjectsData, id);
-  }
-
-  getCourseById(id){
-    const data = this.props.store.courses.courses;
-    return this.getItemById(data, id);
-  }
-
-  getStudentProject(studentId, projectId){
-    const studentProjectsData = this.props.store.studentProjects.studentProjects;
-    for(var i=0;i<studentProjectsData.length;i++){
-      if(studentProjectsData[i].project === projectId &&
-        studentProjectsData[i].student === studentId){
-        return studentProjectsData[i];
-      }
-    }
-    return null;
-  }
-
-  getProfileByUserId(userId){
-    const profilesData = this.props.store.profiles.profiles;
-    for(var i=0;i<profilesData.length;i++){
-      if(profilesData[i].belongTo === userId){
-        return profilesData[i];
-      }
-    }
-    return null;
-  }
-
-  getProfileById(id){
-    const data = this.props.store.profiles.profiles;
-    return this.getItemById(data, id);
   }
 
   langNameToLangKey(langName){
@@ -276,7 +196,7 @@ class App extends Component {
     }
   }
 
-  getDateString(date) {
+  dateString(date) {
     let year = date.getFullYear();
     let monthIndex = date.getMonth() + 1;
     let day = date.getDate();
@@ -305,29 +225,22 @@ class App extends Component {
       actions: this.props.actions,
       database: this.props.db,
       functions: {
-        isDev: this.isDev.bind(this),
+        getById: getById,
+        checkAlert: checkAlert,
+
         url: this.url.bind(this),
-        multiLang: this.multiLang.bind(this),
-        getDateString: this.getDateString.bind(this),
+        isDev: this.isDev.bind(this),
+        randomNyan: this.randomNyan.bind(this),
+
         outDated: this.outDated.bind(this),
+        multiLang: this.multiLang.bind(this),
+        dateString: this.dateString.bind(this),
+
         translateUserType: this.translateUserType.bind(this),
-
-        subjectCheckAlert: this.subjectCheckAlert.bind(this),
-        projectCheckAlert: this.projectCheckAlert.bind(this),
-
-        getProfileByUserId: this.getProfileByUserId.bind(this),
-        getProfileById: this.getProfileById.bind(this),
-        getSchoolById: this.getSchoolById.bind(this),
-        getCourseById: this.getCourseById.bind(this),
-        getSubjectById: this.getSubjectById.bind(this),
-        getProjectById: this.getProjectById.bind(this),
-        getStudentProject: this.getStudentProject.bind(this),
-        getCardById: this.getCardById.bind(this),
-        getLangById: this.getLangById.bind(this),
-        getStudentProjectById: this.getStudentProjectById.bind(this),
 
         langKeyToLangName: this.langKeyToLangName.bind(this),
         langNameToLangKey: this.langNameToLangKey.bind(this),
+
         getAllFeaturedCardsIdInViewingProject: this.getAllFeaturedCardsIdInViewingProject.bind(this)
       }
     }
@@ -364,7 +277,7 @@ function mapDispatchToProps(dispatch){
       switches: Action(switches, dispatch),
       content: Action(content, dispatch),
       modal: Action(modal, dispatch),
-      notice: Action(notice, dispatch),
+      notices: Action(notices, dispatch),
 
       profile: Action(profile, dispatch),
       schools: Action(schools, dispatch),

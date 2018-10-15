@@ -21,7 +21,7 @@ class Subjects extends Content {
 
     this.subjectsData = [];
     for(var i=0;i<this.subjects.length;i++){
-      this.subjectsData.push(this.func.getSubjectById(this.subjects[i]));
+      this.subjectsData.push(this.func.getById.subject(this.subjects[i], this.store));
     }
   }
 
@@ -44,7 +44,7 @@ class Subjects extends Content {
     for(var i=0;i<subjectsData.length;i++){
       if(subjectsData[i].course !== lastCourse){
         lastCourse = subjectsData[i].course;
-        const course = this.func.getCourseById(lastCourse);
+        const course = this.func.getById.course(lastCourse, this.store)
         subjectsData.splice(i,0,{isTitle: true, title: course.title});
       }
     }
@@ -65,14 +65,16 @@ class Subjects extends Content {
 
   courseTitle(title){
     const titleStyle = {...this.ui.styles.containerY, ...{
-      width: this.bs.height * 0.035,
+      width: this.bs.height * 0.04,
       height: this.bs.height * 0.25,
       overflow: 'hidden'
     }}
     const textStyle = {
+      width: this.bs.height * 0.04,
       color: 'rgba(0,0,0,0.25)',
-      fontSzie: this.bs.height * 0.1,
-      textAlign: 'center'
+      fontSize: this.bs.height * 0.025,
+      textAlign: 'center',
+      textOverflow: 'ellipsis'
     }
     return(
       <div key={title} style={titleStyle}>

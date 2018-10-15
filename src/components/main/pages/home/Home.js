@@ -62,7 +62,6 @@ class Home extends UI {
       view: props.app.store.content.view,
       deadView: null
     }
-    this.actions.notice.init(this.store, this.actions);
   }
 
   componentWillReceiveProps(newProps){

@@ -37,7 +37,7 @@ class SlideShow extends View {
 
   setCard(cardIndex){
     if(cardIndex > this.cards.length - 1){ this.actions.content.pullView(); return; }
-    this.card = this.func.getCardById(this.cards[cardIndex]);
+    this.card = this.func.getById.card(this.cards[cardIndex], this.store);
     this.actions.cards.viewCard(this.card);
   }
 
@@ -50,7 +50,7 @@ class SlideShow extends View {
       this.setCard(cardIndex);
     }
     this.setState({ cardIndex: cardIndex, langIndex: index });
-    this.lang = this.func.getLangById(this.card.langs[index]);
+    this.lang = this.func.getById.lang(this.card.langs[index], this.store);
   }
 
   slideImage(){

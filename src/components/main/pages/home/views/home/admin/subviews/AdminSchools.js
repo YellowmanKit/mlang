@@ -17,7 +17,7 @@ class AdminSchools extends SubView {
     const schoolsToShow = profile.supervisingSchools;
 
     for(var i=0;i<schoolsToShow.length;i++){
-      if(this.func.getSchoolById(schoolsToShow[i]) === null){
+      if(this.func.getById.school(schoolsToShow[i], this.store) === null){
         schoolsToGet.splice(0,0, schoolsToShow[i]);
       }
     }
@@ -29,7 +29,7 @@ class AdminSchools extends SubView {
   schoolsList(){
     const schools = this.store.profiles.viewingAdminProfile.supervisingSchools;
     return schools.map((schoolId, i)=>{
-      const school = this.func.getSchoolById(schoolId);
+      const school = this.func.getById.school(schoolId, this.store);
       return (
       <SchoolRow
       app={this.app}

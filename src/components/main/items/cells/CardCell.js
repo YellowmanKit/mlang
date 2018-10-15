@@ -5,7 +5,7 @@ class CardCell extends Cell {
   constructor(props){
     super(props);
     this.init(props);
-    const firstLang = this.func.getLangById(this.props.data.langs[0]);
+    const firstLang = this.func.getById.lang(this.props.data.langs[0], this.store);
     const title = firstLang? firstLang.text: '';
 
     this.state = {
@@ -19,7 +19,7 @@ class CardCell extends Cell {
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    const firstLang = this.func.getLangById(this.props.data.langs[0]);
+    const firstLang = this.func.getById.lang(this.props.data.langs[0], this.store);
     const title = firstLang? firstLang.text: '';
     if(title !== this.state.title){
       this.setState({ title: title })

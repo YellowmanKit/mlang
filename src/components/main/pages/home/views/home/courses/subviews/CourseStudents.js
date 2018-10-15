@@ -17,7 +17,7 @@ class CourseStudents extends SubView {
     const profilesToShow = course.joinedStudents;
 
     for(var i=0;i<profilesToShow.length;i++){
-      if(this.func.getProfileByUserId(profilesToShow[i]) === null){
+      if(this.func.getById.profileByUser(profilesToShow[i], this.store) === null){
         profilesToGet.splice(0,0, profilesToShow[i]);
       }
     }
@@ -29,7 +29,7 @@ class CourseStudents extends SubView {
   studentsList(){
     const students = this.store.courses.viewingCourse.joinedStudents;
     return students.map((userId, i)=>{
-      const profile = this.func.getProfileByUserId(userId);
+      const profile = this.func.getById.profileByUser(userId, this.store);
       return (
       <ProfileRow
       app={this.app}

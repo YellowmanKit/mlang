@@ -42,7 +42,7 @@ class StudentProject extends View {
 
   render(){
     this.init(this.props);
-    const project = this.func.getProjectById(this.store.studentProjects.viewingStudentProject.project);
+    const project = this.func.getById.project(this.store.studentProjects.viewingStudentProject.project, this.store);
     const title = project.title;
     this.cardsId = this.store.studentProjects.viewingStudentProject.cards;
     return(

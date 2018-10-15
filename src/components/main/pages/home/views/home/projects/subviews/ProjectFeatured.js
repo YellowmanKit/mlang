@@ -23,8 +23,8 @@ class ProjectFeatured extends SubView {
     if(filterOption === 'All'){ cardsToView = this.cards; }
 
     this.cards.map(cardId=>{
-      const card = this.func.getCardById(cardId);
-      var profile = this.func.getProfileByUserId(card.author);
+      const card = this.func.getById.card(cardId, this.store);
+      var profile = this.func.getById.profileByUser(card.author, this.store);
       if(!profile){ profile = this.store.profile; }
       if(profile.name === filterOption){
         cardsToView.push(cardId)
@@ -57,8 +57,8 @@ class ProjectFeatured extends SubView {
   filterOptions(){
     var options = ['All'];
     this.cards.map(cardId=>{
-      const card = this.func.getCardById(cardId);
-      const profile = this.func.getProfileByUserId(card.author);
+      const card = this.func.getById.card(cardId, this.store);
+      const profile = this.func.getById.profileByUser(card.author, this.store);
       if(!profile){ return null; }
       if(!options.includes(profile.name)){
         options.push(profile.name);

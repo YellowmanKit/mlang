@@ -17,7 +17,7 @@ class LangEditor extends UI {
     const defaultLangs = this.props.defaultLangs;
     if(defaultLangs){
       defaultLangs.map(langId=>{
-        const lang = this.func.getLangById(langId);
+        const lang = this.func.getById.lang(langId, this.store);
         var newLangRow = {
           _id: lang._id,
           key: lang.key,

@@ -11,7 +11,7 @@ class SubmittedCards extends SubView {
 
   getStudentProject(){
     const viewingProject = this.store.projects.viewingProject;
-    const studentProject = this.func.getStudentProject(this.store.user._id, viewingProject._id)
+    const studentProject = this.func.getById.studentProjectByPair(this.store.user._id, viewingProject._id, this.store)
     if(studentProject === null){
       this.actions.studentProjects.getStudentProject(this.store.user._id, viewingProject._id, this.store.studentProjects.studentProjects.length)
     }else {

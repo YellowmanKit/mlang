@@ -37,7 +37,7 @@ class Card extends UI {
       alignItems: 'flex-end',
       textAlign: 'left'
     }}
-    const profile = this.func.getProfileByUserId(card.author);
+    const profile = this.func.getById.profileByUser(card.author, this.store);
     return(
       <div style={style}>
         {this.verGap('2%')}

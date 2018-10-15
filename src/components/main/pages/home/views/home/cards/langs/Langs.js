@@ -26,7 +26,7 @@ class Langs extends UI {
     const langsId = props.card.langs;
     var _langs = [];
     for(var i=0;i<langsId.length;i++){
-      _langs.splice(0,0, this.func.getLangById(langsId[i]))
+      _langs.splice(0,0, this.func.getById.lang(langsId[i], this.store))
     }
     this.setState({
       langs: _langs

@@ -14,7 +14,7 @@ class RankingRow extends Row {
   constructor(props){
     super(props);
     this.init(props);
-    this.profile = this.func.getProfileByUserId(this.props.data.student);
+    this.profile = this.func.getById.profileByUser(this.props.data.student, this.store);
     this.state = {
       filename: this.props.data? this.profile.icon: null,
       type: 'profileIcon'
