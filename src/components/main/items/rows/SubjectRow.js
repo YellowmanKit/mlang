@@ -8,7 +8,8 @@ class SubjectRow extends Row {
     this.init(props);
     this.state = {
       filename: this.props.subject? this.props.subject.icon: null,
-      type: 'subjectIcon'
+      type: 'subjectIcon',
+      alert: this.func.checkAlert.subject(props.subject, this.app)
     }
     this.checkUrl();
   }
@@ -52,7 +53,7 @@ class SubjectRow extends Row {
         {this.verGap('3%')}
         {this.rowIcon()}
         {this.rowContent(this.props.subject.title, this.rowInfo.bind(this))}
-        {this.func.checkAlert.subject(this.props.subject, this.store, this.func.getById) && this.alertTag()}
+        {this.state.alert && this.alertTag()}
       </button>
   )
 

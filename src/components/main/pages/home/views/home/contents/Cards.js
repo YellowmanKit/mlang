@@ -90,6 +90,7 @@ class Cards extends UI {
           return(
             <div key={i} style={cardContainerStyle}>
               <CardCell
+              key={card._id}
               app={this.app} data={card}
               onClick={()=>{this.actions.cards.setAction('init'); this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
             </div>

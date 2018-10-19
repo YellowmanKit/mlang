@@ -60,9 +60,9 @@ class RecorderBar extends UI {
     //console.log(this.props.audioBlob)
     if(this.props.audioBlob){
       this.waveInterface.startPlayback(false, this.props.audioBlob, ()=>{this.onPlaybackEnd()})
-      .then(()=>{
+      //.then(()=>{
         this.setState({ audioPlaying: true })
-      })
+      //})
     }else if(this.props.defaultAudio && this.url.url){
       this.setState({ defaultAudioPlaying: true })
     }

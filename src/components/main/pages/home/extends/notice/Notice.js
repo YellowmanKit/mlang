@@ -56,7 +56,7 @@ class Notice extends UI {
     return(
       <div style={noticeStyle}>
         {this.noticesCloud()}
-        {this.amountCloud(status === 'off')}
+        {this.amountTag(status === 'off')}
         <Nyan app={this.app} status={this.state.nyan} size={nyanSize} onClick={()=>{this.onNyanClicked()}}/>
       </div>
     )
@@ -69,7 +69,7 @@ class Notice extends UI {
     })
   }
 
-  amountCloud(isOpen){
+  amountTag(isOpen){
     var count = this.getCount();
     if(count === 0){ return null; }
 
@@ -97,7 +97,7 @@ class Notice extends UI {
     const notices = this.store.notices.notices;
     var count = 0;
     for(var i=0;i<notices.length;i++){
-      if(!notices[i].dead){ count++; }
+      if(!notices[i].dead && !notices[i].killed){ count++; }
     }
     return count;
   }

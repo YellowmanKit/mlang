@@ -11,7 +11,7 @@ class SubjectCell extends Cell {
       filename: props.data.icon,
       type: 'subjectIcon',
       status: 'init',
-      alert: this.func.checkAlert.subject(this.props.data, this.store, this.func.getById)
+      alert: this.func.checkAlert.subject(this.props.data, this.props.app)
     }
   }
 

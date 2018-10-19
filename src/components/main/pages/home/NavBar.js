@@ -64,6 +64,11 @@ class NavBar extends UI {
         case 'account':
           title = ['ACCOUNT','帳號資訊','帐号资讯'];
           break;
+        case 'forceAccount':
+          title = ['WELCOME!','歡迎!','欢迎!'];
+          leftOnClick = ()=>{};
+          leftIcon = null;
+          break;
         case 'profile':
           title = ['PROFILE','個人檔案','个人档案'];
           break;

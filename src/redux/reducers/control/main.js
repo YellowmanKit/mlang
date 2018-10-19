@@ -16,7 +16,7 @@ const mainReducer = (
     prefabPicker: 'off',
 
     language: 'simplified_chinese',
-    version: 'v1.0.3'
+    version: 'v1.0.4'
   }, action)=>{
   switch (action.type) {
     case 'setPrefabPicker':

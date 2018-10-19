@@ -8,6 +8,33 @@ import Langs from './langs/Langs';
 
 class Card extends UI {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = {
+      checkingRead: ''
+    }
+  }
+
+  isReading(state){
+    return state.includes('in') || state.includes('far') || state === '';
+  }
+
+  componentWillReceiveProps(newProps){
+    if(this.isReading(newProps.state) && this.state.checkingRead !== newProps.card._id){
+      this.checkStudentRead(newProps.state, newProps.card);
+    }
+  }
+
+  checkStudentRead(state, card){
+    if(card.author === this.store.user._id &&
+      card.grade !== 'notGraded' &&
+      !card.studentRead){
+      this.actions.cards.studentReadCard(card._id);
+      this.setState({ checkingRead: card._id })
+    }
+  }
+
   cardUpper(card){
     const style = {...this.ui.styles.area, ...this.ui.styles.container, ...{
       height: '47%'

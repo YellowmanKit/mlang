@@ -80,6 +80,8 @@ class Home extends UI {
     switch (view) {
       case 'account':
         return <Account app={app}/>;
+      case 'forceAccount':
+        return <Account app={app}/>;
       case 'profile':
         return <Profile app={app}/>;
       case 'forceProfile':

@@ -28,6 +28,7 @@ export function changeProfile(data){
     if(updateRes.data.result === 'success'){
       actions.updateSuccess(dispatch);
       dispatch({type: "setProfile", payload: updateRes.data.updatedProfile});
+      dispatch({type: "updateProfiles", payload: [updateRes.data.updatedProfile]});
       dispatch({type: "backToHome"});
     }else{
       actions.updateFailed(dispatch);

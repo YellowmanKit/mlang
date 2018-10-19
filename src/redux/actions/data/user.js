@@ -37,6 +37,7 @@ export function changeUserInfo(newUser){
     if(res.data.result === 'success'){
       dispatch({type: "message", payload: ['Update succeed!', '更改成功!', '更改成功!']});
       dispatch({type: "setUser", payload: res.data.updatedUser});
+      dispatch({type: "pullView"});
     }else{
       dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!', '更改失败! 请再试一次']});
     }
@@ -57,6 +58,30 @@ export function resetPassword (_email) {
       dispatch({type: "message", payload: ['Reset password succeed! Please check email for new password!', '密碼重置成功! 請查看電子郵件!', '密码重置成功! 请查看电子邮件!']});
     }else{
       dispatch({type: "message", payload: ['Failed to reset password! Please make sure to enter a correct email address!', '密碼重置失敗! 請確定電郵地址正確!', '密码重置失败! 请确定电邮地址正确!']});
+    }
+
+  }
+}
+
+
+export function getNewAccountByCode (code, codeType) {
+  //console.log(code + ' ' + codeType);
+  return async function (dispatch) {
+    if(code.length < 5){
+
+      dispatch({type: "message", payload: ['Invalid code!', '代碼不正確!', '代码不正确!']});
+      return;
+    }
+    dispatch({type: "loadingMessage", payload: ['Acquiring for new account...', '申請進行中...', '申请进行中...']});
+
+    let err, res;
+    [err, res] = await to(axios.get(api + '/user/getNewAccountByCode',{ headers: { code: code, type: codeType }}));
+    if(err){ actions.connectionError(dispatch); return; }
+
+    if(res.data.result === 'success'){
+      login(res.data.id, res.data.pw)(dispatch);
+    }else{
+      dispatch({type: "message", payload: ['Failed to acquire new account! The email code is invalid!', '申請失敗! 代碼不正確!', '申请失败! 代码不正确!']});
     }
 
   }
@@ -88,6 +113,7 @@ export function getNewAccount (_email) {
 
 export function login (_id, _pw) {
   console.log(api);
+  console.log(_id + ' ' + _pw);
   return async function (dispatch) {
     actions.connecting(dispatch);
 

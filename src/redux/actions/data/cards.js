@@ -38,6 +38,18 @@ export const gradeCards = (id, cards) =>{
   }
 }
 
+export function studentReadCard(cardId){
+  return async function (dispatch) {
+    let err, cardRes;
+    [err, cardRes] = await to(axios.post(api + '/card/studentRead', {data: {cardId: cardId}}));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(cardRes.data.result === 'success'){
+      dispatch({type: "updateCards", payload: [cardRes.data.updatedCard]});
+    }
+  }
+}
+
 export function saveGradingCards(projectId, studentProjectId, gradingCards){
   //console.log(gradingCards)
   return async function (dispatch) {

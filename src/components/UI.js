@@ -41,12 +41,30 @@ class UI extends Component {
     this.buttons.init(props.app);
     this.inputs.init(props.app);
 
-    this.waitForLogin = this.store.main.status === 'waitForLogin';
     this.atHome = this.store.content.traces.length === 1;
     this.inSchool = this.store.content.traces[1] === 'school' || this.store.content.traces[2] === 'school';
 
     this.url.init(props.app);
     this.checkUrl();
+  }
+
+  checkBox(text, checked, onCheck){
+    const style = {...this.ui.styles.container,...this.ui.styles.area,...{
+      width: '',
+      height: this.bs.height * 0.035,
+      color: 'white',
+      fontSize: this.bs.height * 0.02
+    }}
+    const checkBoxStyle = {
+      width: this.bs.height * 0.025,
+      height: this.bs.height * 0.025
+    }
+    return(
+      <div style={style}>
+        {text}
+        <input style={checkBoxStyle} type='checkbox' checked={checked} onChange={onCheck}/>
+      </div>
+    )
   }
 
   animatedAlert(){

@@ -308,10 +308,10 @@ class Button {
     switch (name) {
       case 'rect':
         return {
-            width: this.bs.width * 0.67,
-            height: this.bs.width * 0.065,
-            marginTop: '5%',
-            animated: 'standard'
+          width: this.bs.width * 0.67,
+          height: this.bs.width * 0.065,
+          marginTop: this.bs.width * 0.04,
+          animated: 'standard'
         }
       case 'nav':
         return {

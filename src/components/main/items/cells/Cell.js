@@ -72,7 +72,8 @@ class Cell extends UI {
       display: 'flex',
       flexFlow: 'column nowrap',
       alignItems: 'center',
-      position: 'relative'
+      position: 'relative',
+      boxShadow: '2px 4px 24px -3px #888888'
     }}
     const badgeScale = [this.bs.width * 0.125, this.bs.width * 0.125];
 

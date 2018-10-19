@@ -233,9 +233,8 @@ class App extends Component {
         randomNyan: this.randomNyan.bind(this),
 
         outDated: this.outDated.bind(this),
-        multiLang: this.multiLang.bind(this),
         dateString: this.dateString.bind(this),
-
+        multiLang: this.multiLang.bind(this),
         translateUserType: this.translateUserType.bind(this),
 
         langKeyToLangName: this.langKeyToLangName.bind(this),

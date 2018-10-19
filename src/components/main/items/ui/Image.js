@@ -54,7 +54,7 @@ class Image extends UI {
     }}
 
     return(
-      <div style={containerStyle}>
+      <div key={url} style={containerStyle}>
         <div style={backgroundStyle}>
           <img style={{maxWidth: size, maxHeight: size}} src={url} alt=''/>
           {url !== null && this.buttons.button(buttonStyle, ['',''], '',this.props.noEnlarge? null:()=>{this.onImageClick()})}

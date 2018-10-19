@@ -32,8 +32,9 @@ class CourseSubjects extends SubView {
   subjectsList(){
     const subjects = this.store.courses.viewingCourse.subjects;
     return subjects.slice(0).reverse().map((subjectId, i)=>{
-      const _subject = this.func.getById.subject(subjectId, this.store);
-      return <SubjectRow onClick={()=>{this.actions.subjects.viewSubject(_subject); this.actions.content.pushView('subject');}} app={this.app} subject={_subject} key={i}/>
+      const subject = this.func.getById.subject(subjectId, this.store);
+      if(!subject){ return null; }
+      return <SubjectRow onClick={()=>{this.actions.subjects.viewSubject(subject); this.actions.content.pushView('subject');}} app={this.app} subject={subject} key={i}/>
     })
   }
 

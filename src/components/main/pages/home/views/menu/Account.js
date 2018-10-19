@@ -9,16 +9,22 @@ class Account extends View {
     const user = this.store.user;
     const student = this.func.multiLang('Student','學生','学生');
     const teacher = this.func.multiLang('Teacher','老師','老师');
+    const forceAccount = this.store.content.view === 'forceAccount';
+
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}
 
-        {this.subTitle(['User type','用戶類型','用户类型'])}
-        {this.sep()}
-        {this.gap('2%')}
-        {user.type !== 'admin' && this.inputs.optionBar('type', ['25%', this.bs.height * 0.04], [student, teacher], user.type === 'student'? student: teacher)}
-        {user.type === 'admin' && this.textDisplay(this.func.multiLang('Admin','管理員','管理员'), ['100%',  this.bs.height * 0.03])}
-        {this.gap('2%')}
+        {forceAccount && this.subTitle(['Please setup your account!','請設定你的帳號資訊!','请设定你的帐号资讯!'], this.bs.height * 0.03)}
+        {forceAccount && this.sep()}
+        {forceAccount && this.gap(this.bs.height * 0.04)}
+
+        {!forceAccount && this.subTitle(['User type','用戶類型','用户类型'])}
+        {!forceAccount && this.sep()}
+        {!forceAccount && this.gap('2%')}
+        {!forceAccount && user.type !== 'admin' && this.inputs.optionBar('type', ['25%', this.bs.height * 0.04], [student, teacher], user.type === 'student'? student: teacher)}
+        {!forceAccount && user.type === 'admin' && this.textDisplay(this.func.multiLang('Admin','管理員','管理员'), ['100%',  this.bs.height * 0.03])}
+        {!forceAccount && this.gap('2%')}
 
         {this.subTitle(['Identity','登入名稱','登入名称'])}
         {this.sep()}
@@ -40,9 +46,9 @@ class Account extends View {
         {this.inputs.inputField('confirmPw','password',['Leave blank if not changing','不更改密碼時請留空','不更改密码时请留空'],'')}
         {this.gap('4%')}
 
-        {this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊','输入密码以变更资讯'])}
-        {this.sep()}
-        {this.inputs.inputField('pw','password','','')}
+        {!forceAccount && this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊','输入密码以变更资讯'])}
+        {!forceAccount && this.sep()}
+        {!forceAccount && this.inputs.inputField('pw','password','','')}
         <CustomButton app={this.app} button={this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}/>
         {this.gap('8%')}
       </div>
@@ -51,6 +57,7 @@ class Account extends View {
 
   changing(){
     const user = this.store.user;
+    const forceAccount = this.store.content.view === 'forceAccount';
 
     const selecter =  document.getElementById('type')
     const selected = selecter? selecter.selectedIndex: -1;
@@ -63,7 +70,8 @@ class Account extends View {
     const newEmail = document.getElementById('email').value;
     const newPw = document.getElementById('newPw').value;
     const confirmPw = document.getElementById('confirmPw').value;
-    const pw = document.getElementById('pw').value;
+    const pwField = document.getElementById('pw');
+    const pw = pwField? pwField.value: '';
 
     //console.log(newId)
     if(newId.length < 5){
@@ -80,7 +88,7 @@ class Account extends View {
         return this.failedMessage(['Failed to change! Password must be atlease 6 characters long!', '變更失敗! 密碼至少須由六個字元組成!', '变更失败! 密码至少须由六个字元组成!'])
       }
     }
-    if(pw !== user.pw){
+    if(!forceAccount && pw !== user.pw){
       return this.failedMessage(['Failed to change! Please enter your password correctly!', '變更失敗! 請輸入正確的密碼!', '变更失败! 请输入正确的密码!'])
     }
     if(newType === 'teacher' && (!this.store.profile.joinedSchools || this.store.profile.joinedSchools.length === 0)){

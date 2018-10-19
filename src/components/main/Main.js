@@ -23,11 +23,14 @@ class Main extends UI {
     const next = newProps.app.store.main.status;
     //console.log(previous);
     //console.log(next);
-    if(previous === 'waitForLogin' && next === 'ready'){
+    if((previous === 'waitForLogin' || previous === 'getNewAccount') && next === 'ready'){
       const newUser = newProps.app.store.user;
       this.rememberLoginInfo(newUser.id, newUser.pw);
       //console.log(JSON.parse(localStorage.getItem('loginInfo')).id);
       this.initView(this.app.store.user.type);
+    }else if(this.app.store.content.view === 'forceProfile' &&
+    newProps.app.store.content.view !== 'forceProfile'){
+      this.actions.content.pushView('forceAccount');
     }
 
     const oldType = this.app.store.user.type;

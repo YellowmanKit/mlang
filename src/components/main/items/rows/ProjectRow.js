@@ -10,7 +10,8 @@ class ProjectRow extends Row {
     this.init(props);
     this.state = {
       filename: this.props.project? this.props.project.icon: null,
-      type: 'projectIcon'
+      type: 'projectIcon',
+      alert: this.func.checkAlert.project(this.props.project, this.props.app)
     }
     this.outDated = this.func.outDated(this.props.project.endDate);
   }
@@ -57,7 +58,7 @@ class ProjectRow extends Row {
         {this.verGap('3%')}
         {this.rowIcon(this.outDated)}
         {this.rowContent(this.props.project.title, this.rowInfo.bind(this))}
-        {this.func.checkAlert.project(this.props.project, this.store, this.func.getById) && this.alertTag()}
+        {this.state.alert && this.alertTag()}
       </button>
   )
 }
