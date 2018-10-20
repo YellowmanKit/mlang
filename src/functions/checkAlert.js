@@ -46,7 +46,7 @@ function checkCard(cardId, project, app){
       app.actions.notices.failedCardInProject(project, app);
       return true;
     }
-    if(card.grade !== 'notGraded' && !card.studentRead){
+    if(card.grade !== 'notGraded' && card.grade !== 'failed' && !card.studentRead){
       app.actions.notices.gradedCardNotReadInProject(project, app);
       return true;
     }
