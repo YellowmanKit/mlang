@@ -43,11 +43,10 @@ class Login extends UI {
     return <div style={iconStyle}/>
   }
 
-  onChecked(e){
-  //  console.log(e.target.checked)
-    this.db.set('autoLogin', e.target.checked);
+  onKeepMeLoginChecked(checked){
+    this.db.set('autoLogin', checked);
     this.setState({
-      autoLogin: e.target.checked
+      autoLogin: checked
     })
   }
 
@@ -111,9 +110,9 @@ class Login extends UI {
         {this.icon()}
         {this.inputs.inputField('id','text', ['Enter your identity','登入名稱','登入名称'], loginInfo? loginInfo.id:'')}
         {this.inputs.inputField('pw','password', ['Enter your password','密碼','密码'], loginInfo? loginInfo.pw:'')}
-        {this.checkBox(this.func.multiLang('Keep me logged in on this devices','在此裝置上保持登入','在此装置上保持登入'), this.state.autoLogin, (e)=>{this.onChecked(e)})}
+        {this.checkBox(this.func.multiLang('Keep me logged in on this device','在此裝置上保持登入','在此装置上保持登入'), this.state.autoLogin, (e)=>{this.onKeepMeLoginChecked(e.target.checked)})}
         <CustomButton app={this.app} button={this.buttons.rectGreen(['Login','登入','登入'], ()=>this.login())}/>
-        <CustomButton app={this.app} button={this.buttons.rectYellow(['Get new account','申請帳號','申请帐号'], ()=>this.actions.main.setStatus('getNewAccount'))}/>
+        <CustomButton app={this.app} button={this.buttons.rectYellow(['Get new account','申請帳號','申请帐号'], ()=>{ this.onKeepMeLoginChecked(true); this.actions.main.setStatus('getNewAccount'); })}/>
         <CustomButton app={this.app} button={this.buttons.rectRed(['Forget password','忘記密碼','忘记密码'], ()=>this.actions.main.setStatus('forgotPassword'))}/>
         {this.languageBar()}
         {this.versionCode()}

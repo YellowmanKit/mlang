@@ -37,7 +37,7 @@ const langsReducer = (
       },
       {
         key: 'urdu',
-        name: ['Urdu','烏都語','乌都语'],
+        name: ['Urdu','烏爾都語','乌尔都语'],
         use: true
       },
       {
@@ -68,6 +68,16 @@ const langsReducer = (
       {
         key: 'french',
         name: ['French','法語','法语'],
+        use: true
+      },
+      {
+        key: 'korean',
+        name: ['Korean','韓語','韩语'],
+        use: true
+      },
+      {
+        key: 'vietnamese',
+        name: ['Vietnamese','越南語','越南语'],
         use: true
       }
     ]

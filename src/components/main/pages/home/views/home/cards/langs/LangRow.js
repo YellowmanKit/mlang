@@ -88,7 +88,7 @@ class LangRow extends UI {
       flexShrink: 0
     }}
 
-    const sizeSmall = [this.bs.width * 0.05,this.bs.width * 0.05];
+    const sizeSmall = [this.bs.width * 0.04,this.bs.width * 0.04];
 
     return(
       <div style={barStyle}>

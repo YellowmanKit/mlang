@@ -18,7 +18,7 @@ class SubjectDetail extends SubView {
         <Image app={this.app} filename={subject.icon} type={'subjectIcon'} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
 
-        {this.subTitle(['Course','班別','班别'])}
+        {this.subTitle(['Class','班別','班别'])}
         {this.sep()}
         {this.textDisplay(course.title, ['100%',''], '125%', 'center')}
         {this.gap('2%')}
@@ -30,7 +30,7 @@ class SubjectDetail extends SubView {
 
         {this.subTitle(['Description','描述','描述'])}
         {this.sep()}
-        {this.textDisplay(subject.description, ['100%',''], '125%', 'center')}
+        {subject.description.split('\n').map(desc=>{return this.textDisplay(desc, ['100%',''], '125%', 'center')})}
         {this.gap('2%')}
 
         {this.subTitle(['Start date','創建於','创建于'])}

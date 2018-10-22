@@ -30,13 +30,13 @@ class Profile extends View {
           {forceProfile && this.sep()}
           {forceProfile && this.gap(this.bs.height * 0.04)}
 
-          {this.subTitle(['Your avatar','你的照片','你的照片'])}
+          {this.subTitle(['Your photo','你的照片','你的照片'])}
           {this.sep()}
           <ImagePicker type={'profile'} defaultUrl={this.url.url} app={this.app} />
           {this.sep()}
           {this.gap(this.bs.height * 0.02)}
 
-          {this.subTitle(['Your name','你的名稱','你的名称'])}
+          {this.subTitle(['Your real name','你的真實姓名','你的真實姓名'])}
           {this.sep()}
           {this.inputs.inputField('name','text','', profile.name, ()=>{ this.setState({modified: true})})}
           {this.gap(this.bs.height * 0.02)}
@@ -61,7 +61,7 @@ class Profile extends View {
   lowerPart(){
     const profile = this.store.profile;
     return(
-      <div style={{...this.viewStyle(), height: this.bs.height * 0.4, flexShrink: 0}}>
+      <div style={{...this.viewStyle(), height: this.bs.height * 0.5, flexShrink: 0}}>
         {this.subTitle(['Total submitted cards','卡片總數','卡片总数'])}
         {this.sep()}
         {this.textDisplay(profile.cardCount, ['50%', this.bs.height * 0.06], '150%', 'center')}
@@ -72,7 +72,7 @@ class Profile extends View {
         {this.textDisplay(profile.featuredCount, ['50%',this.bs.height * 0.06], '150%', 'center')}
         {this.gap(this.bs.height * 0.02)}
 
-        {this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊','输入密码以变更资讯'])}
+        {this.subTitle(['Enter current password to change','輸入密碼以變更資訊','输入密码以变更资讯'])}
         {this.sep()}
         {this.inputs.inputField('pw','password','','')}
       </div>

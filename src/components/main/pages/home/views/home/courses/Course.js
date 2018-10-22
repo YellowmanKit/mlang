@@ -36,11 +36,11 @@ class Course extends View {
   courseSubNav(){
     const _options = [
       {
-        tag:['Units','單元','单元'],
+        tag:['Unit','單元','单元'],
         subView: 'courseSubjects'
       },
       {
-        tag:['Students','學生','学生'],
+        tag:['Student','學生','学生'],
         subView: 'courseStudents'
       },
       {

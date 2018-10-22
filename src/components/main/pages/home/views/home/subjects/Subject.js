@@ -44,7 +44,7 @@ class Subject extends View {
   subjectSubNav(){
     const _options = [
       {
-        tag:['Projects','專題研習','专题研习'],
+        tag:['Project','專題研習','专题研习'],
         subView: 'subjectProjects'
       },
       {

@@ -88,8 +88,8 @@ class Hints extends UI {
         if(this.userType === 'admin'){
           return this.func.multiLang(
             'You haven\'t created any school yet!\n You can create school by pressing the + button! You shall invite your teachers to join your school by telling them your school code which can be found in the school detail page!',
-            '你尚未創建任何學校！你可以用 + 按鈕創建學校，然後把學校代碼告訴你的老師好讓他們加入！學校代碼可以在詳細資訊頁面找到！',
-            '你尚未创建任何学校！你可以用+按钮创建学校，然后把学校代码告诉你的老师好让他们加入！学校代码可以在详细资讯页面找到！'
+            '你尚未創建任何學校！你可以用 + 按鈕創建學校，然後把學校代碼告訴你的老師，好讓他們加入！學校代碼可以在詳細資訊頁面找到！',
+            '你尚未创建任何学校！你可以用 + 按钮创建学校，然后把学校代码告诉你的老师，好让他们加入！学校代码可以在详细资讯页面找到！'
           )
         }else if(this.userType === 'student'){
           return this.func.multiLang(

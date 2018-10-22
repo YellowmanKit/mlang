@@ -3,7 +3,7 @@ import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
 import no_image from 'resources/images/general/no_image.png';
-import passed from 'resources/images/general/passed.png';
+import passed from 'resources/images/general/expired.png';
 
 class Row extends UI {
 
@@ -57,10 +57,11 @@ class Row extends UI {
       maxHeight: iconSize,
       backgroundColor: 'white'
     }}
+    const url = this.url.url? this.url.url: no_image;
     return(
-      <div style={containerStyle}>
+      <div key={url} style={containerStyle}>
         {passed && this.passedTag()}
-        <img style={iconStyle} src={this.url.url? this.url.url: no_image} alt=''/>
+        <img style={iconStyle} src={url} alt=''/>
       </div>
     )
   }

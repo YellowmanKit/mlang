@@ -48,7 +48,7 @@ class School extends View {
     }
     if(type === 'developer' || type === 'admin' || type === 'teacher'){
       options = [
-        { tag:['Teachers','老師','老师'],
+        { tag:['Teacher','老師','老师'],
           subView: 'schoolTeachers' }, ...options]
     }
 

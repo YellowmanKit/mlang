@@ -65,7 +65,8 @@ class GradingCardRow extends Row {
       alignItems: 'flex-start',
       position: 'relative',
       margin: '5px',
-      opacity: isSelected? 1:0.25
+      opacity: isSelected? 1:0.25,
+      boxShadow: '2px 4px 24px -3px #888888'
     }}
     const iconContainerStyle = {...this.ui.styles.container, ...{
       width: this.bs.width * 0.28,

@@ -81,7 +81,7 @@ export function getNewAccountByCode (code, codeType) {
     if(res.data.result === 'success'){
       login(res.data.id, res.data.pw)(dispatch);
     }else{
-      dispatch({type: "message", payload: ['Failed to acquire new account! The email code is invalid!', '申請失敗! 代碼不正確!', '申请失败! 代码不正确!']});
+      dispatch({type: "message", payload: ['Failed to acquire new account! Please check if account type and code are correct!', '申請失敗! 請檢查帳號類別和代碼!', '申请失败! 请检查帐号类别和代码!']});
     }
 
   }

@@ -65,8 +65,8 @@ class Schools extends Content {
     const hide = this.store.switches.hide.schools;
     //const type = this.store.user.type;
     const title =
-    this.store.user.type === 'admin'? ['Schools - created','學校 - 已創建','学校 - 已创建']:
-    ['Schools - joined','學校 - 已加入','学校 - 已加入'];
+    this.store.user.type === 'admin'? ['School - created','學校 - 已創建','学校 - 已创建']:
+    ['School - joined','學校 - 已加入','学校 - 已加入'];
 
     const containerStyle = {
       width: '100%',

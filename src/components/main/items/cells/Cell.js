@@ -4,7 +4,7 @@ import {Motion, spring}  from 'react-motion';
 
 import Badge from 'components/main/items/Badge';
 
-import passed from 'resources/images/general/passed.png';
+import passed from 'resources/images/general/expired.png';
 
 class Cell extends UI {
 
@@ -23,7 +23,8 @@ class Cell extends UI {
       maxHeight: this.state.size[1] * 0.8 * scale,
       marginTop: '4%'
     }};
-    return <img style={imageStyle} src={this.url.url? this.url.url: null} alt=''/>
+    const url = this.url.url? this.url.url: null;
+    return <img key={url} style={imageStyle} src={url} alt=''/>
   }
 
   cellTitle(scale){

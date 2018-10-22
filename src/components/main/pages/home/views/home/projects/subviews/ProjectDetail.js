@@ -30,7 +30,7 @@ class ProjectDetail extends SubView {
 
         {this.subTitle(['Description','描述','描述'])}
         {this.sep()}
-        {this.textDisplay(project.description, ['100%',''], '125%', 'center')}
+        {project.description.split('\n').map(desc=>{return this.textDisplay(desc, ['100%',''], '125%', 'center')})}
         {this.gap('2%')}
 
         {this.subTitle(['Start date','創建於','创建于'])}

@@ -38,15 +38,15 @@ class Account extends View {
 
         {this.subTitle(['New password','新密碼','新密码'])}
         {this.sep()}
-        {this.inputs.inputField('newPw','password',['Leave blank if not changing','不更改密碼時請留空','不更改密码时请留空'],'')}
+        {this.inputs.inputField('newPw','password', forceAccount?'':['Leave it blank if no change','不更改密碼時請留空','不更改密码时请留空'],'')}
         {this.gap('2%')}
 
         {this.subTitle(['Confirm new password','確定新密碼','确定新密码'])}
         {this.sep()}
-        {this.inputs.inputField('confirmPw','password',['Leave blank if not changing','不更改密碼時請留空','不更改密码时请留空'],'')}
+        {this.inputs.inputField('confirmPw','password',forceAccount?'':['Leave it blank if no change','不更改密碼時請留空','不更改密码时请留空'],'')}
         {this.gap('4%')}
 
-        {!forceAccount && this.subTitle(['Enter current password for any changing','輸入密碼以變更資訊','输入密码以变更资讯'])}
+        {!forceAccount && this.subTitle(['Enter current password to change','輸入密碼以變更資訊','输入密码以变更资讯'])}
         {!forceAccount && this.sep()}
         {!forceAccount && this.inputs.inputField('pw','password','','')}
         <CustomButton app={this.app} button={this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}/>
