@@ -1,7 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
-
 import Sound from 'react-sound';
 
 class CardBar extends UI {
@@ -18,11 +17,14 @@ class CardBar extends UI {
   }
 
   componentWillReceiveProps(newProps){
-    this.init(newProps);
+    this.checkAudioComment(newProps);
+  }
+
+  checkAudioComment(props){
+    this.init(props);
     const newFilename = this.store.cards.viewingCard.audioComment;
     if(this.state.filename !== newFilename){
-      this.setState({ filename: newFilename })
-      this.checkUrl();
+      this.setState({ filename: newFilename }, ()=>{ this.checkUrl(); });
     }
   }
 
@@ -71,7 +73,7 @@ class CardBar extends UI {
 
             {this.state.playAudioComment &&
               <Sound
-              url={this.url.url}
+              url={this.store.content.cachedUrl[this.state.filename]}
               playStatus={Sound.status.PLAYING}
               onFinishedPlaying={this.toggleAuidioComment.bind(this)}/>}
           </div>
@@ -104,6 +106,7 @@ class CardBar extends UI {
   }
 
   toggleAuidioComment(){
+    this.checkAudioComment(this.props);
     this.setState({ playAudioComment: !this.state.playAudioComment })
   }
 

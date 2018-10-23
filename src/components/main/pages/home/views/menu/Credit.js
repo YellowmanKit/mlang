@@ -40,7 +40,7 @@ class Credit extends View {
           '祁永華博士',
           '祁永华博士'])}
         {this.creditTextDisplay(
-          ['Dr. W.W. Ki',
+          ['Dr. K.C. Lau',
           '劉國張博士',
           '刘国张博士'])}
         {this.gap('4%')}
@@ -48,7 +48,7 @@ class Credit extends View {
         {this.subTitle(['Developer','開發者','开发者'])}
         {this.sep()}
         {this.creditTextDisplay(
-          ['Kit Wong',
+          ['Mr. Wong Yan Kit',
           '黃人傑先生',
           '黄人杰先生'])}
         {this.gap('4%')}

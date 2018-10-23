@@ -15,6 +15,7 @@ const error = (store) => (next) => (action) => {
 var middleware = null;
 if(process.env.REACT_APP_DEV === 'true'){
   middleware = applyMiddleware(error, reduxLogger, thunk);
+  //middleware = applyMiddleware(error, thunk);
 }else{
   middleware = applyMiddleware(error, thunk);
 }

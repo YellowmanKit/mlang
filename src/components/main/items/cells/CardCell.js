@@ -24,6 +24,7 @@ class CardCell extends Cell {
     if(title !== this.state.title){
       this.setState({ title: title })
     }
+    this.checkUrl();
   }
 
 }

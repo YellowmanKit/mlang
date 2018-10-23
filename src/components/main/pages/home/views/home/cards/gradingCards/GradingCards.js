@@ -108,7 +108,9 @@ class GradingCards extends View {
               index={i}
               app={this.app}
               card={card}
-              onClick={()=>{this.onRowSelect(i)}} />
+              onClick={()=>{this.onRowSelect(i)}}
+              toggleAudioCommentPanel={this.toggleAudioCommentPanel.bind(this)}
+              toggleCommentPanel={this.toggleCommentPanel.bind(this)}/>
             </div>
           )
         })}
@@ -183,7 +185,17 @@ class GradingCards extends View {
       style={{bottom: isOpen? spring(this.bs.width * 0.2):spring(0), opacity: isOpen?spring(1.1):spring(0)}}>
         {style=>(
           <div style={{...panelStyle,...{ bottom: style.bottom, opacity: style.opacity }}}>
-            {this.inputs.textArea('comment', ['This card has no comment!','此卡片未有評論!'], gradingCard.comment, (e)=>{this.commenting(e)}, ['95%', '90%'])}
+            {this.inputs.textArea('comment', ['This card has no comment!','此卡片未有評論!'],
+            gradingCard.comment, (e)=>{this.commenting(e)}, ['89%', '90%'], this.bs.height * 0.05)}
+            {this.buttons.copy(()=>{
+              this.actions.main.setPrefabPicker('comments');
+
+              const gradingCards = this.getGradingCards();
+              if(!gradingCards){ return null; }
+              const gradingCard = gradingCards[this.state.selected];
+              if(!gradingCard){ return null; }
+              this.actions.cards.selectGradeCard(gradingCard);
+             })}
           </div>
         )}
       </Motion>

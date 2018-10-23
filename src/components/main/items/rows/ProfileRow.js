@@ -19,7 +19,7 @@ class ProfileRow extends Row {
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    if(newProps.profile && !this.state.filename){
+    if(newProps.profile && !this.url.url){
       this.setState({
         filename: newProps.profile.icon,
         type: 'profileIcon'
@@ -50,12 +50,14 @@ class ProfileRow extends Row {
   }
 
   render(){
-    if(this.props.profile === null){ return null; }
+    const profile = this.props.profile;
+    if(profile === null){ return null; }
+    if(profile.name === ''){ return null; }
     return this.animatedRow(this.content.bind(this), this.bs.height * 0.15)
   }
 
   content = (style)=>(
-      <button onClick={this.props.onClick} style={{...this.rowStyle(), ...{
+      <button key={this.url.url} onClick={this.props.onClick} style={{...this.rowStyle(), ...{
         height: style.height,
         opacity: style.opacity
       }}}>

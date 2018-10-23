@@ -18,13 +18,14 @@ import icon_arrow2_reverse from 'resources/images/buttons/buttonIcons/arrow2_rev
 
 import icon_passed from 'resources/images/buttons/buttonIcons/tick.png';
 import icon_featured from 'resources/images/buttons/buttonIcons/star2.png';
-import icon_comment from 'resources/images/buttons/buttonIcons/edit.png';
+import icon_comment from 'resources/images/buttons/buttonIcons/comment.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment.png';
 import icon_swipeLeft from 'resources/images/buttons/buttonIcons/swipeLeft.png';
 import icon_swipeRight from 'resources/images/buttons/buttonIcons/swipeRight.png';
 import icon_slideshow from 'resources/images/buttons/buttonIcons/slideshow.png';
 import icon_add_grey from 'resources/images/buttons/buttonIcons/add_grey.png';
 import icon_dotdotdot from 'resources/images/buttons/buttonIcons/dotdotdot.png';
+import icon_copy from 'resources/images/buttons/buttonIcons/copy_grey.png';
 
 class Button {
 
@@ -38,6 +39,10 @@ class Button {
     this.bs = this.ui.basicStyle;
     this.func = app.functions;
     this.actions = app.actions;
+  }
+
+  copy(onClick){
+    return this.button(this.dynamicStyles('panel'), ['',''], icon_copy, onClick);
   }
 
   hideTraceButton(hided, onClick){
@@ -346,6 +351,12 @@ class Button {
           position: 'absolute',
           top: this.bs.height * 0.21,
           right: 0
+        }
+      case 'panel':
+        return {
+          width: this.bs.height * 0.06,
+          height: this.bs.height * 0.06,
+          margin: this.bs.width * 0.015
         }
       default:
         return {}

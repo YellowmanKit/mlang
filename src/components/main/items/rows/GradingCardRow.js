@@ -51,12 +51,12 @@ class GradingCardRow extends Row {
     )
   }
 
-  render(){
+  content(animatedStyle){
     this.init(this.props);
     if(this.props.project === null){
       return null;
     }
-    const isSelected = this.props.selected === this.props.index;
+    const selected = this.props.selected === this.props.index;
 
     const rowStyle = {...this.ui.styles.border, ...this.ui.styles.area, ...{
       flexShrink: 0,
@@ -65,7 +65,7 @@ class GradingCardRow extends Row {
       alignItems: 'flex-start',
       position: 'relative',
       margin: '5px',
-      opacity: isSelected? 1:0.25,
+      opacity: animatedStyle.opacity,
       boxShadow: '2px 4px 24px -3px #888888'
     }}
     const iconContainerStyle = {...this.ui.styles.container, ...{
@@ -83,10 +83,15 @@ class GradingCardRow extends Row {
           <Image app={this.app} filename={card.icon} type={'cardIcon'} size={this.bs.width * 0.24}/>
         </div>
         {this.langRows()}
-        {this.cardTags(card.comment && card.comment.length > 0, card.audioComment)}
-        {!isSelected && this.selecter()}
+        {this.cardTags(this.props.toggleCommentPanel, ()=>{ this.props.toggleAudioCommentPanel(); }, this.props.toggleCommentPanel)}
+        {!selected && this.selecter()}
       </div>
     )
+  }
+
+  render(){
+    const selected = this.props.selected === this.props.index;
+    return this.animatedFadingRow(this.content.bind(this), selected);
   }
 }
 

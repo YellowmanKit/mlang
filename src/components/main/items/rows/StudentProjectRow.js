@@ -77,6 +77,8 @@ class StudentProjectRow extends Row {
   render(){
     this.init(this.props);
     const studentProject = this.props.studentProject;
+    if(studentProject.cards.length === 0){ return null; }
+    
     this.profile = this.func.getById.profileByUser(studentProject.student, this.store);
     this.project = this.func.getById.project(studentProject.project, this.store);
     if(!studentProject || !this.profile){

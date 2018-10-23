@@ -11,7 +11,7 @@ class Cell extends UI {
   componentWillReceiveProps(newProps){
     this.init(newProps);
     const newFilename = newProps.data.icon;
-    if(this.state.filename !== newFilename){
+    if(!this.url.url || this.state.filename !== newFilename){
       this.setState({ filename: newFilename })
       this.checkUrl();
     }

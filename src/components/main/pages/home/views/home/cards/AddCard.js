@@ -63,7 +63,10 @@ class AddCard extends View {
     var usedKeys = [];
     for(var i=0;i<editLangs.length;i++){
       if(usedKeys.includes(editLangs[i].key)){
-        return this.failedMessage(['Failed to submit! Lang key duplicated!', '提交失敗! 語言列不能重複!','提交失败! 语言列不能重复!'])
+        return this.failedMessage([
+          'Failed to submit! Lang key duplicated! Please make sure each language appeared once only!',
+          '提交失敗! 語言列不能重複! 請確定每種語言只出現一次!',
+          '提交失败! 语言列不能重复! 请确定每种语言只出现一次!'])
       }
       if(editLangs[i].text === ''){
         return this.failedMessage(['Failed to submit! Lang text missing!', '提交失敗! 語言列缺少文字!','提交失败! 语言列缺少文字!'])

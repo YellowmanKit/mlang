@@ -60,7 +60,7 @@ class StudentProjects extends SubView {
         <StudentProjectRow
         app={this.app}
         studentProject={studentProject}
-        key={i}
+        key={studentProject._id}
         byStudent={true}
         onClick={()=>{ this.actions.studentProjects.viewStudentProject(studentProject); this.actions.content.pushView('gradingCards'); }}/>
       )

@@ -155,15 +155,16 @@ class App extends Component {
 
   async url(filename, type){
     const actions = this.props.actions.content;
-    if(!filename){ return ''};
+    if(!filename){ /*console.log('no filename');*/ return ''};
     const cachedUrl = this.props.store.content.cachedUrl[filename];
-    if(cachedUrl){ /*console.log(type + ' use cached url');*/ return cachedUrl; }
-    //console.log('create url');
-    actions.cacheUrl(filename, 'processing...');
+    if(cachedUrl){ /*console.log(type + ' use cached url: ' + cachedUrl);*/ return cachedUrl; }
+    //console.log(filename + '- create url: processing...');
+    actions.cacheUrl(filename, filename +  ' processing...');
     const localFile = await this.props.db.get(filename);
     if(localFile){
       //console.log(type + ' use localFile');
       const url = URL.createObjectURL(localFile);
+      //console.log(filename + '- create url: ' + url);
       actions.cacheUrl(filename, url);
       return url;
     }else{

@@ -49,7 +49,8 @@ class Notice extends UI {
       position: 'absolute',
       right: this.bs.height * 0.025,
       bottom: this.bs.height * 0.025,
-      alignItems: 'flex-end'
+      alignItems: 'flex-end',
+      pointerEvents: 'none'
     }}
     const nyanSize = [this.bs.height * 0.075, this.bs.height * 0.075];
 
@@ -57,7 +58,7 @@ class Notice extends UI {
       <div style={noticeStyle}>
         {this.noticesCloud()}
         {this.amountTag(status === 'off')}
-        <Nyan app={this.app} status={this.state.nyan} size={nyanSize} onClick={()=>{this.onNyanClicked()}}/>
+        <Nyan app={this.app} isOpen={true} status={this.state.nyan} size={nyanSize} onClick={()=>{this.onNyanClicked()}}/>
       </div>
     )
   }

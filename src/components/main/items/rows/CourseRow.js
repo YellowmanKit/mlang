@@ -1,6 +1,8 @@
 import React from 'react';
 import Row from './Row';
 
+import icon_event from 'resources/images/icons/event_grey.png';
+
 class CourseRow extends Row {
 
   constructor(props){
@@ -33,9 +35,12 @@ class CourseRow extends Row {
       height: this.bs.height * 0.06,
       alignItems: 'flex-end'
     }}
+    const iconSize = this.bs.height * 0.05;
     return(
       <div style={rowStyle}>
-        {this.textDisplay(course.description, ['',''], '150%')}
+        {this.icon(icon_event, [iconSize, iconSize])}
+        {this.verGap('1%')}
+        {this.textDisplay(this.func.dateString(new Date(course.endDate)), ['',''], '150%')}
       </div>
     )
   }

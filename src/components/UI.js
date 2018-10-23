@@ -8,7 +8,7 @@ import tab_bar from 'resources/images/general/tab_bar.png';
 import shadow from 'resources/images/general/shadow.png';
 import triangle from 'resources/images/general/triangle.png';
 import triangle_down from 'resources/images/general/triangle_down.png';
-import icon_comment from 'resources/images/buttons/buttonIcons/edit_black.png';
+import icon_comment from 'resources/images/buttons/buttonIcons/comment_black.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment_black.png';
 import icon_alert2 from 'resources/images/icons/alert2.png';
 
@@ -24,8 +24,10 @@ class UI extends Component {
 
   checkUrl(){
     if(this.state && this.state.filename){
+      //console.log('getting url: ' + this.state.filename);
       this.url.getUrl(this.state.filename, this.state.type);
-      //console.log('getting url');
+    }else{
+      //console.log('no filename in state');
     }
   }
 
@@ -45,7 +47,6 @@ class UI extends Component {
     this.inSchool = this.store.content.traces[1] === 'school' || this.store.content.traces[2] === 'school';
 
     this.url.init(props.app);
-    this.checkUrl();
   }
 
   checkBox(text, checked, onCheck){
@@ -81,7 +82,7 @@ class UI extends Component {
     )
   }
 
-  cardTags(commented, audioCommented){
+  cardTags(commentOnClick, audioCommentOnClick){
     const width = this.bs.width * 0.05;
     const style = {...this.bs, ...{
       position: 'absolute',
@@ -93,21 +94,22 @@ class UI extends Component {
     }}
     return(
       <div style={style}>
-        {this.icon(icon_comment, [width, width], commented? 0.85:0.1)}
-        {this.icon(icon_audioComment, [width, width], audioCommented? 0.85:0.1)}
+        {this.icon(icon_comment, [width, width], commentOnClick? 0.85:0.1, commentOnClick)}
+        {this.icon(icon_audioComment, [width, width], audioCommentOnClick? 0.85:0.1, audioCommentOnClick)}
       </div>
     )
   }
 
-  icon(url, scale, opacity){
+  icon(url, scale, opacity, onClick){
     const iconStyle = {
       width: scale[0],
       height: scale[1],
       opacity: opacity,
       backgroundImage: 'url(' + url + ')',
-      backgroundSize: '100% 100%'
+      backgroundSize: '100% 100%',
+      cursor: onClick? 'pointer': ''
     }
-    return <div style={iconStyle}/>
+    return <div style={iconStyle} onClick={onClick}/>
   }
 
   tabBar(title, hide, onClick){

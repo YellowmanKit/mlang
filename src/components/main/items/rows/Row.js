@@ -59,9 +59,9 @@ class Row extends UI {
     }}
     const url = this.url.url? this.url.url: no_image;
     return(
-      <div key={url} style={containerStyle}>
+      <div style={containerStyle}>
         {passed && this.passedTag()}
-        <img style={iconStyle} src={url} alt=''/>
+        <img key={url} style={iconStyle} src={url} alt=''/>
       </div>
     )
   }
@@ -73,6 +73,16 @@ class Row extends UI {
       <Motion defaultStyle={{height: (!ani || onDead)? height: 0, opacity: (!ani || onDead)? 1.1:0}}
       style={{height: spring(onDead? 0:height, option), opacity: spring(onDead?0: 1.1, option)}}
       onRest={onDead? onDead: ()=>{this.actions.switches.setAnimation('row',false)}}>
+        {style=>content(style)}
+      </Motion>
+    )
+  }
+
+  animatedFadingRow(content, selected){
+    const option = {stiffness: 1000, damping: 50, precision: 2}
+    return(
+      <Motion defaultStyle={{opacity:0 }}
+      style={{opacity: spring(selected? 1: 0.25, option)}}>
         {style=>content(style)}
       </Motion>
     )

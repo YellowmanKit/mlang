@@ -155,6 +155,7 @@ class Nyan extends UI {
       width: size[0],
       height: size[1],
       flexShrink: 0,
+      pointerEvents: this.props.isOpen? 'all': '',
       cursor: this.props.onClick? 'pointer':''
     }
     if(this.props.status === 'off'){ return <img src={this.state.animations['sit'].frames[0]} style={nyanStyle} alt=''/> }

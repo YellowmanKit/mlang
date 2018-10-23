@@ -30,6 +30,7 @@ class CourseStudents extends SubView {
     const students = this.store.courses.viewingCourse.joinedStudents;
     return students.map((userId, i)=>{
       const profile = this.func.getById.profileByUser(userId, this.store);
+      if(!profile){ return null; }
       return (
       <ProfileRow
       app={this.app}

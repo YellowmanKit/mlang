@@ -25,12 +25,20 @@ class PrefabPicker extends UI {
       overflowX: 'scroll',
       justifyContent: 'flex-start'
     }}
+    const prefabsStyleY = {...this.ui.styles.container, ...this.bs, ...{
+      width: this.bs.width,
+      height: '',
+      overflowY: 'scroll',
+      justifyContent: 'center'
+    }}
+
     const status = this.store.main.prefabPicker;
     if(status === 'off'){ return null;}
-    var data = this.removeDuplicates(this.store[status][status].slice(0));
+    var type = status === 'comments'? 'cards': status;
+    var data = this.removeDuplicates(this.store[type][type].slice(0), status);
 
     return(
-      <div style={prefabsStyle}>
+      <div style={status === 'comments'? prefabsStyleY: prefabsStyle}>
         {this.verGap('8%')}
         {data.map((item, i)=>{
           return(
@@ -45,12 +53,24 @@ class PrefabPicker extends UI {
     )
   }
 
-  removeDuplicates(data){
+  removeDuplicates(data, status){
     for(var i=0;i<data.length;i++){
       for(var j=0;j<data.length;j++){
-        if(i !== j &&
-        data[i].title === data[j].title &&
-        data[i].description === data[j].description){
+        if(status === 'comments'){
+          if(!data[i]){ continue; }
+          if(!data[i].comment){
+            data.splice(i, 1);
+            i--;
+          }else if(data[i].comment.length === 0){
+            data.splice(i, 1);
+            i--;
+          }
+        }
+
+        if(status !== 'comments' &&
+          i !== j &&
+          data[i].title === data[j].title &&
+          data[i].description === data[j].description){
           data.splice(i, 1);
         }
       }
@@ -64,6 +84,8 @@ class PrefabPicker extends UI {
         return 'subjectIcon'
       case 'projects':
         return 'projectIcon'
+      case 'comments':
+        return 'cardComment'
       default:
         return ''
     }
@@ -100,9 +122,9 @@ class PrefabPicker extends UI {
         {style=>(
           <div style={{...pickerStyle, ...{opacity: style.opacity}}}>
             {this.buttons.absoluteClose(()=>{this.actions.main.setPrefabPicker('off')})}
-            {this.state.pointedCell && this.pickerText(this.state.pointedCell.title)}
+            {status !== 'comments' && this.state.pointedCell && this.pickerText(this.state.pointedCell.title)}
             {this.prefabs()}
-            {this.state.pointedCell && this.pickerText(this.state.pointedCell.description)}
+            {status !== 'comments' && this.state.pointedCell && this.pickerText(this.state.pointedCell.description)}
           </div>
         )}
       </Motion>

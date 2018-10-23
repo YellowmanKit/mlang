@@ -1,6 +1,7 @@
 import React from 'react';
 import UI from 'components/UI';
 import {Motion, spring, presets}  from 'react-motion';
+import Sound from 'react-sound';
 
 import Image from 'components/main/items/ui/Image';
 import Badge from 'components/main/items/Badge';
@@ -12,8 +13,12 @@ class Card extends UI {
     super(props);
     this.init(props);
     this.state = {
-      checkingRead: ''
+      checkingRead: '',
+      filename: props.card.audioComment,
+      type: 'audioComment',
+      playAudioComment: false
     }
+    this.checkUrl();
   }
 
   isReading(state){
@@ -23,6 +28,9 @@ class Card extends UI {
   componentWillReceiveProps(newProps){
     if(this.isReading(newProps.state) && this.state.checkingRead !== newProps.card._id){
       this.checkStudentRead(newProps.state, newProps.card);
+    }
+    if(newProps.card.audioComment !== this.state.filename){
+      this.setState({ filename: newProps.card.audioComment}, ()=>{ this.checkUrl(); })
     }
   }
 
@@ -73,6 +81,17 @@ class Card extends UI {
     )
   }
 
+  audioPlayer(){
+    if(!this.state.playAudioComment){ return null; }
+    const url = this.store.content.cachedUrl[this.state.filename];
+    return (
+      <Sound
+      url={url? url:''}
+      playStatus={Sound.status.PLAYING}
+      onFinishedPlaying={this.toggleAuidioComment.bind(this)}/>
+    )
+  }
+
   render(){
     this.init(this.props);
     const card = this.props.card;
@@ -119,12 +138,19 @@ class Card extends UI {
               {this.cardUpper(card)}
               {this.cardLower(card)}
               {this.footer(card)}
-              {this.cardTags(card.comment && card.comment.length > 0, card.audioComment)}
+              {this.cardTags(
+                (card.comment && card.comment.length > 0)? ()=>{this.actions.main.enlargeText(card.comment)}: null,
+                card.audioComment? ()=>{ this.toggleAuidioComment(); }: null)}
             </div>
+            {this.audioPlayer()}
           </div>
         )}
       </Motion>
     )
+  }
+
+  toggleAuidioComment(){
+    this.setState({ playAudioComment: !this.state.playAudioComment })
   }
 }
 

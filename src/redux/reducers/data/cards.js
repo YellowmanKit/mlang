@@ -7,6 +7,7 @@ const cardsReducer = (
     viewingCard: {},
     viewingCards: [],
     gradingCards: {},
+    selectedGradeCard: {},
     teachingCards: [],
     joinedCards: []
   }, action)=>{
@@ -22,9 +23,13 @@ const cardsReducer = (
       return {...state, viewingCards: action.payload};
     case 'updateCards':
       return {...state, cards: reducer.updateElements(state.cards, action.payload)};
+    case 'selectGradeCard':
+      return {...state, selectedGradeCard: action.payload};
     case 'gradeCard':
-      _gradingCards[action.payload.studentProjectId][action.payload.index] = action.payload.gradeCard;
+      _gradingCards[action.payload.studentProjectId] = reducer.updateElements(state.gradingCards[action.payload.studentProjectId], [action.payload.gradeCard]);
       return {...state, gradingCards: _gradingCards};
+    //  _gradingCards[action.payload.studentProjectId][action.payload.index] = action.payload.gradeCard;
+    //  return {...state, gradingCards: _gradingCards};
     case 'resetGradeCards':
       delete _gradingCards[action.payload];
       return {...state, gradingCards: _gradingCards};

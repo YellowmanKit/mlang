@@ -44,11 +44,11 @@ class Input {
     return <input id={id} type={type} defaultValue={value} style={inputStyle} />
   }
 
-  textArea(id, placeholder, value, onChange, scale){
+  textArea(id, placeholder, value, onChange, scale, fontSize){
     const textAreaStyle = {
       width: scale? scale[0]: this.bs.width * 0.67,
       height: scale? scale[1]: this.bs.height * 0.15,
-      fontSize: '175%',
+      fontSize: fontSize? fontSize: '175%',
       flexShrink: 0
     }
     return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1],placeholder[2]):''}/>

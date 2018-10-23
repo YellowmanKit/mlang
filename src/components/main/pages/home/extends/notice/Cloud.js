@@ -20,7 +20,7 @@ class Cloud extends UI {
       paddingRight: '3%',
       margin: '2%',
       cursor: isOpen? 'pointer':'',
-      pointerEvents: isOpen? '':'none'
+      pointerEvents: isOpen? 'all':'none'
     }}
     return(
       <Motion defaultStyle={{opacity: 0, scale: 0}}

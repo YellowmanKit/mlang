@@ -10,6 +10,13 @@ export const setAction = (action) =>{
   }
 }
 
+export const selectGradeCard = (gradeCard) =>{
+  return {
+    type: 'selectGradeCard',
+    payload: gradeCard
+  }
+}
+
 export const gradeCard = (id, index, gradeCard) =>{
   return {
     type: 'gradeCard',
