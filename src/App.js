@@ -18,6 +18,7 @@ import * as subjects from './redux/actions/data/subjects';
 import * as profiles from './redux/actions/data/profiles';
 import * as projects from './redux/actions/data/projects';
 import * as studentProjects from './redux/actions/data/studentProjects';
+import * as mlanghku from './redux/actions/data/mlanghku';
 
 import * as cards from './redux/actions/data/cards';
 import * as langs from './redux/actions/data/langs';
@@ -157,9 +158,13 @@ class App extends Component {
     const actions = this.props.actions.content;
     if(!filename){ /*console.log('no filename');*/ return ''};
     const cachedUrl = this.props.store.content.cachedUrl[filename];
-    if(cachedUrl){ /*console.log(type + ' use cached url: ' + cachedUrl);*/ return cachedUrl; }
+    if(cachedUrl){
+      /*console.log(type + ' use cached url: ' + cachedUrl);*/
+      if(cachedUrl === 'processing...'){ return ''; }
+      return cachedUrl;
+    }
     //console.log(filename + '- create url: processing...');
-    actions.cacheUrl(filename, filename +  ' processing...');
+    actions.cacheUrl(filename, 'processing...');
     const localFile = await this.props.db.get(filename);
     if(localFile){
       //console.log(type + ' use localFile');
@@ -289,6 +294,8 @@ function mapDispatchToProps(dispatch){
 
       cards: Action(cards, dispatch),
       langs: Action(langs, dispatch),
+
+      mlanghku: Action(mlanghku, dispatch)
     }
   }
 }

@@ -1,7 +1,7 @@
 
 var reducer = {
   updateElements: function (originals, newElements, idOnly){
-    console.log(originals);
+    //console.log(originals);
     if(!newElements || newElements.length === 0){
       return originals;
     }

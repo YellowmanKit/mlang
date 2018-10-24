@@ -29,12 +29,11 @@ class Cell extends UI {
 
   cellTitle(scale){
     var text = this.state.title;
-    var size = 100 * scale;
-    const textScale =[size + '%',size + '%'];
+    const textScale =['100%','100%'];
 
     return(
       <div style={{flexGrow: 1, overflow: 'hidden'}}>
-        {this.textDisplay(text, textScale, this.bs.height * 0.0225)}
+        {this.textDisplay(text, textScale, this.bs.height * 0.022 * scale)}
       </div>
     )
   }

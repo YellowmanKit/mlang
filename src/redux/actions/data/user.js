@@ -113,7 +113,7 @@ export function getNewAccount (_email) {
 
 export function login (_id, _pw) {
   console.log(api);
-  console.log(_id + ' ' + _pw);
+  //console.log(_id + ' ' + _pw);
   return async function (dispatch) {
     actions.connecting(dispatch);
 

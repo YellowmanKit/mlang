@@ -15,22 +15,28 @@ class Main extends UI {
     //this.db.clear();
     this.actions.main.setStatus('waitForLogin');
     //actions.main.setStatus('ready');
+    this.actions.mlanghku.fetchUser('Teacher1A', '123456');
   }
 
   componentWillReceiveProps(newProps){
     this.init(this.props);
     const previous = this.app.store.main.status;
     const next = newProps.app.store.main.status;
+    const lastView = this.app.store.content.view;
+    const newView = newProps.app.store.content.view;
+    const oldUser = this.props.app.store.user;
+    const newUser = newProps.app.store.user;
     //console.log(previous);
     //console.log(next);
     if((previous === 'waitForLogin' || previous === 'getNewAccount') && next === 'ready'){
-      const newUser = newProps.app.store.user;
       this.rememberLoginInfo(newUser.id, newUser.pw);
       //console.log(JSON.parse(localStorage.getItem('loginInfo')).id);
       this.initView(this.app.store.user.type);
-    }else if(this.app.store.content.view === 'forceProfile' &&
-    newProps.app.store.content.view !== 'forceProfile'){
+    }else if(lastView === 'forceProfile' && newView !== 'forceProfile'){
       this.actions.content.pushView('forceAccount');
+    }
+    if(oldUser.pw !== newUser.pw){
+      this.rememberLoginInfo(newUser.id, newUser.pw);
     }
 
     const oldType = this.app.store.user.type;

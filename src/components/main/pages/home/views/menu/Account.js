@@ -74,11 +74,17 @@ class Account extends View {
     const pw = pwField? pwField.value: '';
 
     //console.log(newId)
+    if(forceAccount && newId === 'DefaultId'){
+      return this.failedMessage(['Failed to change! Please enter your new identity!', '變更失敗! 請輸入新的登入名稱!', '变更失败! 请输入新的登入名称!'])
+    }
     if(newId.length < 5){
       return this.failedMessage(['Failed to change! Identity must be atlease 5 characters long!', '變更失敗! 登入名稱至少須由五個字元組成!', '变更失败! 登入名称至少须由五个字元组成!'])
     }
     if(!newEmail.includes('@')){
       return this.failedMessage(['Failed to change! Invalid email address!', '變更失敗! 電郵地址不正確!', '变更失败! 电邮地址不正确!'])
+    }
+    if(forceAccount && newPw.length === 0){
+      return this.failedMessage(['Failed to change! Please enter your new password!', '變更失敗! 請輸入新的密碼!', '变更失败! 请输入新的密码!'])
     }
     if(newPw.length > 0){
       if(newPw !== confirmPw){

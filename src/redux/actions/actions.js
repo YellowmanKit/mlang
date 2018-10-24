@@ -14,4 +14,8 @@ export function updateFailed(dispatch){
   dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!', '更改失敗! 請再試一次!']});
 }
 
+export function timestamp(){
+  return Math.floor(new Date().getTime() / 1000);
+}
+
 export function api(){ return process.env.REACT_APP_DEV === 'true'? process.env.REACT_APP_API_DEV: process.env.REACT_APP_API; }
