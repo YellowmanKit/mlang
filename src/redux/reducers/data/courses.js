@@ -20,7 +20,7 @@ const coursesReducer = (
     case 'updateJoinedCourses':
         return {...state, joinedCourses: reducer.updateElements(state.joinedCourses, action.payload, true)};
     case 'updateTeachingCourses':
-        return {...state, teachingCourses: reducer.updateElements(state.teachingCourses, action.payload, true)};
+        return {...state, teachingCourses: reducer.updateElements(state.teachingCourses, action.payload, true, true)};
     case 'viewCourse':
       return {...state, viewingCourse: action.payload};
     default:

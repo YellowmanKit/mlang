@@ -114,8 +114,7 @@ class SlideShow extends View {
 
     this.setState({
       filename: this.lang.audio
-    });
-    this.checkUrl();
+    }, ()=>{ this.checkUrl(); });
     setTimeout(()=>{
       this.setState({
         audioPlaying: true

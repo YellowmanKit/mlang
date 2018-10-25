@@ -17,13 +17,13 @@ export function getAllSubjectsOfUser(profile){
     if(err){actions.connectionError(dispatch); return;}
 
     if(res.data.result === 'success'){
-      dispatch({type: "updateSubjects", payload: res.data.subjects});
-      dispatch({type: "updateProjects", payload: res.data.projects});
-      dispatch({type: "updateStudentProjects", payload: res.data.studentProjects});
-      dispatch({type: "updateProfiles", payload: [res.data.profile]});
-      dispatch({type: "viewProfile", payload: res.data.profile});
+      dispatch({type: 'updateSubjects', payload: res.data.subjects});
+      dispatch({type: 'updateProjects', payload: res.data.projects});
+      dispatch({type: 'updateStudentProjects', payload: res.data.studentProjects});
+      dispatch({type: 'updateProfiles', payload: [res.data.profile]});
+      dispatch({type: 'viewProfile', payload: res.data.profile});
     }else{
-      dispatch({type: "message", payload: ['Failed to get subjects data!', '無法查閱議題資料!', '无法查阅议题资料!']});
+      dispatch({type: 'message', payload: ['Failed to get subjects data!', '無法查閱議題資料!', '无法查阅议题资料!']});
     }
   }
 }
@@ -37,9 +37,9 @@ export function getSubjects(subjects){
     if(err){actions.connectionError(dispatch); return;}
 
     if(res.data.result === 'success'){
-      dispatch({type: "updateSubjects", payload: res.data.subjects});
+      dispatch({type: 'updateSubjects', payload: res.data.subjects});
     }else{
-      dispatch({type: "message", payload: ['Failed to get subjects data!', '無法查閱議題資料!', '无法查阅议题资料!']});
+      dispatch({type: 'message', payload: ['Failed to get subjects data!', '無法查閱議題資料!', '无法查阅议题资料!']});
     }
 
   }
@@ -64,10 +64,10 @@ export function editSubject(editedSubject){
     if(err){actions.connectionError(dispatch); return;}
 
     if(updateRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Edit subject succeed!', '成功修改議題!', '成功修改议题!']});
-      dispatch({type: "updateSubjects", payload: [updateRes.data.editedSubject]});
-      dispatch({type: "viewSubject", payload: updateRes.data.editedSubject});
-      dispatch({type: "pullView"});
+      dispatch({type: 'message', payload: ['Edit subject succeed!', '成功修改議題!', '成功修改议题!']});
+      dispatch({type: 'updateSubjects', payload: [updateRes.data.editedSubject]});
+      dispatch({type: 'viewSubject', payload: updateRes.data.editedSubject});
+      dispatch({type: 'pullView'});
     } else {
       actions.updateFailed(dispatch);
     }
@@ -86,7 +86,7 @@ export function addSubject(newSubject){
 
     [err, uploadRes] = await to(axios.post(api + '/upload', iconFile, { headers: { type: 'subjectIcon'}}));
     if(err){actions.connectionError(dispatch); return;}
-    //console.log("File uploaded");
+    //console.log('File uploaded');
     if(uploadRes.data.result === 'success'){
       newSubject['icon'] = uploadRes.data.filenames[0];
     }else{
@@ -99,15 +99,15 @@ export function addSubject(newSubject){
 
     //console.log(res.data);
     if(addRes.data.result === 'success'){
-      dispatch({type: "message", payload: ['Add subject succeed!', '成功創建議題!', '成功创建议题!']});
-      dispatch({type: "updateSubjects", payload: [addRes.data.newSubject]});
-      dispatch({type: "updateTeachingSubjects", payload: [addRes.data.newSubject._id]});
-      dispatch({type: "updateCourses", payload: [addRes.data.updatedCourse]});
-      dispatch({type: "viewCourse", payload: addRes.data.updatedCourse});
-      dispatch({type: "pullView"});
-      //dispatch({type: "setPhoto", payload: {blob: null, url: null}});
+      dispatch({type: 'message', payload: ['Add subject succeed!', '成功創建議題!', '成功创建议题!']});
+      dispatch({type: 'updateSubjects', payload: [addRes.data.newSubject]});
+      dispatch({type: 'updateTeachingSubjects', payload: [addRes.data.newSubject._id]});
+      dispatch({type: 'updateCourses', payload: [addRes.data.updatedCourse]});
+      dispatch({type: 'viewCourse', payload: addRes.data.updatedCourse});
+      dispatch({type: 'pullView'});
+      //dispatch({type: 'setPhoto', payload: {blob: null, url: null}});
     }else{
-      dispatch({type: "message", payload: ['Add subject failed! Please try again!', '創建失敗! 請再試一次!', '创建失败! 请再试一次!']});
+      dispatch({type: 'message', payload: ['Add subject failed! Please try again!', '創建失敗! 請再試一次!', '创建失败! 请再试一次!']});
     }
 
   }

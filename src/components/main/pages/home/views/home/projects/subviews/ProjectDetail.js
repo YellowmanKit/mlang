@@ -20,27 +20,27 @@ class ProjectDetail extends SubView {
 
         {this.subTitle(['Subject','議題','议题'])}
         {this.sep()}
-        {this.textDisplay(subject.title, ['100%',''], '125%', 'center')}
+        {this.detailText(subject.title, 'projectSubject')}
         {this.gap('2%')}
 
         {this.subTitle(['Title','標題','标题'])}
         {this.sep()}
-        {this.textDisplay(project.title, ['100%',''], '125%', 'center')}
+        {this.detailText(project.title, 'projectTitle')}
         {this.gap('2%')}
 
         {this.subTitle(['Description','描述','描述'])}
         {this.sep()}
-        {project.description.split('\n').map(desc=>{return this.textDisplay(desc, ['100%',''], '125%', 'center')})}
+        {project.description.split('\n').map(desc=>{return this.detailText(desc, 'projectDesc')})}
         {this.gap('2%')}
 
         {this.subTitle(['Start date','創建於','创建于'])}
         {this.sep()}
-        {this.textDisplay(this.func.dateString(new Date(project.createdAt)), ['100%',''], '125%', 'center')}
+        {this.detailText(this.func.dateString(new Date(project.createdAt)), 'projectCreatedAt')}
         {this.gap('2%')}
 
         {this.subTitle(['End date','結束日期','结束日期'])}
         {this.sep()}
-        {this.textDisplay(this.func.dateString(new Date(project.endDate)), ['100%',''], '125%', 'center')}
+        {this.detailText(this.func.dateString(new Date(project.endDate)), 'projectEndDate')}
         {this.gap('6%')}
       </div>
     )

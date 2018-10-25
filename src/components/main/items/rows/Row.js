@@ -43,7 +43,7 @@ class Row extends UI {
     return <div style={nameStyle}>{title}</div>
   }
 
-  rowIcon(passed){
+  rowIcon(passed, defaultUrl){
     const size = this.bs.height * 0.12;
     const iconSize = this.bs.height * 0.11;
     const containerStyle = {...this.ui.styles.border , ...this.ui.styles.container, ...{
@@ -57,7 +57,7 @@ class Row extends UI {
       maxHeight: iconSize,
       backgroundColor: 'white'
     }}
-    const url = this.url.url? this.url.url: no_image;
+    const url = defaultUrl? defaultUrl: this.url.url? this.url.url: no_image;
     return(
       <div style={containerStyle}>
         {passed && this.passedTag()}

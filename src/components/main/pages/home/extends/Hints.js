@@ -91,7 +91,7 @@ class Hints extends UI {
             '你尚未創建任何學校！你可以用 + 按鈕創建學校，然後把學校代碼告訴你的老師，好讓他們加入！學校代碼可以在詳細資訊頁面找到！',
             '你尚未创建任何学校！你可以用 + 按钮创建学校，然后把学校代码告诉你的老师，好让他们加入！学校代码可以在详细资讯页面找到！'
           )
-        }else if(this.userType === 'student'){
+        }else if(this.userType === 'student' || this.userType === 'teacher'){
           return this.func.multiLang(
             'You haven\'t create any school yet!\n ',
             '你尚未加入任何學校！如果你是老師，你必須先向學校管理員索取代碼並加入學校，然後在選單的帳號資訊切換帳號類型，如果你是學生則不需要加入學校。',

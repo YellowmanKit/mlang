@@ -21,27 +21,27 @@ class CourseDetail extends SubView {
 
         {this.subTitle(['Teacher','老師','老师'])}
         {this.sep()}
-        {this.textDisplay(teacher? teacher.name: '', ['100%',''], '125%', 'center')}
+        {this.detailText(teacher? teacher.name: '')}
         {this.gap('2%')}
 
         {this.subTitle(['Title','班名','班名'])}
         {this.sep()}
-        {this.textDisplay(course.title, ['100%',''], '125%', 'center')}
+        {this.detailText(course.title)}
         {this.gap('2%')}
 
         {this.subTitle(['Start date','創建於','创建于'])}
         {this.sep()}
-        {this.textDisplay(this.func.dateString(new Date(course.createdAt)), ['100%',''], '125%', 'center')}
+        {this.detailText(this.func.dateString(new Date(course.createdAt)))}
         {this.gap('2%')}
 
         {this.subTitle(['End date','結束日期','结束日期'])}
         {this.sep()}
-        {this.textDisplay(this.func.dateString(new Date(course.endDate)), ['100%',''], '125%', 'center')}
+        {this.detailText(this.func.dateString(new Date(course.endDate)))}
         {this.gap('2%')}
 
         {this.subTitle(['Code','代碼','代码'])}
         {this.sep()}
-        {this.textDisplay(course.code, ['100%',''], '125%', 'center')}
+        {this.detailText(course.code)}
         {this.gap('6%')}
       </div>
     )

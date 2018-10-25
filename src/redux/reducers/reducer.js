@@ -1,6 +1,6 @@
 
 var reducer = {
-  updateElements: function (originals, newElements, idOnly){
+  updateElements: function (originals, newElements, idOnly, append){
     //console.log(originals);
     if(!newElements || newElements.length === 0){
       return originals;
@@ -22,7 +22,11 @@ var reducer = {
           break;
         }
         if(j === updatedArray.length - 1){
-          updatedArray.splice(0,0,newElements[i]);
+          if(append){
+            updatedArray.splice(updatedArray.length,0,newElements[i]);
+          }else{
+            updatedArray.splice(0,0,newElements[i]);
+          }
           break;
         }
       }

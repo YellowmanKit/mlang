@@ -14,6 +14,10 @@ export function updateFailed(dispatch){
   dispatch({type: "message", payload: ['Update failed! Please try again!', '更改失敗! 請再試一次!', '更改失敗! 請再試一次!']});
 }
 
+export function mlanghkuDataFetchFailed(dispatch){
+  dispatch({type: "message", payload: ['Failed to fetch mlanghku data!', '無法查閱mlanghku資料!', '无法查阅mlanghku资料!']});
+}
+
 export function timestamp(){
   return Math.floor(new Date().getTime() / 1000);
 }

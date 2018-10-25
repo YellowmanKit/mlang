@@ -154,7 +154,11 @@ class UI extends Component {
     return <img src={shadow} style={style} alt=''/>
   }
 
-  textDisplay(text, scale, fontSize, textAlign, color){
+  detailText(text, id){
+    return this.textDisplay(text, ['100%',''], '125%', 'center', 'black', id)
+  }
+
+  textDisplay(text, scale, fontSize, textAlign, color, key){
     const style = {
       width: scale? scale[0]: '100%',
       height: scale? scale[1]: '15%',
@@ -167,7 +171,7 @@ class UI extends Component {
       color: color? color: 'black',
       flexShrink: 0
     }
-    return <div style={style}>{text}</div>
+    return <div key={key} style={style}>{text}</div>
   }
 
   subTitle(title, fontSize){

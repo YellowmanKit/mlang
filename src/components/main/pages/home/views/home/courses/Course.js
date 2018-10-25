@@ -34,7 +34,7 @@ class Course extends View {
   }
 
   courseSubNav(){
-    const _options = [
+    const options = [
       {
         tag:['Unit','單元','单元'],
         subView: 'courseSubjects'
@@ -48,7 +48,10 @@ class Course extends View {
         subView: 'courseDetail'
       }
     ]
-    return <SubNav app={this.app} options={_options} />
+    if(this.store.courses.viewingCourse.mlanghku){
+      options.splice(1,1);
+    }
+    return <SubNav app={this.app} options={options} />
   }
 
   render(){

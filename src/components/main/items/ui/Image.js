@@ -19,8 +19,7 @@ class Image extends UI {
     this.init(newProps);
     const newFilename = newProps.filename;
     if(this.state.filename !== newFilename){
-      this.setState({ filename: newFilename })
-      this.checkUrl();
+      this.setState({ filename: newFilename }, ()=>{ this.checkUrl(); })
     }
   }
 

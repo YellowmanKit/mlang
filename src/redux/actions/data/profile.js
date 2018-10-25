@@ -14,7 +14,7 @@ export function changeProfile(data){
 
     [err, uploadRes] = await to(axios.post(api + '/upload', iconFile, { headers: { type: 'profileIcon'}}));
     if(err){actions.connectionError(dispatch); return;}
-    //console.log("File uploaded");
+    //console.log('File uploaded');
     if(uploadRes.data.result === 'success'){
       data['newIcon'] = uploadRes.data.filenames[0];
     }else{
@@ -27,9 +27,9 @@ export function changeProfile(data){
 
     if(updateRes.data.result === 'success'){
       actions.updateSuccess(dispatch);
-      dispatch({type: "setProfile", payload: updateRes.data.updatedProfile});
-      dispatch({type: "updateProfiles", payload: [updateRes.data.updatedProfile]});
-      dispatch({type: "backToHome"});
+      dispatch({type: 'setProfile', payload: updateRes.data.updatedProfile});
+      dispatch({type: 'updateProfiles', payload: [updateRes.data.updatedProfile]});
+      dispatch({type: 'backToHome'});
     }else{
       actions.updateFailed(dispatch);
     }

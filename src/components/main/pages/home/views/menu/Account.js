@@ -46,6 +46,18 @@ class Account extends View {
         {this.inputs.inputField('confirmPw','password',forceAccount?'':['Leave it blank if no change','不更改密碼時請留空','不更改密码时请留空'],'')}
         {this.gap('4%')}
 
+        {!forceAccount && this.subTitle(['mlanghku identity','mlanghku登入名稱','mlanghku登入名称'])}
+        {!forceAccount && this.sep()}
+        {!forceAccount && this.inputs.inputField('mlanghkuId','text',
+        ['Leave it blank if you are not mlanghku user','若你不是mlanghku用家請留空','若不是mlanghku用家请留空'], user.mlanghkuId)}
+        {!forceAccount && this.gap('4%')}
+
+        {!forceAccount && this.subTitle(['mlanghku password','mlanghku密碼','mlanghku密码'])}
+        {!forceAccount && this.sep()}
+        {!forceAccount && this.inputs.inputField('mlanghkuPw','password',
+        ['Leave it blank if you are not mlanghku user','若你不是mlanghku用家請留空','若不是mlanghku用家请留空'], user.mlanghkuPw)}
+        {!forceAccount && this.gap('4%')}
+
         {!forceAccount && this.subTitle(['Enter current password to change','輸入密碼以變更資訊','输入密码以变更资讯'])}
         {!forceAccount && this.sep()}
         {!forceAccount && this.inputs.inputField('pw','password','','')}
@@ -72,6 +84,9 @@ class Account extends View {
     const confirmPw = document.getElementById('confirmPw').value;
     const pwField = document.getElementById('pw');
     const pw = pwField? pwField.value: '';
+
+    const mlanghkuId = forceAccount? '': document.getElementById('mlanghkuId').value;
+    const mlanghkuPw = forceAccount? '': document.getElementById('mlanghkuPw').value;
 
     //console.log(newId)
     if(forceAccount && newId === 'DefaultId'){
@@ -106,7 +121,9 @@ class Account extends View {
       type: newType? newType: user.type,
       id: newId,
       pw: newPw.length >= 6? newPw: user.pw,
-      email: newEmail
+      email: newEmail,
+      mlanghkuId: mlanghkuId? mlanghkuId: user.mlanghkuId,
+      mlanghkuPw: mlanghkuPw? mlanghkuPw: user.mlanghkuPw
     });
 
   }

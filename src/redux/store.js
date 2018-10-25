@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers/root";
-import reduxLogger from "redux-logger";
+//import reduxLogger from "redux-logger";
 import thunk from "redux-thunk"
 //import axios from "axios";
 
@@ -14,8 +14,8 @@ const error = (store) => (next) => (action) => {
 
 var middleware = null;
 if(process.env.REACT_APP_DEV === 'true'){
-  middleware = applyMiddleware(error, reduxLogger, thunk);
-  //middleware = applyMiddleware(error, thunk);
+  //middleware = applyMiddleware(error, reduxLogger, thunk);
+  middleware = applyMiddleware(error, thunk);
 }else{
   middleware = applyMiddleware(error, thunk);
 }

@@ -76,7 +76,7 @@ class Cards extends UI {
       <div style={cardsStyle}>
         {this.gap('3%')}
         {cardsToShow.map((cardId,i)=>{
-          if(cardId === 'add'){
+          if(cardId === 'add' && !this.store.projects.viewingProject.mlanghku){
             return(
               <div key={i} style={cardContainerStyle}>
                 {this.props.onAdd && this.props.onAdd()}

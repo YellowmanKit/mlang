@@ -247,6 +247,10 @@ class NavBar extends UI {
           break;
       }
     }
+    if(this.store.courses.viewingCourse.mlanghku){
+      rightIcon = null;
+      rightOnClick = ()=>{};
+    }
     this.setState({
       leftNav: ()=>{ return this.buttons.nav(leftIcon, ()=>{ leftOnClick() })},
       rightNav: ()=>{ return this.buttons.nav(rightIcon, ()=>{ rightOnClick() })},
@@ -283,7 +287,7 @@ class NavBar extends UI {
       alignItems: 'center'
     }
     return(
-      <div style={navBarStyle}>
+      <div style={navBarStyle} onClick={()=>{ console.log(this.store); }}>
         {this.state.leftNav()}
         {this.state.titleArea()}
         {this.state.rightNav()}

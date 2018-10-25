@@ -59,8 +59,8 @@ export const clearView = () =>{
 export function pushView(view){
   //console.log(newUser)
   return async function (dispatch) {
-    dispatch({type: "setAnimation", payload: {type: 'row', state: true}});
-    dispatch({type: "pushView", payload: view});
+    dispatch({type: 'setAnimation', payload: {type: 'row', state: true}});
+    dispatch({type: 'pushView', payload: view});
   }
 }
 

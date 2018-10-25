@@ -174,7 +174,8 @@ class App extends Component {
       return url;
     }else{
       //console.log(type + ' downloading...');
-      const downloadUrl = this.api() + '/download/'+ type + '/' + filename;
+      var downloadUrl = this.api() + '/download/'+ type + '/' + filename;
+      if(filename.includes('147.8.219.237')){ downloadUrl = filename; }
       let err, res;
       [err, res] = await to(axios.get(downloadUrl, {responseType: 'blob'}));
       if(err || !res.data){ console.log('file download error!'); return '';}

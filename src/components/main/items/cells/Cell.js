@@ -5,6 +5,7 @@ import {Motion, spring}  from 'react-motion';
 import Badge from 'components/main/items/Badge';
 
 import passed from 'resources/images/general/expired.png';
+import no_image from 'resources/images/general/no_image.png';
 
 class Cell extends UI {
 
@@ -12,8 +13,7 @@ class Cell extends UI {
     this.init(newProps);
     const newFilename = newProps.data.icon;
     if(!this.url.url || this.state.filename !== newFilename){
-      this.setState({ filename: newFilename })
-      this.checkUrl();
+      this.setState({ filename: newFilename }, ()=>{ this.checkUrl(); })
     }
   }
 
@@ -23,7 +23,7 @@ class Cell extends UI {
       maxHeight: this.state.size[1] * 0.8 * scale,
       marginTop: '4%'
     }};
-    const url = this.url.url? this.url.url: null;
+    const url = this.url.url? this.url.url: no_image;
     return <img key={url} style={imageStyle} src={url} alt=''/>
   }
 

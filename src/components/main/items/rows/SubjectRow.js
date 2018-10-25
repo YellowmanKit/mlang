@@ -1,5 +1,6 @@
 import React from 'react';
 import Row from './Row';
+import mlanghku from 'resources/images/icons/mlanghku.png';
 
 class SubjectRow extends Row {
 
@@ -51,7 +52,7 @@ class SubjectRow extends Row {
         opacity: style.opacity
       }}}>
         {this.verGap('3%')}
-        {this.rowIcon()}
+        {this.rowIcon(false, this.props.subject.mlanghku? mlanghku: null)}
         {this.rowContent(this.props.subject.title, this.rowInfo.bind(this))}
         {this.state.alert && this.alertTag()}
       </button>

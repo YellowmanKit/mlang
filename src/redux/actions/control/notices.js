@@ -34,7 +34,7 @@ export const setNotice = (status) =>{
 
 export function init(store, actions){
   return function (dispatch) {
-    dispatch({type: "updateNotices", payload: [welcome()] });
+    dispatch({type: 'updateNotices', payload: [welcome()] });
   }
 }
 

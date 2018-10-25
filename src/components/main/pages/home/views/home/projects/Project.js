@@ -13,13 +13,18 @@ class Project extends View {
   componentDidMount(){
     this.init(this.props);
     if(!this.store.content.subView.includes('project')){
-      this.actions.content.setSubView(this.inSchool? 'projectFeatured':'projectSubmitted');
+      this.actions.content.setSubView((this.inSchool || this.store.projects.viewingProject.mlanghku)? 'projectFeatured':'projectSubmitted');
     }
     this.getStudentProjects(this.props);
   }
 
   getStudentProjects(props){
     const viewingProject = this.store.projects.viewingProject;
+
+    if(viewingProject.mlanghku && !viewingProject.fetched){
+      this.actions.mlanghku.fetchStudentProjects(viewingProject);
+      return;
+    }
 
     const studentProjectsToGet = [];
     const studentProjectsToShow = viewingProject.studentProjects;
@@ -32,6 +37,7 @@ class Project extends View {
     if(studentProjectsToGet.length > 0){
       this.actions.studentProjects.getStudentProjects(studentProjectsToGet);
     }
+
   }
 
   subView(){
@@ -71,7 +77,10 @@ class Project extends View {
         subView: 'projectDetail'
       }
     ];
-    if(!this.inSchool){
+    if(this.store.projects.viewingProject.mlanghku){
+      options.splice(1,1);
+    }
+    if(!this.inSchool && !this.store.projects.viewingProject.mlanghku){
       options.splice(0,0,
       {
         tag:['Submitted','已提交','已提交'],
