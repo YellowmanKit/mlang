@@ -13,6 +13,7 @@ class SubjectCell extends Cell {
       status: 'init',
       alert: this.func.checkAlert.subject(this.props.data, this.props.app)
     }
+    this.checkUrl();
   }
 
 }

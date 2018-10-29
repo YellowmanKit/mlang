@@ -30,21 +30,25 @@ class Cell extends UI {
   cellTitle(scale){
     var text = this.state.title;
     const textScale =['100%','100%'];
+    const titleSize = this.state.titleSize? this.state.titleSize: this.bs.height * 0.022;
 
     return(
       <div style={{flexGrow: 1, overflow: 'hidden'}}>
-        {this.textDisplay(text, textScale, this.bs.height * 0.022 * scale)}
+        {this.textDisplay(text, textScale, titleSize * scale)}
       </div>
     )
   }
 
   alertTag(){
+    const alertSize = this.state.alertSize? this.state.alertSize: this.bs.width * 0.04;
+    const alertPosi = this.state.alertPosi? this.state.alertPosi: this.bs.width * -0.02;
+
     const style = {
       position: 'absolute',
-      top: this.bs.width * -0.02,
-      right: this.bs.width * -0.02,
-      width: this.bs.width * 0.04,
-      height: this.bs.width * 0.04
+      top: alertPosi,
+      right: alertPosi,
+      width: alertSize,
+      height: alertSize
     }
     return <div style={style}>{this.animatedAlert()}</div>
   }
@@ -65,8 +69,7 @@ class Cell extends UI {
     const outDated = this.state.outDated;
     const size = this.state.size;
 
-    const cellStyle = {...this.ui.styles.button, ...this.ui.styles.border, ...{
-      margin: '1.5%',
+    const cellStyle = {...this.state, ...this.ui.styles.button, ...this.ui.styles.border, ...{
       backgroundColor: 'white',
       flexShrink: 0,
       display: 'flex',
@@ -82,9 +85,11 @@ class Cell extends UI {
 
     return(
       <Motion defaultStyle={{scale: this.props.wasHide? 0: isInit? 1:isOpen? 1: 1.05, opacity: this.props.wasHide? 0: outDated? (isOpen? 0.25:1) : 1}}
-      style={{scale: this.props.wasHide? (isOpen? spring(1.05): spring(1)): isInit? 1:isOpen? spring(1.05): spring(1), opacity: outDated? (isOpen? spring(1):spring(0.25)) : spring(1)}}>
+      style={{
+        scale: this.props.hide? spring(0): this.props.wasHide? (isOpen? spring(1.05): spring(1)): isInit? 1:isOpen? spring(1.05): spring(1),
+        opacity: this.props.hide? spring(0): outDated? (isOpen? spring(1):spring(0.25)) : spring(1)}}>
         {style=>(
-          <button style={{...cellStyle,...{opacity: style.opacity, width: size[0] * style.scale, height: size[1] * style.scale}}}
+          <div style={{...cellStyle,...{opacity: style.opacity, width: size[0] * style.scale, height: size[1] * style.scale}}}
           onClick={()=>{ this.props.onClick(); }}
           onPointerEnter={()=>{ this.setState({status: 'pointed' })}}
           onPointerLeave={()=>{ this.setState({status: 'not-pointed' })}}>
@@ -93,7 +98,7 @@ class Cell extends UI {
             {this.cellTitle(style.scale)}
             {this.state.alert && this.alertTag()}
             {outDated && this.passedMark()}
-          </button>
+          </div>
         )}
       </Motion>
     )

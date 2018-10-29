@@ -21,9 +21,8 @@ class SubjectRow extends Row {
       this.setState({
         filename: newProps.subject.icon,
         type: 'subjectIcon'
-      })
+      }, ()=>{ this.checkUrl(); })
     }
-    this.checkUrl();
   }
 
   rowInfo(){

@@ -21,6 +21,7 @@ class Image extends UI {
     if(this.state.filename !== newFilename){
       this.setState({ filename: newFilename }, ()=>{ this.checkUrl(); })
     }
+    this.checkUrl();
   }
 
   render(){

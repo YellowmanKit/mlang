@@ -31,6 +31,16 @@ class RecorderBar extends UI {
     if(this.state.filename !== newFilename){
       this.setState({ filename: newFilename }, ()=>{ this.checkUrl(); })
     }
+    this.autoPlay(newProps);
+  }
+
+  autoPlay(newProps){
+    if(!newProps.autoPlay){ return; }
+    if(newProps.defaultAudio && !this.state.defaultAudioPlaying && this.url.url){
+      this.playback();
+    }else if(newProps.audioBlob && !this.state.audioPlaying){
+      this.playback();
+    }
   }
 
   record(){
@@ -73,9 +83,13 @@ class RecorderBar extends UI {
   }
 
   stopPlayback(){
-    if(!this.state.audioPlaying){ return; }
-    this.waveInterface.stopPlayback();
-    this.setState({ audioPlaying: false })
+    if(this.state.audioPlaying){
+      this.setState({ audioPlaying: false });
+      this.waveInterface.stopPlayback();
+    }
+    if(this.state.defaultAudioPlaying){
+      this.setState({ defaultAudioPlaying: false })
+    }
   }
 
   langBar(i){

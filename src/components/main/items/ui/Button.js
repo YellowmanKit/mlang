@@ -11,8 +11,8 @@ import icon_camera from 'resources/images/buttons/buttonIcons/camera.png';
 import icon_cross from 'resources/images/buttons/buttonIcons/cross.png';
 import icon_arrow from 'resources/images/buttons/buttonIcons/arrow.png';
 import icon_arrow_reverse from 'resources/images/buttons/buttonIcons/arrow_reverse.png';
-import icon_arrow_up from 'resources/images/buttons/buttonIcons/arrow_up.png';
-import icon_arrow_down from 'resources/images/buttons/buttonIcons/arrow_down.png';
+//import icon_arrow_up from 'resources/images/buttons/buttonIcons/arrow_up.png';
+//import icon_arrow_down from 'resources/images/buttons/buttonIcons/arrow_down.png';
 import icon_arrow2 from 'resources/images/buttons/buttonIcons/arrow2.png';
 import icon_arrow2_reverse from 'resources/images/buttons/buttonIcons/arrow2_reverse.png';
 
@@ -41,11 +41,21 @@ class Button {
     this.actions = app.actions;
   }
 
+  cellExpend(key, expended, onClick){
+    const style = {
+      height: this.bs.height * 0.25,
+      fontSize: this.bs.height * 0.02,
+      color: this.ui.colors.grey
+    }
+    const text = expended? '<': '...'
+    return this.button(style, [text,text,text], null, onClick, key)
+  }
+
   copy(onClick){
     return this.button(this.dynamicStyles('panel'), ['',''], icon_copy, onClick);
   }
 
-  hideTraceButton(hided, onClick){
+  /*hideTraceButton(hided, onClick){
     const style = {...this.ui.styles.button, ...{
       width: this.bs.height * 0.02,
       height: this.bs.height * 0.02,
@@ -54,7 +64,7 @@ class Button {
       color: 'grey'
     }}
     return this.button(style, ['', ''], hided? icon_arrow_up: icon_arrow_down, onClick)
-  }
+  }*/
 
   showHidden(onClick){
     const style = {
@@ -297,13 +307,13 @@ class Button {
     return this.button(this.dynamicStyles('rect'), text, btn_yellow, onClick);
   }
 
-  button(customStyle, text, imageUrl, onClick){
+  button(customStyle, text, imageUrl, onClick, key){
     var style = {...styles.button, ...customStyle }
     if(imageUrl && imageUrl !== ''){
       style = {...style, ...{ backgroundImage: 'url(' + imageUrl + ')' }}
     }
     if(!style.animated){
-      return <button style={style}  onClick={onClick}>{this.func.multiLang(text[0],text[1], text[2])}</button>
+      return <button style={style} key={key} onClick={onClick}>{this.func.multiLang(text[0],text[1], text[2])}</button>
     }else{
       return { style: style, onClick: onClick, text: text }
     }

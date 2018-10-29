@@ -83,7 +83,9 @@ class GradingCardRow extends Row {
           <Image app={this.app} filename={card.icon} type={'cardIcon'} size={this.bs.width * 0.24}/>
         </div>
         {this.langRows()}
-        {this.cardTags(this.props.toggleCommentPanel, ()=>{ this.props.toggleAudioCommentPanel(); }, this.props.toggleCommentPanel)}
+        {this.cardTags(
+          this.props.card.comment? this.props.toggleCommentPanel: null,
+          this.props.card.audioComment?  this.props.toggleAudioCommentPanel: null )}
         {!selected && this.selecter()}
       </div>
     )

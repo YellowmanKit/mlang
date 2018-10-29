@@ -12,6 +12,7 @@ class SchoolCell extends Cell {
       type: 'schoolIcon',
       status: 'init'
     }
+    this.checkUrl();
   }
 
 }

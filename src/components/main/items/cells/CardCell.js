@@ -15,6 +15,7 @@ class CardCell extends Cell {
       type: 'cardIcon',
       status: 'init'
     }
+    this.checkUrl();
   }
 
   componentWillReceiveProps(newProps){

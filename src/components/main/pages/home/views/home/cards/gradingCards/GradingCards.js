@@ -226,7 +226,9 @@ class GradingCards extends View {
             audioBlob={audioBlob}
             defaultAudio={gradingCard.audioComment}
             type={'audioComment'}
-            onStopRecording={this.onStopRecording.bind(this)} canRemove={true}/>
+            onStopRecording={this.onStopRecording.bind(this)}
+            canRemove={true}
+            autoPlay={isOpen}/>
           </div>
         )}
       </Motion>

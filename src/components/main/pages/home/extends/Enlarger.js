@@ -4,6 +4,15 @@ import {Motion, spring}  from 'react-motion';
 
 class Enlarger extends UI {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state={
+      fontSizes: [this.bs.height * 0.05, this.bs.height * 0.1, this.bs.height * 0.15, this.bs.height * 0.3],
+      sizeIndex: 0
+    }
+  }
+
   render() {
     this.init(this.props);
     const main = this.store.main;
@@ -24,10 +33,11 @@ class Enlarger extends UI {
       fontWeight: 'bold',
       width: '100%',
       height: '',
-      fontSize: '200%',
+      fontSize: this.state.fontSizes[this.state.sizeIndex],
       overflow: 'auto',
       overflowWrap: 'break-word',
-      textAlign: 'center'
+      textAlign: 'center',
+      cursor: 'pointer'
     }
 
     return(
@@ -39,7 +49,7 @@ class Enlarger extends UI {
             {status === 'image' &&
             <img src={main.enlargeImage} style={{maxWidth: this.bs.width}} alt=''/>}
             {status === 'text' &&
-            <div style={textStyle}>{main.enlargeText}</div>}
+            <div style={textStyle} onClick={()=>{ this.setState({ sizeIndex: (this.state.sizeIndex + 1) % this.state.fontSizes.length }); }}>{main.enlargeText}</div>}
           </div>
         )}
       </Motion>

@@ -73,6 +73,10 @@ class PrefabPicker extends UI {
           data[i].description === data[j].description){
           data.splice(i, 1);
         }
+
+        if(data[i].mlanghku){
+          data.splice(i, 1);
+        }
       }
     }
     return data;

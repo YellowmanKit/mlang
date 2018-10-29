@@ -1,6 +1,7 @@
 import React from 'react';
 import SubView from 'components/main/pages/home/views/SubView';
 import Image from 'components/main/items/ui/Image';
+import mlanghku from 'resources/images/icons/mlanghku.png';
 
 class SubjectDetail extends SubView {
 
@@ -8,6 +9,7 @@ class SubjectDetail extends SubView {
     this.init(this.props);
     const subject = this.store.subjects.viewingSubject;
     const course = this.func.getById.course(subject.course, this.store);
+    const photoUrl = subject.mlanghku? mlanghku: null;
     return(
       <div style={this.subViewStyle()}>
         {this.gap('4%')}
@@ -15,7 +17,7 @@ class SubjectDetail extends SubView {
         {this.subTitle(['Icon','照片','照片'])}
         {this.sep()}
         {this.gap('2%')}
-        <Image app={this.app} filename={subject.icon} type={'subjectIcon'} size={this.bs.height * 0.22}/>
+        <Image app={this.app} photoUrl={photoUrl} filename={subject.icon} type={'subjectIcon'} size={this.bs.height * 0.22}/>
         {this.gap('2%')}
 
         {this.subTitle(['Class','班別','班别'])}

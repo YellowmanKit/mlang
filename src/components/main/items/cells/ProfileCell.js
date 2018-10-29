@@ -12,6 +12,7 @@ class ProfileCell extends Cell {
       type: 'profileIcon',
       status: 'init'
     }
+    this.checkUrl();
   }
 
 }

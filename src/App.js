@@ -175,7 +175,9 @@ class App extends Component {
     }else{
       //console.log(type + ' downloading...');
       var downloadUrl = this.api() + '/download/'+ type + '/' + filename;
-      if(filename.includes('147.8.219.237')){ downloadUrl = filename; }
+      if(filename.includes('147.8.219.237')){
+        downloadUrl = this.api() + '/mlanghku/download/' + this.mlanghkuFilename(filename);
+      }
       let err, res;
       [err, res] = await to(axios.get(downloadUrl, {responseType: 'blob'}));
       if(err || !res.data){ console.log('file download error!'); return '';}
@@ -184,6 +186,14 @@ class App extends Component {
       actions.cacheUrl(filename, url);
       return url;
     }
+  }
+
+  mlanghkuFilename(url){
+    //console.log(url);
+    const splited = url.split('/');
+    const filename = splited[splited.length - 2] + '/' + splited[splited.length - 1];
+    //console.log(filename);
+    return filename;
   }
 
   downloadFile(absoluteUrl) {

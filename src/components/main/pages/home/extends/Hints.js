@@ -93,7 +93,7 @@ class Hints extends UI {
           )
         }else if(this.userType === 'student' || this.userType === 'teacher'){
           return this.func.multiLang(
-            'You haven\'t create any school yet!\n ',
+            'You haven\'t joined any school yet!\n ',
             '你尚未加入任何學校！如果你是老師，你必須先向學校管理員索取代碼並加入學校，然後在選單的帳號資訊切換帳號類型，如果你是學生則不需要加入學校。',
             '你尚未加入任何学校！如果你是老师，你必须先向学校管理员索取代码并加入学校，然后在选单的帐号资讯切换帐号类型，如果你是学生则不需要加入学校。'
           )

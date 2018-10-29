@@ -1,46 +1,58 @@
 import * as actions from '../actions';
+import axios from 'axios';
 import to from '../to';
-import Parse from 'parse';
+/*import Parse from 'parse';
 Parse.initialize(process.env.REACT_APP_PARSE_APP_ID, process.env.PARSE_DOTNET_KEY);
-Parse.serverURL = process.env.REACT_APP_PARSE_SERVER;
+Parse.serverURL = process.env.REACT_APP_PARSE_SERVER;*/
+var api = actions.api();
 
 export function fetchUser(id, pw){
   return async function (dispatch){
     let err, res, user;
-    [err, user] = await to(Parse.User.logIn(id, pw));
-    if(err){
+    //[err, user] = await to(Parse.User.logIn(id, pw));
+    [err, res] = await to(axios.post(api + '/mlanghku/login', { data: { id: id, pw: pw} } ));
+    if(err || res.data.result !== 'success'){
+      console.log(res.data.result);
       dispatch({type: 'message', payload: ['Failed to login mlanghku! Please check if mlanghku id and password are correct in Account!', '無法登入mlanghku! 請在帳號資訊檢查mlanghku登入名稱及密碼是否正確!', '无法登入mlanghku! 请在帐号资讯检查mlanghku登入名称及密码是否正确!']});
       return;
     }
+    user = res.data.user;
     console.log(user);
 
-    const timestamp = actions.timestamp();
+    /*const timestamp = actions.timestamp();
     [err, res] = await to(Parse.Cloud.run('RenewUser', { timestamp: timestamp }));
     if(err){ console.log(err.message); return; }
-
+    console.log(res);
     const data = JSON.parse(res);
     console.log(data);
+    processUserData(data)(dispatch);*/
+
+    const data = JSON.parse(res.data.body);
+    //console.log(data);
     processUserData(data)(dispatch);
   }
 }
 
-function fetchLangs(relation){
+function fetchLangs(cardId){
+  //console.log(cardId);
   return async function (dispatch){
-    let err, langs;
+    let err, res;
     var processedLangs = [];
     var langsId = [];
-    [err, langs] = await to(relation.query().find());
+    //[err, langs] = await to(relation.query().find());
+    [err, res] = await to(axios.post(api + '/mlanghku/fetch', { data: { className: 'CardLang', field: 'cardId', value: cardId } } ));
     if(err){ actions.mlanghkuDataFetchFailed(dispatch); return; }
 
+    const langs = res.data.data;
     //console.log(langs);
     for(var i=0;i<langs.length;i++){
-      const attributes = langs[i].attributes;
+      const attributes = langs[i];
       const lang = {
-        _id: langs[i].id,
+        _id: langs[i].objectId,
         createdAt: attributes.createdAt,
         key: langKeyToKey(attributes.langKey),
         text: attributes.name,
-        audio: attributes.sound._url
+        audio: attributes.sound? attributes.sound.url: null
       }
       processedLangs.push(lang);
       langsId.push(lang._id);
@@ -84,25 +96,27 @@ function langKeyToKey(langKey){
   }
 }
 
-function fetchCards(relation){
+function fetchCards(studentProjectId){
   return async function (dispatch){
-    let err, cards;
+    let err, res;
     var processedCards = [];
     var cardsId = [];
-    [err, cards] = await to(relation.query().find());
+    //[err, cards] = await to(relation.query().find());
+    [err, res] = await to(axios.post(api + '/mlanghku/fetch', { data: { className: 'Card', field: 'studentProject', value: { __type: 'Pointer', className: 'StudentProject', objectId: studentProjectId } } } ));
     if(err){ actions.mlanghkuDataFetchFailed(dispatch); return; }
 
+    var cards = res.data.data;
     //console.log(cards);
     for(var i=0;i<cards.length;i++){
-      const attributes = cards[i].attributes;
-      const langsId = await fetchLangs(attributes.langs)(dispatch);
+      const attributes = cards[i];
+      const langsId = await fetchLangs(attributes.cardId)(dispatch);
       const card = {
-        _id: cards[i].id,
+        _id: cards[i].objectId,
         comment: attributes.comments? attributes.comments.join():'',
-        audioComment: attributes.commentSound? attributes.commentSound._url:null,
+        audioComment: attributes.commentSound? attributes.commentSound.url:null,
         langs: langsId,
-        author: attributes.author.id,
-        icon: attributes.image._url,
+        author: attributes.author.objectId,
+        icon: attributes.image.url,
         createdAt: attributes.createdAt,
         grade: statusToGrade(attributes.status)
       }
@@ -132,24 +146,26 @@ function statusToGrade(status){
 
 export function fetchStudentProjects(project){
   return async function (dispatch){
-    let err, data;
-    const query = new Parse.Query('StudentProject');
+    let err, res, data;
+    /*const query = new Parse.Query('StudentProject');
     query.equalTo('project', { __type: 'Pointer', className: 'Project', objectId: project._id });
-    [err, data] = await to(query.find());
+    [err, data] = await to(query.find());*/
+    [err, res] = await to(axios.post(api + '/mlanghku/fetch', { data: { className: 'StudentProject', field: 'project', value: { __type: 'Pointer', className: 'Project', objectId: project._id } } } ));
     if(err){ actions.mlanghkuDataFetchFailed(dispatch); return; }
+    data = res.data.data;
 
     //console.log(data);
     var updatedProject = project;
     var studentProjects = [];
     var studentProjectsId = [];
     for(var i=0;i<data.length;i++){
-      const attributes = data[i].attributes;
+      const attributes = data[i];
       //console.log(attributes);
-      const cardsId = await fetchCards(attributes.cards)(dispatch);
+      const cardsId = await fetchCards(attributes.objectId)(dispatch);
       const studentProject = {
-        _id: data[i].id,
-        project: attributes.project.id,
-        student: attributes.student.id,
+        _id: data[i].objectId,
+        project: attributes.project.objectId,
+        student: attributes.student? attributes.student.objectId: '',
         cards: cardsId,
         createdAt: attributes.createdAt
       }

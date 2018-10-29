@@ -14,6 +14,7 @@ class ProjectRow extends Row {
       alert: this.func.checkAlert.project(this.props.project, this.props.app)
     }
     this.outDated = this.func.outDated(this.props.project.endDate);
+    this.checkUrl();
   }
 
   componentWillReceiveProps(newProps){
@@ -22,9 +23,8 @@ class ProjectRow extends Row {
       this.setState({
         filename: newProps.project.icon,
         type: 'projectIcon'
-      })
+      }, ()=>{ this.checkUrl(); })
     }
-    this.checkUrl();
   }
 
   rowInfo(){

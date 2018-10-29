@@ -13,14 +13,37 @@ class AddProject extends View {
       modified: false,
       filename: this.project.icon,
       type: 'projectIcon',
+      defaultPeriod: 7
     }
     this.checkUrl();
+    this.setDefaultPeriod();
+  }
+
+  async setDefaultPeriod(){
+    const autoLogin = await this.db.get('autoLogin');
+    if(!autoLogin){ return; }
+    const period = await this.db.get('projectPeriod');
+    //console.log(period);
+    if(period){
+      this.setState({ defaultPeriod: period });
+      var defaultDate = new Date();
+      defaultDate.setDate(defaultDate.getDate() + period);
+      document.getElementById('endDate').value = this.func.dateString(defaultDate);
+    }
+  }
+
+  saveDefaultPeriod(endDateString){
+    const today = new Date();
+    const endDate = new Date(endDateString);
+    var timeDiff = Math.abs(today.getTime() - endDate.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    this.db.set('projectPeriod', diffDays);
   }
 
   render() {
     this.init(this.props);
     var defaultDate = new Date();
-    defaultDate.setMonth(defaultDate.getMonth() + 1);
+    defaultDate.setDate(defaultDate.getDate() + this.state.defaultPeriod);
 
     return(
       <div style={this.viewStyle()}>
@@ -81,13 +104,14 @@ class AddProject extends View {
         description: description,
         endDate: endDate
       });
+      this.saveDefaultPeriod(endDate);
     }else if(newIconBlob || this.state.modified){
       this.actions.projects.editProject({...this.project, ...{
         newIcon: newIconBlob,
         title: title,
         description: description,
         endDate: endDate
-      }})
+      }});
     }else{
       return this.failedMessage(['Failed to add! Nothing is modified!', '提交失敗!未作出更改!', '提交失败!未作出更改!'])
     }
