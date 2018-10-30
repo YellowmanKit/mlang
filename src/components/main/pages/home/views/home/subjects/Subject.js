@@ -11,11 +11,13 @@ class Subject extends View {
     super(props);
     this.init(this.props);
     this.subject = this.store.subjects.viewingSubject;
+    this.state = {}
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
     this.subject = this.store.subjects.viewingSubject;
+    this.checkViewTransition(newProps);
   }
 
   componentDidMount(){
@@ -28,14 +30,15 @@ class Subject extends View {
     }
   }
 
-  subView(){
-    const subView = this.store.content.subView;
+  subView(subView, animatedStyle){
+    const app = this.app;
+    app.animatedStyle = animatedStyle;
 
     switch (subView) {
       case 'subjectProjects':
-        return <SubjectProjects app={this.app}/>
+        return <SubjectProjects app={app}/>
       case 'subjectDetail':
-        return <SubjectDetail app={this.app}/>
+        return <SubjectDetail app={app}/>
       default:
         return null;
     }
@@ -57,12 +60,14 @@ class Subject extends View {
 
   render(){
     this.init(this.props);
+    const deadView = this.state.deadView;
+    const view = this.state.view;
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([this.subject.title, this.subject.title, this.subject.title])}
         {this.subjectSubNav()}
         {this.sep()}
-        {this.subView()}
+        {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}
       </div>
     )
   }

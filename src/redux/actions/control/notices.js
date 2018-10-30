@@ -45,7 +45,22 @@ export function welcome(){
   }
 }
 
+export function newProjectNeedAttention(project, app){
+  return {
+    type: 'updateNotices',
+    payload: [{
+      _id: project._id + ' - newProjectNeedAttention',
+      message: ['Your teacher has created a new project!', '你的老師創建了新的專題研習!', '你的老师创建了新的专题研习!'],
+      onClick: ()=>{
+        app.actions.projects.viewProject(project);
+        app.actions.content.pushView('project');
+      }
+    }]
+  }
+}
+
 export function gradedCardNotReadInProject(project, app){
+  console.log('gradedCardNotReadInProject');
   return {
     type: 'updateNotices',
     payload: [{

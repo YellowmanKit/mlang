@@ -24,6 +24,7 @@ class CourseSubjects extends SubView {
         subjectsToGet.push(subjectsToShow[i]);
       }
     }
+
     if(subjectsToGet.length > 0){
       this.actions.subjects.getSubjects(subjectsToGet);
     }
@@ -40,7 +41,6 @@ class CourseSubjects extends SubView {
 
   render() {
     this.init(this.props);
-
     return(
       <div style={this.subViewStyle()}>
         <div style={{...this.bs, ...this.ui.styles.list}}>

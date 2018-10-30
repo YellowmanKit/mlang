@@ -2,9 +2,18 @@ import React from 'react';
 import SubView from 'components/main/pages/home/views/SubView';
 
 class SchoolStatistics extends SubView {
-  
+
+  componentWillReceiveProps(newProps){
+    if(!this.stat){
+      this.stat = this.store.content.statistics[this.store.schools.viewingSchool._id];
+    }
+  }
+
+  componentDidMount(){
+    this.getSchoolStatistic();
+  }
+
   getSchoolStatistic(){
-    this.stat = this.store.content.statistics[this.store.schools.viewingSchool._id];
     if(!this.stat){
       this.actions.schools.getStatistics(this.store.schools.viewingSchool._id);
     }
@@ -16,8 +25,7 @@ class SchoolStatistics extends SubView {
 
   render() {
     this.init(this.props);
-    this.getSchoolStatistic();
-    if(!this.stat){ return null; }
+    if(!this.stat){ return <div></div>; }
     const totalAmount = this.func.multiLang('Total amount: ','總數: ','总数: ');
     const totalPeople = this.func.multiLang('Total people: ','總人數: ','总人数: ');
     const totalFeatured = this.func.multiLang('Featured: ','精選: ','精选: ');

@@ -42,6 +42,7 @@ class SubjectProjects extends SubView {
 
   projectsList(){
     const projects = this.store.subjects.viewingSubject.projects;
+    if(projects.length === 0){ return <div key= 'empty'></div> }
     return projects.slice(0).reverse().map((projectId, i)=>{
       const project = this.func.getById.project(projectId, this.store);
       if(!project){ return null; }

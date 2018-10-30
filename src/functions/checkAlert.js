@@ -17,10 +17,30 @@ function checkProject(projectId, app){
   const project = app.functions.getById.project(projectId, app.store);
   if(!project){ return false; }
   const studentProjects = project.studentProjects;
+  var flag = 0;
   for(var j=0;j<studentProjects.length;j++){
     if(checkStudentProject(studentProjects[j], project, app)){ return true; }
+    flag += checkNewProject(studentProjects[j], project, app);
+  }
+  if(flag === 0 &&
+    app.store.user.type === 'student' &&
+    app.functions.deltaDay(new Date(), new Date(project.createdAt)) < 7 &&
+    !app.functions.outDated(new Date(project.endDate))){
+    app.actions.notices.newProjectNeedAttention(project, app);
+    return true;
   }
   return false;
+}
+
+function checkNewProject(studentProjectId, project, app){
+  const studentProject = app.functions.getById.studentProject(studentProjectId, app.store);
+  if(!studentProject){ return 1; }
+  if(studentProject.student === app.store.user._id){
+    //return 1;
+    if(studentProject.cards.length > 0){ return 1; }
+    return 0;
+  }
+  return 0;
 }
 
 function checkStudentProject(studentProjectId, project, app){

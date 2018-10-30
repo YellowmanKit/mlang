@@ -11,11 +11,13 @@ class Teacher extends View {
     super(props);
     this.init(this.props);
     this.profile = this.store.profiles.viewingTeacherProfile;
+    this.state = {};
   }
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
     this.profile = this.store.profiles.viewingTeacherProfile;
+    this.checkViewTransition(newProps);
   }
 
   componentDidMount(){
@@ -25,14 +27,15 @@ class Teacher extends View {
     }
   }
 
-  subView(){
-    const subView = this.store.content.subView;
+  subView(subView, animatedStyle){
+    const app = this.app;
+    app.animatedStyle = animatedStyle;
 
     switch (subView) {
       case 'teacherProfile':
-        return <Profile app={this.app} profile={this.profile}/>
+        return <Profile app={app} profile={this.profile}/>
       case 'teacherCourses':
-        return <TeacherCourses app={this.app} profile={this.profile}/>;
+        return <TeacherCourses app={app} profile={this.profile}/>;
       default:
         return null;
     }
@@ -54,12 +57,14 @@ class Teacher extends View {
 
   render(){
     this.init(this.props);
+    const deadView = this.state.deadView;
+    const view = this.state.view;
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([this.profile.name, this.profile.name, this.profile.name])}
         {this.teacherSubNav()}
         {this.sep()}
-        {this.subView()}
+        {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}
       </div>
     )
   }

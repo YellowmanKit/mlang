@@ -60,6 +60,12 @@ class App extends Component {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  deltaDay(startDate, endDate){
+    var deltaTime = Math.abs(startDate.getTime() - endDate.getTime());
+    var deltaDay = Math.ceil(deltaTime / (1000 * 3600 * 24));
+    return deltaDay;
+  }
+
   outDated(date){
     const today = new Date();
     const dateToCheck = new Date(date);
@@ -249,6 +255,7 @@ class App extends Component {
         isDev: this.isDev.bind(this),
         randomNyan: this.randomNyan.bind(this),
 
+        deltaDay: this.deltaDay.bind(this),
         outDated: this.outDated.bind(this),
         dateString: this.dateString.bind(this),
         multiLang: this.multiLang.bind(this),

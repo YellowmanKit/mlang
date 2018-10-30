@@ -23,7 +23,6 @@ class TeacherCourses extends SubView {
   }
 
   teacherCoursesList(){
-
     return this.props.profile.teachingCourses.map((courseId, i)=>{
       var course = this.func.getById.course(courseId, this.store);
       if(this.hidePassed && this.func.outDated(course.endDate)){ this.hasHided = true; return null; }

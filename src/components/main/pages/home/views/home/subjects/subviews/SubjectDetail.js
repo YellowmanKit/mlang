@@ -9,6 +9,7 @@ class SubjectDetail extends SubView {
     this.init(this.props);
     const subject = this.store.subjects.viewingSubject;
     const course = this.func.getById.course(subject.course, this.store);
+    if(!course){ return null; }
     const photoUrl = subject.mlanghku? mlanghku: null;
     return(
       <div style={this.subViewStyle()}>

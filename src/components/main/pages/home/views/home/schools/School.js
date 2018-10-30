@@ -19,15 +19,17 @@ class School extends View {
     }
   }
 
-  subView(){
-    const subView = this.store.content.subView;
+  subView(subView, animatedStyle){
+    const app = this.app;
+    app.animatedStyle = animatedStyle;
+
     switch (subView) {
       case 'schoolTeachers':
-        return <SchoolTeachers app={this.app}/>
+        return <SchoolTeachers app={app}/>
       case 'schoolDetail':
-        return <SchoolDetail app={this.app}/>
+        return <SchoolDetail app={app}/>
       case 'schoolStatistics':
-        return <SchoolStatistics app={this.app}/>
+        return <SchoolStatistics app={app}/>
       default:
         return null;
     }
@@ -52,19 +54,22 @@ class School extends View {
           subView: 'schoolTeachers' }, ...options]
     }
 
-
     return <SubNav app={this.app} options={options} />
   }
 
   render(){
     this.init(this.props);
     const school = this.store.schools.viewingSchool;
+
+    const deadView = this.state.deadView;
+    const view = this.state.view;
+
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([school.name,school.name,school.name])}
         {this.schoolSubNav()}
         {this.sep()}
-        {this.subView()}
+        {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}
       </div>
     )
   }

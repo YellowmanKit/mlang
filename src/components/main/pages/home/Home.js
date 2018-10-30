@@ -1,6 +1,5 @@
 import React from 'react';
-import UI from 'components/UI';
-import {Motion, spring}  from 'react-motion';
+import View from 'components/main/pages/home/views/View';
 
 //import background2 from 'resources/images/general/background2.png';
 
@@ -53,16 +52,7 @@ import Notice from './extends/notice/Notice';
 
 import Footer from './extends/Footer';
 
-class Home extends UI {
-
-  constructor(props){
-    super(props);
-    this.init(props);
-    this.state = {
-      view: props.app.store.content.view,
-      deadView: null
-    }
-  }
+class Home extends View {
 
   componentWillReceiveProps(newProps){
     this.setState({
@@ -155,20 +145,6 @@ class Home extends UI {
     }
   }
 
-  animatedView(view, isOpen){
-    //console.log(view);
-    const option = {stiffness: 100, damping: 50, precision: 3}
-    return(
-      <Motion key={view + isOpen} defaultStyle={{opacity: isOpen? 0:1}}
-      style={{opacity: isOpen?spring(1, option):spring(0, option)}}
-      onRest={!isOpen? ()=>{ this.setState({deadView: null}); }: null }>
-        {style=>(
-          this.views(view, style)
-        )}
-      </Motion>
-    )
-  }
-
   render() {
     this.init(this.props);
     const pageStyle = {...this.ui.basicStyle, ...{
@@ -185,7 +161,7 @@ class Home extends UI {
     return(
       <div style={pageStyle}>
         <NavBar app={this.app}/>
-        {this.animatedView(deadView? deadView: view, deadView? false: true)}
+        {this.animatedView(this.views.bind(this), deadView? deadView: view, deadView? false: true)}
         <Trace app={this.app}/>
         <Footer app={this.app}/>
         <Menu app={this.app}/>

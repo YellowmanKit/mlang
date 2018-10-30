@@ -19,15 +19,16 @@ class Course extends View {
     }
   }
 
-  subView(){
-    const subView = this.store.content.subView;
+  subView(subView, animatedStyle){
+    const app = this.app;
+    app.animatedStyle = animatedStyle;
     switch (subView) {
       case 'courseDetail':
-        return <CourseDetail app={this.app}/>
+        return <CourseDetail app={app}/>
       case 'courseStudents':
-        return <CourseStudents app={this.app}/>
+        return <CourseStudents app={app}/>
       case 'courseSubjects':
-        return <CourseSubjects app={this.app}/>
+        return <CourseSubjects app={app}/>
       default:
         return null;
     }
@@ -57,12 +58,16 @@ class Course extends View {
   render(){
     this.init(this.props);
     const course = this.store.courses.viewingCourse;
+
+    const deadView = this.state.deadView;
+    const view = this.state.view;
+
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([course.title,course.title,course.title])}
         {this.courseSubNav()}
         {this.sep()}
-        {this.subView()}
+        {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}
       </div>
     )
   }

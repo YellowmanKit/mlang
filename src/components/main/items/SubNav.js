@@ -24,7 +24,11 @@ class SubNav extends UI {
       const selected = option.subView === this.store.content.subView;
       return(
         <div key={i} style={{...areaStyle, ...{backgroundColor: selected? 'white': 'transparent'}}}>
-          <button style={optionStyle} onClick={()=>{this.actions.content.setSubView(option.subView)}}>
+          <button style={optionStyle}
+          onClick={()=>{
+            this.actions.content.setSubView(option.subView);
+            setTimeout(()=>{ this.actions.main.setStatus('ready'); }, 100)
+          }}>
             <div style={Object.assign({},tagStyle,{color: selected? this.ui.colors.selectedGrey: this.ui.colors.grey})}>{this.func.multiLang(option.tag[0],option.tag[1],option.tag[2])}</div>
           </button>
           {i < length && this.verSep(this.ui.colors.darkGrey, '70%')}

@@ -40,8 +40,10 @@ class Project extends View {
 
   }
 
-  subView(){
-    const subView = this.store.content.subView;
+  subView(subView, animatedStyle){
+    const app = this.app;
+    app.animatedStyle = animatedStyle;
+
     const type = this.store.user.type;
 
     switch (subView) {
@@ -49,14 +51,14 @@ class Project extends View {
         return <ProjectDetail app={this.app}/>
       case 'projectSubmitted':
         return(
-          type === 'student'? <SubmittedCards app={this.app}/>:
-          type === 'teacher'? <StudentProjects app={this.app}/>:
+          type === 'student'? <SubmittedCards app={app}/>:
+          type === 'teacher'? <StudentProjects app={app}/>:
           null
         )
       case 'projectRanking':
-        return <ProjectRanking app={this.app}/>
+        return <ProjectRanking app={app}/>
       case 'projectFeatured':
-        return <ProjectFeatured app={this.app}/>
+        return <ProjectFeatured app={app}/>
       default:
         return null;
     }
@@ -93,12 +95,16 @@ class Project extends View {
   render(){
     this.init(this.props);
     const project = this.store.projects.viewingProject;
+
+    const deadView = this.state.deadView;
+    const view = this.state.view;
+
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([project.title,project.title,project.title])}
         {this.projectSubNav()}
         {this.sep()}
-        {this.subView()}
+        {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}
       </div>
     )
   }

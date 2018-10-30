@@ -33,7 +33,7 @@ const uiReducer = (
         flexFlow: 'row warp'
       },
       areaY: {
-        width: '100%',
+        width: '95%',
         display: 'flex',
         flexFlow: 'row wrap',
         alignItems: 'flex-start',

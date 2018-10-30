@@ -33,11 +33,7 @@ class AddProject extends View {
   }
 
   saveDefaultPeriod(endDateString){
-    const today = new Date();
-    const endDate = new Date(endDateString);
-    var timeDiff = Math.abs(today.getTime() - endDate.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    this.db.set('projectPeriod', diffDays);
+    this.db.set('projectPeriod', this.func.deltaDay(new Date(), new Date(endDateString)));
   }
 
   render() {

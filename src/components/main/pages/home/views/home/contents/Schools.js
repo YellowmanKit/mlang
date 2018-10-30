@@ -14,8 +14,10 @@ class Schools extends Content {
   componentDidMount(){
     this.init(this.props);
     if(this.schoolsData.length === 0 && !this.store.switches.hide.schools){
-      //this.actions.switches.setHide('schools', true);
       this.setHint();
+    }
+    if(this.store.user.type === 'admin'){
+      this.actions.switches.setHide('schools', false);
     }
   }
 

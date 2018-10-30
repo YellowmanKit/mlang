@@ -56,8 +56,9 @@ class PrefabPicker extends UI {
   removeDuplicates(data, status){
     for(var i=0;i<data.length;i++){
       for(var j=0;j<data.length;j++){
+        if(!data[i]){ continue; }
+        if(!data[j]){ continue; }
         if(status === 'comments'){
-          if(!data[i]){ continue; }
           if(!data[i].comment){
             data.splice(i, 1);
             i--;
@@ -72,10 +73,12 @@ class PrefabPicker extends UI {
           data[i].title === data[j].title &&
           data[i].description === data[j].description){
           data.splice(i, 1);
+          i--;
         }
 
-        if(data[i].mlanghku){
+        if(data[i] && data[i].mlanghku){
           data.splice(i, 1);
+          i--;
         }
       }
     }
