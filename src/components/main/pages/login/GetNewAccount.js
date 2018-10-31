@@ -1,7 +1,5 @@
 import React from 'react';
 import UI from 'components/UI';
-import CustomButton from 'components/main/items/ui/CustomButton';
-
 
 class GetNewAccount extends UI {
 
@@ -22,8 +20,8 @@ class GetNewAccount extends UI {
         this.state.codeType === 'course'?
         ['Enter class code','輸入班別代碼','输入班别代码']:
         ['Enter school code','輸入學校代碼','输入学校代码'], '')}
-        <CustomButton app={this.app} button={this.buttons.rectGreen(['Acquire new account','獲得新帳號','获得新帐号'], ()=>this.actions.user.getNewAccountByCode(document.getElementById('code').value, this.state.codeType))}/>
-        <CustomButton app={this.app} button={this.buttons.rectRed(['Cancel','取消','取消'], ()=>this.actions.main.setStatus('waitForLogin'))}/>
+        {this.buttons.rectGreen(['Acquire new account','獲得新帳號','获得新帐号'], ()=>this.actions.user.getNewAccountByCode(document.getElementById('code').value, this.state.codeType))}
+        {this.buttons.rectRed(['Cancel','取消','取消'], ()=>this.actions.main.setStatus('waitForLogin'))}
       </div>
     )
   }

@@ -325,8 +325,7 @@ class Button {
         return {
           width: this.bs.width * 0.67,
           height: this.bs.width * 0.065,
-          marginTop: this.bs.width * 0.04,
-          animated: 'standard'
+          marginTop: this.bs.width * 0.04
         }
       case 'nav':
         return {

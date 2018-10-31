@@ -8,6 +8,9 @@ import StudentProjects from './subviews/StudentProjects';
 import ProjectFeatured from './subviews/ProjectFeatured';
 import ProjectRanking from './subviews/ProjectRanking';
 
+import StudentGroup from './subviews/group/student/StudentGroup';
+import TeacherGroup from './subviews/group/teacher/TeacherGroup';
+
 class Project extends View {
 
   componentDidMount(){
@@ -41,9 +44,7 @@ class Project extends View {
   }
 
   subView(subView, animatedStyle){
-    const app = this.app;
-    app.animatedStyle = animatedStyle;
-
+    const app = {...this.app, ...{ animatedStyle: animatedStyle}}
     const type = this.store.user.type;
 
     switch (subView) {
@@ -59,6 +60,12 @@ class Project extends View {
         return <ProjectRanking app={app}/>
       case 'projectFeatured':
         return <ProjectFeatured app={app}/>
+      case 'projectGroup':
+      return(
+        type === 'student'? <StudentGroup app={app}/>:
+        type === 'teacher'? <TeacherGroup app={app}/>:
+        null
+      )
       default:
         return null;
     }
@@ -79,6 +86,13 @@ class Project extends View {
         subView: 'projectDetail'
       }
     ];
+    if(!this.store.projects.viewingProject.mlanghku){
+      options.splice(1,0,
+      {
+        tag:['Group','小組','小组'],
+        subView: 'projectGroup'
+      });
+    }
     if(this.store.projects.viewingProject.mlanghku){
       options.splice(1,1);
     }
@@ -99,9 +113,11 @@ class Project extends View {
     const deadView = this.state.deadView;
     const view = this.state.view;
 
+    const title = project.title + ' (' + project.description + ')';
+
     return(
       <div style={this.viewStyle()}>
-        {this.tabBar([project.title,project.title,project.title])}
+        {this.tabBar([title, title, title])}
         {this.projectSubNav()}
         {this.sep()}
         {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}

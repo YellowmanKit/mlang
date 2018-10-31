@@ -14,6 +14,7 @@ import subjects from './data/subjects';
 import profiles from './data/profiles';
 import projects from './data/projects';
 import studentProjects from './data/studentProjects';
+import groups from './data/groups';
 
 import cards from './data/cards';
 import langs from './data/langs';
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   profiles: profiles,
   projects: projects,
   studentProjects: studentProjects,
+  groups: groups,
 
   cards: cards,
   langs: langs

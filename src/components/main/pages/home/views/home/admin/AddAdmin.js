@@ -1,6 +1,5 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
-import CustomButton from 'components/main/items/ui/CustomButton';
 
 class AddAdmin extends View {
 
@@ -15,7 +14,7 @@ class AddAdmin extends View {
         {this.inputs.inputField('userId','text', '', '')}
         {this.gap('2%')}
 
-        <CustomButton app={this.app} button={this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addAdmin()})}/>
+        {this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addAdmin()})}
       </div>
     )
   }

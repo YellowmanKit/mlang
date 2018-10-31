@@ -27,6 +27,15 @@ const getById = {
       }
     }
     return null;
+  },
+  groupByProject: (projectId, store)=>{
+    const groupsData = store.groups.groups;
+    for(var i=0;i<groupsData.length;i++){
+      if(groupsData[i].project === projectId){
+        return groupsData[i];
+      }
+    }
+    return null;
   }
 }
 

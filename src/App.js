@@ -19,6 +19,7 @@ import * as profiles from './redux/actions/data/profiles';
 import * as projects from './redux/actions/data/projects';
 import * as studentProjects from './redux/actions/data/studentProjects';
 import * as mlanghku from './redux/actions/data/mlanghku';
+import * as groups from './redux/actions/data/groups';
 
 import * as cards from './redux/actions/data/cards';
 import * as langs from './redux/actions/data/langs';
@@ -309,6 +310,7 @@ function mapDispatchToProps(dispatch){
       profiles: Action(profiles, dispatch),
       projects: Action(projects, dispatch),
       studentProjects: Action(studentProjects, dispatch),
+      groups: Action(groups, dispatch),
 
       cards: Action(cards, dispatch),
       langs: Action(langs, dispatch),

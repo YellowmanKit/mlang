@@ -1,7 +1,6 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
 import ImagePicker from 'components/main/items/ImagePicker';
-import CustomButton from 'components/main/items/ui/CustomButton';
 import LangEditor from './editLangs/LangEditor';
 
 class AddCard extends View {
@@ -47,7 +46,7 @@ class AddCard extends View {
         <LangEditor defaultLangs={this.props.editMode? this.card.langs:null} app={this.app}/>
         {this.sep()}
 
-        <CustomButton app={this.app} button={this.buttons.rectGreen(['Submit','提交','提交'], ()=>{this.addCard()})}/>
+        {this.buttons.rectGreen(['Submit','提交','提交'], ()=>{this.addCard()})}
         {this.gap('8%')}
       </div>
     )

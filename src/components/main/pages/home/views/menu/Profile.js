@@ -1,7 +1,6 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
 import ImagePicker from 'components/main/items/ImagePicker';
-import CustomButton from 'components/main/items/ui/CustomButton';
 
 class Profile extends View {
 
@@ -49,8 +48,8 @@ class Profile extends View {
 
           {!forceProfile && this.lowerPart()}
 
-          {!forceProfile && <CustomButton app={this.app} button={this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}/>}
-          {forceProfile && <CustomButton app={this.app} button={this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.changing()})}/>}
+          {!forceProfile && this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}
+          {forceProfile && this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.changing()})}
 
           {this.gap(this.bs.height * 0.08)}
         </div>

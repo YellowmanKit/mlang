@@ -3,7 +3,6 @@ import UI from 'components/UI';
 import {Motion, spring}  from 'react-motion';
 
 import GetNewAccount from './GetNewAccount';
-import CustomButton from 'components/main/items/ui/CustomButton';
 import icon from 'resources/images/icons/mlang_green.png';
 
 class Login extends UI {
@@ -111,9 +110,9 @@ class Login extends UI {
         {this.inputs.inputField('id','text', ['Enter your identity','登入名稱','登入名称'], loginInfo? loginInfo.id:'')}
         {this.inputs.inputField('pw','password', ['Enter your password','密碼','密码'], loginInfo? loginInfo.pw:'')}
         {this.checkBox(this.func.multiLang('Keep me logged in on this device','在此裝置上保持登入','在此装置上保持登入'), this.state.autoLogin, (e)=>{this.onKeepMeLoginChecked(e.target.checked)})}
-        <CustomButton app={this.app} button={this.buttons.rectGreen(['Login','登入','登入'], ()=>this.login())}/>
-        <CustomButton app={this.app} button={this.buttons.rectYellow(['Get new account','申請帳號','申请帐号'], ()=>{ this.onKeepMeLoginChecked(true); this.actions.main.setStatus('getNewAccount'); })}/>
-        <CustomButton app={this.app} button={this.buttons.rectRed(['Forget password','忘記密碼','忘记密码'], ()=>this.actions.main.setStatus('forgotPassword'))}/>
+        {this.buttons.rectGreen(['Login','登入','登入'], ()=>this.login())}
+        {this.buttons.rectYellow(['Get new account','申請帳號','申请帐号'], ()=>{ this.onKeepMeLoginChecked(true); this.actions.main.setStatus('getNewAccount'); })}
+        {this.buttons.rectRed(['Forget password','忘記密碼','忘记密码'], ()=>this.actions.main.setStatus('forgotPassword'))}
         {this.languageBar()}
         {this.versionCode()}
         {this.gap('5%')}
@@ -129,8 +128,8 @@ class Login extends UI {
     return(
       <div style={animatedStyle}>
         {this.inputs.inputField('email','text', ['Enter your email address','輸入你的電郵地址','输入你的电邮地址'], '')}
-        <CustomButton app={this.app} button={this.buttons.rectGreen(['Reset password','重設密碼','重设密码'], ()=>this.actions.user.resetPassword(document.getElementById('email').value))}/>
-        <CustomButton app={this.app} button={this.buttons.rectRed(['Cancel','取消','取消'], ()=>this.actions.main.setStatus('waitForLogin') )}/>
+        {this.buttons.rectGreen(['Reset password','重設密碼','重设密码'], ()=>this.actions.user.resetPassword(document.getElementById('email').value))}
+        {this.buttons.rectRed(['Cancel','取消','取消'], ()=>this.actions.main.setStatus('waitForLogin') )}
       </div>
     )
   }

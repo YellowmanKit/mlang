@@ -1,6 +1,5 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
-import CustomButton from 'components/main/items/ui/CustomButton';
 import ImagePicker from 'components/main/items/ImagePicker';
 
 class AddProject extends View {
@@ -67,7 +66,7 @@ class AddProject extends View {
         {this.inputs.inputField('endDate','date', ['',''], this.func.dateString(this.props.editMode? new Date(this.project.endDate):defaultDate) , ()=>{ this.setState({modified: true})})}
         {this.gap('2%')}
 
-        <CustomButton app={this.app} button={this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addProject()})}/>
+        {this.buttons.rectGreen(['Confirm','確定','确定'], ()=>{this.addProject()})}
         {this.gap('8%')}
       </div>
     )

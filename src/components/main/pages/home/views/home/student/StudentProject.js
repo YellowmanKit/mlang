@@ -13,14 +13,14 @@ class StudentProject extends View {
     }
   }
 
-  subView(){
-    const subView = this.store.content.subView;
+  subView(subView, animatedStyle){
+    const app = {...this.app, ...{ animatedStyle: animatedStyle}}
 
     switch (subView) {
       case 'projectFeatured':
-        return <Cards app={this.app} cardsId={this.cardsId} featuredOnly={true}/>
+        return <Cards app={app} cardsId={this.cardsId} featuredOnly={true}/>
       case 'projectDetail':
-        return <ProjectDetail app={this.app}/>
+        return <ProjectDetail app={app}/>
       default:
         return null;
     }
@@ -45,12 +45,15 @@ class StudentProject extends View {
     const project = this.func.getById.project(this.store.studentProjects.viewingStudentProject.project, this.store);
     const title = project.title;
     this.cardsId = this.store.studentProjects.viewingStudentProject.cards;
+
+    const deadView = this.state.deadView;
+    const view = this.state.view;
     return(
       <div style={this.viewStyle()}>
         {this.tabBar([title, title, title])}
         {this.studentSubNav()}
         {this.sep()}
-        {this.subView()}
+        {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}
       </div>
     )
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
-import CustomButton from 'components/main/items/ui/CustomButton';
 
 class Account extends View {
 
@@ -61,7 +60,7 @@ class Account extends View {
         {!forceAccount && this.subTitle(['Enter current password to change','輸入密碼以變更資訊','输入密码以变更资讯'])}
         {!forceAccount && this.sep()}
         {!forceAccount && this.inputs.inputField('pw','password','','')}
-        <CustomButton app={this.app} button={this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}/>
+        {this.buttons.rectRed(['Confirm change','確定變更','确定变更'], ()=>{this.changing()})}
         {this.gap('8%')}
       </div>
     )
@@ -93,7 +92,7 @@ class Account extends View {
       return this.failedMessage(['Failed to change! Please enter your new identity!', '變更失敗! 請輸入新的登入名稱!', '变更失败! 请输入新的登入名称!'])
     }
     if(newId.length < 5){
-      return this.failedMessage(['Failed to change! Identity must be atlease 5 characters long!', '變更失敗! 登入名稱至少須由五個字元組成!', '变更失败! 登入名称至少须由五个字元组成!'])
+      return this.failedMessage(['Failed to change! Identity must be at lease 5 characters long!', '變更失敗! 登入名稱須至少由五個字元組成!', '变更失败! 登入名称须至少由五个字元组成!'])
     }
     if(!newEmail.includes('@')){
       return this.failedMessage(['Failed to change! Invalid email address!', '變更失敗! 電郵地址不正確!', '变更失败! 电邮地址不正确!'])

@@ -20,9 +20,7 @@ class School extends View {
   }
 
   subView(subView, animatedStyle){
-    const app = this.app;
-    app.animatedStyle = animatedStyle;
-
+    const app = {...this.app, ...{ animatedStyle: animatedStyle}}
     switch (subView) {
       case 'schoolTeachers':
         return <SchoolTeachers app={app}/>

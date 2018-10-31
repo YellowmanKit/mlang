@@ -92,6 +92,7 @@ class Row extends UI {
     return(
       {...this.ui.styles.button, ...this.ui.styles.area, ...{
         flexShrink: 0,
+        width: '100%',
         height: this.bs.height * 0.15,
         borderBottom: '1px solid ' + this.ui.colors.darkGrey,
         alignItems: 'center',

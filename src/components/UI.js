@@ -49,11 +49,11 @@ class UI extends Component {
     this.url.init(props.app);
   }
 
-  checkBox(text, checked, onCheck){
+  checkBox(text, checked, onCheck, color){
     const style = {...this.ui.styles.container,...this.ui.styles.area,...{
       width: '',
       height: this.bs.height * 0.035,
-      color: 'white',
+      color: color? color: 'white',
       fontSize: this.bs.height * 0.02
     }}
     const checkBoxStyle = {
