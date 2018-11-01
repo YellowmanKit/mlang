@@ -154,6 +154,8 @@ export function login (_id, _pw) {
       dispatch({type: 'updateTeachingCards', payload: res.data.teachingCards});
       dispatch({type: 'updateJoinedStudentCards', payload: res.data.joinedCards});
 
+      dispatch({type: 'updateGroups', payload: res.data.groups});
+
       dispatch({type: 'setStatus', payload: 'ready'});
       dispatch({type: 'hideModal'});
     }else{

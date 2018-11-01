@@ -35,7 +35,6 @@ class ViewCards extends View {
     }}
     const viewingCard = this.store.cards.viewingCard;
     const viewingCardsId = this.store.cards.viewingCards;
-    //console.log(viewingCardsId)
 
     if(!viewingCardsId){ this.actions.content.pullView(); return null; }
 

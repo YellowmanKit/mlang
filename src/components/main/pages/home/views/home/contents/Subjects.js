@@ -16,7 +16,7 @@ class Subjects extends Content {
 
   setData(){
     this.subjects =
-    this.store.user.type === 'teacher'? this.store.subjects.teachingSubjects.slice(0).reverse():
+    this.store.user.type === 'teacher'? this.store.subjects.teachingSubjects:
     this.store.user.type === 'student'? this.store.subjects.joinedSubjects:
     [];
 

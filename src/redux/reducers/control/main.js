@@ -38,8 +38,6 @@ const mainReducer = (
     case 'setPhoto':
       if(!action.payload){ return state; }
       return {...state, photoUrl: action.payload.url, photoBlob: action.payload.blob};
-    case 'setModal':
-      return {...state, modal: action.payload};
     default:
       return state;
   }

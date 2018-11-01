@@ -42,6 +42,8 @@ import Teacher from './views/home/teacher/Teacher';
 import Admin from './views/home/admin/Admin';
 import AddAdmin from './views/home/admin/AddAdmin';
 
+import Group from './views/home/groups/Group';
+
 import DefaultImagePicker from './pickers/DefaultImagePicker';
 import PrefabPicker from './pickers/PrefabPicker';
 
@@ -140,6 +142,8 @@ class Home extends View {
         return <Admin app={app}/>;
       case 'addAdmin':
          return <AddAdmin app={app}/>;
+      case 'group':
+        return <Group app={app}/>
       default:
         return null;
     }

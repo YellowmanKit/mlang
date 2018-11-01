@@ -161,7 +161,7 @@ class UI extends Component {
   textDisplay(text, scale, fontSize, textAlign, color, key){
     const style = {
       width: scale? scale[0]: '100%',
-      height: scale? scale[1]: '15%',
+      height: scale? scale[1]: '',
       margin: '1%',
       fontSize: fontSize? fontSize: '100%',
       fontWeight: 'bold',

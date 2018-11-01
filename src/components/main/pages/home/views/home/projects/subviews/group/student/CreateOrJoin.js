@@ -29,6 +29,15 @@ class CreateOrJoin extends SubView {
     this.init(this.props);
     const join = this.state.type === 'join';
 
+    if(this.func.outDated(this.store.projects.viewingProject.endDate)){
+      return(
+        <div style={this.subViewStyle()}>
+          {this.gap('5%')}
+          {this.subTitle(['This project is expired','此專題研習已過期','此专题研习已过期'])}
+        </div>
+      )
+    }
+
     return(
       <div style={this.subViewStyle()}>
         {this.gap('5%')}

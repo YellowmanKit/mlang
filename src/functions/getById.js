@@ -28,14 +28,25 @@ const getById = {
     }
     return null;
   },
-  groupByProject: (projectId, store)=>{
+  joinedGroupByProject: (projectId, store)=>{
     const groupsData = store.groups.groups;
     for(var i=0;i<groupsData.length;i++){
-      if(groupsData[i].project === projectId){
+      if(groupsData[i].project === projectId &&
+        groupsData[i].members.includes(store.user._id)){
         return groupsData[i];
       }
     }
     return null;
+  },
+  groupsByProject: (projectId, store)=>{
+    var groups = [];
+    const groupsData = store.groups.groups;
+    for(var i=0;i<groupsData.length;i++){
+      if(groupsData[i].project === projectId){
+        groups = [...groups, groupsData[i]];
+      }
+    }
+    return groups;
   }
 }
 

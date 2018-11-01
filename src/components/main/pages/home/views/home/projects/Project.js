@@ -15,8 +15,12 @@ class Project extends View {
 
   componentDidMount(){
     this.init(this.props);
-    if(!this.store.content.subView.includes('project')){
-      this.actions.content.setSubView((this.inSchool || this.store.projects.viewingProject.mlanghku)? 'projectFeatured':'projectSubmitted');
+    const subView = this.store.content.subView;
+    if(!subView.includes('project')){
+      this.actions.content.setSubView(
+        (this.inSchool || this.store.projects.viewingProject.mlanghku)? 'projectFeatured':
+        subView.includes('student')? 'projectGroup':
+        'projectSubmitted');
     }
     this.getStudentProjects(this.props);
   }

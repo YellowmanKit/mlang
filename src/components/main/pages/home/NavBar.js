@@ -36,6 +36,7 @@ class NavBar extends UI {
 
   initNavBar(newProp){
     const view = this.store.content.view;
+    const subView = this.store.content.subView;
     const user = this.store.user;
     const viewingCard = this.store.cards.viewingCard;
     //const viewingProject = this.store.projects.viewingProject;
@@ -91,18 +92,18 @@ class NavBar extends UI {
           break;
         case 'course':
           title = ['CLASS', '班別','班别'];
-          if(user.type === 'teacher' && this.store.content.subView === 'courseDetail' && !this.inSchool){
+          if(user.type === 'teacher' && subView === 'courseDetail' && !this.inSchool){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
               this.actions.content.pushView('editCourse');
             }
           }
-          if(user.type === 'teacher' && this.store.content.subView === 'courseSubjects' && !this.func.outDated(viewingCourse.endDate)){
+          if(user.type === 'teacher' && subView === 'courseSubjects' && !this.func.outDated(viewingCourse.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addSubject')}
           }
-          if(user.type === 'student' && this.store.content.subView === 'courseDetail'){
+          if(user.type === 'student' && subView === 'courseDetail'){
             rightIcon = exit;
             rightOnClick = ()=>{
               this.actions.modal.confirm(['Confirm to lease class?','確定退出班別?','确定退出班别?'], ()=>{
@@ -120,11 +121,11 @@ class NavBar extends UI {
           break;
         case 'subject':
           title = ['UNIT', '單元','单元'];
-          if(!this.inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectProjects' && !this.func.outDated(viewingCourse.endDate)){
+          if(!this.inSchool && user.type === 'teacher' && subView === 'subjectProjects' && !this.func.outDated(viewingCourse.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addProject')}
           }
-          if(!this.inSchool && user.type === 'teacher' && this.store.content.subView === 'subjectDetail'){
+          if(!this.inSchool && user.type === 'teacher' && subView === 'subjectDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
@@ -139,14 +140,18 @@ class NavBar extends UI {
           break;
         case 'project':
           title = ['PROJECT', '專題研習','专题研习'];
-          if(!this.inSchool && user.type === 'teacher' && this.store.content.subView === 'projectDetail'){
+          if(!this.inSchool && user.type === 'teacher' && subView === 'projectDetail'){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
               this.actions.content.pushView('editProject');
             }
           }
-          /*if(user.type === 'teacher' && this.store.content.subView === 'projectFeatured' && !this.func.outDated(viewingProject.endDate)){
+          if(!this.inSchool && subView === 'projectGroup'){
+            rightOnClick = ()=>{ this.actions.user.login(user.id, user.pw); }
+            rightIcon = rotate;
+          }
+          /*if(user.type === 'teacher' && subView === 'projectFeatured' && !this.func.outDated(viewingProject.endDate)){
             rightIcon = add;
             rightOnClick = ()=>{this.actions.content.pushView('addCard')}
           }*/
@@ -215,14 +220,14 @@ class NavBar extends UI {
           break;
         case 'school':
           title = ['SCHOOL', '學校','学校'];
-          if(user.type === 'admin' && this.store.content.subView === 'schoolDetail' && this.store.schools.viewingSchool.admin === this.store.user._id){
+          if(user.type === 'admin' && subView === 'schoolDetail' && this.store.schools.viewingSchool.admin === this.store.user._id){
             rightIcon = edit;
             rightOnClick = ()=>{
               this.actions.main.setPhoto({url: null, blob: null});
               this.actions.content.pushView('editSchool');
             }
           }
-          if(user.type !== 'developer' && user.type !== 'admin' && this.store.content.subView === 'schoolDetail'){
+          if(user.type !== 'developer' && user.type !== 'admin' && subView === 'schoolDetail'){
             rightIcon = exit;
             rightOnClick = ()=>{
               this.actions.modal.confirm(['Confirm to lease school?','確定退出學校?','确定退出学校?'], ()=>{
@@ -241,6 +246,11 @@ class NavBar extends UI {
           break;
         case 'addAdmin':
           title = ['ADD ADMIN', '增加管理員','增加管理员'];
+          break;
+        case 'group':
+          title = ['PROJECT - GROUP', '專題研習 - 小組','专题研习 - 小组'];
+          rightOnClick = ()=>{ this.actions.user.login(user.id, user.pw); }
+          rightIcon = rotate;
           break;
         default:
           title = ['','']

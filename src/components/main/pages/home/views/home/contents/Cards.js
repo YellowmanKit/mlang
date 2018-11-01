@@ -54,6 +54,10 @@ class Cards extends UI {
     }
   }
 
+  onCellClick(){
+    if(this.props.onCellClick){ this.props.onCellClick(); }
+  }
+
   render(){
     this.init(this.props);
     if(!this.props.cardsId){ return null;}
@@ -65,11 +69,12 @@ class Cards extends UI {
       overflowY: 'auto',
       display: 'flex',
       flexFlow: 'row wrap',
-      alignContent: 'flex-start'
+      alignContent: 'flex-start',
+      paddingLeft: '2%'
     }
     const cardContainerStyle = {...this.ui.styles.container, ...{
-      width: this.bs.height * 0.32,
-      height: this.bs.height * 0.4
+      width: this.bs.height * 0.275,
+      height: this.bs.height * 0.375
     }}
     cardsToShow.push('add');
     return(
@@ -92,7 +97,7 @@ class Cards extends UI {
               <CardCell
               key={card._id}
               app={this.app} data={card}
-              onClick={()=>{this.actions.cards.setAction('init'); this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
+              onClick={()=>{ this.onCellClick(); this.actions.cards.setAction('init'); this.actions.cards.viewCard(card); this.actions.content.pushView('viewCards')}}/>
             </div>
           )
         })}

@@ -1,3 +1,4 @@
+
 export function connecting(dispatch){
   dispatch({type: "loadingMessage", payload: ['Connecting...', '連線中...', '连线中...']});
 }
