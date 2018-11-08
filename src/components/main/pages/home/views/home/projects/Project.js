@@ -117,7 +117,7 @@ class Project extends View {
     const deadView = this.state.deadView;
     const view = this.state.view;
 
-    const title = project.title + ' (' + project.description + ')';
+    const title = project.title;
 
     return(
       <div style={this.viewStyle()}>

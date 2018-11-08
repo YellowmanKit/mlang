@@ -20,9 +20,9 @@ class StudentGroup extends SubView {
   }
 
   memberRows(group){
-    return group.members.map(member=>{
+    return group.members.map((member, i)=>{
       if(member === group.leader){ return null; }
-      return <GroupMemberRow app={this.app} userId={member}/>
+      return <GroupMemberRow key={i} app={this.app} userId={member}/>
     })
   }
 

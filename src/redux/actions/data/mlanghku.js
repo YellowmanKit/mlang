@@ -12,7 +12,7 @@ export function fetchUser(id, pw){
     //[err, user] = await to(Parse.User.logIn(id, pw));
     [err, res] = await to(axios.post(api + '/mlanghku/login', { data: { id: id, pw: pw} } ));
     if(err || res.data.result !== 'success'){
-      console.log(res.data.result);
+      //console.log(res.data.result);
       dispatch({type: 'message', payload: ['Failed to login mlanghku! Please check if mlanghku id and password are correct in Account!', '無法登入mlanghku! 請在帳號資訊檢查mlanghku登入名稱及密碼是否正確!', '无法登入mlanghku! 请在帐号资讯检查mlanghku登入名称及密码是否正确!']});
       return;
     }
@@ -116,7 +116,7 @@ function fetchCards(studentProjectId){
         audioComment: attributes.commentSound? attributes.commentSound.url:null,
         langs: langsId,
         author: attributes.author.objectId,
-        icon: attributes.image.url,
+        icon: attributes.image? attributes.image.url: '',
         createdAt: attributes.createdAt,
         grade: statusToGrade(attributes.status)
       }

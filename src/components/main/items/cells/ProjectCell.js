@@ -10,7 +10,7 @@ class ProjectCell extends Cell {
       titleSize: this.bs.height * 0.015,
       marginRight: this.bs.height * 0.0125,
       alertSize: this.bs.width * 0.025,
-      alertPosi: this.bs.width * -0.01,
+      alertPosi: this.bs.width * -0.0125,
       size: [this.bs.height * 0.15, this.bs.height * 0.15],
       filename: props.data.icon,
       type: 'projectIcon',

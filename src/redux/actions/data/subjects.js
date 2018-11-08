@@ -94,7 +94,7 @@ export function addSubject(newSubject){
       return;
     }
 
-    [err, addRes] = await to(axios.post(api + '/subject/add', { data: newSubject }));
+    [err, addRes] = await to(axios.post(api + '/subject/add', { data: { subject: newSubject } }));
     if(err){actions.connectionError(dispatch); return;}
 
     //console.log(res.data);

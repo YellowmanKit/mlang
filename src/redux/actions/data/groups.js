@@ -73,10 +73,13 @@ export function createGroup(userId, projectId, groupName){
     let err, res;
     [err, res] = await to(axios.post(api + '/group/add', { data: { userId: userId, projectId: projectId, groupName: groupName } }));
     if(err){actions.connectionError(dispatch); return;}
-
+    console.log(res.data);
     if(res.data.result === 'success'){
       dispatch({type: 'message', payload: ['Create group succeed!', '成功創建小組!', '成功创建小组!']});
       dispatch({type: 'updateGroups', payload: [res.data.group]});
+    }else if(res.data.existedGroup){
+      const code = res.data.existedGroup.code;
+      dispatch({type: 'message', payload: ['You aleady created a group for this project! Code of your group: ' + code, '你已為這個專題研習創建了小組! 你的小組代碼: ' + code, '你已为这个专题研习创建了小组! 你的小组代码: ' + code]});
     }else{
       dispatch({type: 'message', payload: ['Failed to create group! Please try again!', '創建失敗! 請再試一次!', '创建失败! 请再试一次!']});
     }

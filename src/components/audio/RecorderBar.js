@@ -35,11 +35,10 @@ class RecorderBar extends UI {
   }
 
   autoPlay(newProps){
-    if(!newProps.autoPlay){ return; }
-    if(newProps.defaultAudio && !this.state.defaultAudioPlaying && this.url.url){
-      this.playback();
-    }else if(newProps.audioBlob && !this.state.audioPlaying){
-      this.playback();
+    if(!newProps.autoPlay || this.store.main.recording){ return; }
+    if((newProps.defaultAudio && !this.state.defaultAudioPlaying && this.url.url) ||
+      (newProps.audioBlob && !this.state.audioPlaying)){
+      setTimeout(()=>{ if(this.props.autoPlay){ this.playback(); } }, 100);
     }
   }
 

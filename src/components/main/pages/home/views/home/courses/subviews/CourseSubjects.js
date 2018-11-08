@@ -8,6 +8,7 @@ class CourseSubjects extends SubView {
   componentDidMount(){
     this.init(this.props);
     this.getCourseSubjects();
+    this.setListScroll('courseSubjectsList');
   }
 
   getCourseSubjects(){
@@ -43,7 +44,7 @@ class CourseSubjects extends SubView {
     this.init(this.props);
     return(
       <div style={this.subViewStyle()}>
-        <div style={{...this.bs, ...this.ui.styles.list}}>
+        <div id={'courseSubjectsList'} onScroll={()=>{ this.onScroll('courseSubjectsList'); }} style={{...this.bs, ...this.ui.styles.list}}>
           {this.subjectsList()}
         </div>
       </div>

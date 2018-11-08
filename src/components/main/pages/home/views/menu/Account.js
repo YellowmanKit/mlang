@@ -94,9 +94,9 @@ class Account extends View {
     if(newId.length < 5){
       return this.failedMessage(['Failed to change! Identity must be at lease 5 characters long!', '變更失敗! 登入名稱須至少由五個字元組成!', '变更失败! 登入名称须至少由五个字元组成!'])
     }
-    if(!newEmail.includes('@')){
+    /*if(!newEmail.includes('@')){
       return this.failedMessage(['Failed to change! Invalid email address!', '變更失敗! 電郵地址不正確!', '变更失败! 电邮地址不正确!'])
-    }
+    }*/
     if(forceAccount && newPw.length === 0){
       return this.failedMessage(['Failed to change! Please enter your new password!', '變更失敗! 請輸入新的密碼!', '变更失败! 请输入新的密码!'])
     }

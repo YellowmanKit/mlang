@@ -49,6 +49,19 @@ class UI extends Component {
     this.url.init(props.app);
   }
 
+  async setListScroll(id){
+    const scrollValue = await this.db.get(id);
+    const list = document.getElementById(id);
+    if(scrollValue && list){
+      list.scrollTo(0, scrollValue);
+    }
+  }
+
+  onScroll(id){
+    const list = document.getElementById(id);
+    this.db.set(id, list.scrollTop);
+  }
+
   checkBox(text, checked, onCheck, color){
     const style = {...this.ui.styles.container,...this.ui.styles.area,...{
       width: '',
@@ -128,6 +141,7 @@ class UI extends Component {
       width: '90%',
       fontSize: this.bs.width * 0.03,
       fontWeight: 'bold',
+      textOverflow: 'ellipsis',
       margin: '3%'
     }
     const tagSize = this.bs.height * 0.03;

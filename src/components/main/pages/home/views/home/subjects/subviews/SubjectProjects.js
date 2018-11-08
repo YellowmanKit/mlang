@@ -14,6 +14,7 @@ class SubjectProjects extends SubView {
   componentWillReceiveProps(newProps){
     this.init(newProps);
     this.hidePassed = this.store.switches.hide.passedProjectsRows;
+    this.setListScroll('subjectProjectsList');
   }
 
   componentDidMount(){
@@ -55,7 +56,7 @@ class SubjectProjects extends SubView {
     this.init(this.props);
     return(
       <div style={this.subViewStyle()}>
-        <div style={{...this.bs, ...this.ui.styles.list}}>
+        <div id={'subjectProjectsList'} onScroll={()=>{ this.onScroll('subjectProjectsList'); }} style={{...this.bs, ...this.ui.styles.list}}>
           {this.projectsList()}
           {this.hidePassed && this.hasHided && this.buttons.showHidden(()=>{ this.actions.switches.setAnimation('row', true); this.actions.switches.setHide('passedProjectsRows', false)})}
         </div>

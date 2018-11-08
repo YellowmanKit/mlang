@@ -14,6 +14,7 @@ class TeacherGroup extends SubView {
         {groups.length === 0 && this.gap('2%')}
         {groups.length === 0 && this.subTitle(['No group in this project','此專題研習未有任何小組','此专题研习未有任何小组'])}
         {groups.map((group, i)=>{
+          if(group.members.length === 0){ return null; }
           return(
           <GroupRow key={i}
           app={this.app}

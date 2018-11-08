@@ -16,6 +16,7 @@ const checkAlert = {
 function checkProject(projectId, app){
   const project = app.functions.getById.project(projectId, app.store);
   if(!project){ return false; }
+  if(app.functions.outDated(project.endDate)){ return false; }
   const studentProjects = project.studentProjects;
   var flag = 0;
   for(var j=0;j<studentProjects.length;j++){

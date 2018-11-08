@@ -16,7 +16,7 @@ class StudentProjectRow extends Row {
     const project = this.func.getById.project(props.studentProject.project, this.store);
     this.state = {
       filename: (props.byStudent && profile)? profile.icon:(props.byProject && project)? project.icon: null,
-      type: 'profileIcon'
+      type: (props.byStudent && profile)? 'profileIcon':(props.byProject && project)? 'projectIcon': ''
     }
     this.checkUrl();
   }
@@ -24,10 +24,11 @@ class StudentProjectRow extends Row {
   componentWillReceiveProps(newProps){
     this.init(newProps);
     const profile = this.func.getById.profileByUser(newProps.studentProject.student, this.store);
+    const project = this.func.getById.project(newProps.studentProject.project, this.store);
     if(!this.state.filename){
       this.setState({
-        filename: profile? profile.icon: null,
-        type: 'profileIcon'
+        filename: (newProps.byStudent && profile)? profile.icon:(newProps.byProject && project)? project.icon: null,
+        type: (newProps.byStudent && profile)? 'profileIcon':(newProps.byProject && project)? 'projectIcon': ''
       })
       this.checkUrl();
     }
@@ -78,7 +79,7 @@ class StudentProjectRow extends Row {
     this.init(this.props);
     const studentProject = this.props.studentProject;
     if(studentProject.cards.length === 0){ return null; }
-    
+
     this.profile = this.func.getById.profileByUser(studentProject.student, this.store);
     this.project = this.func.getById.project(studentProject.project, this.store);
     if(!studentProject || !this.profile){

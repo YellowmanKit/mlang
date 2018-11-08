@@ -228,7 +228,7 @@ class GradingCards extends View {
             type={'audioComment'}
             onStopRecording={this.onStopRecording.bind(this)}
             canRemove={true}
-            autoPlay={isOpen}/>
+            autoPlay={isOpen && this.store.content.view === 'gradingCards'}/>
           </div>
         )}
       </Motion>
