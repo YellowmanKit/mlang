@@ -25,6 +25,9 @@ class LangRow extends UI {
       this.setState({ filename: newFilename, type: 'langAudio' })
       this.checkUrl();
     }
+    if(!this.props.autoPlay && newProps.autoPlay && !this.state.isPlaying){
+      this.setState({ isPlaying: true })
+    }
   }
 
   playback(){
@@ -38,6 +41,9 @@ class LangRow extends UI {
     this.setState({
       isPlaying: false
     })
+    if(this.props.autoPlay && this.props.onAutoPlayEnd){
+      this.props.onAutoPlayEnd();
+    }
   }
 
   stopPlayback(){

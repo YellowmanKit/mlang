@@ -94,6 +94,7 @@ export function saveGradingCards(projectId, studentProjectId, gradingCards){
       dispatch({type: 'pullView'});
       dispatch({type: 'updateCards', payload: cardRes.data.updatedCards});
       dispatch({type: 'updateProfiles', payload: [cardRes.data.updatedProfile]});
+      dispatch({type: 'saveGradeCard', payload: { studentProjectId: studentProjectId}});
     }else{
       dispatch({type: 'message', payload: ['Grading card failed! Please try again!', '評核失敗! 請再試一次!', '评核失败! 请再试一次!']});
     }

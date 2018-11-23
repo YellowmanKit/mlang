@@ -54,6 +54,7 @@ class Modal extends UI {
     const status = this.store.modal.button;
     const showBtn = status !== 'off';
     const onConfirm = status === 'confirm'? this.store.modal.onConfirm: ()=>{};
+    const onCancel = this.store.modal.onCancel? this.store.modal.onCancel: ()=>{};
 
     const areaStyle = {
       width: '85%',
@@ -68,7 +69,8 @@ class Modal extends UI {
     return(
       <div style={areaStyle}>
         {showBtn && this.buttons.modal(['Confirm','確定','确定'], ()=>{ onConfirm(); this.actions.modal.hideModal(); })}
-        {status === 'confirm' && this.buttons.modal(['Cancel','取消','取消'], ()=>{ this.actions.modal.hideModal(); })}
+        {status === 'confirm' && this.buttons.modal(['Cancel','取消','取消'], ()=>{ onCancel(); this.actions.modal.hideModal();
+        })}
       </div>
     )
   }

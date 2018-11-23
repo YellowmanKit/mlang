@@ -21,7 +21,19 @@ class SlideShow extends View {
       type: 'langAudio'
     }
     this.checkUrl();
+    this.preloadLangsAudio(this.store.cards.viewingCards);
     //this.onNextClick();
+  }
+
+  preloadLangsAudio(cardsId){
+    for(var i=0;i<cardsId.length;i++){
+      const card = this.func.getById.card(cardsId[i], this.store);
+      const langsId = card.langs;
+      for(var j=0;j<langsId.length;j++){
+        const lang = this.func.getById.lang(langsId[j], this.store);
+        this.func.url(lang.audio, 'langAudio');
+      }
+    }
   }
 
   getCardIndex(){
@@ -113,13 +125,9 @@ class SlideShow extends View {
     this.setLang(nextLangIndex);
 
     this.setState({
-      filename: this.lang.audio
+      filename: this.lang.audio,
+      audioPlaying: true
     }, ()=>{ this.checkUrl(); });
-    setTimeout(()=>{
-      this.setState({
-        audioPlaying: true
-      })
-    }, 500);
   }
 
   onBackClick(){
@@ -138,7 +146,7 @@ class SlideShow extends View {
       langIndex: langIndex,
       filename: this.lang.audio,
       audioPlaying: true
-    });
+    }, ()=>{ this.checkUrl(); });
   }
 
 }

@@ -40,12 +40,17 @@ class NavBar extends UI {
     const user = this.store.user;
     const viewingCard = this.store.cards.viewingCard;
     //const viewingProject = this.store.projects.viewingProject;
+    const viewingStudentProject = this.store.studentProjects.viewingStudentProject;
     const viewingCourse = this.store.courses.viewingCourse;
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
     leftOnClick = ()=>{ this.navBack(); }
-    rightOnClick = ()=>{};
+
+    rightOnClick = ()=>{ this.actions.user.login(user.id, user.pw); }
+    rightIcon = rotate;
+
+    //rightOnClick = ()=>{};
     //rightOnClick = ()=>{ this.actions.modal.message(['No effect!', '沒有效果!', '没有效果!']); }
 
     leftIcon = back_arrow;
@@ -180,7 +185,16 @@ class NavBar extends UI {
         case 'gradingCards':
           title = ['GRADING CARDS', '評核卡片','评核卡片'];
           rightIcon = floppy;
-          rightOnClick = this.saveGradeCard.bind(this)
+          rightOnClick = this.saveGradeCard.bind(this);
+          leftOnClick = ()=>{
+            if(this.store.cards.gradingCardsEditted[viewingStudentProject._id]){
+              this.actions.modal.confirm(['Save before exit?','儲存變更?','储存变更?'], ()=>{
+              this.saveGradeCard();
+              }, ()=>{ this.navBack(); });
+            }else{
+              this.navBack();
+            }
+          }
           break;
         case 'editCourse':
           title = ['EDIT CLASS', '修改班別','修改班别'];

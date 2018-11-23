@@ -6,6 +6,24 @@ import Badge from 'components/main/items/Badge';
 
 class GradingCardRow extends Row {
 
+  constructor(props){
+    super(props);
+    this.state = { autoPlayLang: -1 };
+  }
+
+  componentWillReceiveProps(newProps){
+    this.init(newProps);
+    if(this.props.selected !== this.props.index &&
+      newProps.selected === newProps.index){
+      this.setState({ autoPlayLang: 0 })
+    }
+    if(newProps.index === 0 &&
+      this.state.autoPlayLang === -1 &&
+      newProps.selected === newProps.index){
+      this.setState({ autoPlayLang: 0 })
+    }
+  }
+
   langRows(){
     const style = {...this.bs, ...{
       height: '',
@@ -35,7 +53,9 @@ class GradingCardRow extends Row {
     }}
     return(
       <div key={i} style={rowStyle}>
-        <LangRow app={this.app} lang={lang}/>
+        <LangRow app={this.app} lang={lang}
+        autoPlay={(this.selected && this.state.autoPlayLang === i)? true: false}
+        onAutoPlayEnd={()=>{ this.setState({ autoPlayLang: this.state.autoPlayLang + 1 }) }}/>
       </div>
     )
   }
@@ -56,7 +76,6 @@ class GradingCardRow extends Row {
     if(this.props.project === null){
       return null;
     }
-    const selected = this.props.selected === this.props.index;
 
     const rowStyle = {...this.ui.styles.border, ...this.ui.styles.area, ...{
       flexShrink: 0,
@@ -86,14 +105,14 @@ class GradingCardRow extends Row {
         {this.cardTags(
           this.props.card.comment? this.props.toggleCommentPanel: null,
           this.props.card.audioComment?  this.props.toggleAudioCommentPanel: null )}
-        {!selected && this.selecter()}
+        {!this.selected && this.selecter()}
       </div>
     )
   }
 
   render(){
-    const selected = this.props.selected === this.props.index;
-    return this.animatedFadingRow(this.content.bind(this), selected);
+    this.selected = this.props.selected === this.props.index;
+    return this.animatedFadingRow(this.content.bind(this), this.selected);
   }
 }
 

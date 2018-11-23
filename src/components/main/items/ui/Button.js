@@ -26,6 +26,7 @@ import icon_slideshow from 'resources/images/buttons/buttonIcons/slideshow.png';
 import icon_add_grey from 'resources/images/buttons/buttonIcons/add_grey.png';
 import icon_dotdotdot from 'resources/images/buttons/buttonIcons/dotdotdot.png';
 import icon_copy from 'resources/images/buttons/buttonIcons/copy_grey.png';
+//import icon_rotate_reversed from 'resources/images/buttons/buttonIcons/rotate_reversed.png';
 
 class Button {
 
@@ -248,6 +249,16 @@ class Button {
     return <button style={buttonStyle} onClick={()=>{this.actions.main.setDefaultImagePicker(type)}}/>
   }
 
+  /*rotatePicture(size, onClick){
+    const buttonStyle = {...styles.button, ...{
+      width: size,
+      height: size,
+      margin: '5%',
+      backgroundImage: 'url(' + icon_rotate_reversed + ')'
+    }}
+    return <button style={buttonStyle} onClick={onClick}/>
+  }*/
+
   takePicture(size){
     const buttonStyle = {...styles.button, ...{
       width: size,
@@ -275,7 +286,7 @@ class Button {
       height: size,
       margin: '5%',
       backgroundImage: 'url(' + icon_file + ')',
-      paddingTop: size
+      paddingTop: size * 1.2
     }}
     return <input type="file" accept="image/*" style={style} alt='' onChange={event=>{this.actions.main.setPhoto({blob: event.target.files[0], url: URL.createObjectURL(event.target.files[0])})}}/>
   }

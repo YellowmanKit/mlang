@@ -31,12 +31,18 @@ class Recording extends UI {
     const main = this.store.main;
     const isOpen = main.recording;
 
-    const containerStyle = {...this.bs, ...this.ui.styles.button, ...this.ui.styles.container, ...{
+    const containerStyle = {...this.bs, ...this.ui.styles.container, ...{
       position: 'absolute',
       minHeight: this.bs.minHeight,
-      backgroundColor: 'rgba(255,255,255,0.5)',
+      backgroundColor: 'rgba(255,255,255,0.9)',
       justifyContent: 'center',
       pointerEvents: isOpen? '':'none'
+    }}
+    const cloudStyle = {...this.bs, ...this.ui.styles.button, ...this.ui.styles.container, ...{
+      width: this.bs.width * 0.5,
+      height: this.bs.height * 0.4,
+      backgroundColor: 'transparent',
+      justifyContent: 'center'
     }}
     const nyanSize = [this.bs.height * 0.075, this.bs.height * 0.075];
     const time = this.state.time;
@@ -44,14 +50,20 @@ class Recording extends UI {
       <Motion defaultStyle={{opacity: 0}}
       style={{opacity: isOpen? spring(1.5):spring(0)}}>
         {style=>(
-          <button onClick={()=>{ this.onEnd(); main.onRecordStop(); }} style={{...containerStyle, ...{ opacity: style.opacity }}}>
-            {this.textDisplay(this.func.multiLang('Recording...', '錄音中...','录音中...'), ['100%',''], this.bs.height * 0.065)}
+          <div style={{...containerStyle, ...{ opacity: style.opacity }}}>
+            <div style={cloudStyle} onClick={()=>{ this.onEnd(); main.onRecordStop(); }}>
+              {this.textDisplay(this.func.multiLang('Recording...', '錄音中...','录音中...'), ['100%',''], this.bs.height * 0.065)}
+              {this.gap(this.bs.height * 0.025)}
+              {this.textDisplay(time ,['100%',''], this.bs.height * 0.035, 'center', 'red')}
+              <Nyan status={'runningLeft'} size={nyanSize} app={this.app}/>
+              {this.gap(this.bs.height * 0.025)}
+              {this.textDisplay(this.func.multiLang('Tap here to stop','輕觸此處即可停止','轻触此处即可停止'), ['100%',''], this.bs.height * 0.035, 'center', 'grey')}
+            </div>
             {this.gap(this.bs.height * 0.025)}
-            {this.textDisplay(time ,['100%',''], this.bs.height * 0.035, 'center', 'red')}
-            <Nyan status={'runningLeft'} size={nyanSize} app={this.app}/>
-            {this.gap(this.bs.height * 0.025)}
-            {this.textDisplay(this.func.multiLang('Tap to stop','輕觸即可停止','轻触即可停止'), ['100%',''], this.bs.height * 0.035, 'center', 'grey')}
-          </button>
+            {this.scrollableText(
+              this.store.main.recordingText? this.store.main.recordingText: '',
+              [this.bs.width * 0.85, this.bs.height * 0.35], this.bs.width * 0.05)}
+          </div>
         )}
       </Motion>
     )

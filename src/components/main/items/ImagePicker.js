@@ -31,10 +31,12 @@ class ImagePicker extends UI {
     this.props.defaultUrl? this.props.defaultUrl:
     null;
 
+    const buttonSize = this.bs.height * 0.1;
+
     return(
       <div style={pickerStyle}>
         <div style={toolBarStyle}>
-          {this.buttons.selectDefaultImage(this.bs.height * 0.1, this.props.type)}
+          {this.buttons.selectDefaultImage(buttonSize, this.props.type)}
         </div>
         {this.verSep('white', '90%')}
         {this.verGap('2%')}
@@ -42,16 +44,20 @@ class ImagePicker extends UI {
         {this.verGap('2%')}
         {this.verSep('white', '90%')}
         <div style={toolBarStyle}>
-          {this.buttons.selectImage(this.bs.height * 0.1)}
+          {this.buttons.selectImage(buttonSize)}
           <MediaQuery minDeviceWidth={1224}>
-            {this.buttons.takePicture(this.bs.height * 0.1)}
+            {this.buttons.takePicture(buttonSize)}
           </MediaQuery>
           <MediaQuery maxDeviceWidth={1224}>
-            {this.buttons.mobileTakePicture(this.bs.height * 0.1)}
+            {this.buttons.mobileTakePicture(buttonSize)}
           </MediaQuery>
         </div>
       </div>
     )
+  }
+
+  onRotate(){
+
   }
 }
 

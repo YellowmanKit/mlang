@@ -6,6 +6,7 @@ const mainReducer = (
     photoBlob: null,
 
     recording: false,
+    recordingText: '',
     onRecordStop: null,
 
     enlarger: 'off',
@@ -16,7 +17,7 @@ const mainReducer = (
     prefabPicker: 'off',
 
     language: 'simplified_chinese',
-    version: 'v1.1.1'
+    version: 'v1.1.4'
   }, action)=>{
   switch (action.type) {
     case 'setPrefabPicker':
@@ -30,7 +31,7 @@ const mainReducer = (
     case 'closeEnlarger':
       return {...state, enlarger: 'off'};
     case 'setAudioRecorder':
-      return {...state, recording: action.payload.recording, onRecordStop: action.payload.onRecordStop};
+      return {...state, recording: action.payload.recording, recordingText: action.payload.recordingText, onRecordStop: action.payload.onRecordStop};
     case 'setStatus':
       return {...state, status: action.payload};
     case 'setLanguage':

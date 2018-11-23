@@ -172,6 +172,21 @@ class UI extends Component {
     return this.textDisplay(text, ['100%',''], '125%', 'center', 'black', id)
   }
 
+  scrollableText(text, scale, fontSize){
+    const style = {
+      width: scale? scale[0]: '100%',
+      height: scale? scale[1]: '',
+      margin: '1%',
+      fontSize: fontSize? fontSize: '100%',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      overflow: 'auto',
+      overflowWrap: 'break-word',
+      flexShrink: 0
+    }
+    return <div style={style}>{text}</div>
+  }
+
   textDisplay(text, scale, fontSize, textAlign, color, key){
     const style = {
       width: scale? scale[0]: '100%',

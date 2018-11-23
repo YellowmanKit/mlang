@@ -58,7 +58,10 @@ class LangEditRow extends Row {
       <div style={barStyle}>
         {this.verGap('1%')}
         {this.inputs.optionBar('langKey' + i, ['30%','75%'], this.langKeyOptions(), this.langKeyDefault(i), this.onOptionChange.bind(this))}
-        <RecorderBar app={this.app} type={'langAudio'} scale={['65%','100%']} defaultAudio={this.props.editLang.defaultAudio} audioBlob={audioBlob} onStopRecording={this.onStopRecording.bind(this)} canRemove={false}/>
+        <RecorderBar app={this.app} type={'langAudio'} scale={['65%','100%']}
+        defaultAudio={this.props.editLang.defaultAudio} audioBlob={audioBlob}
+        onStopRecording={this.onStopRecording.bind(this)} canRemove={false}
+        recordingText={this.props.editLang.text}/>
         {i > 0 && this.buttons.langBar(icon_cross, 0.1, [this.bs.width * 0.05,this.bs.width * 0.05],()=>{this.actions.langs.killEditLangsItem(i)})}
         {this.verGap('1%')}
       </div>
