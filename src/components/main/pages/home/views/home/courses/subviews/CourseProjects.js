@@ -28,6 +28,9 @@ class CourseProjects extends SubView {
 
   projectsList(){
     const projects = this.store.courses.viewingCourse.projects;
+    if(projects.length === 0){
+      return this.subTitle(['No projects','此議題未有專題研習','此议题未有专题研习'])
+    }
     return projects.slice(0).reverse().map((projectId, i)=>{
       const _project = this.func.getById.project(projectId, this.store);
       return <ProjectRow onClick={()=>{this.actions.projects.viewProject(_project); this.actions.content.pushView('project');}} app={this.app} project={_project} key={i}/>

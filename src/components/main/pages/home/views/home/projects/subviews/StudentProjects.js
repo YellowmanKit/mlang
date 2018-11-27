@@ -56,6 +56,9 @@ class StudentProjects extends SubView {
   }
 
   studentProjectsList(){
+    if(this.state.studentProjects.length === 0){
+      return this.subTitle(['No submitted cards','沒有任何已提交的卡片','没有任何已提交的卡片'])
+    }
     return this.state.studentProjects.map((studentProject, i)=>{
       return(
         <StudentProjectRow

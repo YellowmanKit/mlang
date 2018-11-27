@@ -33,6 +33,9 @@ class CourseSubjects extends SubView {
 
   subjectsList(){
     const subjects = this.store.courses.viewingCourse.subjects;
+    if(subjects.length === 0){
+      return this.subTitle(['No subjects','此班別未有議題','此班别未有议题'])
+    }
     return subjects.slice(0).reverse().map((subjectId, i)=>{
       const subject = this.func.getById.subject(subjectId, this.store);
       if(!subject){ return null; }

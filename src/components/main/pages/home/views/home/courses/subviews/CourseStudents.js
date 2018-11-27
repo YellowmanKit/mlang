@@ -29,6 +29,9 @@ class CourseStudents extends SubView {
 
   studentsList(){
     const students = this.store.courses.viewingCourse.joinedStudents;
+    if(students.length === 0){
+      return this.subTitle(['No joined students','此班別未有學生加入','此班别未有学生加入'])
+    }
     return students.map((userId, i)=>{
       const profile = this.func.getById.profileByUser(userId, this.store);
       if(!profile){ return null; }

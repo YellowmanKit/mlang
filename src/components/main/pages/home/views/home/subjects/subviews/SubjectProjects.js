@@ -43,7 +43,9 @@ class SubjectProjects extends SubView {
 
   projectsList(){
     const projects = this.store.subjects.viewingSubject.projects;
-    if(projects.length === 0){ return <div key= 'empty'></div> }
+    if(projects.length === 0){
+      return this.subTitle(['No projects','此議題未有專題研習','此议题未有专题研习'])
+    }
     return projects.slice(0).reverse().map((projectId, i)=>{
       const project = this.func.getById.project(projectId, this.store);
       if(!project){ return null; }

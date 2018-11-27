@@ -107,7 +107,8 @@ class Card extends UI {
       height: this.bs.height * 0.85,
       backgroundColor: 'white',
       position: 'relative',
-      flexShrink: 0
+      flexShrink: 0,
+      boxShadow: '2px 4px 24px -3px #888888'
     }}
     const badgeScale = [this.bs.width * 0.25, this.bs.width * 0.25];
 

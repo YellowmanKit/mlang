@@ -77,9 +77,12 @@ class Cards extends UI {
       height: this.bs.height * 0.375
     }}
     cardsToShow.push('add');
+
     return(
       <div style={cardsStyle}>
         {this.gap('3%')}
+        {cardsToShow.length <= 1 &&
+        this.subTitle(['No cards to show','沒有卡片','没有卡片'])}
         {cardsToShow.map((cardId,i)=>{
           if(cardId === 'add' && !this.store.projects.viewingProject.mlanghku){
             return(
