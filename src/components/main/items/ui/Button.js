@@ -226,7 +226,6 @@ class Button {
       height: this.bs.width * 0.1,
       fontSize: '150%'
     }
-
     return this.button(style, text, '', onClick)
   }
 

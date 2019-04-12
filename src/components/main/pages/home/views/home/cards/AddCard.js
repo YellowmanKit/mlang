@@ -94,8 +94,7 @@ class AddCard extends View {
     }else{
       this.actions.cards.addCard({
         resubmitCard: this.card._id,
-        icon: this.card.icon,
-        newIcon: icon,
+        icon: icon,
         editLangs: editLangs,
         project: this.store.projects.viewingProject,
         studentProject: this.store.studentProjects.viewingStudentProject,
