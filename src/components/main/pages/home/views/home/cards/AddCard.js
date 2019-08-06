@@ -31,6 +31,7 @@ class AddCard extends View {
 
   render() {
     this.init(this.props);
+    const editMode = this.props.editMode;
     return(
       <div style={this.viewStyle()}>
         {this.gap('4%')}
@@ -43,7 +44,7 @@ class AddCard extends View {
 
         {this.subTitle(['Lang rows','語言欄','语言栏'])}
         {this.sep()}
-        <LangEditor defaultLangs={this.props.editMode? this.card.langs:null} app={this.app}/>
+        <LangEditor editMode={editMode} defaultLangs={editMode? this.card.langs:null} app={this.app}/>
         {this.sep()}
 
         {this.buttons.rectGreen(['Submit','提交','提交'], ()=>{this.addCard()})}
@@ -85,6 +86,7 @@ class AddCard extends View {
         author: this.store.user._id,
         isTeacher: this.store.user.type === 'teacher'
       });
+      this.clearStoredLangText();
     }else if(!this.props.resubmit){
       this.actions.cards.editCard({
         card: this.card,
@@ -102,6 +104,8 @@ class AddCard extends View {
       });
     }
   }
+
+  clearStoredLangText(){ for(var i=0;i<13;i++){ this.db.set('langText_' + i, null); } }
 }
 
 export default AddCard;

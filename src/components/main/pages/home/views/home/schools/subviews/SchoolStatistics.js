@@ -25,7 +25,13 @@ class SchoolStatistics extends SubView {
 
   render() {
     this.init(this.props);
-    if(!this.stat){ return <div></div>; }
+    if(!this.stat){
+      return(
+        <div style={this.subViewStyle()}>
+          {this.subTitle(['Loading...','載入中...','载入中...'])}
+        </div>
+      );
+    }
     const totalAmount = this.func.multiLang('Total amount: ','總數: ','总数: ');
     const totalPeople = this.func.multiLang('Total people: ','總人數: ','总人数: ');
     const totalFeatured = this.func.multiLang('Featured: ','精選: ','精选: ');

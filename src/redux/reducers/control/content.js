@@ -23,7 +23,7 @@ const contentReducer = (
   var statistics = state.statistics;
   switch (action.type) {
     case 'setStatistics':
-      statistics[action.payload.schoolId] = action.payload.statistics;
+      statistics[action.payload.id] = action.payload.statistics;
       return {...state, statistics: statistics}
     case 'setRanking':
       rankings[action.payload.projectId] = action.payload.ranking;

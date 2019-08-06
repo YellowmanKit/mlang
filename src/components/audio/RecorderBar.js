@@ -6,6 +6,7 @@ import WAVEInterface from 'components/audio/waveInterface';
 import icon_recorder from 'resources/images/buttons/buttonIcons/recorder_black.png';
 import icon_play from 'resources/images/buttons/buttonIcons/play_black.png';
 import icon_stop from 'resources/images/buttons/buttonIcons/stop_black.png';
+import icon_file from 'resources/images/buttons/buttonIcons/file_black.png';
 import icon_cross from 'resources/images/buttons/buttonIcons/cross_black.png';
 
 class RecorderBar extends UI {
@@ -50,7 +51,8 @@ class RecorderBar extends UI {
       this.actions.main.setAudioRecorder({recording: true, recordingText: this.props.recordingText, onRecordStop: ()=>{this.stopRecord()}});
     })
     .catch((err) => {
-      this.actions.modal.message([err.message, err.message]);
+      this.actions.modal.message([
+        err.message, err.message, err.message]);
       throw err;
     })
   }
@@ -61,6 +63,14 @@ class RecorderBar extends UI {
 
     const blob = this.waveInterface.audioData;
     this.props.onStopRecording(blob);
+  }
+
+  selectAudioFile(){
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.mp3,.wav,audio/*';
+    input.onchange = (inputEvent) =>{ this.props.onStopRecording(inputEvent.target.files[0]); }
+    input.click();
   }
 
   playback(){
@@ -107,13 +117,15 @@ class RecorderBar extends UI {
 
     return(
       <div style={barStyle}>
-        {this.verGap('15%')}
+        {this.verGap('10%')}
         {this.buttons.langBar(icon_recorder, hvAudio? 0.7: 0.15, sizeBig, ()=>{this.record(i)})}
-        {this.verGap('15%')}
+        {this.verGap('10%')}
+        {this.buttons.langBar(icon_file , hvAudio? 0.7: 0.15, sizeSmall,()=>{this.selectAudioFile()})}
+        {this.verGap('10%')}
         {this.buttons.langBar(icon_play , (hvAudio && !isPlaying)? 0.7:0.15, sizeSmall,()=>{this.playback(i)})}
-        {this.verGap('15%')}
+        {this.verGap('10%')}
         {this.buttons.langBar(icon_stop, (hvAudio && isPlaying)? 0.7:0.15, sizeBig,()=>{this.stopPlayback(i)})}
-        {this.verGap('15%')}
+        {this.verGap('10%')}
         {this.props.canRemove && this.buttons.langBar(icon_cross, hvAudio? 0.7:0.15, sizeBig,()=>{this.props.onStopRecording(null)})}
         {this.state.defaultAudioPlaying && this.props.defaultAudio && this.url.url &&
           <Sound

@@ -1,5 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
+import { browserHistory } from 'react-router';
 
 import topBar from 'resources/images/general/top_bar.png';
 import back_arrow from 'resources/images/buttons/buttonIcons/back_arrow.png';
@@ -22,6 +23,7 @@ class NavBar extends UI {
   componentDidMount(){
     this.init(this.props);
     this.initNavBar(this.props);
+    this.backListener = browserHistory.listen(location => { if (location.action === "POP") { this.navBack(); } });
   }
 
   componentWillReceiveProps(newProp){

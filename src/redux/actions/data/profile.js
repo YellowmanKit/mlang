@@ -10,7 +10,7 @@ export function changeProfile(data){
     let err, uploadRes, updateRes;
 
     var iconFile = new FormData();
-    iconFile.append('files', data.newIconBlob, 'profileIcon.png');
+    if(data.newIconBlob){ iconFile.append('files', data.newIconBlob, 'profileIcon.png'); }
 
     [err, uploadRes] = await to(axios.post(api + '/upload', iconFile, { headers: { type: 'profileIcon'}}));
     if(err){actions.connectionError(dispatch); return;}

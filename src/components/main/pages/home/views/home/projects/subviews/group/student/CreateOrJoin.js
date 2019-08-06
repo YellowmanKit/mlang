@@ -41,7 +41,7 @@ class CreateOrJoin extends SubView {
     return(
       <div style={this.subViewStyle()}>
         {this.gap('5%')}
-        {this.subTitle(['You are not belong to any group in this project','你在此專題研習中不屬於任何小組','你在此专题研习中不属于任何小组'])}
+        {this.subTitle(['You do not belong to any group in this project','你在此專題研習中不屬於任何小組','你在此专题研习中不属于任何小组'])}
         {this.sep()}
         {this.gap('2%')}
         {this.typeOptions()}

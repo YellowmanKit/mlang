@@ -17,7 +17,7 @@ export function getStatistics(schoolId){
       if(err){actions.connectionError(dispatch); return;}
 
       if(res.data.result === 'success'){
-        dispatch({type: 'setStatistics', payload: {schoolId: schoolId, statistics: res.data.statistics}});
+        dispatch({type: 'setStatistics', payload: {id: schoolId, statistics: res.data.statistics}});
       } else {
         dispatch({type: 'message', payload: ['Failed to load school statistics!',  '無法查閱學校統計數據！',  '无法查阅学校统计数据！']});
       }

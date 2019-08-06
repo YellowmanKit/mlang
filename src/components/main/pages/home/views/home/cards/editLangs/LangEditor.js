@@ -48,7 +48,7 @@ class LangEditor extends UI {
   langEditRows(){
     return this.editLangs.map((editLang,i)=>{
       return(
-        <LangEditRow key={editLang.key + i} app={this.app} editLang={editLang} index={i}/>
+        <LangEditRow editMode={this.props.editMode} key={editLang.key + i} app={this.app} editLang={editLang} index={i}/>
       )
     })
   }

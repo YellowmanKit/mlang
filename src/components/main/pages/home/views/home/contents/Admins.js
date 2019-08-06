@@ -17,7 +17,7 @@ class Admins extends Content {
 
   content = style =>(
     <div style={{...this.ui.styles.areaY,
-      ...{ height: style.height, opacity: style.opacity}}}>
+      ...{ height: style.height, opacity: style.opacity, width: this.bs.width}}}>
       {this.adminsCells()}
       {this.cellAdd(this.onAdd)}
     </div>
@@ -54,7 +54,7 @@ class Admins extends Content {
     const title = ['Admins','管理員','管理员']
 
     const containerStyle = {
-      width: '100%',
+      width: this.bs.width,
       height:'',
       background: this.ui.colors.gradientBasic
     }

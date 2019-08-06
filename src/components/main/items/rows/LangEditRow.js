@@ -6,6 +6,18 @@ import icon_cross from 'resources/images/buttons/buttonIcons/cross_grey.png';
 
 class LangEditRow extends Row {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.setStoredText();
+  }
+
+  async setStoredText(){
+    if(this.props.editMode){ return; }
+    const _text = await this.db.get('langText_' + this.props.index);
+    if(_text){ this.actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, text: _text}}); }
+  }
+
   langRow(){
     const i = this.props.index;
 
@@ -82,6 +94,7 @@ class LangEditRow extends Row {
   onTextChange(event){
     const _text = event.target.value;
     this.actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, text: _text}});
+    this.db.set('langText_' + this.props.index, _text);
   }
 
   langKeyOptions(){

@@ -3,7 +3,7 @@ import encodeWAV from './waveEncoder';
 export default class WAVEInterface {
   static audioContext = null;
   constructor(app){
-    this.message = app.actions.modal.message;
+    this.audioHint = app.actions.modal.audioHint;
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     if (window.AudioContext) {
       WAVEInterface.audioContext = new window.AudioContext();
@@ -12,9 +12,7 @@ export default class WAVEInterface {
     }
   }
 
-  audioContextMissingMessage(){
-    this.message(['Audio context is not available!', '無法使用錄音功能!']);
-  }
+  audioContextMissingMessage(){ this.audioHint(); }
 
   //static audioContext = new AudioContext();
   static bufferSize = 2048;
