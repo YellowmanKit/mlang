@@ -49,10 +49,30 @@ class Card extends UI {
     }}
     return(
       <div style={style}>
+        {this.topLeftTags()}
+        {this.verGap(this.bs.height * 0.04)}
         <Image app={this.app} filename={card.icon} type={'cardIcon'} size={this.bs.height * 0.35}/>
+        {this.verGap(this.bs.height * 0.1)}
       </div>
     )
   }
+
+  topLeftTags(){
+    const style = {...this.ui.styles.containerY, ...{
+      width: this.bs.height * 0.6,
+      height: this.bs.height * 0.395,
+      justifyContent: 'flex-start',
+      backgroundColor: 'transparent'
+    }}
+    return(
+      <div style={style}>
+        {this.props.card.grade === 'featured' &&
+          this.animatedHeart([this.bs.height * 0.05, this.bs.height * 0.05], this.props.card.likeCount, ()=>{ this.onLike(); })}
+      </div>
+    )
+  }
+
+  onLike(){ this.actions.cards.like(this.props.card._id, this.store.user._id); }
 
   cardLower(card){
     const style = {...this.ui.styles.area, ...this.ui.styles.container, ...{

@@ -24,6 +24,8 @@ import * as groups from './redux/actions/data/groups';
 import * as cards from './redux/actions/data/cards';
 import * as langs from './redux/actions/data/langs';
 
+import * as survey from './redux/actions/data/survey';
+
 import getById from './functions/getById';
 import checkAlert from './functions/checkAlert';
 
@@ -314,6 +316,8 @@ function mapDispatchToProps(dispatch){
 
       cards: Action(cards, dispatch),
       langs: Action(langs, dispatch),
+
+      survey: Action(survey, dispatch),
 
       mlanghku: Action(mlanghku, dispatch)
     }

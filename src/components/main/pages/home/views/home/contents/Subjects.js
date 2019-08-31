@@ -87,7 +87,10 @@ class Subjects extends Content {
             data={subject.project}
             hide={!hide}
             wasHide={true}
-            onClick={()=>{ this.actions.projects.viewProject(subject.project); this.actions.content.pushView('project'); }}/>
+            onClick={()=>{
+              this.actions.courses.viewCourse( this.func.getById.courseBySubject(subject.project.subject, this.store) );
+              this.actions.projects.viewProject(subject.project);
+              this.actions.content.pushView('project'); }}/>
           </div>
         )
       }
@@ -95,7 +98,10 @@ class Subjects extends Content {
         <div key={i} style={containerStyle}>
           <SubjectCell app={this.app}
           data={subject}
-          onClick={()=>{ this.actions.subjects.viewSubject(subject); this.actions.content.pushView('subject'); }}/>
+          onClick={()=>{
+            this.actions.courses.viewCourse( this.func.getById.course(subject.course, this.store) );
+            this.actions.subjects.viewSubject(subject);
+            this.actions.content.pushView('subject'); }}/>
         </div>
       )
     });

@@ -8,15 +8,16 @@ class ViewCards extends View {
   indexTag(currentIndex){
     const style = {...this.ui.styles.container, ...{
       position: 'absolute',
-      top: this.bs.width * 0.025,
-      left: this.bs.width * 0.025,
-      width: this.bs.width * 0.1,
-      height: this.bs.width * 0.1,
+      top: this.bs.width * 0.01,
+      left: this.bs.width * 0.01,
+      width: this.bs.width * 0.05,
+      height: this.bs.width * 0.05,
       borderRadius: '50%',
       backgroundColor: this.ui.colors.grey,
+      opacity: 0.75,
       fontWeight: 'bold',
       color: 'white',
-      fontSize: this.bs.width * 0.1
+      fontSize: this.bs.width * 0.04
     }}
     return <div style={style}>{currentIndex}</div>
   }

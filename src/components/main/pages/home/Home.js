@@ -44,6 +44,13 @@ import AddAdmin from './views/home/admin/AddAdmin';
 
 import Group from './views/home/groups/Group';
 
+import Survey from './views/home/surveys/Survey';
+import AddQuestionnaire from './views/home/surveys/AddQuestionnaire';
+import Questionnaire from './views/home/surveys/Questionnaire'
+import AddPublish from './views/home/surveys/AddPublish';
+import Publish from './views/home/surveys/Publish';
+
+
 import DefaultImagePicker from './pickers/DefaultImagePicker';
 import PrefabPicker from './pickers/PrefabPicker';
 
@@ -51,7 +58,6 @@ import Enlarger from './extends/Enlarger';
 import Hints from './extends/Hints';
 import Trace from './extends/Trace';
 import Notice from './extends/notice/Notice';
-
 import Footer from './extends/Footer';
 
 class Home extends View {
@@ -144,6 +150,18 @@ class Home extends View {
          return <AddAdmin app={app}/>;
       case 'group':
         return <Group app={app}/>
+      case 'survey':
+        return <Survey app={app}/>
+      case 'addQuestionnaire':
+        return <AddQuestionnaire app={app}/>
+      case 'editQuestionnaire':
+        return <AddQuestionnaire app={app} editMode={true}/>
+      case 'viewQuestionnaire':
+        return <Questionnaire app={app}/>
+      case 'addPublish':
+        return <AddPublish app={app}/>
+      case 'viewPublish':
+        return <Publish app={app}/>
       default:
         return null;
     }

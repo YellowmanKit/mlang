@@ -17,7 +17,6 @@ export function getRanking(projectId){
     if(err){actions.connectionError(dispatch); return;}
 
     if(res.data.result === 'success'){
-      console.log(res.data);
       dispatch({type: 'updatePRofiles', payload: res.data.profiles});
       dispatch({type: 'setRanking', payload: {projectId: projectId, ranking: res.data.ranking}});
     }else{

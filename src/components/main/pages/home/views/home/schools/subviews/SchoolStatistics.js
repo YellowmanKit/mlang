@@ -1,5 +1,6 @@
 import React from 'react';
 import SubView from 'components/main/pages/home/views/SubView';
+import BarChart from 'components/main/items/graph/BarChart';
 
 class SchoolStatistics extends SubView {
 
@@ -32,48 +33,59 @@ class SchoolStatistics extends SubView {
         </div>
       );
     }
-    const totalAmount = this.func.multiLang('Total amount: ','總數: ','总数: ');
-    const totalPeople = this.func.multiLang('Total people: ','總人數: ','总人数: ');
-    const totalFeatured = this.func.multiLang('Featured: ','精選: ','精选: ');
 
     return(
       <div style={this.subViewStyle()}>
         {this.gap('4%')}
 
-        {this.subTitle(['Teachers','老師','老师'])}
+        {this.subTitle(['Teacher','老師','老师'])}
         {this.sep()}
-        {this.statTextDisplay(totalPeople + this.stat.schoolTeachers.length)}
+        {this.statTextDisplay(this.stat.schoolTeachers.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Students','學生','学生'])}
+        {this.subTitle(['Student','學生','学生'])}
         {this.sep()}
-        {this.statTextDisplay(totalPeople + this.stat.schoolStudents.length)}
+        {this.statTextDisplay(this.stat.schoolStudents.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Classes','班別','班别'])}
+        {this.subTitle(['Class','班別','班别'])}
         {this.sep()}
-        {this.statTextDisplay(totalAmount + this.stat.schoolCourses.length)}
+        {this.statTextDisplay(this.stat.schoolCourses.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Units','單元','单元'])}
+        {this.subTitle(['Unit','單元','单元'])}
         {this.sep()}
-        {this.statTextDisplay(totalAmount + this.stat.schoolSubjects.length)}
+        {this.statTextDisplay(this.stat.schoolSubjects.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Projects','專題研習','专题研习'])}
+        {this.subTitle(['Project','專題研習','专题研习'])}
         {this.sep()}
-        {this.statTextDisplay(totalAmount + this.stat.schoolProjects.length)}
+        {this.statTextDisplay(this.stat.schoolProjects.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Cards','卡片','卡片'])}
+        {this.subTitle(['Card (Featured)','卡片(精選)','卡片(精选)'])}
         {this.sep()}
-        {this.statTextDisplay(totalAmount + this.stat.schoolCards.length)}
-        {this.statTextDisplay(totalFeatured + this.stat.featured)}
+        {this.statTextDisplay(this.stat.schoolCards.length + ' (' + this.stat.featuredCount + ')')}
         {this.gap('8%')}
 
-        {this.subTitle(['Langs','語言欄','语言栏'])}
+        {this.subTitle(['Card - Date Graph','卡片 - 日期圖表','卡片 - 日期图表'])}
         {this.sep()}
-        {this.statTextDisplay(totalAmount + this.stat.schoolLangs.length)}
+        <BarChart app={this.app} yTitle={'Card'} data={this.stat.cardDateGraphData}/>
+        {this.gap('8%')}
+
+        {this.subTitle(['Card - Month Graph','卡片 - 月份圖表','卡片 - 月份图表'])}
+        {this.sep()}
+        <BarChart app={this.app} yTitle={'Card'} data={this.stat.cardMonthGraphData}/>
+        {this.gap('8%')}
+
+        {this.subTitle(['Lang','語言欄','语言栏'])}
+        {this.sep()}
+        {this.statTextDisplay(this.stat.schoolLangs.length)}
+        {this.gap('8%')}
+
+        {this.subTitle(['Login - Date Graph','登入 - 日期圖表','登入 - 日期图表'])}
+        {this.sep()}
+        <BarChart app={this.app} yTitle={'Login'} data={this.stat.loginDateGraphData}/>
         {this.gap('8%')}
       </div>
     )

@@ -6,6 +6,7 @@ import CourseDetail from './subviews/CourseDetail';
 import CourseStudents from './subviews/CourseStudents';
 //import CourseProjects from './subviews/CourseProjects';
 import CourseSubjects from './subviews/CourseSubjects';
+import CourseStatistics from './subviews/CourseStatistics';
 
 class Course extends View {
 
@@ -28,6 +29,8 @@ class Course extends View {
         return <CourseStudents app={app}/>
       case 'courseSubjects':
         return <CourseSubjects app={app}/>
+      case 'courseStatistics':
+        return <CourseStatistics app={app}/>
       default:
         return null;
     }
@@ -46,6 +49,10 @@ class Course extends View {
       {
         tag:['Detail','詳細資訊','详细资讯'],
         subView: 'courseDetail'
+      },
+      {
+        tag:['Statistic','統計','统计'],
+        subView: 'courseStatistics'
       }
     ]
     if(this.store.courses.viewingCourse.mlanghku){

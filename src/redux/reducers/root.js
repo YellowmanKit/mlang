@@ -16,6 +16,8 @@ import projects from './data/projects';
 import studentProjects from './data/studentProjects';
 import groups from './data/groups';
 
+import survey from './data/survey';
+
 import cards from './data/cards';
 import langs from './data/langs';
 
@@ -38,7 +40,9 @@ const rootReducer = combineReducers({
   groups: groups,
 
   cards: cards,
-  langs: langs
+  langs: langs,
+
+  survey: survey
 });
 
 export default rootReducer;

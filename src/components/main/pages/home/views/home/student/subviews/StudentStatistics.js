@@ -1,5 +1,6 @@
 import React from 'react';
 import SubView from 'components/main/pages/home/views/SubView';
+import BarChart from 'components/main/items/graph/BarChart';
 
 class StudentStatistics extends SubView {
 
@@ -33,37 +34,42 @@ class StudentStatistics extends SubView {
       <div style={this.subViewStyle()}>
         {this.gap('4%')}
 
-        {this.subTitle(['Courses','班別','班别'])}
+        {this.subTitle(['Class','班別','班别'])}
         {this.sep()}
         {this.statTextDisplay(this.stat.userCourses.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Units','單元','单元'])}
+        {this.subTitle(['Unit','單元','单元'])}
         {this.sep()}
         {this.statTextDisplay(this.stat.userSubjects.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Projects','專題研習','专题研习'])}
+        {this.subTitle(['Project','專題研習','专题研习'])}
         {this.sep()}
         {this.statTextDisplay(this.stat.userProjects.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Cards','卡片','卡片'])}
+        {this.subTitle(['Cards (Featured)','卡片(精選)','卡片(精选)'])}
         {this.sep()}
-        {this.statTextDisplay(this.stat.userCards.length)}
+        {this.statTextDisplay(this.stat.userCards.length + ' (' + this.stat.featuredCount + ')')}
         {this.gap('8%')}
 
-        {this.subTitle(['Langs','語言欄','语言栏'])}
+        {this.subTitle(['Card - Date Graph','卡片 - 日期圖表','卡片 - 日期图表'])}
+        {this.sep()}
+        <BarChart app={this.app} yTitle={'Card'} data={this.stat.cardDateGraphData}/>
+        {this.gap('8%')}
+
+        {this.subTitle(['Card - Month Graph','卡片 - 月份圖表','卡片 - 月份图表'])}
+        {this.sep()}
+        <BarChart app={this.app} yTitle={'Card'} data={this.stat.cardMonthGraphData}/>
+        {this.gap('8%')}
+
+        {this.subTitle(['Lang','語言欄','语言栏'])}
         {this.sep()}
         {this.statTextDisplay(this.stat.userLangs.length)}
         {this.gap('8%')}
 
-        {this.subTitle(['Featured','精選','精选'])}
-        {this.sep()}
-        {this.statTextDisplay(this.stat.featuredCount)}
-        {this.gap('8%')}
-
-        {this.subTitle(['Characters','字數','字数'])}
+        {this.subTitle(['Character','字數','字数'])}
         {this.sep()}
         {this.statTextDisplay(this.stat.langCharCount)}
         {this.gap('8%')}
@@ -78,13 +84,18 @@ class StudentStatistics extends SubView {
         })}
         {this.gap('8%')}
 
+        {this.subTitle(['Like','讚','赞'])}
+        {this.sep()}
+        {this.statTextDisplay(this.stat.likeCount)}
+        {this.gap('8%')}
+
       </div>
     )
   }
 
   langCharFreqText(langCharFreq){
     var finalText = '';
-    Object.keys(langCharFreq).slice(0,5).map(key=>{
+    Object.keys(langCharFreq).slice(0,10).map(key=>{
       const value = langCharFreq[key];
       finalText += key + '(' + value + ') ';
       return key;

@@ -41,7 +41,7 @@ class School extends View {
         subView: 'schoolDetail'
       }
     ];
-    if(type === 'developer' || type === 'admin'){
+    if(type === 'developer' || type === 'admin' || type === 'teacher'){
       options = [
         { tag:['Statistics','統計','统计'],
           subView: 'schoolStatistics' }, ...options]

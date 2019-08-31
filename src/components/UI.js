@@ -11,6 +11,7 @@ import triangle_down from 'resources/images/general/triangle_down.png';
 import icon_comment from 'resources/images/buttons/buttonIcons/comment_black.png';
 import icon_audioComment from 'resources/images/buttons/buttonIcons/audioComment_black.png';
 import icon_alert2 from 'resources/images/icons/alert2.png';
+import icon_heart from 'resources/images/icons/heart.png';
 
 class UI extends Component {
   url = new URL(this.props.app);
@@ -48,6 +49,8 @@ class UI extends Component {
 
     this.url.init(props.app);
   }
+
+  key(){ return Math.round(Math.random() * 10000);  }
 
   async setListScroll(id){
     const scrollValue = await this.db.get(id);
@@ -95,6 +98,30 @@ class UI extends Component {
     )
   }
 
+  animatedHeart(scale, value, onClick){
+    const heartStyle = {...this.ui.styles.container, ...{
+      width: scale? scale[0]:'',
+      height: scale? scale[1]:'',
+      fontWeight: 'bold',
+      color: 'white',
+      cursor: 'pointer',
+      fontSize: scale? scale[0]/2.5: this.bs.height * 0.04,
+      backgroundImage: 'url(' + icon_heart + ')',
+      userSelect: 'none'
+    }}
+    const option = {stiffness: 1000, damping: 5, precision: 0.05}
+    return(
+      <Motion defaultStyle={{ rotate: -45 }} key={value}
+      style={{ rotate: spring(0, option) }}>
+        {style=>
+          <div style={{...heartStyle, ...{ transform: 'rotate(' + style.rotate + 'deg)'}}} onClick={onClick}>
+            {value}
+          </div>
+        }
+      </Motion >
+    )
+  }
+
   cardTags(commentOnClick, audioCommentOnClick){
     const width = this.bs.width * 0.05;
     const style = {...this.bs, ...{
@@ -120,7 +147,8 @@ class UI extends Component {
       opacity: opacity,
       backgroundImage: 'url(' + url + ')',
       backgroundSize: '100% 100%',
-      cursor: onClick? 'pointer': ''
+      cursor: onClick? 'pointer': '',
+      flexShrink: 0
     }
     return <div style={iconStyle} onClick={onClick}/>
   }
@@ -230,9 +258,44 @@ class UI extends Component {
     return <div style={{backgroundColor: color, width: '1px', height: height, flexShrink: 0}}/>
   }
 
+  filler(){ return <div style={{width: '100%', height: '100%'}}/> }
+
   failedMessage(message){
     this.actions.modal.message([message[0], message[1], message[2]]);
     this.actions.modal.showModalButton();
+  }
+
+  lastLoginText(lastLogin, fontSize){
+
+    const lastLoginDate = new Date(lastLogin);
+    var textColor = 'red';
+    var displayText = '-';
+    if(lastLogin){
+      const current = new Date();
+      const diffTime = Math.abs(current.getTime() - lastLoginDate.getTime());
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const diffMins = Math.floor(diffTime / (1000 * 60));
+      //console.log(diffMins);
+      //console.log(diffDays);
+
+      if(diffDays < 1){
+        textColor = 'green';
+      }else if(diffDays > 1 && diffDays < 7){
+        textColor = 'grey';
+      }
+
+      if(diffMins < 60){
+        displayText = diffMins + ' mins'
+      }else if(diffMins < 1440){
+        const diffHours = Math.floor(diffMins/60);
+        displayText = diffHours + ' hrs'
+      }else{
+        displayText = diffDays + ' days'
+      }
+
+    }
+    return this.textDisplay(displayText, [this.bs.height * 0.25,''], fontSize, 'left', textColor)
+
   }
 
 }

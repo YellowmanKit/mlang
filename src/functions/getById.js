@@ -8,6 +8,8 @@ const getById = {
   studentProject: (id, store)=>{ return getItemById(store.studentProjects.studentProjects, id)},
   card: (id, store)=>{ return getItemById(store.cards.cards, id)},
   lang: (id, store)=>{ return getItemById(store.langs.langs, id)},
+  questionnaire: (id, store)=>{ return getItemById(store.survey.questionnaires, id)},
+  question: (id, store)=>{ return getItemById(store.survey.questions, id)},
 
   profileByUser: (userId, store)=>{
     const profilesData = store.profiles.profiles;
@@ -47,6 +49,27 @@ const getById = {
       }
     }
     return groups;
+  },
+  courseBySubject: (subjectId, store)=>{
+    const coursesData = store.courses.courses;
+    for(var i=0;i<coursesData.length;i++){
+      if(coursesData[i].subjects.indexOf(subjectId) >= 0){ return coursesData[i]; }
+    }
+    return null;
+  },
+  schoolByCode: (code, store)=>{
+    const schoolData = store.schools.schools;
+    for(var i=0;i<schoolData.length;i++){
+      if(schoolData[i].code === code){ return schoolData[i]; }
+    }
+    return null;
+  },
+  itemsByItemsId: (items, ids)=>{
+    var returnItems = [];
+    for(var i=0;i<items.length;i++){
+      if(ids.indexOf(items[i]._id) > -1){ returnItems.push(items[i]); }
+    }
+    return returnItems;
   }
 }
 

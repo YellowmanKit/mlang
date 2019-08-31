@@ -32,7 +32,7 @@ class JoinCourse extends View {
     }
 
     this.actions.schools.joinSchool({
-      userId: this.store.user._id,
+      user: this.store.user,
       code: _code
     });
   }

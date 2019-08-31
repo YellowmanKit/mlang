@@ -77,7 +77,7 @@ export function joinSchool(_data){
     [err, res] = await to(axios.post(api + '/school/join', { data: _data }));
     if(err){actions.connectionError(dispatch); return;}
 
-
+    console.log(res.data);
     if(res.data.result === 'success'){
       dispatch({type: 'message', payload: ['Join school succeed!', '成功加入學校!', '成功加入学校!']});
       dispatch({type: 'updateSchools', payload: [res.data.joinedSchool]});

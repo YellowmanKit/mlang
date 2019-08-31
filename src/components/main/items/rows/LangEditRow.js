@@ -18,26 +18,6 @@ class LangEditRow extends Row {
     if(_text){ this.actions.langs.setEditLang({index: this.props.index, editLang: {...this.props.editLang, text: _text}}); }
   }
 
-  langRow(){
-    const i = this.props.index;
-
-    const rowStyle = {...this.bs, ...{
-      width: this.bs.width * 0.9,
-      height: this.bs.height * 0.185,
-      backgroundColor: 'white',
-      borderBottom: '5px solid ' + this.ui.colors.ultraLightGrey,
-      flexShrink: 0
-    }}
-
-    return(
-      <div key={this.props.editLang.key} style={rowStyle}>
-        {this.langBar(i, this.props.editLang)}
-        {this.inputs.textArea('langText' + i, '', this.props.editLang.text, this.onTextChange.bind(this),  [this.bs.width * 0.87, this.bs.height * 0.1])}
-        {this.gap('1%')}
-      </div>
-    )
-  }
-
   content = (style)=>(
     <div key={this.props.editLang.key} style={{...this.bs, ...{
       width: this.bs.width * 0.9,

@@ -13,7 +13,8 @@ class Footer extends UI {
 
     const footerStyle = {...this.ui.styles.container, ...{
       width: '100%',
-      height: this.bs.height * 0.06,
+      height: this.bs.height * 0.03,
+      fontSize: this.bs.height * 0.015,
       background: this.ui.colors.gradientReverse,
       position: 'absolute',
       bottom: 0

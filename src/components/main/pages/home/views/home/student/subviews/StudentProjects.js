@@ -7,7 +7,7 @@ class StudentProjects extends SubView {
   studentProjectsList(){
     return this.store.subjects.viewingSubject.projects.map((projectId, i)=>{
       var project = this.func.getById.project(projectId, this.store);
-      if(!project){ console.log('project is missing'); return null; };
+      if(!project){ /*console.log('project is missing');*/ return null; };
       var studentProject = null;
       project.studentProjects.map(studentProjectId=>{
         if(this.store.profiles.viewingProfile.studentProjects.indexOf(''+studentProjectId) > -1){
@@ -15,7 +15,7 @@ class StudentProjects extends SubView {
         }
         return null;
       });
-      if(!studentProject){ console.log('studentProject is missing'); return null; };
+      if(!studentProject){ /*console.log('studentProject is missing');*/ return null; };
       if(studentProject.cards.length === 0){ return null; };
       return(
         <StudentProjectRow

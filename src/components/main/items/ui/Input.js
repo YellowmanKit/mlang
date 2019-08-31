@@ -16,7 +16,7 @@ class Input {
     const barStyle = {
       width: scale[0],
       height: scale[1],
-      fontSize: '125%',
+      fontSize: this.bs.height * 0.03,
       display: 'flex',
       flexFlow: 'row nowrap',
       justifyContent: 'center',
@@ -44,21 +44,21 @@ class Input {
     return <input id={id} type={type} defaultValue={value} style={inputStyle} />
   }
 
-  textArea(id, placeholder, value, onChange, scale, fontSize){
+  textArea(id, placeholder, value, onChange, scale, fontSize, disabled){
     const textAreaStyle = {
       width: scale? scale[0]: this.bs.width * 0.67,
       height: scale? scale[1]: this.bs.height * 0.15,
-      fontSize: fontSize? fontSize: '175%',
+      fontSize: fontSize? fontSize: this.bs.height * 0.03,
       flexShrink: 0
     }
-    return <textarea id={id} style={textAreaStyle} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1],placeholder[2]):''}/>
+    return <textarea id={id} style={textAreaStyle} disabled={disabled} defaultValue={value} onChange={onChange?onChange:null} placeholder={placeholder?this.func.multiLang(placeholder[0],placeholder[1],placeholder[2]):''}/>
   }
 
-  inputField(id, type, placeholder, value, onChange){
+  inputField(id, type, placeholder, value, onChange, scale){
     const inputStyle = {
-      width: this.bs.width * 0.67,
-      height: this.bs.height * 0.04,
-      fontSize: '125%',
+      width: scale? scale[0]: this.bs.width * 0.67,
+      height: scale? scale[1]: this.bs.height * 0.04,
+      fontSize: this.bs.height * 0.03,
       margin: '2%',
       flexShrink: 0
     }

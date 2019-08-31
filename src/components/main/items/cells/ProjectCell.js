@@ -7,7 +7,7 @@ class ProjectCell extends Cell {
     this.init(props);
     this.state = {
       title: props.data.title,
-      titleSize: this.bs.height * 0.015,
+      fontSize: this.bs.height * 0.015,
       marginRight: this.bs.height * 0.0125,
       alertSize: this.bs.width * 0.025,
       alertPosi: this.bs.width * -0.0125,

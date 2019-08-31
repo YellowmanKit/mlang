@@ -1,9 +1,9 @@
 import React from 'react';
 import Row from './Row';
 
-//import icon_student from 'resources/images/icons/student_grey.png';
 import cards from 'resources/images/icons/cards_lightgrey.png';
 import star2 from 'resources/images/icons/star2_lightgrey.png';
+import icon_clock_black from 'resources/images/buttons/buttonIcons/clock_black.png';
 
 class ProfileRow extends Row {
 
@@ -12,7 +12,8 @@ class ProfileRow extends Row {
     this.init(props);
     this.state = {
       filename: this.props.profile? this.props.profile.icon: null,
-      type: 'profileIcon'
+      type: 'profileIcon',
+      fontSize: this.bs.height * 0.035
     }
     this.checkUrl();
   }
@@ -36,15 +37,19 @@ class ProfileRow extends Row {
       height: this.bs.height * 0.06,
       alignItems: 'center'
     }}
-    const iconSize = this.bs.height * 0.05;
-    const textScale = [this.bs.height * 0.05,''];
+    const iconSize = this.bs.width * 0.05;
+    const textScale = [this.bs.width * 0.05,''];
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}
-        {this.textDisplay(profile.cardCount, textScale, '175%', 'center')}
-        {this.verGap('5%')}
+        {this.textDisplay(profile.cardCount, textScale, this.state.fontSize, 'center')}
+        {this.verGap('3%')}
         {this.icon(star2, [iconSize, iconSize])}
-        {this.textDisplay(profile.featuredCount, textScale, '175%', 'center')}
+        {this.textDisplay(profile.featuredCount, textScale, this.state.fontSize, 'center')}
+        {this.verGap('3%')}
+        {this.icon(icon_clock_black, [iconSize, iconSize], 0.35)}
+        {this.verGap('1%')}
+        {this.lastLoginText(profile.lastLogin, this.state.fontSize)}
       </div>
     )
   }

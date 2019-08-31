@@ -45,6 +45,22 @@ export const gradeCards = (id, cards) =>{
   }
 }
 
+export function like(cardId, userId){
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+
+    let err, cardRes;
+    [err, cardRes] = await to(axios.post(api + '/card/like', {data: { cardId: cardId, userId: userId }}));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(cardRes.data.result === 'success'){
+      dispatch({type: 'updateCards', payload: [cardRes.data.updatedCard]});
+      dispatch({type: 'viewCard', payload: cardRes.data.updatedCard});
+      dispatch({type: 'hideModal'});
+    }
+  }
+}
+
 export function studentReadCard(cardId){
   return async function (dispatch) {
     let err, cardRes;
@@ -188,7 +204,7 @@ export function editCard(data){
 }
 
 export function addCard(data){
-  console.log(data.resubmitCard);
+  //console.log(data.resubmitCard);
   return async function (dispatch) {
     actions.connecting(dispatch);
 
@@ -224,7 +240,8 @@ export function addCard(data){
       icon: cardIcon? cardIcon: data.icon,
       author: data.author,
       studentProject: data.isTeacher? null: data.studentProject,
-      grade: data.isTeacher? 'featured': 'notGraded'
+      grade: data.isTeacher? 'featured': 'notGraded',
+      createdAt: new Date()
     }
     const langs = [];
     for(var k=0;k<editLangs.length;k++){

@@ -6,8 +6,13 @@ class Account extends View {
   render() {
     this.init(this.props);
     const user = this.store.user;
-    const student = this.func.multiLang('Student','學生','学生');
-    const teacher = this.func.multiLang('Teacher','老師','老师');
+    const userType =
+    user.type === 'student'? this.func.multiLang('Student','學生','学生'):
+    user.type === 'teacher'? this.func.multiLang('Teacher','老師','老师'):
+    user.type === 'admin'? this.func.multiLang('Admin','管理員','管理员'):
+    user.type === 'developer'? this.func.multiLang('Developer','開發人員','开发人员'):
+    '';
+
     const forceAccount = this.store.content.view === 'forceAccount';
 
     return(
@@ -20,9 +25,7 @@ class Account extends View {
 
         {!forceAccount && this.subTitle(['User type','用戶類型','用户类型'])}
         {!forceAccount && this.sep()}
-        {!forceAccount && this.gap('2%')}
-        {!forceAccount && user.type !== 'admin' && this.inputs.optionBar('type', ['25%', this.bs.height * 0.04], [student, teacher], user.type === 'student'? student: teacher)}
-        {!forceAccount && user.type === 'admin' && this.textDisplay(this.func.multiLang('Admin','管理員','管理员'), ['100%',  this.bs.height * 0.03])}
+        {!forceAccount && this.detailText(userType)}
         {!forceAccount && this.gap('2%')}
 
         {this.subTitle(['Identity','登入名稱','登入名称'])}
@@ -101,6 +104,9 @@ class Account extends View {
       return this.failedMessage(['Failed to change! Please enter your new password!', '變更失敗! 請輸入新的密碼!', '变更失败! 请输入新的密码!'])
     }
     if(newPw.length > 0){
+      if(user.type === 'student' && !forceAccount){
+        return this.failedMessage(['Failed to change! Change password function is currently disabled for student user!', '變更失敗! 學生帳號目前不能改變密碼!', '变更失败! 学生帐号目前不能改变密码'])
+      }
       if(newPw !== confirmPw){
         return this.failedMessage(['Failed to change! Confirm password not equal to new password!', '變更失敗! 確定密碼不相符!', '变更失败! 确定密码不相符!'])
       }

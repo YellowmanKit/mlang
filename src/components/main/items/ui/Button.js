@@ -42,6 +42,15 @@ class Button {
     this.actions = app.actions;
   }
 
+  graphPenel(icon, size, onClick){
+    const style = {
+      width: size[0],
+      height: size[1],
+      backgroundColor: 'transparent'
+    }
+    return this.button(style, ['','',''], icon, onClick)
+  }
+
   cellExpend(key, expended, onClick){
     const style = {
       height: this.bs.height * 0.25,

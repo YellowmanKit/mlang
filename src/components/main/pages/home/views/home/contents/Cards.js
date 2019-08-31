@@ -64,7 +64,7 @@ class Cards extends UI {
     const cardsToShow = this.props.cardsId.slice(0);
     //console.log(cardsToShow)
     const cardsStyle = {
-      width: '100%',
+      width: '95%',
       height: '100%',
       overflowY: 'auto',
       display: 'flex',

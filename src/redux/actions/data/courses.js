@@ -10,6 +10,20 @@ export const viewCourse = (course) =>{
   }
 }
 
+export function getStatistics(courseId){
+  return async function (dispatch) {
+      let err, res;
+      [err, res] = await to(axios.post(api + '/course/getStatistics', { data: courseId }));
+      if(err){actions.connectionError(dispatch); return;}
+
+      if(res.data.result === 'success'){
+        dispatch({type: 'setStatistics', payload: {id: courseId, statistics: res.data.statistics}});
+      } else {
+        dispatch({type: 'message', payload: ['Failed to load class statistics!',  '無法查閱班別統計數據！',  '无法查阅班别统计数据！']});
+      }
+  }
+}
+
 export function getAllTeachingCoursesOfUser(profile){
   return async function (dispatch){
     let err, res;

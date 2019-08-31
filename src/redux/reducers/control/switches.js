@@ -4,6 +4,9 @@ const switchesReducer = (
       schools: true,
       courses: false,
       subjects: false,
+      admins: false,
+      tools: false,
+
       cardBar: true,
       trace: false,
       passedCoursesCells: true,
@@ -14,6 +17,9 @@ const switchesReducer = (
       schools: true,
       courses: true,
       subjects: true,
+      admins: false,
+      tools: false,
+
       cardBar: false,
       row: true,
       panel: false,

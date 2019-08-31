@@ -30,9 +30,7 @@ class SubmittedCards extends SubView {
     }
   }
 
-  onAdd(){
-    return this.buttons.cellAdd(()=>{this.actions.content.pushView('addCard')})
-  }
+  onAdd(){ return this.buttons.cellAdd(()=>{this.actions.content.pushView('addCard')}) }
 
   render() {
     this.init(this.props);

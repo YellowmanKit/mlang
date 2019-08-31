@@ -11,8 +11,8 @@ class Cell extends UI {
 
   componentWillReceiveProps(newProps){
     this.init(newProps);
-    const newFilename = newProps.data.icon;
-    if(!this.url.url || this.state.filename !== newFilename){
+    const newFilename = newProps.data? newProps.data.icon: null;
+    if(!this.url.url || (newFilename && this.state.filename !== newFilename)){
       this.setState({ filename: newFilename }, ()=>{ this.checkUrl(); })
     }
   }
@@ -23,34 +23,48 @@ class Cell extends UI {
       maxHeight: this.state.size[1] * 0.8 * scale,
       marginTop: '4%'
     }};
-    const url = this.url.url? this.url.url: no_image;
+    const url = this.url.url? this.url.url: this.state.icon? this.state.icon: no_image;
     return <img key={url} style={imageStyle} src={url} alt=''/>
   }
 
   cellTitle(scale){
     var text = this.state.title;
     const textScale =['100%','100%'];
-    const titleSize = this.state.titleSize? this.state.titleSize: this.bs.height * 0.022;
+    const fontSize = this.state.fontSize? this.state.fontSize: this.bs.height * 0.022;
 
     return(
       <div style={{flexGrow: 1, overflow: 'hidden'}}>
-        {this.textDisplay(text, textScale, titleSize * scale)}
+        {this.textDisplay(text, textScale, fontSize * scale)}
       </div>
     )
   }
 
   alertTag(){
-    const alertSize = this.state.alertSize? this.state.alertSize: this.bs.width * 0.04;
-    const alertPosi = this.state.alertPosi? this.state.alertPosi: this.bs.width * -0.02;
+    const size = this.state.alertSize? this.state.alertSize: this.bs.width * 0.04;
+    const posi = this.state.alertPosi? this.state.alertPosi: this.bs.width * -0.02;
 
     const style = {
       position: 'absolute',
-      top: alertPosi,
-      right: alertPosi,
-      width: alertSize,
-      height: alertSize
+      top: posi,
+      right: posi,
+      width: size,
+      height: size
     }
     return <div style={style}>{this.animatedAlert()}</div>
+  }
+
+  heartTag(){
+    const size = this.bs.width * 0.06;
+    const posi = this.bs.width * -0.02;
+
+    const style = {
+      position: 'absolute',
+      top: posi,
+      left: posi,
+      width: size,
+      height: size
+    }
+    return <div style={style}>{this.animatedHeart([size, size], this.props.data.likeCount, ()=>{})}</div>
   }
 
   passedMark(){
@@ -97,6 +111,7 @@ class Cell extends UI {
             {this.cellImage(style.scale)}
             {this.cellTitle(style.scale)}
             {this.state.alert && this.alertTag()}
+            {this.state.type === 'cardIcon' && this.props.data.grade === 'featured' && this.heartTag()}
             {outDated && this.passedMark()}
           </div>
         )}

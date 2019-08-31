@@ -1,6 +1,6 @@
 import React from 'react';
 import UI from 'components/UI';
-import { browserHistory } from 'react-router';
+//import { browserHistory } from 'react-router';
 
 import topBar from 'resources/images/general/top_bar.png';
 import back_arrow from 'resources/images/buttons/buttonIcons/back_arrow.png';
@@ -23,12 +23,27 @@ class NavBar extends UI {
   componentDidMount(){
     this.init(this.props);
     this.initNavBar(this.props);
-    this.backListener = browserHistory.listen(location => { if (location.action === "POP") { this.navBack(); } });
+    for(var i=window.history.length;i<50;i++){ window.history.pushState({},'',''); }
+    window.addEventListener('popstate', (event) => {
+      if(!this.store.content.view.includes('Home') &&
+        !this.store.main.recording &&
+        this.store.main.enlarger === 'off'){
+        window.history.pushState({},'','');
+        this.navBack();
+      }
+    });
+    //browserHistory.listen(location => { console.log(location); if(location.action === "POP") { this.navBack(); } });
   }
 
   componentWillReceiveProps(newProp){
     this.init(newProp);
     this.initNavBar(newProp);
+  }
+
+  onNavClick(){
+    console.log(this.store);
+    //console.log(window.history);
+    //console.log(window.location);
   }
 
   navBack(){
@@ -44,6 +59,7 @@ class NavBar extends UI {
     //const viewingProject = this.store.projects.viewingProject;
     const viewingStudentProject = this.store.studentProjects.viewingStudentProject;
     const viewingCourse = this.store.courses.viewingCourse;
+    const viewingQuestionnaire = this.store.survey.viewingQuestionnaire;
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
@@ -243,7 +259,7 @@ class NavBar extends UI {
               this.actions.content.pushView('editSchool');
             }
           }
-          if(user.type !== 'developer' && user.type !== 'admin' && subView === 'schoolDetail'){
+          /*if(user.type !== 'developer' && user.type !== 'admin' && subView === 'schoolDetail'){
             rightIcon = exit;
             rightOnClick = ()=>{
               this.actions.modal.confirm(['Confirm to lease school?','確定退出學校?','确定退出学校?'], ()=>{
@@ -252,7 +268,7 @@ class NavBar extends UI {
                 code: this.store.schools.viewingSchool.code
               }); })
             }
-          }
+          }*/
           break;
         case 'teacher':
           title = ['TEACHER', '老師','老师'];
@@ -267,6 +283,31 @@ class NavBar extends UI {
           title = ['PROJECT - GROUP', '專題研習 - 小組','专题研习 - 小组'];
           rightOnClick = ()=>{ this.actions.user.login(user.id, user.pw); }
           rightIcon = rotate;
+          break;
+        case 'survey':
+          title = ['SURVEY', '調查','调查'];
+          break;
+        case 'addQuestionnaire':
+          title = ['ADD QUESTIONNAIRE', '製作問卷','制作问卷'];
+          break;
+        case 'viewQuestionnaire':
+          title = ['QUESTIONNAIRE', '問卷','问卷'];
+          if(viewingQuestionnaire.author === user._id){
+            rightIcon = edit;
+            rightOnClick = ()=>{
+              this.actions.survey.setEditQuestions([]);
+              this.actions.content.pushView('editQuestionnaire');
+            }
+          }
+          break;
+        case 'editQuestionnaire':
+          title = ['EDIT QUESTIONNAIRE', '修改問卷','修改问卷'];
+          break;
+        case 'addPublish':
+          title = ['ADD PUBLISH', '新增發佈','新增发布'];
+          break;
+        case 'viewPublish':
+          title = ['PUBLISH', '發佈','发布'];
           break;
         default:
           title = ['','']
@@ -293,7 +334,7 @@ class NavBar extends UI {
       fontSize: this.bs.height * 0.055,
       fontWeight: 'bold'
     }
-    return <div style={titleAreaStyle}>{title}</div>
+    return <div style={titleAreaStyle} onClick={()=>{ this.onNavClick();}}>{title}</div>
   }
 
   render() {
@@ -313,7 +354,7 @@ class NavBar extends UI {
       alignItems: 'center'
     }
     return(
-      <div style={navBarStyle} onClick={()=>{ console.log(this.store); }}>
+      <div style={navBarStyle}>
         {this.state.leftNav()}
         {this.state.titleArea()}
         {this.state.rightNav()}

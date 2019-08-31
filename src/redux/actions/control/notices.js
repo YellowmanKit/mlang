@@ -39,9 +39,14 @@ export function init(store, actions){
 }
 
 export function welcome(){
+  const welcomePhase = [
+    ['Welcome back!', '歡迎回來!', '欢迎回来!'],
+    ['Hello!','你好!','你好!'],
+    ['Meo~','喵~','喵~']
+  ]
   return {
     _id: 'welcome',
-    message: ['Welcome back!', '歡迎回來!', '欢迎回来!']
+    message: welcomePhase[Math.floor(Math.random() * welcomePhase.length)]
   }
 }
 

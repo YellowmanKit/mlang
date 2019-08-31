@@ -55,10 +55,46 @@ class StudentProjects extends SubView {
     });
   }
 
-  studentProjectsList(){
-    if(this.state.studentProjects.length === 0){
-      return this.subTitle(['No submitted cards','沒有任何已提交的卡片','没有任何已提交的卡片'])
+  missingStudentsList(){
+    const students = this.store.courses.viewingCourse.joinedStudents;
+    const studentProjects = this.state.studentProjects;
+    const submittedStudents = [];
+    for(var i=0;i<studentProjects.length;i++){
+      if(studentProjects[i].cards.length > 0){ submittedStudents.push(studentProjects[i].student); }
     }
+    return students.map((student, i)=>{
+      if(submittedStudents.indexOf(student) < 0){
+        return this.missingStudentRow( this.func.getById.profileByUser(student, this.store) )
+      }else{
+        return null;
+      }
+    })
+  }
+
+  missingStudentRow(profile){
+    if(!profile){ return null; }
+    const style = {...this.ui.styles.container, ...{
+      width: this.bs.width,
+      height: this.bs.height * 0.04,
+      backgroundColor: this.ui.colors.ultraLightGrey,
+      fontSize: this.bs.height * 0.025,
+      fontWeight: 'bold',
+      color: this.ui.colors.grey
+    }}
+    return (
+      <div style={style} key={profile._id}>
+        {this.func.multiLang(
+          profile.name + ' has not yet submitted any card',
+          profile.name + ' 尚未提交任何卡片',
+          profile.name + ' 尚未提交任何卡片')}
+      </div>
+    )
+  }
+
+  studentProjectsList(){
+    /*if(this.state.studentProjects.length === 0){
+      return this.subTitle(['No submitted cards','沒有任何已提交的卡片','没有任何已提交的卡片'])
+    }*/
     return this.state.studentProjects.map((studentProject, i)=>{
       return(
         <StudentProjectRow
@@ -76,6 +112,7 @@ class StudentProjects extends SubView {
     return(
       <div style={this.subViewStyle()}>
         <div id={'studentProjectList'} onScroll={()=>{ this.onScroll('studentProjectList'); }} style={{...this.bs, ...this.ui.styles.list}}>
+          {this.missingStudentsList()}
           {this.studentProjectsList()}
         </div>
       </div>

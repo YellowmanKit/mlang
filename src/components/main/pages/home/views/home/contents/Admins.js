@@ -17,7 +17,7 @@ class Admins extends Content {
 
   content = style =>(
     <div style={{...this.ui.styles.areaY,
-      ...{ height: style.height, opacity: style.opacity, width: this.bs.width}}}>
+      ...{ height: style.height, opacity: style.opacity, width: '100%'}}}>
       {this.adminsCells()}
       {this.cellAdd(this.onAdd)}
     </div>
@@ -49,13 +49,13 @@ class Admins extends Content {
 
   render() {
     this.init(this.props);
-    const hide = this.store.switches.hide.courses;
+    const hide = this.store.switches.hide.admins;
 
     const title = ['Admins','管理員','管理员']
 
     const containerStyle = {
-      width: this.bs.width,
-      height:'',
+      width: '100%',
+      height: '',
       background: this.ui.colors.gradientBasic
     }
 
@@ -63,8 +63,8 @@ class Admins extends Content {
 
     return(
       <div style={containerStyle}>
-        {this.tabBar(title, hide, ()=>{this.actions.switches.toggleHide('courses')})}
-        {this.animatedContent('profiles', this.content.bind(this), !hide, this.bs.height * 0.87)}
+        {this.tabBar(title, hide, ()=>{this.actions.switches.toggleHide('admins')})}
+        {this.animatedContent('profiles', this.content.bind(this), !hide, this.bs.height * 0.82)}
       </div>
     )
   }
