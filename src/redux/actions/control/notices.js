@@ -50,6 +50,21 @@ export function welcome(){
   }
 }
 
+export function newPublishNeedAttention(publish, questionnaire, app){
+  return {
+    type: 'updateNotices',
+    payload: [{
+      _id: publish._id + ' - newPublishNeedAttention',
+      message: ['You are invited to fill a questionnaire!', '你已獲邀參與問卷調查!', '你已获邀参与问卷调查!'],
+      onClick: ()=>{
+        app.actions.survey.viewPublish(publish);
+        app.actions.survey.viewQuestionnaire(questionnaire);
+        app.actions.content.pushView('viewQuestionnaire');
+      }
+    }]
+  }
+}
+
 export function newProjectNeedAttention(project, app){
   return {
     type: 'updateNotices',
@@ -93,13 +108,14 @@ export function failedCardInProject(project, app){
   }
 }
 
-export function newCardInProject(project, app){
+export function newCardInProject(project, course, app){
   return {
     type: 'updateNotices',
     payload: [{
       _id: project._id,
       message: ['Your students had submitted new cards!', '你的學生提交了新的卡片!', '你的学生提交了新的卡片!'],
       onClick: ()=>{
+        app.actions.courses.viewCourse(course);
         app.actions.projects.viewProject(project);
         app.actions.content.pushView('project');
       }

@@ -2,18 +2,28 @@ import * as reducer from '../reducer';
 
 const surveyReducer = (
   state = {
+    submits: [],
+    viewingSubmit: {},
+    answers: [],
     editQuestions: [],
     questions: [],
     questionnaires: [],
     viewingQuestionnaire: {},
     createdQuestionnaires: [],
-    assignedQuestionnaires: [],
+    createdSubmits: [],
+    assignedPublishes: [],
     publishes: [],
     viewingPublish: {},
     createdPublishes: []
   }, action)=>{
   const newEditQuestions = state.editQuestions.slice(0);
   switch (action.type) {
+    case 'updateSubmits':
+      return {...state, submits: reducer.updateElements(state.submits, action.payload)};
+    case 'viewSubmit':
+      return {...state, viewingSubmit: action.payload};
+    case 'updateAnswers':
+      return {...state, answers: reducer.updateElements(state.answers, action.payload)};
     case 'updateQuestions':
       return {...state, questions: reducer.updateElements(state.questions, action.payload)};
     case 'updateQuestionnaires':
@@ -22,8 +32,10 @@ const surveyReducer = (
       return {...state, viewingQuestionnaire: action.payload};
     case 'updateCreatedQuestionnaires':
         return {...state, createdQuestionnaires: reducer.updateElements(state.createdQuestionnaires, action.payload, true)};
-    case 'updateAssignedQuestionnaires':
-        return {...state, assignedQuestionnaires: reducer.updateElements(state.assignedQuestionnaires, action.payload, true)};
+    case 'updateCreatedSubmits':
+        return {...state, createdSubmits: reducer.updateElements(state.createdSubmits, action.payload, true)};
+    case 'updateAssignedPublishes':
+        return {...state, assignedPublishes: reducer.updateElements(state.assignedPublishes, action.payload, true)};
     case 'updatePublishes':
       return {...state, publishes: reducer.updateElements(state.publishes, action.payload)};
     case 'viewPublish':

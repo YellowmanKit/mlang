@@ -44,6 +44,7 @@ class Questionnaires extends UI {
               onClick={()=>{
                 //this.onCellClick();
                 this.actions.survey.viewQuestionnaire(quest);
+                this.actions.survey.viewPublish(this.props.publishes? this.props.publishes[i]: this.store.survey.viewingPublish);
                 this.actions.content.pushView('viewQuestionnaire')}}/>
             </div>
           )

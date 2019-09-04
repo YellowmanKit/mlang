@@ -4,15 +4,14 @@ export default class WAVEInterface {
   static audioContext = null;
   constructor(app){
     this.audioHint = app.actions.modal.audioHint;
+    this.message = app.actions.modal.message;
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     if (window.AudioContext) {
       WAVEInterface.audioContext = new window.AudioContext();
     }else{
-      this.audioContextMissingMessage();
+      this.audioHint();
     }
   }
-
-  audioContextMissingMessage(){ this.audioHint(); }
 
   //static audioContext = new AudioContext();
   static bufferSize = 2048;
@@ -33,7 +32,9 @@ export default class WAVEInterface {
     return encodeWAV(buffers, this.bufferLength, WAVEInterface.audioContext.sampleRate);
   }
 
-  startRecording() {
+  startRecording(){
+    navigator.getUserMedia =
+    navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
     return new Promise((resolve, reject) => {
       if(navigator.getUserMedia !== undefined){
@@ -44,6 +45,10 @@ export default class WAVEInterface {
           reject(err);
         });
       }else if(navigator.mediaDevices !== undefined){
+        navigator.mediaDevices.getUserMedia =
+        navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia ||
+        navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia;
+
         navigator.mediaDevices.getUserMedia({ audio: true }, (stream) => {
           this.processingStream(stream);
           resolve(stream);
@@ -51,8 +56,8 @@ export default class WAVEInterface {
           reject(err);
         });
       }else{
-        const msg = 'no navigator getUserMedia!'
-        this.message([msg,msg]);
+        console.log('no navigator getUserMedia!');
+        this.audioHint();
       }
     });
   }
@@ -111,15 +116,17 @@ export default class WAVEInterface {
   decodeAudioData(arrayBuffer, loop, onended){
     //console.log(arrayBuffer);
     if(!WAVEInterface.audioContext){
-      this.audioContextMissingMessage();
+      this.audioHint();
       return null;
     }
     if(typeof WAVEInterface.audioContext.decodeAudioData !== "function"){
-      this.message(['decodeAudioData missing','decodeAudioData missing']);
+      console.log('decodeAudioData missing');
+      this.audioHint();
       return null;
     }
     if(!arrayBuffer){
-      this.message(['arraybuffer missing','arraybuffer missing']);
+      console.log('arraybuffer missing');
+      this.audioHint();
       return null;
     }
 

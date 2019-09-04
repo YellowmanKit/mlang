@@ -11,10 +11,13 @@ class Graph extends UI {
     super(props);
     this.init(props);
 
+    //console.log(props.data);
+
     const xType =
     props.data[0] && props.data[0].date? 'date':
     props.data[0] && props.data[0].month? 'month':
     props.data[0] && props.data[0].student? 'student':
+    props.data[0] && props.data[0].option? 'option':
     '';
 
     this.state = {
@@ -66,7 +69,7 @@ class Graph extends UI {
     const now = new Date();
     if(type === 'date'){ return new Date(now.getFullYear(), now.getMonth(), 0); }
     if(type === 'month'){ return new Date(now.getFullYear(), 0, 0); }
-    if(type === 'student'){ return 0; }
+    return 0;
   }
 
   xEnd(type){
@@ -74,6 +77,7 @@ class Graph extends UI {
     if(type === 'date'){ return new Date(now.getFullYear(), now.getMonth(), 31); }
     if(type === 'month'){ return new Date(now.getFullYear(), 11, 0); }
     if(type === 'student'){ return 9; }
+    if(type === 'option'){ return this.props.data.length - 1; }
   }
 
   setX(){
@@ -108,6 +112,12 @@ class Graph extends UI {
         }
       }
       title = 'Student';
+    }
+    if(type === 'option'){
+      for(var m = xAxis.start;m <= xAxis.end;m++){
+        tags.push(data[m].option);
+      }
+      title = 'Option';
     }
 
     this.setState({
@@ -287,6 +297,7 @@ class Graph extends UI {
           this.state.xAxis.type === 'date'? this.dateToName(t):
           this.state.xAxis.type === 'month'? this.monthToName(t):
           this.state.xAxis.type === 'student'? t.name:
+          this.state.xAxis.type === 'option'? t:
           '';
           return(
             <div style={tagStyle} key={i}>
@@ -338,13 +349,14 @@ class Graph extends UI {
 
   moveX(add, scale){
     const tags = this.state.xAxis.tags;
+    const xType = this.state.xAxis.type;
     if(add && scale && tags.length >= 30){ return; }
     var step = Math.round(tags.length * 0.2) * (add? 1:-1);
     if(add && step === 0){ step = 1; }
 
     var xStart = this.state.xAxis.start;
     var xEnd = this.state.xAxis.end;
-    if(this.state.xAxis.type === 'date'){
+    if(xType === 'date'){
       this.setState({
         xAxis: {...this.state.xAxis, ...{
           start: new Date(xStart.setDate(xStart.getDate() + (scale? 0: step))),
@@ -352,7 +364,7 @@ class Graph extends UI {
         }}
       }, ()=>{ this.updateAxis(); } );
     }
-    if(this.state.xAxis.type === 'month'){
+    if(xType === 'month'){
       this.setState({
         xAxis: {...this.state.xAxis, ...{
           start: new Date(xStart.setMonth(xStart.getMonth() + (scale? 0: step))),
@@ -360,7 +372,7 @@ class Graph extends UI {
         }}
       }, ()=>{ this.updateAxis(); } );
     }
-    if(this.state.xAxis.type === 'student'){
+    if(xType === 'student' || xType === 'option'){
       if(!add && step === 0){ step = -1; }
       var newStart = xStart + (scale? 0: step);
       if(newStart < 0){ return; }

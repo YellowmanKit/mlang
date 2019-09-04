@@ -12,14 +12,36 @@ class SurveyQuestionnaires extends SubView {
 
   render(){
     this.init(this.props);
+    const userType = this.store.user.type;
+    const data = this.getData(userType);
     return(
       <div style={this.subViewStyle()}>
         <Questionnaires
         app={this.app}
-        data={this.func.getById.itemsByItemsId(this.store.survey.questionnaires, this.store.survey.createdQuestionnaires)}
-        onAdd={this.onAdd.bind(this)}/>
+        data={data.questionnaires}
+        publishes={data.publishes? data.publishes: null}
+        onAdd={userType === 'developer'? this.onAdd.bind(this): null}/>
       </div>
     )
+  }
+
+  getData(userType){
+    var questionnaires = [];
+    if(userType === 'developer'){
+      questionnaires = this.func.getById.itemsByItemsId(this.store.survey.questionnaires, this.store.survey.createdQuestionnaires);
+      return { questionnaires };
+    }else if(userType === 'student'){
+      const assignedPublishes = this.store.survey.assignedPublishes;
+      var publishes = [];
+      for(var i=0;i<assignedPublishes.length;i++){
+        const publish = this.func.getById.publish(assignedPublishes[i], this.store);
+        const assignedQuestionnaire = this.func.getById.itemsByItemsId(this.store.survey.questionnaires, publish.questionnaire);
+
+        questionnaires = [...questionnaires, ...assignedQuestionnaire];
+        publishes = [...publishes, publish];
+      }
+      return { questionnaires, publishes };
+    }
   }
 
 }

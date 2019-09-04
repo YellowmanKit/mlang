@@ -62,7 +62,7 @@ class Input {
       margin: '2%',
       flexShrink: 0
     }
-    return <input id={id} type={type} placeholder={this.func.multiLang(placeholder[0], placeholder[1], placeholder[2])} defaultValue={value} style={inputStyle} onChange={onChange}/>
+    return <input id={id} type={type} data-date-format={"DD MMMM YYYY"} placeholder={this.func.multiLang(placeholder[0], placeholder[1], placeholder[2])} defaultValue={value} style={inputStyle} onChange={onChange}/>
   }
 
 }

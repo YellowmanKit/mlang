@@ -47,6 +47,10 @@ class BarChart extends Graph {
         if(data[k][type] === tag.userId){
           value = data[k].value; continue; }
       }
+      if(type === 'option'){
+        if(data[k][type] === tag){
+          value = data[k].value; continue; }
+      }
     }
     const values = [0,0,value,0,0];
 

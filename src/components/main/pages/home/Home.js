@@ -158,10 +158,14 @@ class Home extends View {
         return <AddQuestionnaire app={app} editMode={true}/>
       case 'viewQuestionnaire':
         return <Questionnaire app={app}/>
+      case 'viewSubmit':
+        return <Questionnaire app={app} viewMode={true}/>
       case 'addPublish':
         return <AddPublish app={app}/>
       case 'viewPublish':
         return <Publish app={app}/>
+      case 'editPublish':
+        return <AddPublish app={app} editMode={true}/>
       default:
         return null;
     }

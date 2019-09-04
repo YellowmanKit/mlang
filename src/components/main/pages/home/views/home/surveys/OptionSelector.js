@@ -11,7 +11,7 @@ class OptionSelector extends UI {
       backgroundColor: this.props.selected === option? this.ui.colors.mlangGreen: this.ui.colors.lightGrey
     }}
     return(
-      <div style={style} key={this.key()} onClick={()=>{ this.props.onSelect(option, this.props.qid) }}>
+      <div style={style} key={this.key()} onClick={this.props.disabled? null:()=>{ this.props.onSelect(option, this.props.qid) }}>
         {this.textDisplay(option, [this.bs.width * 0.45, ''], '', 'center')}
       </div>
     )

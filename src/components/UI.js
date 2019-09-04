@@ -50,7 +50,7 @@ class UI extends Component {
     this.url.init(props.app);
   }
 
-  key(){ return Math.round(Math.random() * 10000);  }
+  key(){ return Math.round(Math.random() * 100000);  }
 
   async setListScroll(id){
     const scrollValue = await this.db.get(id);

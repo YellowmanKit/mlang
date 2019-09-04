@@ -2,10 +2,10 @@ const switchesReducer = (
   state = {
     hide: {
       schools: true,
-      courses: false,
+      courses: true,
       subjects: false,
       admins: false,
-      tools: false,
+      tools: true,
 
       cardBar: true,
       trace: false,

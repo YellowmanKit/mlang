@@ -1,6 +1,7 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
 
+import Tools from './contents/Tools';
 import Schools from './contents/Schools';
 import Courses from './contents/Courses';
 import Subjects from './contents/Subjects';
@@ -11,6 +12,7 @@ class StudentHome extends View {
     this.init(this.props);
     return(
       <div id='home' style={this.viewStyle()} onScroll={()=>{this.actions.main.setStatus('ready')}}>
+        <Tools app={this.app}/>
         <Schools app={this.app}/>
         <Courses app={this.app}/>
         <Subjects app={this.app}/>

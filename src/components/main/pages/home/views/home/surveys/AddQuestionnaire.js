@@ -47,6 +47,9 @@ class AddQuestionnaire extends View {
   addQuestionnaire(){
     const editMode = this.props.editMode;
 
+    if(this.quest.published){
+      return this.failedMessage(['Failed to submit! Questionnaire that is published cannot be edit!', '提交失敗! 不能修改已發佈的問卷!','提交失败! 不能修改已发布的问卷!'])
+    }
     if(!this.quest.title){
       return this.failedMessage(['Failed to submit! Title is missing!', '提交失敗! 未有標題!','提交失败! 未有标题!'])
     }

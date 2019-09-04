@@ -10,7 +10,11 @@ class ToolCell extends Cell {
       size: [this.bs.height * 0.2, this.bs.height * 0.225],
       margin: this.bs.height * 0.0125,
       icon: props.icon,
-      status: 'init'
+      status: 'init',
+      alert:
+      this.store.user.type === 'student' && props.type === 'survey'?
+      this.func.checkAlert.survey(this.store.survey, props.app):
+      false
     }
     this.checkUrl();
   }

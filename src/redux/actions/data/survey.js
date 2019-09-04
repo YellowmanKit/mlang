@@ -53,6 +53,83 @@ export const viewPublish = (publish) =>{
   }
 }
 
+export const viewSubmit = (submit) =>{
+  return {
+    type: 'viewSubmit',
+    payload: submit
+  }
+}
+
+export function getPublishSubmittedData(publish){
+  return async function (dispatch) {
+      let err, res;
+      [err, res] = await to(axios.post(api + '/survey/publish/getSubmitted', { data: publish }));
+      if(err){actions.connectionError(dispatch); return;}
+
+      if(res.data.result === 'success'){
+        dispatch({type: 'updateSubmits', payload: res.data.submits });
+        dispatch({type: 'updateAnswers', payload: res.data.answers });
+        dispatch({type: 'updateProfiles', payload: res.data.profiles });
+      } else {
+        dispatch({type: 'message', payload: ['Failed to load publish submitted data!',  '無法查閱發佈數據！',  '无法查阅发布数据！']});
+      }
+  }
+}
+
+export function getPublishStatistics(publishId){
+  return async function (dispatch) {
+      let err, res;
+      [err, res] = await to(axios.post(api + '/survey/publish/getStatistics', { data: publishId }));
+      if(err){actions.connectionError(dispatch); return;}
+
+      if(res.data.result === 'success'){
+        dispatch({type: 'setStatistics', payload: {id: publishId, statistics: res.data.statistics}});
+      } else {
+        dispatch({type: 'message', payload: ['Failed to load publish statistics!',  '無法查閱發佈統計數據！',  '无法查阅发布统计数据！']});
+      }
+  }
+}
+
+export function editSubmit(data){
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+
+    let err, res;
+    [err, res] = await to(axios.post(api + '/survey/submit/edit', {data: data}));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(res.data.result === 'success'){
+      console.log(res.data);
+      dispatch({type: 'message', payload: ['Edit answer succeed!', '成功修改答案!', '成功修改答案!']});
+      dispatch({type: 'updateSubmits', payload: [res.data.updatedSubmit]});
+      dispatch({type: 'updateAnswers', payload: res.data.updatedAnswers});
+      dispatch({type: 'pullView'});
+    }else{
+      dispatch({type: 'message', payload: ['Failed to edit answer!', '答案修改失敗!', '答案修改失败!']});
+    }
+  }
+}
+
+export function addSubmit(data){
+  return async function (dispatch) {
+    actions.connecting(dispatch);
+
+    let err, res;
+    [err, res] = await to(axios.post(api + '/survey/submit/add', {data: data}));
+    if(err){actions.connectionError(dispatch); return;}
+
+    if(res.data.result === 'success'){
+      //console.log(res.data);
+      dispatch({type: 'message', payload: ['Submit answer succeed!', '成功提交答案!', '成功提交答案!']});
+      dispatch({type: 'updateSubmits', payload: [res.data.updatedSubmit]});
+      dispatch({type: 'updateAnswers', payload: res.data.updatedAnswers});
+      dispatch({type: 'pullView'});
+    }else{
+      dispatch({type: 'message', payload: ['Failed to submit answer!', '答案提交失敗!', '答案提交失败!']});
+    }
+  }
+}
+
 export function editPublish(data){
   return async function (dispatch) {
     actions.connecting(dispatch);
@@ -64,10 +141,11 @@ export function editPublish(data){
     if(publishRes.data.result === 'success'){
       console.log(publishRes.data);
       dispatch({type: 'message', payload: ['Edit publish succeed!', '成功修改發佈!', '成功修改发布!']});
-      dispatch({type: 'updatePublishes', payload: publishRes.data.updatedPublishes});
+      dispatch({type: 'updatePublishes', payload: publishRes.data.updatedPublish});
+      dispatch({type: 'viewPublish', payload: publishRes.data.updatedPublish});
       dispatch({type: 'pullView'});
     }else{
-      dispatch({type: 'message', payload: ['Failed to edit publish!', '發佈修改失敗!', '发布修改失败!']});
+      dispatch({type: 'message', payload: ['Failed to edit publish! Please make sure the school code is valid!', '發佈修改失敗! 請確保學校代碼輸入正確!', '发布修改失败! 请确保学校代码输入正确!']});
     }
   }
 }
@@ -84,6 +162,8 @@ export function addPublish(data){
       //console.log(publishRes.data);
       dispatch({type: 'message', payload: ['Submit publish succeed!', '成功提交發佈!', '成功提交发布!']});
       dispatch({type: 'updatePublishes', payload: [publishRes.data.updatedPublish]});
+      dispatch({type: 'updateQuestionnaires', payload: [publishRes.data.updatedQuestionnaire]});
+
       dispatch({type: 'updateCreatedPublishes', payload: [publishRes.data.updatedPublish._id]});
       dispatch({type: 'updateSchools', payload: [publishRes.data.school]});
 

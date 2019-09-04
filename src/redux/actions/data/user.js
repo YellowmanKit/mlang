@@ -155,7 +155,11 @@ export function login (_id, _pw) {
       dispatch({type: 'updateJoinedStudentCards', payload: res.data.joinedCards});
 
       dispatch({type: 'updateCreatedQuestionnaires', payload: res.data.createdQuestionnaires});
-      dispatch({type: 'updateAssignedQuestionnaires', payload: res.data.assignedQuestionnaires});
+      dispatch({type: 'updateCreatedSubmits', payload: res.data.createdSubmits});
+      dispatch({type: 'updateAssignedPublishes', payload: res.data.assignedPublishes});
+
+      dispatch({type: 'updateSubmits', payload: res.data.submits});
+      dispatch({type: 'updateAnswers', payload: res.data.answers});
 
       dispatch({type: 'updateQuestionnaires', payload: res.data.questionnaires});
       dispatch({type: 'updateQuestions', payload: res.data.questions});

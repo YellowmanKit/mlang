@@ -10,7 +10,7 @@ class Tools extends Content {
     <div style={{...this.ui.styles.area,
       ...{ height: style.height, opacity: style.opacity}}}>
       <ToolCell app={this.app} icon={icon_survey} data={{}} title={this.func.multiLang('Survey', '調查','调查')}
-      onClick={()=>{ this.actions.content.pushView('survey'); }}/>
+      type={'survey'} onClick={()=>{ this.actions.content.pushView('survey'); }}/>
     </div>
   )
 

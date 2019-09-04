@@ -41,7 +41,8 @@ class SubNav extends UI {
     this.init(this.props);
     const style = {...this.ui.styles.area, ...{
       height: this.bs.height * 0.05,
-      backgroundColor: this.ui.colors.ultraLightGrey
+      backgroundColor: this.ui.colors.ultraLightGrey,
+      flexShrink: 0
     }};
     return (
       <div style={style}>

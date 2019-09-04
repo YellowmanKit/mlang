@@ -60,6 +60,8 @@ class NavBar extends UI {
     const viewingStudentProject = this.store.studentProjects.viewingStudentProject;
     const viewingCourse = this.store.courses.viewingCourse;
     const viewingQuestionnaire = this.store.survey.viewingQuestionnaire;
+    const viewingPublish = this.store.survey.viewingPublish;
+
 
     var leftOnClick, rightOnClick, leftIcon, rightIcon, title;
 
@@ -308,6 +310,18 @@ class NavBar extends UI {
           break;
         case 'viewPublish':
           title = ['PUBLISH', '發佈','发布'];
+          if(viewingPublish.author === user._id){
+            rightIcon = edit;
+            rightOnClick = ()=>{
+              this.actions.content.pushView('editPublish');
+            }
+          }
+          break;
+        case 'editPublish':
+          title = ['EDIT PUBLISH', '修改發佈','修改发布'];
+          break;
+        case 'viewSubmit':
+          title = ['SUBMITTED', '已提交','已提交'];
           break;
         default:
           title = ['','']

@@ -10,6 +10,9 @@ const getById = {
   lang: (id, store)=>{ return getItemById(store.langs.langs, id)},
   questionnaire: (id, store)=>{ return getItemById(store.survey.questionnaires, id)},
   question: (id, store)=>{ return getItemById(store.survey.questions, id)},
+  publish: (id, store)=>{ return getItemById(store.survey.publishes, id)},
+  submit: (id, store)=>{ return getItemById(store.survey.submits, id)},
+  answer: (id, store)=>{ return getItemById(store.survey.answers, id)},
 
   profileByUser: (userId, store)=>{
     const profilesData = store.profiles.profiles;
@@ -61,6 +64,13 @@ const getById = {
     const schoolData = store.schools.schools;
     for(var i=0;i<schoolData.length;i++){
       if(schoolData[i].code === code){ return schoolData[i]; }
+    }
+    return null;
+  },
+  submitByPublish: (publishId, store)=>{
+    const submitData = store.survey.submits;
+    for(var i=0;i<submitData.length;i++){
+      if(submitData[i].publish === publishId){ return submitData[i]; }
     }
     return null;
   },

@@ -1,43 +1,66 @@
 import React from 'react';
 import View from 'components/main/pages/home/views/View';
 
+import SubNav from 'components/main/items/SubNav';
+import PublishDetail from './subviews/PublishDetail';
+import PublishSubmitted from './subviews/PublishSubmitted';
+import PublishStatistics from './subviews/PublishStatistics';
+
+
 class Publish extends View {
 
-  constructor(props){
-    super(props);
-    this.init(props);
-    this.publish = this.store.survey.viewingPublish;
-    this.quest = this.func.getById.questionnaire(this.publish.questionnaire, this.store);
+  componentDidMount(){
+    this.init(this.props);
+    if(!this.store.content.subView.includes('publish')){
+      this.actions.content.setSubView('publishDetail');
+    }
+  }
+
+  subView(subView, animatedStyle){
+    const app = {...this.app, ...{ animatedStyle: animatedStyle}}
+
+    switch (subView) {
+      case 'publishDetail':
+        return <PublishDetail app={app}/>;
+      case 'publishSubmitted':
+        return <PublishSubmitted app={app}/>;
+      case 'publishStatistics':
+        return <PublishStatistics app={app}/>;
+      default:
+        return null;
+    }
+  }
+
+  surveySubNav(){
+    const options = [
+      {
+        tag:['Detail','詳細資訊','详细资讯'],
+        subView: 'publishDetail'
+      },
+      {
+        tag:['Submitted','已提交','已提交'],
+        subView: 'publishSubmitted'
+      },
+      {
+        tag:['Statistics','統計','统计'],
+        subView: 'publishStatistics'
+      }
+    ]
+    return <SubNav app={this.app} options={options} />
   }
 
   render(){
     this.init(this.props);
-    const school = this.func.getById.school(this.publish.school, this.store);
+    const publish = this.store.survey.viewingPublish;
+
+    const deadView = this.state.deadView;
+    const view = this.state.view;
     return(
       <div style={this.viewStyle()}>
-      {this.gap('4%')}
-
-      {this.subTitle(['Title','標題','标题'])}
-      {this.sep()}
-      {this.detailText(this.publish.title)}
-      {this.gap('4%')}
-
-      {this.subTitle(['Questionnaire','問卷','问卷'])}
-      {this.sep()}
-      {this.detailText(this.quest.title)}
-      {this.gap('4%')}
-
-      {this.subTitle(['School','學校','学校'])}
-      {this.sep()}
-      {this.detailText(school.name)}
-      {this.gap('4%')}
-
-      {this.subTitle(['End date','結束日期','结束日期'])}
-      {this.sep()}
-      {this.detailText(this.func.dateString(new Date(this.publish.endDate)), 'publishEndDate')}
-      {this.gap('6%')}
-
-      {this.gap('4%')}
+        {this.tabBar([publish.title, publish.title, publish.title])}
+        {this.surveySubNav()}
+        {this.sep()}
+        {this.animatedSubView(this.subView.bind(this), deadView? deadView: view, deadView? false: true)}
       </div>
     )
   }

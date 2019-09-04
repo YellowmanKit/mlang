@@ -10,7 +10,11 @@ class Survey extends View {
 
   componentDidMount(){
     this.init(this.props);
-    if(!this.store.content.subView.includes('survey')){
+    const subView = this.store.content.subView;
+    if(subView.includes('publish')){
+      this.actions.content.setSubView('surveyPublish');
+    }
+    else if(!subView.includes('survey')){
       this.actions.content.setSubView('surveyQuestionaire');
     }
   }
