@@ -74,7 +74,7 @@ class LangRow extends UI {
   }
 
   audio(lang){
-    if(this.state.isPlaying){
+    if(this.state.isPlaying && this.url.url){
       return(
         <Sound
         url={this.url.url}
@@ -101,8 +101,8 @@ class LangRow extends UI {
         {this.verGap('1%')}
         {this.textDisplay(this.func.langKeyToLangName(lang.key), ['70%',''], '75%', 'left', this.ui.colors.deepDarkGrey)}
         {this.verGap('12%')}
-        {!this.state.isPlaying && this.buttons.langBar(icon_play , 0.25, sizeSmall,()=>{this.playback()})}
-        {this.state.isPlaying && this.buttons.langBar(icon_stop, 0.25, sizeSmall,()=>{this.stopPlayback()})}
+        {this.url.url && !this.state.isPlaying && this.buttons.langBar(icon_play , 0.25, sizeSmall,()=>{this.playback()})}
+        {this.url.url && this.state.isPlaying && this.buttons.langBar(icon_stop, 0.25, sizeSmall,()=>{this.stopPlayback()})}
       </div>
     )
   }

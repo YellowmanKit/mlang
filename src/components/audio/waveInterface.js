@@ -13,6 +13,8 @@ export default class WAVEInterface {
     }
   }
 
+  errorMessage(message){ this.message([message, message, message]); }
+
   //static audioContext = new AudioContext();
   static bufferSize = 2048;
 
@@ -35,30 +37,50 @@ export default class WAVEInterface {
   startRecording(){
     navigator.getUserMedia =
     navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    const constraints = { audio: true, video: false };
 
     return new Promise((resolve, reject) => {
-      if(navigator.getUserMedia !== undefined){
-        navigator.getUserMedia({ audio: true }, (stream) => {
+      /*if(navigator.getUserMedia !== undefined){
+        navigator.getUserMedia(constraints, (stream) => {
           this.processingStream(stream);
           resolve(stream);
         }, (err) => {
           reject(err);
+          this.errorMessage(err.message);
         });
-      }else if(navigator.mediaDevices !== undefined){
-        navigator.mediaDevices.getUserMedia =
-        navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia ||
-        navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia;
 
-        navigator.mediaDevices.getUserMedia({ audio: true }, (stream) => {
+      }
+      else if(navigator.mediaDevices.getUserMedia !== undefined){
+
+        navigator.mediaDevices.getUserMedia(constraints, (stream) => {
           this.processingStream(stream);
           resolve(stream);
         }, (err) => {
           reject(err);
+          this.errorMessage(err.message);
         });
-      }else{
-        console.log('no navigator getUserMedia!');
+      }
+      else */
+      if (navigator.mediaDevices) {
+        var chunks = [];
+
+        var processStream = this.processingStream.bind(this);
+
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+          //console.log('processingStream');
+          processStream(stream);
+          resolve(stream);
+        })
+        .catch(function(err) {
+          console.log(err.message);
+        })
+      }
+
+      else{
         this.audioHint();
       }
+
     });
   }
 
@@ -66,7 +88,14 @@ export default class WAVEInterface {
     const { audioContext } = WAVEInterface;
     const recGainNode = audioContext.createGain();
     const recSourceNode = audioContext.createMediaStreamSource(stream);
-    const recProcessingNode = audioContext.createScriptProcessor(WAVEInterface.bufferSize, 2, 2);
+    var recProcessingNode;
+    if(audioContext.createScriptProcessor){
+      recProcessingNode = audioContext.createScriptProcessor(WAVEInterface.bufferSize, 2, 2);
+    }else if(audioContext.createJavaScriptNode){
+      recProcessingNode = audioContext.createJavaScriptNode(WAVEInterface.bufferSize, 2, 2);
+    }else{
+      this.audioHint();
+    }
     if (this.encodingCache) this.encodingCache = null;
 
     recProcessingNode.onaudioprocess = (event) => {

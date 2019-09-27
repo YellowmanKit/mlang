@@ -87,6 +87,11 @@ class SchoolStatistics extends SubView {
         {this.sep()}
         <BarChart app={this.app} yTitle={'Login'} data={this.stat.loginDateGraphData}/>
         {this.gap('8%')}
+
+        {this.subTitle(['Login - Month Graph','登入 - 月份圖表','登入 - 月份图表'])}
+        {this.sep()}
+        <BarChart app={this.app} yTitle={'Login'} data={this.stat.loginMonthGraphData}/>
+        {this.gap('8%')}
       </div>
     )
   }

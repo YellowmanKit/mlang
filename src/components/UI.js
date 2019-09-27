@@ -60,9 +60,12 @@ class UI extends Component {
     }
   }
 
-  onScroll(id){
+  onScroll(id, onEnd){
     const list = document.getElementById(id);
     this.db.set(id, list.scrollTop);
+    if (list.offsetHeight + list.scrollTop >= list.scrollHeight && onEnd) {
+      onEnd();
+    }
   }
 
   checkBox(text, checked, onCheck, color){

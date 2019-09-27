@@ -68,8 +68,8 @@ class PickerOption extends UI {
 
     const isOpen = this.state.status === 'pointed';
     return(
-      <Motion defaultStyle={{scale: isOpen? 1: 3}}
-      style={{scale: isOpen? spring(2.75): spring(1)}}>
+      <Motion defaultStyle={{scale: isOpen? 1: 1.25}}
+      style={{scale: isOpen? spring(1.25): spring(1)}}>
         {style=>(
           <div style={{...cellStyle,...{width: isComment? '': size[0] * style.scale, height: isComment? '':size[1] * style.scale}}}
           onClick={()=>{ this.onCellSelect(); }}

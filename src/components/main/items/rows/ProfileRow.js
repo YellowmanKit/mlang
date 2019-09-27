@@ -13,7 +13,7 @@ class ProfileRow extends Row {
     this.state = {
       filename: this.props.profile? this.props.profile.icon: null,
       type: 'profileIcon',
-      fontSize: this.bs.height * 0.035
+      fontSize: this.bs.height * 0.025
     }
     this.checkUrl();
   }
@@ -38,7 +38,7 @@ class ProfileRow extends Row {
       alignItems: 'center'
     }}
     const iconSize = this.bs.width * 0.05;
-    const textScale = [this.bs.width * 0.05,''];
+    const textScale = [this.bs.width * 0.08,''];
     return(
       <div style={rowStyle}>
         {this.icon(cards, [iconSize, iconSize])}

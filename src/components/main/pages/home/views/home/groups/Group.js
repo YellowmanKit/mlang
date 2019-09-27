@@ -23,7 +23,6 @@ class Group extends View {
   render(){
     this.init(this.props);
     const group = this.store.groups.viewingGroup;
-
     const title = group.name;
 
     return(

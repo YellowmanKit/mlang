@@ -178,7 +178,7 @@ export function editCard(data){
       const lang = {
         key: editLangs[k].key,
         text: editLangs[k].text,
-        audio: editLangs[k].audioBlob? getFile(langAudios, k): editLangs[k].defaultAudio,
+        audio: editLangs[k].audioBlob? getFile(langAudios, k): editLangs[k].defaultAudio? editLangs[k].defaultAudio: '',
         _id: editLangs[k]._id
       }
       langs.splice(0,0,lang);
@@ -248,7 +248,7 @@ export function addCard(data){
       const lang = {
         key: editLangs[k].key,
         text: editLangs[k].text,
-        audio: getFile(langAudios, k)? getFile(langAudios, k): editLangs[k].defaultAudio
+        audio: getFile(langAudios, k)? getFile(langAudios, k): editLangs[k].defaultAudio? editLangs[k].defaultAudio: ''
       }
       langs.splice(0,0,lang);
     }

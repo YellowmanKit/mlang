@@ -68,11 +68,17 @@ class AddCard extends View {
           '提交失敗! 語言列不能重複! 請確定每種語言只出現一次!',
           '提交失败! 语言列不能重复! 请确定每种语言只出现一次!'])
       }
+      var noText, noAudio;
       if(editLangs[i].text === ''){
-        return this.failedMessage(['Failed to submit! Lang text missing!', '提交失敗! 語言列缺少文字!','提交失败! 语言列缺少文字!'])
+        noText = true;
+        //return this.failedMessage(['Failed to submit! Lang text missing!', '提交失敗! 語言列缺少文字!','提交失败! 语言列缺少文字!']);
       }
       if(!editLangs[i].defaultAudio && !editLangs[i].audioBlob){
-        return this.failedMessage(['Failed to submit! Lang audio missing!', '提交失敗! 語言列缺少錄音!','提交失败! 语言列缺少录音!'])
+        noAudio = true;
+        //return this.failedMessage(['Failed to submit! Lang audio missing!', '提交失敗! 語言列缺少錄音!','提交失败! 语言列缺少录音!']);
+      }
+      if(noText && noAudio){
+        return this.failedMessage(['Failed to submit! Lang text or audio is missing!', '提交失敗! 語言列缺少文字或錄音!','提交失败! 语言列缺少文字或录音!']);
       }
       usedKeys.splice(0,0,editLangs[i].key)
     }

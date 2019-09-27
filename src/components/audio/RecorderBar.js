@@ -45,14 +45,12 @@ class RecorderBar extends UI {
 
   record(){
     this.waveInterface.reset();
-
     this.waveInterface.startRecording()
     .then(() => {
       this.actions.main.setAudioRecorder({recording: true, recordingText: this.props.recordingText, onRecordStop: ()=>{this.stopRecord()}});
     })
     .catch((err) => {
-      this.actions.modal.message([
-        err.message, err.message, err.message]);
+      this.actions.modal.message([err.message, err.message, err.message]);
       throw err;
     })
   }

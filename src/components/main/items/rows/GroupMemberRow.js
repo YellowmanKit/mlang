@@ -8,6 +8,7 @@ class GroupMemberRow extends Row {
 
   cards(){
     const studentProject = this.func.getById.studentProjectByPair(this.props.userId, this.store.projects.viewingProject._id, this.store);
+    if(!studentProject){ return null; }
     return(
       <Cards
       app={this.app}
@@ -37,6 +38,7 @@ class GroupMemberRow extends Row {
   render(){
     this.init(this.props);
     this.profile = this.func.getById.profileByUser(this.props.userId, this.store);
+    if(!this.profile){ return null; }
     return this.animatedRow(this.content.bind(this), this.bs.height * 0.425)
   }
 

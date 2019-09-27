@@ -9,14 +9,10 @@ class StudentGroup extends SubView {
   constructor(props){
     super(props);
     this.init(props);
-    const group = this.group();
-    if(group && !this.store.groups.data[group._id]){
-      this.actions.groups.fetchGroupData(group);
+    this.group = this.func.getById.joinedGroupByProject(this.store.projects.viewingProject._id, this.store);
+    if(this.group && !this.store.groups.data[this.group._id]){
+      this.actions.groups.fetchGroupData(this.group);
     }
-  }
-
-  group(){
-    return this.func.getById.joinedGroupByProject(this.store.projects.viewingProject._id, this.store);
   }
 
   memberRows(group){
@@ -29,10 +25,10 @@ class StudentGroup extends SubView {
   render(){
     this.init(this.props);
 
-    const group = this.group();
-    if(!group){
-      return <CreateOrJoin app={this.app}/>
-    }
+    const group = this.group;
+    if(!group){ return <CreateOrJoin app={this.app}/> }
+
+    if(!this.store.groups.data[group._id]){ return null; }
 
     return(
       <div style={this.subViewStyle()}>
@@ -41,22 +37,22 @@ class StudentGroup extends SubView {
         {this.subTitle(['Group name','小組名稱','小组名称'])}
         {this.sep()}
         {this.textDisplay(group.name)}
-        {this.gap('2%')}
+        {this.gap('4%')}
 
         {this.subTitle(['Leader','組長','组长'])}
         {this.sep()}
         <GroupMemberRow app={this.app} userId={group.leader}/>
-        {this.gap('2%')}
+        {this.gap('4%')}
 
         {this.subTitle(['Members','組員','组员'])}
         {this.sep()}
         {this.memberRows(group)}
-        {this.gap('2%')}
+        {this.gap('4%')}
 
         {this.subTitle(['Code','代碼','代码'])}
         {this.sep()}
         {this.textDisplay(group.code)}
-        {this.gap('2%')}
+        {this.gap('4%')}
         {this.buttons.rectRed(['Leave group','退出小組','退出小组'],
         ()=>{this.actions.modal.confirm(['Confirm to lease group?','確定退出小組?','确定退出小组?'], ()=>{
             this.actions.groups.leaveGroup(

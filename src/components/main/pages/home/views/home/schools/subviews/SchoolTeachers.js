@@ -5,6 +5,12 @@ import ProfileRow from 'components/main/items/rows/ProfileRow';
 
 class CourseStudents extends SubView {
 
+  constructor(props){
+    super(props);
+    this.init(props);
+    this.state = { rowToShow: 20 }
+  }
+
   componentDidMount(){
     this.init(this.props);
     this.getTeacherProfiles();
@@ -29,7 +35,7 @@ class CourseStudents extends SubView {
 
   teachersList(){
     const teachers = this.store.schools.viewingSchool.joinedTeachers;
-    return teachers.map((userId, i)=>{
+    return teachers.slice(0, this.state.rowToShow).map((userId, i)=>{
       const profile = this.func.getById.profileByUser(userId, this.store);
       return (
       <ProfileRow
@@ -44,7 +50,7 @@ class CourseStudents extends SubView {
     this.init(this.props);
     return(
       <div style={this.subViewStyle()}>
-        <div id={'schoolTeachersList'} onScroll={()=>{ this.onScroll('schoolTeachersList'); }} style={{...this.bs, ...this.ui.styles.list}}>
+        <div id={'schoolTeachersList'} onScroll={()=>{ this.onScroll('schoolTeachersList', ()=>{ this.addRowToShow(5); } ); }} style={{...this.bs, ...this.ui.styles.list}}>
           {this.teachersList()}
         </div>
       </div>

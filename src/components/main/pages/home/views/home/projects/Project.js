@@ -49,7 +49,12 @@ class Project extends View {
 
   subView(subView, animatedStyle){
     const app = {...this.app, ...{ animatedStyle: animatedStyle}}
-    const type = this.store.user.type;
+    var type = this.store.user.type;
+    if(type === 'developer'){
+      if(this.store.content.view === 'project'){
+        type = 'teacher';
+      }
+    }
 
     switch (subView) {
       case 'projectDetail':

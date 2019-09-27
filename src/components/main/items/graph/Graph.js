@@ -20,6 +20,8 @@ class Graph extends UI {
     props.data[0] && props.data[0].option? 'option':
     '';
 
+    const data = props.data[0]? this.setData(props.data): [];
+
     this.state = {
       height: this.bs.height * 0.25,
       width: this.bs.width * 0.925,
@@ -35,11 +37,11 @@ class Graph extends UI {
       yAxis: {
         title: props.yTitle,
         start: 1,
-        end: -1,
+        end: this.getYEnd(data),
         tags: [],
         highlight: -1
       },
-      data: props.data[0]? this.setData(props.data): []
+      data: data
     }
   }
 
@@ -131,14 +133,19 @@ class Graph extends UI {
     var tags = [];
     for(var i = yAxis.start;i <= yAxis.end;i++){ tags.push(i); }
 
+    var end = this.getYEnd(data);
+
+    this.setState({
+      yAxis: {...this.state.yAxis, ...{ tags: tags, end: end }}
+    });
+  }
+
+  getYEnd(data){
     var end = 0;
     for(var j=0;j<data.length;j++){
       if(data[j].value > end){ end = data[j].value; }
     }
-
-    this.setState({
-      yAxis: {...this.state.yAxis, ...{ tags: tags, end }}
-    });
+    return end;
   }
 
   setHighlight(value){
@@ -243,12 +250,15 @@ class Graph extends UI {
       backgroundColor: this.ui.colors.lightGrey
     }}
 
+    var skipCount = Math.round(tags.length * 0.1);
+    if(skipCount === 0){ skipCount = 1; }
+
     return(
       <div style={style}>
         {tags.map((t, i)=>{
           return(
             <div style={tagStyle} key={i}>
-              {this.textDisplay(t, ['', ''], this.state.fontSize, '', (i+1)===this.state.yAxis.highlight? 'red':'black')}
+              {i % skipCount === 0 && this.textDisplay(t, ['', ''], this.state.fontSize, '', (i+1)===this.state.yAxis.highlight? 'red':'black')}
             </div>
           )
         })}

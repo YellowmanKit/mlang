@@ -12,6 +12,10 @@ class SubView extends UI {
     }}
   }
 
+  addRowToShow(value){
+     this.setState({...this.state, ...{ rowToShow: this.state.rowToShow + value }});
+  }
+
 }
 
 export default SubView;

@@ -8,7 +8,6 @@ class TeacherGroup extends SubView {
   render(){
     this.init(this.props);
     const groups = this.func.getById.groupsByProject(this.store.projects.viewingProject._id, this.store);
-    //console.log(groups);
     return(
       <div style={this.subViewStyle()}>
         {groups.length === 0 && this.gap('2%')}
